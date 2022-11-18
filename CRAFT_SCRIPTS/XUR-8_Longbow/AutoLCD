@@ -1,0 +1,86 @@
+Center <[   ---   POWER   ---   ]>
+PowerTime
+echo
+Working {DUA-1A Batteries}
+Power {G:DUA-1A Batteries}
+Powerin {G:MMG-4A Batteries}
+Poweriout {G:MMG-4A Batteries}
+Working {RUX-5 Hydro Engines}
+PowerP {G:RUX-5 Hydro Engines}
+PowerStoredP {G:RUX-5 Batteries}
+
+Center <[   ---   FUEL   ---   ]>
+Center [ --- Hydrogen --- ]
+invlistx T:* {DUA-3C O2/H2 Generators} ore/ice:5000
+Tanks * Hydrogen {G:DUA-3C Hydrogen Tanks}
+PropBool {RUX-5 Hydrogen Tanks} {Stockpile} {1. Hydro Tanks} {LOCK} {READY}
+
+Center <[   ---   DAMAGE   ---   ]>
+PropsBool {RFG-12 Projector} {OnOff} {Online } {Offline }
+Damage
+
+Center <[   ---   SYSTEMS   ---   ]>
+Center [ --- Flight Systems --- ]
+Dampeners
+PropsBool {DUA-1A Main Thrusters} {OnOff} {Online } {Offline }
+PropsBool {DUA-1A Maneuver Thrusters} {OnOff} {Online } {Offline }
+PropsBool {DUA-1A Gyro's} {OnOff} {Online } {Offline }
+Center [ --- Lights Systems--- ]
+PropsBool {DUA-1A Spotlights} {OnOff} {Online } {Offline }
+PropsBool {DUA-1A Alt Lights} {OnOff} {Online } {Offline }
+Center [ --- Weapons Systems--- ]
+Propbool {Gatling Gun Left} {OnOff} {LEFT TURRET} {Online } {Offline }
+Working * missileturret,gatlingturret,interturret
+Center [ --- Deck Systems--- ]
+PropsBool {DUA-1A Landing Gears} {OnOff} {Online } {Offline }
+Working {RUX-5 Landing Gear}
+Working {RUX-5 Connector Main}
+Center [ --- Comms Systems --- ]
+PropsBool {DUA-1A Antenna} {OnOff} {Online } {Offline }
+Working DUA-1A Antenna
+
+Center <[   ---   CARGO   ---   ]>
+ShipMass 450000
+CargoAll {G:DUA-1A Cargo}
+CargoAll {G:DUA-1A Drills}
+Cargo {G:DUA-3c Cargo Containers}
+
+Center <[   ---   INVENTORY   ---   ]>
+InvListXS *T: -ingot/uranium
+InvListXS *T:
+InventoryX {G:DUA-3c Cargo Containers}
+Inventory * +all -ore
+Inventory Cargo +ingot -scrap
+Inventory {Red Storage} +ingot:300000
+Inventory [STORAGE] +component
+Inventory {Cargo Container} +all -tool -ammo
+Inventory {Large Cargo Container 3} +ingot:1000 +component:50
+Inventory {Oxygen Storage} +oxygen:100
+
+Center <[   ---   FLIGHT   ---   ]>
+Speed 50
+speedkmh
+speedmph
+Altitude
+echo
+altitudesea
+shipmass 1000000
+echo
+time 
+date
+
+Center <[   ---   COCKPIT   ---   ]>
+Occupied Cockpit
+Occupied {Remote Control}
+Occupied {Cryo Chamber 3}
+Working * door:open
+Oxygen
+Oxygen Vent
+Oxygen {Oxygen Tank}
+Oxygen {Oxygen Farm}
+Oxygen {G:Oxygen Room}
+
+Center <[   ---   CONNECTIONS   ---   ]>
+Docked {T:*}
+Docked {T:Connector 1}
+DockedCNE {TG:Dock Connectors Group}

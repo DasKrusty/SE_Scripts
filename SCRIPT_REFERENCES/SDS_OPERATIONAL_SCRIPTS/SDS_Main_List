@@ -1,0 +1,143 @@
+[Main]
+CockpitPrefix=[MEN]
+LCDPrefix=[MEN]
+
+[Add]
+Prefix=
+Screen=1
+DefaultMenu=0
+WASDAutoDisable=true
+SwitchThrusters=false
+SwitchGyros=true
+SwitchWheels=true
+LCDAutoOff=true
+WASDPrgOn=-1
+WASDPrgOff=-1
+
+[Color]
+BackgroundColor=0,0,0
+ItemBarColor=0,6,12
+MainColor=55,155,255
+SelItemBarColor=155,55,0
+SelItemTextColor=0,0,0
+OnColor=225,65,100
+ArrowColor=155,225,255
+ErrorMSGColor=225,65,100
+HelpColor=155,225,255
+
+[TopMenu]
+0=Quick
+1=Driver Assist
+2=Lights
+3=Weapons
+4=Settings
+5=Mining
+6=Map
+7=Map Data
+
+[0] // Quick list to access - common requests
+Power MW;all-show;*;power
+Batteries;all-show;*;batt
+Battery Mode;gr-batt;GFS-1A Batteries;mode
+Power On;pb;GUM-4 Program [EA2];GUM-4 Debug LCD(poweron)
+Recharge;pb;GUM-4 Program [EA2];GUM-4 Debug LCD(recharge)
+Standby;pb;GUM-4 Program [EA2];GUM-4 Debug LCD(standby)
+Engine On/Off;bl;GFS-2A Hydrogen Engine;onoff
+Hydrogen Tank;stockpile;GFS-2A Hydrogen Tank;toggle
+Left connector;conn_lock;Connector Left (Launch Vehicle);toggle
+Headlights;gr;GFS-1A Headlights;onoff
+Toggle Ore Detector;bl;XUR-8 Ore Detector;onoff
+
+[1] // DAS Commands
+Start/Stop;pb;GFS-1A Program [DAS];STARTSTOP
+Low Ride;pb;GFS-1A Program [DAS];LOW_MODE
+High Ride;pb;GFS-1A Program [DAS];HIGH_MODE
+Hill Descent Control;pb;GFS-1A Program [DAS];TOGGLE_HDC
+Cruise Control;pb;GFS-1A Program [DAS];TOGGLE_CRUISECONTROL
+Auto Pilot;pb;GFS-1A Program [DAS];TOGGLE_AUTOPILOT
+Auto Pilot Resume;pb;GFS-1A Program [DAS];RESUME_AUTOPILOT
+Auto Pilot Mode;pb;GFS-1A Program [DAS];CYCLE_AUTOPILOT_MODE
+Auto Pilot Wait;pb;GFS-1A Program [DAS];CYCLE_AUTOPILOT_WAIT
+GPS Tracker On / Off;pb;GFS-1A Program [DAS];TOGGLE_GPSTRACKER
+GPS Tracker Display;pb;GFS-1A Program [DAS];TOGGLE_GPSLIST
+[2]
+Cool Lights Color;gr-light;GFS-1A Lights;color=160,230,255/blink=0,0
+Warm Lights Color;gr-light;GFS-1A Lights;color=255,255,180/blink=0,0
+Covert Lights Color;gr-light;GFS-1A Lights;color=255,0,0/blink=0,0
+SpotLights;gr;GUM-4 Lights Front;onoff
+[3]
+Turret On/Off;bl;GFS-2A Custom Turret Controller;onoff
+Diable Firing;pb;GFS-2A Program [LAMP];disable_fire
+Enable Firing;pb;GFS-2A Program [LAMP];enable_fire
+Mode Switch;pb;GFS-2A Program [LAMP];mode_switch
+Lock;pb;GFS-2A Program [LAMP];lock_switch
+Fire Missile;pb;GFS-2A Program [LAMP];fire
+Retask Missile;pb;GFS-2A Program [LAMP];Retask
+Kill Missile;pb;GFS-2A Program [LAMP];kill
+Autofire;pb;GFS-2A Program [LAMP];autofire_switch
+Top Down Attack;pb;GFS-2A Program [LAMP];topdown_switch
+Evasion;pb;GFS-2A Program [LAMP];evasion_switch
+Stealth;pb;GFS-2A Program [LAMP];stealth_switch
+[4]
+Antenna;bl;GFS-2A Antenna;onoff
+Antenna Radius;antenna;GFS-2A Antenna;3000/500
+Ore Detector;bl;GFS-2A Ore Detector;onoff
+Projector On/Off;bl;GFS-2A Projector;onoff
+Piston Jacks;pb;GUM-4 Program [EA2];GUM-4 Debug LCD(pistonjacks)
+Attach/Detach Module;timer;Timer Block - Attach Module - Launch Vehicle;trigger
+[5]
+Mining Mode;pb;GUM-4 Program [EA2];GUM-4 Debug LCD(miningmode)
+Hauling Mode;pb;GUM-4 Program [EA2];GUM-4 Debug LCD(haulingmode)
+Keep Ice;gr-sorter_list;GUM-4 Sorters;black/Ore-Ice
+Throw Ice;gr-sorter_list;GUM-4 Sorters;white/Ore-Ice
+Ejectors;gr;GUM-4 Ejectors;onoff
+[6]
+Log Waypoint;pb;XUR-8 Program [MAP];LOG_WAYPOINT
+Plot Jump;pb;XUR-8 Program [MAP];PLOT_JUMP
+Next Waypoint;pb;XUR-8 Program [MAP];NEXT_WAYPOINT
+Prev Waypoint;pb;XUR-8 Program [MAP];PREVIOUS_WAYPOINT
+Toggle Info;pb;XUR-8 Program [MAP];TOGGLE_INFO
+Toggle GPS;pb;XUR-8 Program [MAP];TOGGLE_GPS
+Toggle Names;pb;XUR-8 Program [MAP];TOGGLE_NAMES
+Cycle Maps >;pb;XUR-8 Program [MAP];NEXT_MODE
+Cycle Maps <;pb;XUR-8 Program [MAP];PREVIOUS_MODE
+Cycle Planets >;pb;XUR-8 Program [MAP];NEXT_PLANET
+Cycle Planets <;pb;XUR-8 Program [MAP];PREVIOUS_PLANET
+Rotate Left;pb;XUR-8 Program [MAP];ROTATE_LEFT
+Rotate Right;pb;XUR-8 Program [MAP];ROTATE_RIGHT
+Spin Left;pb;XUR-8 Program [MAP];SPIN_LEFT
+Spin Right;pb;XUR-8 Program [MAP];SPIN_RIGHT
+Rotate Down;pb;XUR-8 Program [MAP];ROTATE_DOWN
+Rotate Up;pb;XUR-8 Program [MAP];ROTATE_UP
+Stop;pb;XUR-8 Program [MAP];STOP
+Zoom Out;pb;XUR-8 Program [MAP];ZOOM_OUT
+Zoom In;pb;XUR-8 Program [MAP];ZOOM_IN
+Increase Rad;pb;XUR-8 Program [MAP];INCREASE_RADIUS
+Decrease Rad;pb;XUR-8 Program [MAP];DECREASE_RADIUS
+Move Back;pb;XUR-8 Program [MAP];MOVE_BACKWARD
+Move Forward;pb;XUR-8 Program [MAP];MOVE_FORWARD
+Track Backward;pb;XUR-8 Program [MAP];TRACK_BACKWARD
+Track Forward;pb;XUR-8 Program [MAP];TRACK_FORWARD
+Move Left;pb;XUR-8 Program [MAP];MOVE_LEFT
+Move Right;pb;XUR-8 Program [MAP];MOVE_RIGHT
+Track Left;pb;XUR-8 Program [MAP];TRACK_LEFT
+Track Right;pb;XUR-8 Program [MAP];TRACK_RIGHT
+Move Down;pb;XUR-8 Program [MAP];MOVE_DOWN
+Move Up;pb;XUR-8 Program [MAP];MOVE_UP
+Track Down;pb;XUR-8 Program [MAP];TRACK_DOWN
+Track Up;pb;XUR-8 Program [MAP];TRACK_UP
+[7]
+Page Nav;pb;XUR-8 Program [MAP];PAGE NAVIGATION
+Next Page;pb;XUR-8 Program [MAP];NEXT_PAGE
+Prev Page;pb;XUR-8 Program [MAP];PREVIOUS_PAGE
+Scroll Up;pb;XUR-8 Program [MAP];SCROLL_UP
+Scroll Down;pb;XUR-8 Program [MAP];SCROLL_DOWN
+Scroll Home;pb;XUR-8 Program [MAP];SCROLL_HOME
+
+LOG_WAYPOINT <waypoint name>
+LOG_BASE <waypoint name>
+LOG_STATION <waypoint name>
+LOG_LANDMARK <waypoint name>
+LOG_ASTEROID <waypoint name>
+LOG_HAZARD <waypoint name>
+DELETE_WAYPOINT <waypoint name>

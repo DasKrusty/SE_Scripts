@@ -1,0 +1,621 @@
+// Cockpits
+@0 AutoLCD
+Echo This will be shown on first screen
+@1 AutoLCD
+Echo This will be shown on second screen
+@2 AutoLCD
+Echo This will be shown on third screen
+
+Command: Inventory
+InventoryNB (no bars) variant to hide all progress bars.
+InventoryNN (no numbers) hides all numbers.
+InventoryNNB (no numbers or bars) hides all numbers and bars.
+Examples
+Inventory * +all -ore
+Inventory Cargo +ingot -scrap
+Inventory {Red Storage} +ingot:300000
+Inventory [STORAGE] +component
+Inventory {Cargo Container} +all -tool -ammo
+Inventory {Large Cargo Container 3} +ingot:1000 +component:50
+Inventory {Oxygen Storage} +oxygen:100
+
+Command: InvList
+InvListNB (no bars) variant to hide all progress bars.
+InvListNN (no numbers) hides all numbers.
+InvListNNB (no numbers or bars) hides all numbers and bars.
+
+Command: Missing
+MissingNB (no bars) variant to hide all progress bars.
+MissingNN (no numbers) hides all numbers.
+MissingNNB (no numbers or bars) hides all numbers and bars.
+Examples
+Missing * +component:50 +ingot:100 +ammo:10
+Missing {Resource Storage} +ore:2000
+
+Command: Cargo
+CargoX to show only percentage without the progress bars or actual volume.
+CargoP to show only percentage and progress bars without exact volume.
+CargoBar to show only progress bar with no text.
+Examples
+Cargo
+Cargo Storage
+Cargo {Large Cargo Container 5}
+
+Command: CargoAll
+Use CargoAllX to show only percentage without the progress bars or actual volume.
+Use CargoAllP to show only percentage and progress bars without exact volume.
+Use CargoAllBar to show only progress bar with no text.
+
+Command: Power
+Use PowerX to show simple variant with only percentage and no progress bars.
+Use PowerP to show only percentage and progress bars without exact power readings.
+Use PowerV to show only exact power values, but no percentage and progress bars.
+Use PowerIn to show only input of batteries and PowerOut to show only output of batteries. Variants PowerInX, PowerOutX and PowerInP and PowerOutP work too.
+Power {G:Batteries} {My Accumulators}
+Arguments
+No arguments: all reactors, engines, wind turbines, solars and batteries
+First argument: filters blocks based on name
+Second argument: override titles (Reactors, Engines, Turbines, Solars, Batteries) with your custom text
+Examples
+Power
+Power {Small Reactor}
+Power {Large Reactor}
+Power {Battery 2}
+Power {Main Power}
+
+Command: PowerStored
+Use PowerStoredX to show simple variant with only percentage and no progress bar.
+Use PowerStoredP to show only percentage and progress bars without exact power readings.
+Use PowerStoredV to show only exact power values, but no percentage and progress bars.
+Arguments
+No arguments: all batteries
+First argument: filters blocks based on name
+Second argument: override titles (Reactors, Solar, Batteries) with your custom text (read Custom Titles in Power command description to understand how it works)
+Examples
+PowerStored
+PowerStored {Main Battery}
+
+Command: PowerSummary
+Use PowerSummaryX to show simple variant with only percentage and no progress bar.
+Use PowerSummaryP to show only percentage and progress bars without exact power readings.
+Use PowerSummaryV to show only exact power values, but no percentage and progress bars.
+Arguments
+No arguments: all reactors, solars and batteries
+First argument: filters blocks based on name
+Examples
+PowerSummary
+PowerSummary {Small Reactor}
+
+Command: PowerUsed & PowerUsedTop
+PowerUsedTop variant shows top X blocks from the specified blocks sorted by power usage.
+Arguments
+No arguments: displays power usage of all blocks
+First argument: filters blocks based on name
+Second argument: number of blocks to display (only works for PowerUsedTop)
+Examples
+PowerUsed {Refinery}
+PowerUsedTop {T:*} 5
+PowerUsedTop * 10
+
+Command: PowerTime
+Use PowerTimeX to show simple variant with only percentage and no progress bars.
+Use PowerTimeP to show only percentage and progress bars without exact time.
+Use PowerTimeBar to show only progress bar with no text.
+Note: These commands (PowerTimeX, PowerTimeP and PowerTimeBar) only work if you specify time quota.
+Arguments
+No arguments: displays power time of the ship without any progress bar
+First argument: filters blocks based on name or group
+Second argument: time quota hours
+Third argument: time quota minutes
+Forth argument: time quota seconds
+Examples
+PowerTime
+PowerTime * 120
+PowerTime {G:Batteries}
+PowerTime Reactor 1 30
+PowerTime {Battery 31} 0 0 45
+
+Command: Charge
+ChargeX to display only percentage without actual values or progress bars.
+Use ChargeBar to show only progress bars with no text.
+Use ChargeSum variant (also ChargeSumX and ChargeSumBar) to show single entry for all jump drives matching the name filter.
+Arguments
+No arguments: nothing will be displayed!
+First argument: filters jump drives based on name or group
+Second argument: text to display for ChargeSum entry (instead of usual jump drive name)
+Examples
+Charge
+Charge {My Jump Drive}
+Charge {G:Jump Drives 1}
+ChargeSum {Jump Drive} {Jump Drives Charge}
+
+Command: ChargeTime
+ChargeTimeX to display only time without progress bars.
+ChargeSumTime variant (also ChargeSumTimeX) to show single entry (longest charge time) for all jump drives matching the name filter.
+Arguments
+No arguments: nothing will be displayed!
+First argument: filters jump drives based on name or group
+Second argument: text to display for ChargeSumTime entry (instead of usual jump drive name)
+Examples
+ChargeTime
+ChargeTime {My Jump Drive}
+ChargeTime {G:Jump Drives 1}
+ChargeSumTime {Jump Drive} {Full Charge Time}
+
+Command: Damage
+DamageX command to show only percentage without the hull numbers.
+Possible variants: DamageNoC, DamageXNoC, DamageC and DamageXC
+Arguments
+No arguments: all blocks on ship/station
+First argument: filters blocks based on name
+Second argument: maximum percentage to show eg: Damage * 30 will show only blocks that have less than 30% of integrity
+Examples
+Damage
+Damage {Large Thruster}
+Damage [IMPORTANT]
+Damage {Reactor} 50
+
+Command: Docked
+Arguments
+No arguments: shows list of all docked ships
+First argument: filters connectors based on name and only shows ships connected to those
+Examples
+Docked {T:*}
+Docked {T:Connector 1}
+DockedCNE {TG:Dock Connectors Group}
+
+Command: BlockCount
+Arguments
+No arguments: displays all blocks
+First argument: filters blocks based on name, displays blocks of all types.
+Next arguments: filter blocks based on type
+Example:
+BlockCount * reactor
+BlockCount [BACKUP] reactor
+BlockCount * refinery,assembler
+BlockCount * thruster gyro reactor,solar,battery
+
+Command: EnabledCount
+Arguments
+No arguments: displays all blocks
+First argument: filters blocks based on name, displays blocks of all types.
+Next arguments: filter blocks based on type (look at BlockCount command for list of types).
+Examples
+EnabledCount * reactor
+EnabledCount * assembler
+
+Command: ProdCount
+Arguments
+No arguments: displays all blocks
+First argument: filters blocks based on name, displays blocks of all types.
+Next arguments: filter blocks based on type (look at BlockCount command for list of types).
+Example
+ProdCount * refinery,assembler
+
+Command: Working
+State is one of ON/OFF, IDLE/WORK, LOCK/UNLOCK/READY, OPEN/CLOSED and laser antenna states.
+Arguments
+No arguments: displays all blocks
+First argument: filters blocks based on name, displays blocks of all types.
+Next arguments: filter blocks based on type (look at BlockCount command for list of types).
+Examples
+Working * missileturret,gatlingturret,interturret
+Working * refinery:off refinery:idle refinery:work
+Working * door:open
+Working {G:Main Assemblers} assembler:idle assembler:off
+Working Red refinery,assembler
+Working * battery
+
+Command: PropBool
+Shows boolean properties of blocks. You can cusomize the text displayed when the property is true or false.
+Boolean properties are properties that can have just one of 2 values - true or false.
+Like On/Off, Open/Closed, Handbrake, Collect All, etc etc.
+There are 2 variants of this command:
+1. PropBool {block name} {PropertyName} {Text before value} {true text} {false text}
+- displays bool property PropertyName of first found block with block name like this:
+if property is true it will show: Text before value true text
+if property is false it will show: Text before value false text
+Arguments
+First argument: name filter
+Second argument: property name (eg. Handbrake)
+Third argument: text on the left side of screen
+Fourth argument: text on the right side of screen show when property is true
+Fifth argument: text on the right side of screen show when property is false
+Examples
+PropBool {Cockpit 1} {HandBrake} {Handbrake} {On} {Off}
+- displays "Handbrake On" if handbrake is enabled on Cockpit 1
+PropBool {Door 1} {Open} {Door status:} {Open} {Closed}
+- displays "Door status: Open" if Door 1 is open; "Door status: Closed" if Door 1 is closed
+PropBool {Connector 3} {CollectAll} {Connector 3 is set to } {Collect All} {Don't Collect}
+- displays "Connector 3 is set to Collect All" if its set to Collect All otherwise it displays "Connector 3 is set to Don't Collect
+2. PropsBool {blocks name} {PropertyName} {true text} {false text}
+- displays bool property PropertyName of multiple blocks (showing block names on left side) like this:
+Blocks name 1 true text
+Blocks name 2 false text
+Blocks name 3 false text
+Arguments
+First argument: name filter
+Second argument: property name (eg. Handbrake)
+Third argument: text on the right side of screen show when property is true
+Fourth argument: text on the right side of screen show when property is false
+Examples
+PropsBool {Assembler} {OnOff} {Enabled} {Disabled}
+- displays all assemblers that contain "Assembler" in their name with "Enabled" or "Disabled" on the right depending if they are On or Off.
+PropsBool {Door} {Open} {Open} {Closed}
+- displays all doors that contain "Door" in their name with Open or Closed on the right depending on if they are open or not
+PropsBool {Turret} {Shoot} {Fire at Will} {Hold Fire}
+- displays all turrets with "Turret" in their name with "Fire at Will" or "Hold Fire" on the right depending on if turret is set to Shoot or not
+
+Command: Details
+DetailsX variant can be used to skip first line which should be the "Type: " line
+DetailsNoN variant hides the names of blocks. (can also be used as DetailsNoNX)
+Arguments
+No arguments: nothing will be displayed!
+First argument: filters blocks based on name or group
+Second argument: text to look for in details text
+Third argument: number of lines to display per block / text that will end output per block
+Examples
+Details {Projector 2}
+Details {G:Batteries}
+DetailsX Reactor
+
+Command: Amount
+Use AmountX to hide progress bars.
+Use AmountBar to show only progress bars with no text.
+For example for Missile Turret with 2 missiles loaded it would show:
+Missile Turret 2/6 (with default inventory size)
+or
+Gatling Turret 15/24 (note that only 23 ammo fits to gatling turret even when there is enough space to fit 24 - probably game bug)
+Usage is similar to BlockCount & Working command.
+Arguments
+No arguments: displays all turrets, guns, reactors and oxygen generators list
+First argument: name filter
+Next arguments: filters blocks based on type like in BlockCount command
+Examples
+Amount {G:Weapons} launcher,gatlinggun
+Amount {Small Reactor} reactor
+AmountX {G:Turrets} missileturret,gatlingturret
+
+Command: Oxygen
+Arguments
+No arguments: all air vents, oxygen farms and oxygen tanks
+First argument: filters blocks based on name
+Examples
+Oxygen
+Oxygen Vent
+Oxygen {Oxygen Tank}
+Oxygen {Oxygen Farm}
+Oxygen {G:Oxygen Room}
+
+Command: Tanks
+Variant TanksV shows only exact volume filled and maximum volume.
+Variant TanksP shows percentage with progress bar.
+TanksX variant shows only percentage without progress bar.
+TanksBar variant shows only progress bar with no text.
+Arguments
+First argument: name filter (mandatory)
+Second argument: type filter (mandatory)
+Examples
+Tanks * Hydrogen
+Tanks {G:Room 1} Hydrogen
+Tanks * Oxygen
+
+Command: Echo
+Arguments
+No arguments: empty line
+Next arguments: text to be displayed
+Examples
+Echo
+Echo MMaster's Automatic LCD
+Echo Small;Power Small;Echo Large;Power Large
+
+Command: Center
+Arguments
+No arguments: empty line
+Next arguments: text to be displayed centered
+Examples
+Center Centered Text
+Center MMaster's Automatic LCD
+Center Small Power;Power Small;Center Large Power;Power Large
+
+Command: Right
+Arguments
+No arguments: empty line
+Next arguments: text to be displayed aligned to the right of LCD
+Examples
+Right This text will appear aligned to the right
+Right MMaster's Automatic LCD
+
+Command: HScroll
+Arguments
+No arguments: no output
+Next arguments: text to be displayed and scrolled horizontally
+Examples
+HScroll This text will scroll from right to left
+HScrollR This text will scroll from left to right
+
+Command: CustomData
+Example: CustomData {Other Programmable Block} will append Custom Data contents of first Programmable Block named Other Programmable Block.
+
+Command: TextLCD
+Displays scrolling text read from other LCD.
+This is very useful when using different mods / scripts that type something on LCD and you would like to append it to your Automatic LCDs displays. This way you can have one LCD hidden that will be used by your mod / script and use TextLCD command to read that text and write it to one of the Automatic LCDs. Example: TextLCD {Other LCD} will append contents of first LCD named Other LCD.
+
+Command: Time [Center!]
+Displays single line of text followed by current time.
+You can use offset in hours to adjust time to your time zone like this:
+Time-2 - shows current time -2 hours
+Time+1 - shows current time +1 hour
+Time+0.5 - shows current time +0.5 hours (30 minutes)
+TimeC to center the text. You can also combine it with offset e.g TimeC+2.
+Arguments
+No arguments: display only current time
+Next arguments: text to be shown before the time
+Examples
+Time
+Time MMaster's Text Panel Time:
+Time+1 Time plus 1 hour:
+TimeC Centered time:
+TimeC+2 Centered time plus 1 hour:
+
+Command: Date [Center!]
+Displays single line of text followed by current date. Same as in time case you can offset it by hours so your date is switching at correct time. Like this:
+Date-2 - offset by -2 hours
+Date+0.5 - offset by 0.5 hours (30 minutes)
+You can use DateC to display centered date. You can also combine it with offset eg: DateC+2.
+Arguments
+No arguments: display only current date
+Next arguments: text to be shown before the date
+Examples
+Date
+Date Current date:
+Date+1 Date plus one hour:
+DateC Centered date:
+DateC-2 Centered date - 2 hours:
+
+Command: DateTime
+DateTime+2
+DateTimeC. You can also combine it: DateTimeC-2
+Arguments
+No arguments: displays date and time using default local short format.
+Next arguments: specify format to display (look below for explanation)
+Command	Display text
+DateTime MM/dd/yyyy	08/22/2015
+DateTime dddd, dd MMMM yyyy	Tuesday, 22 August 2015
+DateTime dddd, dd MMMM yyyy HH:mm	Tuesday, 22 August 2015 06:30
+DateTime dddd, dd MMMM yyyy hh:mm tt	Tuesday, 22 August 2015 06:30 AM
+DateTime dddd, dd MMMM yyyy H:mm	Tuesday, 22 August 2015 6:30
+DateTime dddd, dd MMMM yyyy h:mm tt	Tuesday, 22 August 2015 6:30 AM
+DateTime dddd, dd MMMM yyyy HH:mm:ss	Tuesday, 22 August 2015 06:30:07
+DateTime MM/dd/yyyy HH:mm	08/22/2015 06:30
+DateTime MM/dd/yyyy hh:mm tt	08/22/2015 06:30 AM
+DateTime MM/dd/yyyy H:mm	08/22/2015 6:30
+DateTime MM/dd/yyyy h:mm tt	08/22/2015 6:30 AM
+DateTime MM/dd/yyyy h:mm tt	08/22/2015 6:30 AM
+DateTime MM/dd/yyyy h:mm tt	08/22/2015 6:30 AM
+DateTime MM/dd/yyyy HH:mm:ss	08/22/2015 06:30:07
+DateTime MMMM dd	August 22
+DateTime MMMM dd	August 22
+DateTime HH:mm	06:30
+DateTime hh:mm tt	06:30 AM
+DateTime H:mm	6:30
+DateTime h:mm tt	6:30 AM
+DateTime HH:mm:ss	06:30:07
+DateTime dddd, dd MMMM yyyy HH:mm:ss	Tuesday, 22 August 2015 06:30:07
+DateTime yyyy MMMM	2015 August
+List of format character groups
+d	Represents the day of the month as a number from 1 through 31. A single-digit day is formatted without a leading zero
+dd	Represents the day of the month as a number from 01 through 31. A single-digit day is formatted with a leading zero
+ddd	Represents the abbreviated name of the day of the week (Mon, Tues, Wed etc)
+dddd	Represents the full name of the day of the week (Monday, Tuesday etc)
+h	12-hour clock hour (e.g. 7)
+hh	12-hour clock, with a leading 0 (e.g. 07)
+H	24-hour clock hour (e.g. 19)
+HH	24-hour clock hour, with a leading 0 (e.g. 19)
+m	Minutes
+mm	Minutes with a leading zero
+M	Month number
+MM	Month number with leading zero
+MMM	Abbreviated Month Name (e.g. Dec)
+MMMM	Full month name (e.g. December)
+s	Seconds
+ss	Seconds with leading zero
+t	Abbreviated AM / PM (e.g. A or P)
+tt	AM / PM (e.g. AM or PM
+y	Year, no leading zero (e.g. 2001 would be 1)
+yy	Year, leadin zero (e.g. 2001 would be 01)
+yyy	Year, (e.g. 2001 would be 2001)
+yyyy	Year, (e.g. 2001 would be 2001)
+
+Command: Countdown
+CountdownC to center and CountdownR to align text to the right.
+Arguments
+You need to enter target date and time in the following format:
+22:00 28.2.2015
+Examples
+Countdown 22:00 31.12.2015
+CountdownC 0:00 1.1.2016
+CountdownR 11:30 24.12.2015
+
+Command: Pos
+Use PosXYZ to show X,Y,Z on separate lines.
+Use PosGPS to show position in GPS format.
+Arguments
+No arguments: displays location of LCD panel
+First argument: displays location of first found block matching this name filter
+Examples
+Pos
+PosXYZ
+Pos {Small Reactor 1}
+PosXYZ {Cockpit}
+PosGPS {Cockpit}
+
+Command: Altitude
+Displays altitude of the ship above ground.
+AltitudeSea displays altitude above sea level.
+
+Command: Speed
+Shows current speed of ship in m/s.
+SpeedKmh and SpeedMph to show speed in km/h or mph.
+Arguments:
+No arguments: displays current speed of ship
+First argument: maximum speed in m/s (displays visual bar)
+Examples:
+Speed 100
+
+Command: Accel
+Shows current acceleration of ship.
+Arguments:
+No arguments: shows current acceleration in m/s2
+First argument: maximum acceleration in m/s2 (displays visual bar)
+Examples:
+Accel 10
+
+Command: Gravity
+GravityNatural shows natural (planet) gravity.
+GravityArtificial shows artificial gravity.
+GravityTotal shows total gravity.
+
+Command: StopDistance & StopTime
+StopDistance displays stopping distance of the ship based on highest recently measured decceleration of the ship.
+StopTime displays time it will take the ship to stop.
+
+Command: ShipMass
+Arguments
+No arguments: displays mass of the ship
+First argument: maximum mass value (in kg)
+Second argument: override metric unit prefix of max mass. (k, M, G, T, P, E, Z, Y)
+Examples
+ShipMass
+ShipMass 100
+ShipMass 10000
+ShipMass 10 M
+ShipMassBase
+
+Command: Mass
+Use MassX to show only percentage without the progress bars or actual mass.
+Use MassP to show only percentage and progress bars without exact mass.
+Arguments
+No arguments: all containers on ship/station
+First argument: filters containers based on name
+Second argument: maximum mass value (in kg)
+Thrid argument: override metric unit prefix of max mass. (k, M, G, T, P, E, Z, Y)
+Examples
+Mass of all items in all blocks:
+Mass
+Mass of all items in all blocks with progress bar, 100kg maximum mass:
+Mass * 100
+Mass of all items in all blocks with progress bar, 10000kg (10 tons) maximum mass:
+Mass * 10000
+Same as one above (10 tons max mass):
+Mass * 10 M
+Percent of max mass of all items in all blocks without progress bar
+1 000 000kg (1 000 tons) maximum mass:
+MassX * 1 G
+Percent of max mass of all items in all blocks with progress bar (without value)
+2 000kg (2 tons) maximum mass:
+MassP * 2000
+Mass of items in specific containers:
+Mass {Large Cargo Container 5}
+
+Command: Occupied
+Arguments
+No arguments: first found ship control block on ship/station
+First argument: filters based on name
+Examples
+Occupied
+Occupied Cockpit
+Occupied {Remote Control}
+Occupied {Cryo Chamber 3}
+
+Command: Dampeners
+Examples
+Dampeners
+
+Command: Distance
+Arguments
+No arguments: shows warning about missing / invalid gps coordinates
+First argument: filters block based on name to display distance from
+Second argument: GPS waypoint as copied from in-game GPS UI
+Examples
+Distance {Merge Block} {GPS:Station Dock:222:333:444:}
+Distance {Cockpit} {GPS:Name:111:222:333:}
+
+LCD clear function
+When you Run the programmable block with argument "clear" (without quotes) it will clear all LCDs. You can use this to turn off your LCDs without having to actually turn them off where they would say "OFFLINE".
+Example use of LCD clear:
+Setup Timer block with following actions:
+1. Run the LCDs programmable block with argument "clear"
+2. Turn off the programmable block
+
+LCDs boot screens
+Example use of LCD boot when you start ship / station with button:
+Setup Timer block with following actions:
+1. Run the LCDs programmable block with argument "clear"
+2. Turn off the programmable block
+3. Turn off your reactors / thrusters / whatever you need
+
+Setup button to Trigger now the Timer block that you just created.
+
+Setup Timer block with following actions:
+1. Turn on your reactors / thrusters / whatever you need
+2. Turn on the programmable block
+
+Setup 2nd button to Trigger now the 2nd Timer block that you just created.
+
+First button will shutdown all LCDs, stop executing the script and turn off your ship/station.
+Second button will turn on your ship and boot up the script again.
+
+If you are a bit more advanced, you can customize the boot screens:
+To customize the boot texts (except for progress bar part) open the script in programmable block and scroll down a bit, where you will find this:
+/* BOOT FRAMES
+* Each @"<text>" marks single frame, add as many as you want each will be displayed for one second
+* @"" is multiline string so you can write multiple lines
+*/
+@"
+Initializing systems"
+,
+@"
+Verifying connections"
+,
+@"
+Loading commands"
+/* END OF BOOT FRAMES */
+
+Change the text inside @"" to whatever you want, remove some frames or add more. Don't miss that the texts need to be separated with comma (,).
+
+How to translate item names?
+When you look into the script and scroll down a bit you will find item definitions that look like this:
+Add("Ice", "Ore");
+Add("Stone", "Ingot", 40000, "Gravel", "gravel");
+Add("Iron", "Ingot", 300000);
+
+As you can see only second one contains changed display name, but you can add your own to any of them. Let me show you how to translate those 3 items:
+Add("Ice", "Ore", 0, "Lad");
+Add("Stone", "Ingot", 40000, "Strk", "gravel");
+Add("Iron", "Ingot", 300000, "Zelezo");
+
+On first line I added default quota 0 and then new display name of the item.
+On second line I just changed "Gravel" to "Strk" (which is gravel in slovak language), but you can see there is one more gravel mentioned there. I recommend you don't change that one.
+On third line there was already default quota set so I just added display name change which changes "Iron" to "Zelezo".
+Do NOT change the first two strings or the script will not work correctly!
+
+How to translate messages?
+At the bottom of the script you will find list of all messages displayed by the script. They look like this:
+// TRANSLATION STRINGS
+// msg id, text
+{ "A1", "EMPTY" }, // amount
+{ "B1", "Booting up..." },
+{ "C1", "count" },
+{ "C2", "Cargo Used" },
+{ "C3", "Invalid countdown format, use:" },
+
+You can change the second string on the line to equivalent in your language, but do NOT change the first string. I also recommend you keep the text as short as possible.
+For example:
+{ "W9", "ON" },
+
+Can be changed to:
+{ "W9", "ZAPNUTE" },
+
+but that would be too long and would not fit on display of most people. So instead you can use some abbreviation like:
+{ "W9", "ZAP" },

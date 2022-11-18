@@ -1,29 +1,31 @@
 This is a list of Crafts I have built with scripts I have used.
 
 To Build:
-GROUND:
-    Personal Transport Rover (2 seater)
-        Scout Rover (2 seater armed )
-    Personal Transport Ute (4 seater)
-        Scout Ute (4 seater armed)
-    Mobile Crane
-    Forklift
-    Miner
-    Modules
-        Cargo
-        Fuel Generation
-        Construction
-        Space Miner
-        Space Comms
-        Missile 
-            Space Missile
-            Air Missile
-    Trailor
-AIR:
-    Mining
-        Electric powered 
-    Welder/Grinder
-SPACE:
-    Welder/Grinder
-BASE:
-
+Rocket                              - Busy
+Atmos Missile
+Space Missile
+Space Miner Module
+Space Comms Module
+Atmos Missile Module
+Space Missile Module
+Assault Vehicle
+Heavy Exploration Vehicle
+Welder/Grinder - Atmos
+Welder/Grinder - Space
+8x8 Miner
+6x6 Miner
+Atmos Electric Vertical Miner
+Atmos Hydro Vertical Miner
+Atmos Electric Hori Miner
+Atmos Hydro Hori Miner
+Space Electric Miner
+Space Hydro Miner
+Personal Transport Rover (2 seater) - Done
+Personal Transport Ute (4 seater)   - Done
+Scout Rover (2 seater armed )       - Done
+Scout Ute (4 seater armed)          - Done
+Mobile Crane                        - Done
+Trailor                             - Done
+Cargo Module                        - Done
+Construction Module                 - Done
+Power Module                        - Done

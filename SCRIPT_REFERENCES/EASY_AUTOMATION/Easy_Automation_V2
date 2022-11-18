@@ -1,0 +1,1210 @@
+//RULES OF ENGAGEMENT
+    //Always change Debug LCD in script to something unique
+    //Ability to change names of blocks - Rename Statement
+    // UnderControl
+
+@nameofautomation
+{
+
+}
+
+{Batteries}
+    OnOff_Off GUM-4 Battery Main
+    Recharge GUM-4 Battery Standby
+    Discharge GUM-4 Battery Standby
+{Connector}
+    Lock TCX-4 Connector Below
+    Unlock TCX-4 Connector Below
+{Delay}
+    Delay 1000
+{Gatling Gun}
+    OnOff_Off Gatling Gun Left
+{Gyroscope}
+    OnOff_Off TCX-4 Gyroscope
+{Hinge}  
+    HingeLock of MMG-4A Hinge Ramp = false
+    HingeLock of MMG-4A Hinge Ramp = true
+    Reverse MMG-4A Hinge Ramp
+    Attach MMG-4A Hinge Connector
+    Detach MMG-4A Hinge Connector
+    Velocity of Hinge = 2
+{Hydrogen Engines}
+    OnOff_Off GUM-4 Hydrogen Engine
+    OnOff_On GUM-4 Hydrogen Engine
+{Hydrogen Tank}
+    Stockpile of GUM-4 Small Hydrogen Tank  = True
+    Stockpile of TCX-4 Hydrogen Tank = False
+    Stockpile TCX-4 Hydrogen Tank
+{If & Else If & When}
+    If Current angle of Rotor Weapons Lift Right < 30
+        {}
+    Else If Current position of Piston Weapons Lift Left > 1
+        {}
+    if Lock State of TCX-4 Landing Gear = LOCKED
+        {WriteLine to TCX-4 Debug LCD = DENIED}
+        Else
+        {WriteLine to TCX-4 Debug LCD = CLEARED}
+    When Lock State of TCX-4 Landing Gear = READY TO LOCK
+        {}
+    Exicute Statements in IfBlock if it equals "="
+    Exicute Statements in IfBlock if it does NOT equal "!="
+    Exicute Statements in IfBlock if it is less than ANY "<"
+    Exicute Statements in IfBlock if it is less than EVERY "<<"
+    Exicute Statements in IfBlock if it is greater than ANY ">"
+    Exicute Statements in IfBlock if it is greater than EVERY ">>"
+{LCD}
+    WriteNew to GUM-4 Debug LCD = STANDBY MODE ACTIVATED
+    WriteNew to RFG-12 EA Menu = "
+        RFG-12 Leopard
+        Version: A
+        Software Update: 
+        2020:05:24"
+    WriteLine to TCX-4 Debug LCD = POD DOCKED
+    FontColor of Debug LCD = 255:255:0
+    Image of Debug LCD = "Danger"
+    Write: adds the text to the public text of the LCD(s) and displays it
+    WriteLine: adds the text to the public text of the LCD(s) on a new line and displays it
+    WriteNew: Writes over everything currently on the public text of the LCD(s) and displays it
+    Clear: Clears the public text of the LCD(s)
+    CustomWrite: adds the text to the Custom Data of the LCD(s) [v2.019]
+    CustomWriteLine: adds the text to the Custom Data of the LCD(s) on a new line [v2.019]
+    CustomWriteNew: Writes over everything currently on the Custom Data of the LCD(s)
+{Landing Gear}
+    Lock TCX-4 Landing Gear
+    Unlock TCX-4 Landing Gear
+    if Lock State of TCX-4 Landing Gear = LOCKED
+    When Lock State of TCX-4 Landing Gear = READY TO LOCK {}
+{Lights}
+    OnOff_On GUM-4 Light Floor
+    OnOff_Off GUM-4 Light Front
+    Color of GUM-4 Light Floor = 255:0:0
+    Blink Interval of GUM-4 Light Floor = 3
+{O2/H2 Generator}
+    OnOff_Off GUM-4 O2/H2 Generator
+{Ore Detector}
+    OnOff_Off GUM-4 Ore Detector
+{Piston}
+    Reverse GUM-4 Piston
+    Extend Piston Weapons Lift Left
+    Velocity of Piston = 2 
+    Current position of Piston
+{Program Block}
+    OnOff_On Program [TURRET] Left
+    Run MyProgramBlock
+    Run MyProgramBlock = This Argument
+    RunWithDefaultArgument MyProgramBlock
+{Rotor}
+    RotorLock of Rotor Door = False
+    RotorLock of Rotor Door = True
+    Reverse Rotor Door
+    Velocity of Rotor = 3
+    Rotate Rotor to 30 at 10
+    ShortRotate to 30 at 10
+{Sensor}
+    OnOff_Off TCX-4 Sensor
+{Show Actions}
+    Show Actions of MMG-4A Hinge Ramp
+{Show Properties}
+    Show Properties of MyPiston
+{Thruster}
+    OnOff_Off TCX-4 Hydrogen Thruster
+{Variables}
+@Variables{
+    MyVariable = 1.2345
+    MyHinge = Velocity of MyPiston //MyHinge is pulling veloctiy from velocity saved on MyPiston
+    NewVal = math(velocity of Piston 1 + velocity of Piston 2)
+    MyPistonPosition = Current position of MyPiston
+    }
+        @MyBlock{Velocity of MyPiston = MyVariable} //This block of code is pulling it's source from the Variables block
+        @MyCheese{Velocity of MyRotor = MyHinge} //MyRotor now has equal velocity to MyPiston 
+        @RotorMath{Velocity of MyRotor = NewVal}
+        @MyPiston{WriteNew to Debug LCD = "The Current Position of Piston is: \MyPistonPosition"}
+
+Air Vent
+Interface name: IMyAirVent
+Parent: IMyFunctionalBlock
+Fields:
+bool CanPressurize { get; }
+bool Depressurize { get; set; }
+bool IsDepressurizing { get; } Depreciated
+bool PressurizationEnabled { get; }
+enum VentStatus Status { get; }
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off ->Toggle Block Off
+Depressurize -> Depressurize On/Off
+Depressurize_On -> Depressurize On
+Depressurize_Off -> Depressurize Off
+
+Advanced Rotor
+Interface name: IMyMotorAdvancedStator
+Parent: IMyMotorBase
+Parent: IMyFunctionalBlock
+Fields:
+float Angle { get; }
+float BrakingTorque { get; set; }
+float Displacement { get; set; }
+float LowerLimitDeg { get; set; }
+float LowerLimitRad { get; set; }
+bool RotorLock { get; set; }
+float TargetVelocityRad { get; set; }
+float TargetVelocityRPM { get; set; }
+float Torque { get; set; }
+float UpperLimitDeg { get; set; }
+float UpperLimitRad { get; set; }
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off ->Toggle Block Off
+Reverse -> Reverse
+Attach -> Attach
+IncreaseTorque -> Increase Torque
+DecreaseTorque -> Decrease Torque
+IncreaseBrakingTorque -> Increase Braking Torque
+DecreaseBrakingTorque -> Decrease Braking Torque
+IncreaseVelocity -> Increase Velocity
+ResetVelocity -> Reset Velocity
+IncreaseLowerLimit -> Increase Lower Limit
+DecreaseLowerLimit -> Decrease Lower Limit
+IncreaseUpperLimit -> Increase Upper Limit
+DecreaseUpperLimit -> Decrease Upper Limit
+IncreaseDisplacement -> Increase Rotor Displacement
+DecreaseDisplacement -> Decrease Rotor Displacement
+
+Antenna
+Interface name: IMyRadioAntenna
+Parent: IMyFunctionalBlock
+Fields:
+long AttachedProgrammableBlock { get; set; }
+bool EnableBroadcasting { get; set; }
+bool IgnoreAlliedBroadcast { get; set; }
+bool IgnoreOtherBroadcast { get; set; }
+bool IsBroadcasting { get; }
+float Radius { get; set; }
+bool ShowShipName { get; set; }
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+IncreaseRadius -> Increase Broadcast radius
+DecreaseRadius -> Decrease Broadcast radius
+EnableBroadCast -> Toggle Broadcast On/Off
+ShowShipName -> Toggle Showing Ship Name
+
+Artificial Mass
+Interface name: IMyVirtualMass
+Parent: IMyFunctionalBlock
+Fields: none
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+
+Assembler
+Interface name: IMyAssembler
+Parent: IMyProductionBlock
+Parent: IMyFunctionalBlock
+Fields:
+bool CooperativeMode { get; set; }
+float CurrentProgress { get; }
+bool DisassembleEnabled { get; }
+MyAssemblerMode Mode { get; set; }
+bool Repeating { get; set; }
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+UseConveyor -> Use Conveyor System On/Off
+slaveMode -> Cooperative Mode On/Off
+
+Battery
+Interface name: IMyBatteryBlock
+Parent: IMyFunctionalBlock
+Fields:
+float CurrentInput { get; }
+float CurrentOutput { get; }
+float CurrentStoredPower { get; }
+bool HasCapacityRemaining { get; }
+bool IsCharging { get; }
+float MaxInput { get; }
+float MaxOutput { get; }
+float MaxStoredPower { get; }
+bool OnlyDischarge { get; set; }
+bool OnlyRecharge { get; set; }
+bool SemiautoEnabled { get; set; }
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+Recharge -> Recharge On/Off
+Discharge -> Discharge On/Off
+SemiAuto -> Semi-auto On/Off
+
+Beacon
+Interface name: IMyBeacon
+Parent: IMyFunctionalBlock
+Fields:
+float Radius { get; set; }
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+IncreaseRadius -> Increase Broadcast radius
+DecreaseRadius -> Decrease Broadcast radius
+
+Button Panel
+Interface name: IMyButtonPanel
+Fields:
+bool AnyoneCanUse { get; set; }
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+
+Camera
+Interface name: IMyCameraBlock
+Parent: IMyFunctionalBlock
+Fields:
+double AvailableScanRange { get; }
+bool EnableRaycast { get; set; }
+bool IsActive { get; }
+float RaycastConeLimit { get; }
+double RaycastDistanceLimit { get; }
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+View -> View
+
+Cargo Containers
+Interface name: IMyCargoContainer
+Parent: IMyTerminalBlock
+Fields: none
+Actions: none
+
+Cockpit, Control Station, Flight Seat
+Interface name: IMyCockpit
+Parent: IMyShipController
+Fields:
+bool ControlWheels
+bool ControlThrusters
+bool HandBrake
+bool DampenersOverride
+bool MainCockpit
+bool HorizonIndicator
+Actions:
+ControlThrusters -> Control thrusters On/Off
+ControlWheels -> Control wheels On/Off
+HandBrake -> Handbrake On/Off
+DampenersOverride -> Inertia dampeners On/Off
+MainCockpit -> Main Cockpit On/Off
+HorizonIndicator -> Show Horizon and Altitude On/Off
+
+Collector
+Interface name: IMyCollector
+Parent: IMyFunctionalBlock
+Fields:
+bool UseConveyorSystem
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+UseConveyor -> Use Conveyor System On/Off
+
+Connector
+Interface name: IMyShipConnector
+Parent: IMyFunctionalBlock
+Fields:
+bool ThrowOut
+bool CollectAll
+bool IsLocked
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+ThrowOut -> Throw Out On/Off
+CollectAll -> Collect All On/Off
+SwitchLock -> Switch lock
+
+Conveyor Sorter
+Interface name: IMyConveyorSorter
+Fields:
+bool DrainAll
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+DrainAll -> Drain All On/Off
+
+Door
+Interface name: IMyDoor
+Parent: IMyFunctionalBlock
+Fields:
+bool Open
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+Open -> Open/Close Door
+Open_On -> Open Door
+Open_Off -> Close Door
+
+Drill
+Interface name: IMyShipDrill
+Parent: IMyFunctionalBlock
+Fields:
+bool UseConveyorSystem
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+UseConveyor -> Use Conveyor System On/Off
+
+Gatling Gun
+Interface name: IMySmallGatlingGun
+Parent: IMyUserControllableGun
+Parent: IMyFunctionalBlock
+Fields:
+bool Shoot
+bool UseConveyor
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+UseConveyor -> Use Conveyor System On/Off
+ShootOnce -> Shoots Once
+Shoot -> Shoot On/Off
+Shoot_On -> Shoot On
+Shoot_Off-> Shoot Off
+
+Gatling Turret
+Interface name: IMyLargeGatlingTurret
+Parent: IMyLargeConveyorTurretBase
+Parent: IMyLargeTurretBase
+Parent: IMyUserControllableGun
+Parent: IMyFunctionalBlock
+Fields:
+bool UseConveyorSystem
+bool CanControl
+float Range bool Shoot
+bool EnableIdleMovement
+bool TargetMeteors
+bool TargetMoving
+bool TargetMissiles
+bool TargetSmallShips
+bool TargetLargeShips
+bool TargetCharacters
+bool TargetStations
+bool TargetNeutrals
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+Control -> Control
+IncreaseRange -> Increase Radius
+DecreaseRange -> Decrease Radius
+UseConveyor -> Use Conveyor System On/Off
+ShootOnce -> Shoot once
+Shoot -> Shoot On/Off
+Shoot_On -> Shoot On
+Shoot_Off -> Shoot Off
+IncreaseRange -> Increase Aiming Radius
+DecreaseRange -> Decrease Aiming Radius
+EnableIdleMovement -> Idle Movement On/Off
+EnableIdleMovement_On -> Idle Movement On
+EnableIdleMovement_Off -> Idle Movement Off
+TargetMeteors -> Target meteors On/Off
+TargetMeteors_On -> Target meteors On
+TargetMeteors_Off -> Target meteors Off
+TargetMoving -> Target moving On/Off
+TargetMoving_On -> Target moving On
+TargetMoving_Off -> Target moving Off
+TargetMissiles -> Target missiles On/Off
+TargetMissiles_On -> Target missiles On
+TargetMissiles_Off -> Target missiles Off
+TargetSmallShips -> Target small ships On/Off
+TargetSmallShips_On -> Target small ships On
+TargetSmallShips_Off -> Target small ships Off
+TargetLargeShips -> Target large ship On/Off
+TargetLargeShips_On -> Target large ship On
+TargetLargeShips_Off -> Target large ship Off
+TargetCharacters -> Target characters On/Off
+TargetCharacters_On -> Target characters On
+TargetCharacters_Off -> Target characters Off
+TargetStations -> Target stations On/Off
+TargetStations_On -> Target stations On
+TargetStations_Off -> Target stations Off
+TargetNeutrals -> Target neutrals On/Off
+TargetNeutrals_On -> Target neutrals On
+TargetNeutrals_Off -> Target neutrals Off
+
+Gravity Generator
+Interface name: IMyGravityGenerator
+Parent: IMyGravityGeneratorBase
+Parent: IMyFunctionalBlock
+Fields:
+float FieldWidth
+float FieldHeight
+float FieldDepth
+float Gravity
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+IncreaseWidth -> Increase Field width
+DecreaseWidth -> Decrease Field width
+IncreaseHeight -> Increase Field height
+DecreaseHeight -> Decrease Field height
+IncreaseDepth -> Increase Field depth
+DecreaseDepth -> Decrease Field depth
+IncreaseGravity -> Increase Acceleration
+DecreaseGravity -> Decrease Acceleration
+
+Grinder
+Interface name: IMyShipGrinder
+Parent: IMyShipToolBase
+Parent: IMyFunctionalBlock
+Fields: none
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+UseConveyor -> Use Conveyor System On/Off
+Gyroscope
+Interface name: IMyGyro
+Parent: IMyFunctionalBlock
+Fields:
+float GyroPower
+bool GyroOverride
+float Yaw
+float Pitch
+float Roll
+
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+IncreasePower -> Increase Power
+DecreasePower -> Decrease Power
+Override -> Override controls On/Off
+IncreaseYaw -> Increase Yaw override
+DecreaseYaw -> Decrease Yaw override
+IncreasePitch -> Increase Pitch override
+DecreasePitch -> Decrease Pitch override
+IncreaseRoll -> Increase Roll override
+DecreaseRoll -> Decrease Roll override
+
+Interior Light
+Interface name: IMyInteriorLight
+Parent: IMyLightingBlock
+Parent: IMyFunctionalBlock
+Fields:
+float BlinkIntervalSeconds { get; set; }
+float BlinkLength { get; set; }
+float BlinkOffset { get; set; }
+Color Color { get; set; }
+float Falloff { get; set; }
+float Intensity { get; set; }
+float Radius { get; set; }
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+IncreaseRadius -> Increase Radius
+DecreaseRadius -> Decrease Radius
+IncreaseBlink Interval -> Increase Blink Interval
+DecreaseBlink Interval -> Decrease Blink Interval
+IncreaseBlink Lenght -> Increase Blink Length
+DecreaseBlink Lenght -> Decrease Blink Length
+IncreaseBlink Offset -> Increase Blink Offset
+DecreaseBlink Offset -> Decrease Blink Offset
+
+Interior Turret
+Interface name: IMyLargeInteriorTurret
+Parent: IMyLargeTurretBase
+Parent: IMyUserControllableGun
+Parent: IMyFunctionalBlock
+Fields:
+bool CanControl
+float Range
+bool Shoot
+bool EnableIdleMovement
+bool TargetMeteors
+bool TargetMoving
+bool TargetMissiles
+bool TargetSmallShips
+bool TargetLargeShips
+bool TargetCharacters
+bool TargetStations
+bool TargetNeutrals
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+Control -> Control
+IncreaseRange -> Increase Radius
+DecreaseRange -> Decrease Radius
+ShootOnce -> Shoot once
+Shoot -> Shoot On/Off
+Shoot_On -> Shoot On
+Shoot_Off -> Shoot Off
+IncreaseRange -> Increase Aiming Radius
+DecreaseRange -> Decrease Aiming Radius
+EnableIdleMovement -> Idle Movement On/Off
+EnableIdleMovement_On -> Idle Movement On
+EnableIdleMovement_Off -> Idle Movement Off
+TargetMeteors -> Target meteors On/Off
+TargetMeteors_On -> Target meteors On
+TargetMeteors_Off -> Target meteors Off
+TargetMoving -> Target moving On/Off
+TargetMoving_On -> Target moving On
+TargetMoving_Off -> Target moving Off
+TargetMissiles -> Target missiles On/Off
+TargetMissiles_On -> Target missiles On
+TargetMissiles_Off -> Target missiles Off
+TargetSmallShips -> Target small ships On/Off
+TargetSmallShips_On -> Target small ships On
+TargetSmallShips_Off -> Target small ships Off
+TargetLargeShips -> Target large ship On/Off
+TargetLargeShips_On -> Target large ship On
+TargetLargeShips_Off -> Target large ship Off
+TargetCharacters -> Target characters On/Off
+TargetCharacters_On -> Target characters On
+TargetCharacters_Off -> Target characters Off
+TargetStations -> Target stations On/Off
+TargetStations_On -> Target stations On
+TargetStations_Off -> Target stations Off
+TargetNeutrals -> Target neutrals On/Off
+TargetNeutrals_On -> Target neutrals On
+TargetNeutrals_Off -> Target neutrals Off
+
+Jump Drive
+Interface name: IMyJumpDrive
+Parent: IMyFunctionalBlock
+Fields:
+bool Recharge
+bool JumpDistance
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+Recharge -> Recharge On/Off
+Recharge_On -> Recharge On
+Recharge_Off -> Recharge Off
+IncreaseJumpDistance -> Increase jump distance
+DecreaseJumpDistance -> Decrease jump distance
+
+Landing Gear
+Interface name: IMyLandingGear
+Parent: IMyFunctionalBlock
+Fields:
+bool Autolock
+float BreakForce
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+Lock -> Lock
+Unlock -> Unlock
+SwitchLock -> Switch lock
+Autolock -> Autolock On/Off
+IncreaseBreakForce -> Increase Break Force
+DecreaseBreakForce -> Decrease Break Force
+
+Laser Antenna
+Interface name: IMyLaserAntenna
+Parent: IMyFunctionalBlock
+Fields:
+bool isPerm
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+Idle -> Idle
+PasteGpsCoords -> Paste coordinates
+ConnectGPS -> Connect to coordinates
+isPerm -> Permanent connection On/Off
+
+Medical Room
+Interface name: IMyMedicalRoom
+Parent: IMyFunctionalBlock
+Fields:
+bool TakeOwnership
+bool SetFaction
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+
+Merge Block
+Interface name: IMyShipMergeBlock
+Parent: IMyFunctionalBlock
+Fields: none
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+
+Missile Turret
+Interface name: IMyMissileTurret
+Parent: IMyLargeConveyorTurretBase
+Parent: IMyLargeTurretBase
+Parent: IMyUserControllableGun
+Parent: IMyFunctionalBlock
+Fields:
+bool CanControl
+float Range
+bool Shoot
+bool EnableIdleMovement
+bool TargetMeteors
+bool TargetMoving
+bool TargetMissiles
+bool TargetSmallShips
+bool TargetLargeShips
+bool TargetCharacters
+bool TargetStations
+bool TargetNeutrals
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+Control -> Control
+IncreaseRange -> Increase Radius
+DecreaseRange -> Decrease Radius
+ShootOnce -> Shoot once
+Shoot -> Shoot On/Off
+Shoot_On -> Shoot On
+Shoot_Off -> Shoot Off
+IncreaseRange -> Increase Aiming Radius
+DecreaseRange -> Decrease Aiming Radius
+UseConveyor -> Use Conveyor System On/Off
+EnableIdleMovement -> Idle Movement On/Off
+EnableIdleMovement_On -> Idle Movement On
+EnableIdleMovement_Off -> Idle Movement Off
+TargetMeteors -> Target meteors On/Off
+TargetMeteors_On -> Target meteors On
+TargetMeteors_Off -> Target meteors Off
+TargetMoving -> Target moving On/Off
+TargetMoving_On -> Target moving On
+TargetMoving_Off -> Target moving Off
+TargetMissiles -> Target missiles On/Off
+TargetMissiles_On -> Target missiles On
+TargetMissiles_Off -> Target missiles Off
+TargetSmallShips -> Target small ships On/Off
+TargetSmallShips_On -> Target small ships On
+TargetSmallShips_Off -> Target small ships Off
+TargetLargeShips -> Target large ship On/Off
+TargetLargeShips_On -> Target large ship On
+TargetLargeShips_Off -> Target large ship Off
+TargetCharacters -> Target characters On/Off
+TargetCharacters_On -> Target characters On
+TargetCharacters_Off -> Target characters Off
+TargetStations -> Target stations On/Off
+TargetStations_On -> Target stations On
+TargetStations_Off -> Target stations Off
+TargetNeutrals -> Target neutrals On/Off
+TargetNeutrals_On -> Target neutrals On
+TargetNeutrals_Off -> Target neutrals Off
+
+Ore Detector
+Interface name: IMyOreDetector
+Parent: IMyFunctionalBlock
+Fields:
+bool BroadcastUsingAntennas
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+BroadcastUsingAntennas -> Broadcast using antennas On/Off
+
+Oxygen Farm
+Interface name: IMyOxygenFarm
+Parent: IMyFunctionalBlock
+Fields: none
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+
+Oxygen Generator
+Interface name: IMyOxygenGenerator
+Parent: IMyFunctionalBlock
+Fields:
+bool Auto-Refill
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+Refill -> Refill Bottles
+Auto-Refill -> Auto-Refill On/Off
+
+Oxygen/Hydrogen Tank
+Interface name: IMyOxygenTank
+Parent: IMyFunctionalBlock
+Fields:
+bool Stockpile
+bool Auto-Refill
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+Stockpile -> Stockpile On/Off
+Stockpile_On -> Stockpile On
+Stockpile_Off -> Stockpile Off
+Refill -> Refill Bottles
+Auto-Refill -> Auto-Refill On/Off
+
+Passenger Seat
+Interface name: IMyCockpit
+Parent: IMyShipController
+Fields:
+bool ControlWheels
+bool ControlThrusters
+bool HandBrake
+bool DampenersOverride
+Actions:
+ControlThrusters -> Control thrusters On/Off
+ControlWheels -> Control wheels On/Off
+HandBrake -> Handbrake On/Off
+DampenersOverride -> Inertia dampeners On/Off
+
+Piston
+Interface name: IMyPistonBase
+Parent: IMyFunctionalBlock
+Fields:
+bool OnOff
+bool ShowInTerminal
+bool ShowInToolbarConfig
+bool ShowOnHUD
+float Velocity
+float MinLimit "LowerLimit"
+float MaxLimit "UpperLimit"
+PistonStatus Status
+float "Weld speed"
+bool "Force weld"
+Strings to be used in methods like "bool GetValueBool(string propertyId)"
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+Reverse -> Reverse
+Extend -> Extend
+Retract -> Retract
+IncreaseVelocity -> Increase Velocity
+DecreaseVelocity -> Decrease Velocity
+ResetVelocity -> Reset Velocity
+IncreaseUpperLimit -> Increase Maximal distance
+DecreaseUpperLimit -> Decrease Maximal distance
+IncreaseLowerLimit -> Increase Minimal distance
+DecreaseLowerLimit -> Decrease Minimal distance
+IncreaseWeld speed -> Increase Safety lock speed
+DecreaseWeld speed -> Decrease Safety lock speed
+IncreaseMaxImpulseAxis
+DecreaseMaxImpulseAxis
+IncreaseMaxImpulseNonAxis
+DecreaseMaxImpulseNonAxis
+Force weld -> Safety override lock On/Off
+Force weld
+IncreaseSafetyDetach
+DecreaseSafetyDetach
+ShareInertiaTensor
+Add Top Part
+
+Programmable block
+Interface name: IMyProgrammableBlock
+Parent: IMyFunctionalBlock
+Fields:
+bool IsRunning
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+Run -> Run
+RunWithDefaultArgument -> Run with default argument
+
+Projector
+Interface name: IMyProjector
+Parent: IMyFunctionalBlock
+Fields:
+bool OnOff
+bool ShowInTerminal
+bool ShowInToolbarConfig
+bool ShowOnHUD
+bool KeepProjection
+bool ShowOnlyBuildable
+float X
+float Y
+float Z
+float RotX
+float RotY
+float RotZ
+bool InstantBuilding
+bool GetOwnership
+float NumberOfProjections
+float NumberOfBlocks
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+KeepProjection -> Keep Projection On/Off
+IncreaseX -> Increase horizontal offset
+DecreaseX -> Decrease horizontal offset
+IncreaseY -> Increase vertical offset
+DecreaseY -> Decrease vertical offset
+IncreaseZ -> Increase forward offset
+DecreaseZ -> Decrease forward offset
+IncreaseRotX -> Increase Pitch
+DecreaseRotX -> Decrease Pitch
+IncreaseRotY -> Increase Yaw
+DecreaseRotY -> Decrease Yaw
+IncreaseRotZ -> Increase Roll
+DecreaseRotZ -> Decrease Roll
+IncreaseScale
+DecreaseScale
+SpawnProjection -> Spawn projection
+IncreaseFontSize
+DecreaseFontSize
+IncreaseTextPaddingSlider
+DecreaseTextPaddingSlider
+IncreaseChangeIntervalSlider
+DecreaseChangeIntervalSlider
+PreserveAspectRatio
+
+Reactor (Small, Large)
+Interface name: IMyReactor
+Parent: IMyFunctionalBlock
+Fields:
+bool UseConveyorSystem
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+UseConveyor -> Use Conveyor System On/Off
+
+Refinery and Arc Furnace
+Interface name: IMyRefinery
+Parent: IMyProductionBlock
+Parent: IMyFunctionalBlock
+Fields:
+bool UseConveyorSystem
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+UseConveyor -> Use Conveyor System On/Off
+
+Reloadable Rocket Launcher
+Interface name: IMySmallMissileLauncherReload
+Parent: IMySmallMissileLauncherReload
+Parent: IMySmallMissileLauncher
+Parent: IMyUserControllableGun
+Parent: IMyFunctionalBlock
+Fields:
+bool Shoot
+Actions:
+Off -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+UseConveyor -> Use Conveyor System On/Off
+ShootOnce -> Shoot once
+Shoot -> Shoot On/Off
+Shoot_On -> Shoot On
+Shoot_Off -> Shoot Off
+
+Remote Control
+Interface name: IMyRemoteControl
+Parent: IMyShipController
+Fields:
+bool ControlThrusters
+bool ControlWheels
+bool HandBrake
+bool DampenersOverride
+bool MainCockpit
+bool HorizonIndicator
+bool AutoPilot
+bool CollisionAvoidance
+bool DockingMode
+Actions:
+ControlThrusters -> Control thrusters On/Off
+ControlWheels -> Control wheels On/Off
+HandBrake -> Handbrake On/Off
+DampenersOverride -> Inertia dampeners On/Off
+MainCockpit -> Main cockpit On/Off
+AutoPilot -> Autopilot On/Off
+AutoPilot_On -> Autopilot On
+AutoPilot_Off -> Autopilot Off
+CollisionAvoidance -> Collision avoidance On/Off
+CollisionAvoidance_On -> Collision avoidance On
+CollisionAvoicance_Off -> Collision avoidance Off
+DockingMode -> Precision mode On/Off
+DockingMode_On -> Precision mode On
+DockingMode_Off -> Precision mode Off
+Forward -> Set front part of remote control as reference for autopilot
+Backward -> Set rear part of remote control as reference for autopilot
+Left -> Set left part of remote control as reference for autopilot
+Right -> Set right part of remote control as reference for autopilot
+Up -> Set top part of remote control as reference for autopilot
+Down -> Set bottom part of remote control as reference for autopilot
+
+Rocket Launcher
+Interface name: IMySmallMissileLauncher
+Parent: IMyUserControllableGun
+Parent: IMyFunctionalBlock
+Fields:
+bool Shoot
+s
+
+Actions:
+Off -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+UseConveyor -> Use Conveyor System On/Off
+ShootOnce -> Shoot once
+Shoot -> Shoot On/Off
+Shoot_On -> Shoot On
+Shoot_Off -> Shoot Off
+Rotor
+Interface name: IMyMotorStator
+Parent: IMyMotorBase
+Parent: IMyFunctionalBlock
+Fields:
+bool IsAttached
+float Torque
+float BrakingTorque
+float Velocity
+float LowerLimit
+float UpperLimit
+float Displacement
+
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+Reverse -> Reverse
+Detach -> Detach
+Attach -> Attach
+IncreaseTorque -> Increase Torque
+DecreaseTorque -> Decrease Torque
+IncreaseBrakingTorque -> Increase Braking tor.
+DecreaseBrakingTorque -> Decrease Braking tor.
+IncreaseVelocity -> Increase Velocity
+DecreaseVelocity -> Decrease Velocity
+ResetVelocity -> Reset Velocity
+IncreaseLowerLimit -> Increase Lower limit
+DecreaseLowerLimit -> Decrease Lower limit
+IncreaseUpperLimit -> Increase Upper limit
+DecreaseUpperLimit -> Decrease Upper limit
+IncreaseDisplacement -> Increase Rotor displacement
+DecreaseDisplacement -> Decrease Rotor displacement
+
+Sensor
+Interface name: IMySensorBlock
+Parent: IMyFunctionalBlock
+Fields:
+float LeftExtend
+float RightExtend
+float TopExtend
+float BottomExtend
+float FrontExtend
+float BackExtend
+bool DetectPlayers
+bool DetectFloatingObjects
+bool DetectSmallShips
+bool DetectLargeShips
+bool DetectStations
+bool DetectAsteroids
+bool IsActive
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+IncreaseLeft -> Increase Left extent
+DecreaseLeft -> Decrease Left extent
+IncreaseRight -> Increase Right extent
+DecreaseRight -> Decrease Right extent
+IncreaseBottom -> Increase Bottom extent
+DecreaseBottom -> Decrease Bottom extent
+IncreaseTop -> Increase Top extent
+DecreaseTop -> Decrease Top extent
+IncreaseBack -> Increase Back extent
+DecreaseBack -> Decrease Back extent
+IncreaseFront -> Increase Front extent
+DecreaseFront -> Decrease Front extent
+Detect Players -> Detect players On/Off
+Detect Floating Objects -> Detect floating objects On/Off
+Detect Small Ships -> Detect small ships On/Off
+Detect Large Ships -> Detect large ships On/Off
+Detect Stations -> Detect stations On/Off
+Detect Asteroids -> Detect Asteroids On/Off
+Solar Panel
+Interface name: IMySolarPanel
+Fields: none
+Actions: none
+Sound Block
+Interface name: IMySoundBlock
+Parent: IMyFunctionalBlock
+Fields:
+float Volume
+float Range
+bool IsSoundSelected
+float LoopPeriod
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+IncreaseVolumeSlider -> Increase Volume
+DecreaseVolumeSlider -> Decrease Volume
+IncreaseRangeSlider -> Increase Range
+DecreaseRangeSlider -> Decrease Range
+PlaySound -> Play
+StopSound -> Stop
+IncreaseLoopableSlider -> Increase Loop time
+DecreaseLoopableSlider -> Decrease Loop time
+
+Space Balls
+Interface name: IMySpaceball
+Parent: IMyVirtualMass
+Parent: IMyFunctionalBlock
+Fields:
+float VirtualMass
+bool EnableBroadCast
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+IncreaseVirtualMass -> Increase Virtual Mass
+DecreaseVirtualMass -> Decrease Virtual Mass
+EnableBroadCast -> Enable broadcasting On/Off
+Spherical Gravity Generator
+Interface name: IMyGravityGeneratorSphere
+Parent: IMyGravityGeneratorBase
+Parent: IMyFunctionalBlock
+Fields:
+float Radius
+float Gravity
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+IncreaseRadius -> Increase Radius
+DecreaseRadius -> Decrease Radius
+IncreaseGravity -> Increase Acceleration
+DecreaseGravity -> Decrease Acceleration
+Spotlight
+Interface name: IMyReflectorLight
+Parent: IMyLightingBlock
+Parent: IMyFunctionalBlock
+Fields:
+float Radius
+float Intensity
+float BlinkIntervalSeconds
+float BlinkLenght
+float BlinkOffset
+
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+IncreaseRadius -> Increase Radius
+DecreaseRadius -> Decrease Radius
+IncreaseBlink Interval -> Increase Blink Interval
+DecreaseBlink Interval -> Decrease Blink Interval
+IncreaseBlink Lenght -> Increase Blink Length
+DecreaseBlink Lenght -> Decrease Blink Length
+IncreaseBlink Offset -> Increase Blink Offset
+DecreaseBlink Offset -> Decrease Blink Offset
+Text Panel, LCD, Wide LCD
+Interface name: IMyTextPanel
+Parent: IMyFunctionalBlock
+Fields:
+float FontSize
+String FontColor
+String BackgroundColor
+float ChangeIntervalSlider
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+IncreaseFontSize -> Increase Font Size
+DecreaseFontSize -> Decrease Font Size
+IncreaseChangeIntervalSlider -> Increase Image change interval
+DecreaseChangeIntervalSlider -> Decrease Image change interval
+Thruster (Ion, Hydrogen, Atmospheric)
+Interface name: IMyThrust
+Parent: IMyFunctionalBlock
+Fields:
+float Override
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+IncreaseOverride -> Increase thrust override
+DecreaseOverride -> Decrease thrust override
+Timer Block
+Interface name: IMyTimerBlock
+Parent: IMyFunctionalBlock
+Fields:
+bool IsCountingDown
+float TriggerDelay
+
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+IncreaseTriggerDelay -> Increase Delay
+DecreaseTriggerDelay -> Decrease Delay
+TriggerNow -> Trigger now
+Start -> Start
+Stop -> Stop
+Warhead
+Interface name: IMyWarhead
+Fields:
+bool IsCountingDown
+float DetonationTime
+
+Actions:
+IncreaseDetonationTime -> Increase Detonation time
+DecreaseDetonationTime -> Decrease Detonation time
+StartCountdown -> Start countdown
+StopCountdown -> Stop countdown
+Safety -> Safety On/Off
+Detonate -> Detonate
+
+Welder
+Interface name: IMyShipWelder
+Parent: IMyShipToolBase
+Parent: IMyFunctionalBlock
+
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+UseConveyor -> Use Conveyor System On/Off
+
+Wheel Suspension (1x1, 3x3, 5x5)
+Interface name: IMyMotorSuspension
+Parent: IMyMotorBase
+Parent: IMyFunctionalBlock
+Fields:
+bool Steering
+bool Propulsion
+float Damping
+float Strength
+float Friction
+float Power
+
+Actions:
+OnOff -> Toggle block On/Off
+OnOff_On -> Toggle block On
+OnOff_Off -> Toggle block Off
+Steering -> Steering On/Off
+Propulsion -> Propulsion On/Off
+IncreaseDamping -> Increase Damping
+DecreaseDamping -> Decrease Damping
+IncreaseStrength -> Increase Strength
+DecreaseStrength -> Decrease Strength
+IncreaseFriction -> Increase Friction
+DecreaseFriction -> Decrease Friction
+IncreasePower -> Increase Power
+DecreasePower -> Decrease Power

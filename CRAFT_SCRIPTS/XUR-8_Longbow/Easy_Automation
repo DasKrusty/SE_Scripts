@@ -1,0 +1,290 @@
+@shutdown
+{
+    WriteNew to XUR-8 Debug LCD = SHUTDOWN INITIATED
+    OnOff_On XUR-8 Cockpit Light
+    Color of XUR-8 Cockpit Light = 255:0:0
+    Blink Interval of XUR-8 Cockpit Light = 3
+    OnOff_Off XUR-8 Bay Light
+    Delay 1000
+    OnOff_Off XUR-8 Button End
+    WriteLine to XUR-8 Debug LCD = Checking Locks
+    if Lock State of XUR-8 Magnetic Plate = LOCKED
+    {
+        WriteLine to XUR-8 Debug LCD = Landing Gear Secure
+    }
+    else if Lock State of XUR-8 Magnetic Plate = READY TO LOCK
+    {
+        Lock XUR-8 Magnetic Plate
+        WriteLine to XUR-8 Debug LCD = Locking Landing Gear
+        if Lock State of XUR-8 Magnetic Plate = UNLOCKED
+        {
+            WriteLine to XUR-8 Debug LCD = WARNING!!! Landing Gear Unsecure
+            Delay 5000
+        }
+    }
+    else if Lock State of XUR-8 Magnetic Plate = UNLOCKED
+    {
+        WriteLine to XUR-8 Debug LCD = Landing Gear Unsecure
+    }
+    OnOff_On XUR-8 Door
+    Delay 3000
+    OnOff_Off XUR-8 Air Vent
+    WriteLine to XUR-8 Debug LCD = Opening Door
+    WriteLine to XUR-8 Debug LCD = Shutting Down Flight
+    Delay 1000
+    Open_On XUR-8 Door
+    OnOff_Off XUR-8 Gyroscope
+    OnOff_Off XUR-8 Large Thruster Main
+    OnOff_Off XUR-8 Thruster
+    Stockpile of XUR-8 Hydrogen Tank = True
+    Stockpile of XUR-8 Oxygen Tank = True
+    OnOff_Off XUR-8 O2/H2 Generator
+    WriteLine to XUR-8 Debug LCD = Shutting Down Comms
+    Delay 1000
+    OnOff_Off XUR-8 Antenna
+    OnOff_Off XUR-8 Beacon
+    OnOff_Off XUR-8 Laser Antenna
+    WriteLine to XUR-8 Debug LCD = Shutting Down Control
+    Delay 1000
+    OnOff_Off XUR-8 LCD
+    OnOff_Off XUR-8 Program [BAC]
+    OnOff_Off XUR-8 Program [FSD]
+    OnOff_Off XUR-8 Program [LCD8]
+    OnOff_Off XUR-8 Program [PM3]
+    OnOff_Off XUR-8 Projector
+    OnOff_Off XUR-8 Sensor
+    WriteLine to XUR-8 Debug LCD = Shut Down Success
+    Delay 1000
+    WriteLine to XUR-8 Debug LCD = Please exit now
+    Delay 6000
+    WriteNew to XUR-8 Debug LCD = SHUTDOWN
+    Open_Off XUR-8 Door
+    Delay 3000
+    OnOff_Off XUR-8 Door
+    OnOff_On XUR-8 Button Start
+    Blink Interval of XUR-8 Cockpit Light = 0
+    Color of XUR-8 Cockpit Light = 0:255:0
+    Delay 3000
+    OnOff_Off XUR-8 Cockpit Light
+    Color of XUR-8 Cockpit Light = 55:155:255
+    OnOff_On XUR-8 Exterior Light
+    Color of XUR-8 Exterior Light = 255:0:0
+    Blink Interval of XUR-8 Exterior Light = 15
+}
+
+@startup
+{
+    WriteNew to XUR-8 Debug LCD = STARTING UP
+    Delay 3000
+    OnOff_Off XUR-8 Button Start
+    OnOff_On XUR-8 Button End
+    OnOff_On XUR-8 Cockpit Light
+    OnOff_On XUR-8 Exterior Light
+    Color of XUR-8 Exterior Light = 55:155:255
+    Blink Interval of XUR-8 Exterior Light = 0
+    OnOff_On XUR-8 Sensor
+    OnOff_On XUR-8 Door
+    WriteLine to XUR-8 Debug LCD = Activating Control
+    Delay 1000
+    OnOff_On XUR-8 LCD
+    OnOff_On XUR-8 Program [BAC]
+    OnOff_On XUR-8 Program [FSD]
+    OnOff_On XUR-8 Program [LCD8]
+    OnOff_On XUR-8 Program [PM3]
+    OnOff_On XUR-8 Projector
+    OnOff_On XUR-8 Sensor
+    WriteLine to XUR-8 Debug LCD = Activating Flight
+    Delay 1000
+    OnOff_On XUR-8 Gyroscope
+    OnOff_On XUR-8 Large Thruster Main
+    OnOff_On XUR-8 Thruster
+    Stockpile of XUR-8 Hydrogen Tank = False
+    Stockpile of XUR-8 Oxygen Tank = False
+    OnOff_On XUR-8 O2/H2 Generator
+    WriteLine to XUR-8 Debug LCD = Activating Comms
+    Delay 1000
+    OnOff_On XUR-8 Antenna
+    OnOff_On XUR-8 Laser Antenna
+    WriteLine to XUR-8 Debug LCD = Activating Life Support
+    Delay 1000
+    OnOff_On XUR-8 Air Vent
+    WriteNew to XUR-8 Debug LCD = SYSTEMS ACTIVE
+    Color of XUR-8 Cockpit Light = 0:255:0
+    Delay 1500
+    Color of XUR-8 Cockpit Light = 55:155:255
+}
+
+@standby
+{
+    @startup
+    Delay 1000
+    WriteNew to XUR-8 Debug LCD = STANDBY INITIATED
+    Delay 1000
+    OnOff_On XUR-8 Cockpit Light
+    Color of XUR-8 Cockpit Light = 255:255:0
+    Blink Interval of XUR-8 Cockpit Light = 3
+    WriteLine to XUR-8 Debug LCD = Shutting Down Flight
+    Delay 1000
+    OnOff_Off XUR-8 Large Thruster Main
+    OnOff_Off XUR-8 Thruster
+    Stockpile of XUR-8 Hydrogen Tank = True
+    Stockpile of XUR-8 Oxygen Tank = True
+    WriteNew to XUR-8 Debug LCD = STANDBY ACTIVE
+    PlaySound XUR-8 Sound Block
+}
+
+@takeoff
+{
+    @startup
+    Delay 1000
+    WriteNew to XUR-8 Debug LCD = TAKEOFF INITIATED
+    Delay 1500
+    WriteNew to XUR-8 Debug LCD = 5
+    Unlock XUR-8 Connector Main
+    Unlock XUR-8 Magnetic Plate
+    Delay 1500
+    WriteNew to XUR-8 Debug LCD = 4
+    Open_Off XUR-8 Door
+    Delay 1500
+    WriteNew to XUR-8 Debug LCD = 3
+    Delay 1500
+    WriteNew to XUR-8 Debug LCD = 2
+    Delay 1500
+    WriteNew to XUR-8 Debug LCD = 1
+    Delay 1500
+    RunWithDefaultArgument XUR-8 Program [BAC]
+    WriteNew to XUR-8 Debug LCD = ENGAGED
+    Delay 3000
+    Reverse XUR-8 Hinge Leg One
+    Reverse XUR-8 Hinge Leg Two
+    Clear XUR-8 Debug LCD
+}
+
+@flight
+{
+    @startup
+    Delay 1000
+    WriteNew to XUR-8 Debug LCD = TAKEOFF INITIATED
+    Delay 1500
+    WriteNew to XUR-8 Debug LCD = Longbow Unlocked & READY
+    Unlock XUR-8 Connector Main
+    Unlock XUR-8 Magnetic Plate
+    Delay 1500
+    Open_Off XUR-8 Door
+    WriteNew to XUR-8 Debug LCD = ENGAGED
+    Delay 3000
+    Reverse XUR-8 Hinge Leg One
+    Reverse XUR-8 Hinge Leg Two
+    Clear XUR-8 Debug LCD
+}
+
+@landing
+{
+    WriteNew to XUR-8 Debug LCD = LANDING INITIATED
+    Reverse XUR-8 Hinge Leg One
+    Reverse XUR-8 Hinge Leg Two
+    Delay 3000
+    WriteLine to XUR-8 Debug LCD = Landing Gear READY
+    when Lock State of XUR-8 Magnetic Plate = READY TO LOCK
+    {
+        Delay 5000
+        Lock XUR-8 Magnetic Plate
+        Lock XUR-8 Connector Main
+    }
+    @standby
+}
+
+@bayone
+{
+    if Current angle of XUR-8 Hinge Bay One < -90
+    {
+        WriteNew to XUR-8 Debug LCD = Closing Bay One
+        Reverse XUR-8 Hinge Bay One 
+        Delay 5000
+        if Current angle of XUR-8 Hinge Bay One < -65
+        {
+            WriteNew to XUR-8 Debug LCD = ERROR!!! Opening Doors
+            Reverse XUR-8 Hinge Bay One
+        }
+        else if Current angle of XUR-8 Hinge Bay One > -85
+        {
+            WriteNew to XUR-8 Debug LCD = Working
+        }
+    }
+    else if Current angle of XUR-8 Hinge Bay One > -5
+    {
+        WriteNew to XUR-8 Debug LCD = Opening Bay One
+        Reverse XUR-8 Hinge Bay One
+        Delay 5000
+    }
+}
+
+@baytwo
+{
+    Color of XUR-8 Cockpit Light = 255:255:0
+    if Current angle of XUR-8 Hinge Bay Two < 0
+    {
+        WriteNew to XUR-8 Debug LCD = Closing Bay Two
+        Reverse XUR-8 Hinge Bay Two 
+    }
+    else if Current angle of XUR-8 Hinge Bay Two > -90
+    {
+        WriteNew to XUR-8 Debug LCD = Opening Bay Two
+        Reverse XUR-8 Hinge Bay Two
+        when current angle of XUR-8 Hinge Bay Two < -85
+        {
+            Color of XUR-8 Cockpit Light = 55:155:255
+            WriteNew to XUR-8 Debug LCD = Bay Two Open
+        }
+    }
+}
+
+@baythree
+{
+    if Current angle of XUR-8 Hinge Bay Three < -85
+    {
+        WriteNew to XUR-8 Debug LCD = Closing Bay Three
+        Reverse XUR-8 Hinge Bay Three 
+        Delay 5000
+        if Current angle of XUR-8 Hinge Bay Three < -85
+        {
+            WriteNew to XUR-8 Debug LCD = ERROR!!! Opening Doors
+            Reverse XUR-8 Hinge Bay One
+        }
+        else if Current angle of XUR-8 Hinge Bay Three > -85
+        {
+            WriteNew to XUR-8 Debug LCD = Working
+        }
+    }
+    else if Current angle of XUR-8 Hinge Bay Three > -5
+    {
+        WriteNew to XUR-8 Debug LCD = Opening Bay Three
+        Reverse XUR-8 Hinge Bay Three
+        Delay 5000
+    }
+}
+
+@bayfour
+{
+    if Current angle of XUR-8 Hinge Bay Four < -85
+    {
+        WriteNew to XUR-8 Debug LCD = Closing Bay Four
+        Reverse XUR-8 Hinge Bay Four 
+        Delay 5000
+        if Current angle of XUR-8 Hinge Bay Four < -85
+        {
+            WriteNew to XUR-8 Debug LCD = ERROR!!! Opening Doors
+            Reverse XUR-8 Hinge Bay One
+        }
+        else if Current angle of XUR-8 Hinge Bay Four > -85
+        {
+            WriteNew to XUR-8 Debug LCD = Working
+        }
+    }
+    else if Current angle of XUR-8 Hinge Bay Four > -5
+    {
+        WriteNew to XUR-8 Debug LCD = Opening Bay Four
+        Reverse XUR-8 Hinge Bay Four
+        Delay 5000
+    }
+}

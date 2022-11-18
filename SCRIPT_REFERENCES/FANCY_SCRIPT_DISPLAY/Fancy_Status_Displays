@@ -1,0 +1,24 @@
+ShowStats
+...
+EndStats
+
+Program [2ACLCD],clone:0 position(285,10) fontsize=0.65 TextColor(55,155,255)
+
+Reactor + Batteries + Hydrogen Engine + Gap40 + Hydrogen Tank + O2/H2 Generator, Shortbar AnalogBar Length=175 FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+
+Drill 1 + Drill 2, FrameColor(255,55,0) Scale=3 NoHeadline Position(30,30) IconColor(55,155,255)
+
+Advanced Rotor 3x3 Right, Optional barcolor(255,55,0) Position(405,90) Length=400 Tallbar AnalogBar FrameColor(55,155,255) NoHeadline
+
+TCX-4 Hydrogen Thruster, position(30,375) shortbar length=100 NoHeadline
+TCX-4 Gatling Turret, shortbar length=150 NoHeadline position(20,30)
+TCX-4 Gatling Gun, shortbar length=150 NoHeadline 
+TCX-4 Gyroscope, shortbar length=150 NoHeadline 
+
+GUM-4 Batteries, barcolor(255,55,0) Smallbar AnalogBar Position(110,90) FrameColor(55,155,255) NoHeadline 
+GUM-4 Hydrogen Engines, barcolor(255,55,0) Smallbar AnalogBar Position(110,150) FrameColor(55,155,255) NoHeadline
+GUM-4 Hydrogen Tanks, barcolor(255,55,0) Smallbar AnalogBar Position(110,210) FrameColor(55,155,255) NoHeadline
+GUM-4 O2/H2 Generator, barcolor(255,55,0) Smallbar AnalogBar Position(110,270) FrameColor(55,155,255) NoHeadline
+
+//Power Stats
+Reactor + Batteries + Hydrogen Engine, Shortbar AnalogBar Length=175 FrameColor(55,155,255) barcolor(255,55,0) NoHeadline

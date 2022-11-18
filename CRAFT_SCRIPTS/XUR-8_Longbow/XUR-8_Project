@@ -1,0 +1,75 @@
+TO DO:
+Get doors 
+WAITING ON
+- Write EA2 code to open close doors
+    - One code for both movements
+    - If jammed reverse
+- Add ALCD for more info
+    
+WORKING ON
+- Split menu for easier nav
+    - /map hidehud
+    - /map show
+    - /map umap show
+
+COMPLETED
+
+
+LOG_WAYPOINT <waypoint name>
+LOG_BASE <waypoint name>
+LOG_STATION <waypoint name>
+LOG_LANDMARK <waypoint name>
+LOG_ASTEROID <waypoint name>
+LOG_HAZARD <waypoint name>
+
+DELETE_WAYPOINT <waypoint name>
+
+// Work out what functions we want and how they will work
+// List all the equipment we want to work with
+
+//Lights
+XUR-8 Exterior Light
+// Comms
+XUR-8 Antenna
+XUR-8 Beacon
+XUR-8 Laser Antenna
+//Bays
+XUR-8 Connector Bay One
+XUR-8 Merge Bay One
+XUR-8 Hinge Bay One
+XUR-8 Connector Bay Two
+XUR-8 Merge Bay Two
+XUR-8 Hinge Bay Two
+XUR-8 Connector Bay Three
+XUR-8 Merge Bay Three
+XUR-8 Hinge Bay Three
+XUR-8 Connector Bay Four
+XUR-8 Merge Bay Four
+XUR-8 Hinge Bay Four
+XUR-8 Bay Light
+// Cockpit
+XUR-8 Control Seat [MEN8]
+XUR-8 Door
+XUR-8 LCD
+XUR-8 Program [BAC]
+XUR-8 Program [EA2]
+XUR-8 Program [FSD]
+XUR-8 Program [LCD8]
+XUR-8 Program [PM3]
+XUR-8 Projector
+XUR-8 Remote Control [Reference]
+XUR-8 Sensor
+XUR-8 Cockpit Light
+// Flight Systems
+XUR-8 Gyroscope
+XUR-8 O2/H2 Generator
+XUR-8 Hydrogen Tank
+XUR-8 Oxygen Tank
+XUR-8 Large Thruster Main
+XUR-8 Thruster
+XUR-8 Battery
+// Connections
+XUR-8 Connector Main
+XUR-8 Hinge Leg One
+XUR-8 Hinge Leg Two
+XUR-8 Magnetic Plate

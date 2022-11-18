@@ -1,0 +1,95 @@
+//LCD_TAG = [LCD]
+
+// POWER BASED COMMANDS
+Center <[   ---   POWER   ---   ]>
+    PowerTime
+    echo
+    Working {DUA-1A Batteries}
+    Power {G:DUA-1A Batteries}
+    Powerin {G:MMG-4A Batteries}
+    Poweriout {G:MMG-4A Batteries}
+    Working {RUX-5 Hydro Engines}
+    PowerP {G:RUX-5 Hydro Engines}
+    PowerStoredP {G:RUX-5 Batteries}
+
+// FUEL
+Center <[   ---   FUEL   ---   ]>
+    Center [ --- Hydrogen --- ]
+    invlistx T:* {DUA-3C O2/H2 Generators} ore/ice:5000
+    Tanks * Hydrogen {G:DUA-3C Hydrogen Tanks}
+    PropBool {RUX-5 Hydrogen Tanks} {Stockpile} {1. Hydro Tanks} {LOCK} {READY}
+
+// CARGO BASED COMMANDS
+Center <[   ---   CARGO   ---   ]>
+    ShipMass 450000
+    CargoAll {G:DUA-1A Cargo}
+    CargoAll {G:DUA-1A Drills}
+    Cargo {G:DUA-3c Cargo Containers}
+
+// INVENTORY LISTING
+Center <[   ---   INVENTORY   ---   ]>
+    InvListXS *T: -ingot/uranium
+    InvListXS *T:
+    InventoryX {G:DUA-3c Cargo Containers}
+    Inventory * +all -ore
+    Inventory Cargo +ingot -scrap
+    Inventory {Red Storage} +ingot:300000
+    Inventory [STORAGE] +component
+    Inventory {Cargo Container} +all -tool -ammo
+    Inventory {Large Cargo Container 3} +ingot:1000 +component:50
+    Inventory {Oxygen Storage} +oxygen:100
+
+// SYSTEMS INFORMATIONS COMMANDS
+Center <[   ---   SYSTEMS   ---   ]>
+    Center [ --- Flight Systems --- ]
+        PropsBool {DUA-1A Thrusters} {OnOff} {Online } {Offline }
+        PropsBool {DUA-1A Gyro's} {OnOff} {Online } {Offline }
+        PropsBool {TCX-4 Gyroscopes G1} {OnOff} {Working 33% } {Offline }
+        PropsBool {TCX-4 Gyroscopes G2} {OnOff} {Working 66% } {Offline }
+        PropsBool {TCX-4 Gyroscopes G3} {OnOff} {Working 100% } {Offline }
+        PropsBool {DUA-1A Landing Gears} {OnOff} {Online } {Offline }
+        Working {RUX-5 Landing Gear}
+        Working {RUX-5 Connector Main}
+    Center [ --- Light Systems --- ]
+        PropsBool {DUA-1A Spotlights} {OnOff} {Online } {Offline }
+        PropsBool {DUA-1A Alt Lights} {OnOff} {Online } {Offline }
+    Center [ --- Comms Systems --- ]
+        PropsBool {DUA-1A Antenna} {OnOff} {Online } {Offline }
+        Working DUA-1A Antenna
+    Center <[   ---   DAMAGE   ---   ]>
+        PropsBool {RFG-12 Projector} {OnOff} {Online } {Offline }
+        Damage
+    Center <[   ---   TURRETS   ---   ]>
+        Propbool {Gatling Gun Left} {OnOff} {LEFT TURRET} {Online } {Offline }
+        Propbool {Gatling Turret} {OnOff} {CENTER TURRET} {Online } {Offline }
+        Propbool {Gatling Gun Right} {OnOff} {RIGHT TURRET} {Online } {Offline }
+        working * ,gatlinturret
+        AmountBar {Gatling Gun Left}
+        AmountBar {Gatling Turret}
+        AmountBar {Gatling Gun Right}
+        Inventory * +ammo:50
+        
+// DRILLING
+Center <[   ---   MINING SYSTEMS   ---   ]>
+    PropsBool {DUA-1A Drills} {OnOff} {Online } {Offline }
+    PropsBool {DUA-1A Ejectors} {OnOff} {Online } {Offline }
+    Working {DUA-3c Drills}
+    Working {DUA-3c Ejectors}
+
+// INFORMATION
+Right Vessel: DUA-1 Altrax Atmo
+Right Version: A
+Right Software Update: 04/03/2019
+
+// SPEED & POWER
+Speed 50
+speedkmh
+speedmph
+echo
+altitudesea
+shipmass
+shipmass 1000000
+echo
+echo
+time 
+date

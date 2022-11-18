@@ -1,0 +1,109 @@
+[Main]
+CockpitPrefix=
+LCDPrefix=[MEN8]
+
+[Add]
+Prefix=
+Screen=1
+DefaultMenu=0
+WASDAutoDisable=true
+SwitchThrusters=false
+SwitchGyros=true
+SwitchWheels=true
+LCDAutoOff=true
+WASDPrgOn=-1
+WASDPrgOff=-1
+
+[Color]
+BackgroundColor=0,0,0
+ItemBarColor=0,6,12
+MainColor=55,155,255
+SelItemBarColor=155,55,0
+SelItemTextColor=0,0,0
+OnColor=225,65,100
+ArrowColor=155,225,255
+ErrorMSGColor=225,65,100
+HelpColor=155,225,255
+
+[TopMenu]
+0=Quick
+1=Manual Flight
+2=Auto Flight
+3=Gen View Contr
+4=Rot Controls
+5=Dep Controls
+6=Lat Controls
+7=Map Data
+
+[0]
+Shutdown;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(shutdown)
+Standby;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(standby)
+Start Up;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(startup)
+Power MW;all-show;*;power
+Batteries;all-show;*;batt
+Battery Mode;gr-batt;XUR-8 Battery Main;mode
+Hydrogen Tank;stockpile;XUR-8 Hydrogen Tank;toggle
+Main Connector;conn_lock;XUR-8 Connector Main;toggle
+Toggle Ore Detector;bl;XUR-8 Ore Detector;onoff
+[1]
+Liftoff;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(takeoff)
+Flight;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(flight)
+Land Ready;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(landing)
+Tog Bay One Doors;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayone)
+Tog Bay Two Doors;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(baytwo)
+Tog Bay Three Doors;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(baythree)
+Tog Bay Four Doors;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayfour)
+[2]
+Up;pb;XUR-8 Program [PAM];up
+Down;pb;XUR-8 Program [PAM];down
+Apply;pb;XUR-8 Program [PAM];apply
+[3]
+Log Waypoint;pb;XUR-8 Program [PM3];LOG_WAYPOINT <waypoint name>
+Log Base;pb;XUR-8 Program [PM3];LOG_BASE <waypoint name>
+Log Station;pb;XUR-8 Program [PM3];LOG_STATION <waypoint name>
+Log Landmark;pb;XUR-8 Program [PM3];LOG_LANDMARK <waypoint name>
+Log Asteroid;pb;XUR-8 Program [PM3];LOG_ASTEROID <waypoint name>
+Log Hazard;pb;XUR-8 Program [PM3];LOG_HAZARD <waypoint name>
+Plot Jump Point;pb;XUR-8 Program [PM3];PLOT_JUMP <planet name>
+Toggle Info;pb;XUR-8 Program [PM3];TOGGLE_INFO
+Toggle GPS;pb;XUR-8 Program [PM3];TOGGLE_GPS
+Toggle Names;pb;XUR-8 Program [PM3];TOGGLE_NAMES
+Prev Mode;pb;XUR-8 Program [PM3];PREVIOUS_MODE
+Next Mode;pb;XUR-8 Program [PM3];NEXT_MODE
+Next Waypoint;pb;XUR-8 Program [PM3];NEXT_WAYPOINT
+Prev Waypoint;pb;XUR-8 Program [PM3];PREVIOUS_WAYPOINT
+Prev Planet;pb;XUR-8 Program [PM3];PREVIOUS_PLANET
+Next Planet;pb;XUR-8 Program [PM3];NEXT_PLANET
+[4] 
+Rotate Left;pb;XUR-8 Program [PM3];ROTATE_LEFT
+Rotate Right;pb;XUR-8 Program [PM3];ROTATE_RIGHT
+Spin Left;pb;XUR-8 Program [PM3];SPIN_LEFT
+Spin Right;pb;XUR-8 Program [PM3];SPIN_RIGHT
+Rotate Down;pb;XUR-8 Program [PM3];ROTATE_DOWN
+Rotate Up;pb;XUR-8 Program [PM3];ROTATE_UP
+Stop;pb;XUR-8 Program [PM3];STOP
+[5]
+Zoom Out;pb;XUR-8 Program [PM3];ZOOM_OUT
+Zoom In;pb;XUR-8 Program [PM3];ZOOM_IN
+Increase Rad;pb;XUR-8 Program [PM3];INCREASE_RADIUS
+Decrease Rad;pb;XUR-8 Program [PM3];DECREASE_RADIUS
+Move Back;pb;XUR-8 Program [PM3];MOVE_BACKWARD
+Move Forward;pb;XUR-8 Program [PM3];MOVE_FORWARD
+Track Backward;pb;XUR-8 Program [PM3];TRACK_BACKWARD
+Track Forward;pb;XUR-8 Program [PM3];TRACK_FORWARD
+[6] 
+Move Left;pb;XUR-8 Program [PM3];MOVE_LEFT
+Move Right;pb;XUR-8 Program [PM3];MOVE_RIGHT
+Track Left;pb;XUR-8 Program [PM3];TRACK_LEFT
+Track Right;pb;XUR-8 Program [PM3];TRACK_RIGHT
+Move Down;pb;XUR-8 Program [PM3];MOVE_DOWN
+Move Up;pb;XUR-8 Program [PM3];MOVE_UP
+Track Down;pb;XUR-8 Program [PM3];TRACK_DOWN
+Track Up;pb;XUR-8 Program [PM3];TRACK_UP
+[7]
+Page Nav;pb;XUR-8 Program [PM3];PAGE NAVIGATION
+Next Page;pb;XUR-8 Program [PM3];NEXT_PAGE
+Prev Page;pb;XUR-8 Program [PM3];PREVIOUS_PAGE
+Scroll Up;pb;XUR-8 Program [PM3];SCROLL_UP
+Scroll Down;pb;XUR-8 Program [PM3];SCROLL_DOWN
+Scroll Home;pb;XUR-8 Program [PM3];SCROLL_HOME
