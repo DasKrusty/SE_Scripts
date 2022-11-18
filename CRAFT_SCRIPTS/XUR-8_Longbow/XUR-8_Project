@@ -27,6 +27,12 @@ DELETE_WAYPOINT <waypoint name>
 // Work out what functions we want and how they will work
 // List all the equipment we want to work with
 
+Sections of Craft:
+Comms
+XUR-8 Antenna
+XUR-8 Beacon
+XUR-8 Laser Antenna
+
 //Lights
 XUR-8 Exterior Light
 // Comms
