@@ -29,11 +29,12 @@ HelpColor=155,225,255
 0=Quick
 1=Manual Flight
 2=Auto Flight
-3=Gen View Contr
-4=Rot Controls
-5=Dep Controls
-6=Lat Controls
-7=Map Data
+3=Bays
+4=Gen View Contr
+5=Rot Controls
+6=Dep Controls
+7=Lat Controls
+8=Map Data
 
 [0]
 Shutdown;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(shutdown)
@@ -49,14 +50,23 @@ Toggle Ore Detector;bl;XUR-8 Ore Detector;onoff
 Liftoff;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(takeoff)
 Flight;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(flight)
 Land Ready;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(landing)
-Tog Bay One Doors;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayone)
-Tog Bay Two Doors;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(baytwo)
-Tog Bay Three Doors;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(baythree)
-Tog Bay Four Doors;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayfour)
 [2]
 Up;pb;XUR-8 Program [PAM];up
 Down;pb;XUR-8 Program [PAM];down
 Apply;pb;XUR-8 Program [PAM];apply
+[3]
+Tog Bay One Doors;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayone)
+Tog Bay Two Doors;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(baytwo)
+Tog Bay Three Doors;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(baythree)
+Tog Bay Four Doors;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayfour)
+Lock Bay One Conn;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayfour)
+Unlock Bay One Conn;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayfour)
+Lock Bay One Conn;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayfour)
+Unlock Bay One Conn;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayfour)
+Lock Bay One Conn;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayfour)
+Unlock Bay One Conn;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayfour)
+Lock Bay One Conn;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayfour)
+Unlock Bay One Conn;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayfour)
 [3]
 Log Waypoint;pb;XUR-8 Program [PM3];LOG_WAYPOINT <waypoint name>
 Log Base;pb;XUR-8 Program [PM3];LOG_BASE <waypoint name>

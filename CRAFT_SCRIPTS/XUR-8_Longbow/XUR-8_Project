@@ -1,3 +1,11 @@
+STATES OF FUNCTION:
+1. Powered off completely with reserve batteries 
+2. Powered on with systems up but no function - power on fuel off
+3. Standby mode with systems ready - thrusters off
+4. Flight mode
+5. Land mode
+6. Orbit takeoff
+
 TO DO:
 Get doors 
 WAITING ON
@@ -73,9 +81,17 @@ XUR-8 Hydrogen Tank
 XUR-8 Oxygen Tank
 XUR-8 Large Thruster Main
 XUR-8 Thruster
+XUR-8 Battery Main
+XUR-8 Battery Reserve
 XUR-8 Battery
 // Connections
 XUR-8 Connector Main
 XUR-8 Hinge Leg One
 XUR-8 Hinge Leg Two
 XUR-8 Magnetic Plate
+XUR-8 Piston
+
+XTC-5 Connector
+XTC-5 Medium Cargo Container
+XTC-5 Small Merge Block
+XTC-5 Small Battery
