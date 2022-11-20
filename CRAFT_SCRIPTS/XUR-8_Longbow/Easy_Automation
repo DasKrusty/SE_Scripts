@@ -336,6 +336,20 @@
 
 @onelock
 {
+    if On/Off of XUR-8 Merge Bay One = On
+    {
+        WriteNew to XUR-8 Debug LCD = Bay One Unlock
+        OnOff_Off XUR-8 Merge Bay One
+        Unlock XUR-8 Connector Main
+    }
+    else if On/Off of XUR-8 Merge Bay One = Off
+    {
+        WriteNew to XUR-8 Debug LCD = Bay One Lock
+        OnOff_On XUR-8 Merge Bay One
+        Lock XUR-8 Connector Main
+    }
+    
+    
     OnOff_On XUR-8 Merge Bay One
     Lock XUR-8 Connector Bay One
 }
