@@ -1,3 +1,12 @@
+Center <[   ---   CONNECTIONS   ---   ]>
+PropsBool {XUR-8 Connector Bay One} {OnOff} {Online } {Offline }
+PropsBool {XUR-8 Connector Bay Two} {OnOff} {Online } {Offline }
+PropsBool {XUR-8 Connector Bay Three} {OnOff} {Online } {Offline }
+PropsBool {XUR-8 Connector Bay Four} {OnOff} {Online } {Offline }
+
+
+
+
 Center <[   ---   POWER   ---   ]>
 PowerTime
 echo

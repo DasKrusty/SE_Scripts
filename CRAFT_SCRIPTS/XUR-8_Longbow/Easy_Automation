@@ -348,50 +348,14 @@
         OnOff_On XUR-8 Merge Bay One
         Lock XUR-8 Connector Main
     }
-    
-    
-    OnOff_On XUR-8 Merge Bay One
-    Lock XUR-8 Connector Bay One
 }
 
-@oneunlock
+@powerone
 {
-    OnOff_Off XUR-8 Merge Bay One
-    Unlock XUR-8 Connector Bay One
+    CustomWrite to XUR-8 Debug LCD = 
 }
 
-@twolock
+@powertwo
 {
-    OnOff_On XUR-8 Merge Bay Two
-    Lock XUR-8 Connector Bay Two
-}
-
-@twounlock
-{
-    OnOff_Off XUR-8 Merge Bay Two
-    Unlock XUR-8 Connector Bay Two
-}
-
-@threelock
-{
-    OnOff_On XUR-8 Merge Bay Three
-    Lock XUR-8 Connector Bay Three
-}
-
-@threeunlock
-{
-    OnOff_Off XUR-8 Merge Bay Three
-    Unlock XUR-8 Connector Bay Three
-}
-
-@fourlock
-{
-    OnOff_On XUR-8 Merge Bay Four
-    Lock XUR-8 Connector Bay Four
-}
-
-@fourunlock
-{
-    OnOff_Off XUR-8 Merge Bay Four
-    Unlock XUR-8 Connector Bay Four
+    CustomWrite to XUR-8 Debug LCD = 
 }

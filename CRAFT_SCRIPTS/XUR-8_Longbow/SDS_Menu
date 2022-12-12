@@ -56,17 +56,10 @@ Down;pb;XUR-8 Program [PAM];down
 Apply;pb;XUR-8 Program [PAM];apply
 [3]
 Tog Bay One Doors;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayone)
+Lock/Unlock Bay One Conn;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(onelock)
 Tog Bay Two Doors;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(baytwo)
 Tog Bay Three Doors;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(baythree)
 Tog Bay Four Doors;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayfour)
-Lock Bay One Conn;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayfour)
-Unlock Bay One Conn;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayfour)
-Lock Bay One Conn;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayfour)
-Unlock Bay One Conn;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayfour)
-Lock Bay One Conn;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayfour)
-Unlock Bay One Conn;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayfour)
-Lock Bay One Conn;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayfour)
-Unlock Bay One Conn;pb;XUR-8 Program [EA2];XUR-8 Debug LCD(bayfour)
 [3]
 Log Waypoint;pb;XUR-8 Program [PM3];LOG_WAYPOINT <waypoint name>
 Log Base;pb;XUR-8 Program [PM3];LOG_BASE <waypoint name>
