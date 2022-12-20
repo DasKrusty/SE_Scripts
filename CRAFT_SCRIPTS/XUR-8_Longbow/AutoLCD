@@ -1,70 +1,44 @@
-Center <[   ---   CONNECTIONS   ---   ]>
-PropsBool {XUR-8 Connector Bay One} {OnOff} {Online } {Offline }
-PropsBool {XUR-8 Connector Bay Two} {OnOff} {Online } {Offline }
-PropsBool {XUR-8 Connector Bay Three} {OnOff} {Online } {Offline }
-PropsBool {XUR-8 Connector Bay Four} {OnOff} {Online } {Offline }
-
-
-
-
 Center <[   ---   POWER   ---   ]>
 PowerTime
+Power {XUR-8 Battery Main}
 echo
-Working {DUA-1A Batteries}
-Power {G:DUA-1A Batteries}
-Powerin {G:MMG-4A Batteries}
-Poweriout {G:MMG-4A Batteries}
-Working {RUX-5 Hydro Engines}
-PowerP {G:RUX-5 Hydro Engines}
-PowerStoredP {G:RUX-5 Batteries}
+PowerUsedTop * 3
 
 Center <[   ---   FUEL   ---   ]>
 Center [ --- Hydrogen --- ]
-invlistx T:* {DUA-3C O2/H2 Generators} ore/ice:5000
-Tanks * Hydrogen {G:DUA-3C Hydrogen Tanks}
-PropBool {RUX-5 Hydrogen Tanks} {Stockpile} {1. Hydro Tanks} {LOCK} {READY}
-
-Center <[   ---   DAMAGE   ---   ]>
-PropsBool {RFG-12 Projector} {OnOff} {Online } {Offline }
-Damage
+Working XUR-8 O2/H2 Generator
+invlistx T:* {XUR-8 O2/H2 Generator} ore/ice:5000
+echo
+Tanks * Hydrogen {XUR-8 Hydrogen Tank}
+PropBool {XUR-8 Hydrogen Tank} {Stockpile} {Hyrdogen Tanks} {STORING} {FLOWING}
+echo
+Center <[   ---   COCKPIT   ---   ]>
+Occupied {XUR-8 Remote Control}
+PropBool {XUR-8 Door} {Open} {Door} {Open} {Closed}
+Working XUR-8 Sensor
+Oxygen
 
 Center <[   ---   SYSTEMS   ---   ]>
 Center [ --- Flight Systems --- ]
-Dampeners
-PropsBool {DUA-1A Main Thrusters} {OnOff} {Online } {Offline }
-PropsBool {DUA-1A Maneuver Thrusters} {OnOff} {Online } {Offline }
-PropsBool {DUA-1A Gyro's} {OnOff} {Online } {Offline }
+PropBool {XUR-8 Gyroscopes} {OnOff} {Gyros} {READY} {OFFLINE}
+PropBool {XUR-8 Large Thruster Main} {OnOff} {Main Thrust} {READY} {OFFLINE}
+PropBool {XUR-8 Thruster} {OnOff} {Manu Thrust} {READY} {OFFLINE}
 Center [ --- Lights Systems--- ]
-PropsBool {DUA-1A Spotlights} {OnOff} {Online } {Offline }
-PropsBool {DUA-1A Alt Lights} {OnOff} {Online } {Offline }
-Center [ --- Weapons Systems--- ]
-Propbool {Gatling Gun Left} {OnOff} {LEFT TURRET} {Online } {Offline }
-Working * missileturret,gatlingturret,interturret
-Center [ --- Deck Systems--- ]
-PropsBool {DUA-1A Landing Gears} {OnOff} {Online } {Offline }
-Working {RUX-5 Landing Gear}
-Working {RUX-5 Connector Main}
+PropBool {XUR-8 Cockpit Light} {OnOff} {Cockpit} {ON} {OFF}
+PropBool {XUR-8 Exterior Light} {OnOff} {Exterior} {ON} {OFF}
+PropBool {XUR-8 Bay Light} {OnOff} {Bay} {ON} {OFF}
 Center [ --- Comms Systems --- ]
-PropsBool {DUA-1A Antenna} {OnOff} {Online } {Offline }
-Working DUA-1A Antenna
+Working XUR-8 Antenna
+Working XUR-8 Beacon
+Working XUR-8 Laser Antenna
 
 Center <[   ---   CARGO   ---   ]>
 ShipMass 450000
-CargoAll {G:DUA-1A Cargo}
-CargoAll {G:DUA-1A Drills}
-Cargo {G:DUA-3c Cargo Containers}
-
+CargoAll {G:XUR-8 Cargo Containers}
+CargoAll {XTC-5 Medium Cargo Container}
+echo
 Center <[   ---   INVENTORY   ---   ]>
 InvListXS *T: -ingot/uranium
-InvListXS *T:
-InventoryX {G:DUA-3c Cargo Containers}
-Inventory * +all -ore
-Inventory Cargo +ingot -scrap
-Inventory {Red Storage} +ingot:300000
-Inventory [STORAGE] +component
-Inventory {Cargo Container} +all -tool -ammo
-Inventory {Large Cargo Container 3} +ingot:1000 +component:50
-Inventory {Oxygen Storage} +oxygen:100
 
 Center <[   ---   FLIGHT   ---   ]>
 Speed 50
@@ -78,18 +52,15 @@ echo
 time 
 date
 
-Center <[   ---   COCKPIT   ---   ]>
-Occupied Cockpit
-Occupied {Remote Control}
-Occupied {Cryo Chamber 3}
-Working * door:open
-Oxygen
-Oxygen Vent
-Oxygen {Oxygen Tank}
-Oxygen {Oxygen Farm}
-Oxygen {G:Oxygen Room}
-
-Center <[   ---   CONNECTIONS   ---   ]>
-Docked {T:*}
-Docked {T:Connector 1}
-DockedCNE {TG:Dock Connectors Group}
+Center <[   ---   DECK SYSTEMS   ---   ]>
+Center [ --- Bays --- ]
+PropBool {XUR-8 Merge Bay One} {OnOff} {Bay 1} {ON} {OFF}
+PropBool {XUR-8 Merge Bay Two} {OnOff} {Bay 2} {ON} {OFF}
+PropBool {XUR-8 Merge Bay Three} {OnOff} {Bay 3} {ON} {OFF}
+PropBool {XUR-8 Merge Bay Four} {OnOff} {Bay 4} {ON} {OFF}
+Center [ --- Connections --- ]
+Working XUR-8 Connector
+echo
+Center <[   ---   DAMAGE   ---   ]>
+Working XUR-8 Projector
+Damage

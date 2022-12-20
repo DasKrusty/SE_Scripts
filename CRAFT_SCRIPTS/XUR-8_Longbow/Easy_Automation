@@ -357,5 +357,5 @@
 
 @powertwo
 {
-    CustomWrite to XUR-8 Debug LCD = 
+    CustomWrite to XUR-8 Debug LCD = PowerUsedTop * 10
 }
