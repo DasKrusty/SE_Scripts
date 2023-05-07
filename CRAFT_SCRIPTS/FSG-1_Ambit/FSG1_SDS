@@ -1,0 +1,59 @@
+[Main]
+CockpitPrefix=[MEN2]
+LCDPrefix=[MEN2]
+
+[Add]
+Prefix=
+Screen=1
+DefaultMenu=0
+WASDAutoDisable=true
+SwitchThrusters=false
+SwitchGyros=true
+SwitchWheels=true
+LCDAutoOff=true
+WASDPrgOn=-1
+WASDPrgOff=-1
+
+[Color]
+BackgroundColor=0,0,0
+ItemBarColor=0,6,12
+MainColor=55,155,255
+SelItemBarColor=155,55,0
+SelItemTextColor=0,0,0
+OnColor=225,65,100
+ArrowColor=155,225,255
+ErrorMSGColor=225,65,100
+HelpColor=155,225,255
+
+[TopMenu]
+0=Quick
+1=Driver Assist
+2=Settings
+
+[0]
+Power MW;all-show;*;power
+Batteries;all-show;*;batt
+Battery Mode;gr-batt;FSG-1 Batteries;mode
+Connector;conn_lock;FSG-1 Connector;toggle
+Turret;bl;FSG-1 Custom Turret Controller;onoff
+Headlights;gr;FSG-1 Headlights;onoff
+Toggle Ore Detector;bl;FSG-1 Ore Detector;onoff
+[1]
+Start/Stop;pb;FSG-1 Program [DAS];STARTSTOP
+Low Ride;pb;FSG-1 Program [DAS];LOW_MODE
+High Ride;pb;FSG-1 Program [DAS];HIGH_MODE
+Hill Descent Control;pb;FSG-1 Program [DAS];TOGGLE_HDC
+Cruise Control;pb;FSG-1 Program [DAS];TOGGLE_CRUISECONTROL
+Auto Pilot;pb;FSG-1 Program [DAS];TOGGLE_AUTOPILOT
+Auto Pilot Resume;pb;FSG-1 Program [DAS];RESUME_AUTOPILOT
+Auto Pilot Mode;pb;FSG-1 Program [DAS];CYCLE_AUTOPILOT_MODE
+Auto Pilot Wait;pb;FSG-1 Program [DAS];CYCLE_AUTOPILOT_WAIT
+GPS Tracker On / Off;pb;FSG-1 Program [DAS];TOGGLE_GPSTRACKER
+GPS Tracker Display;pb;FSG-1 Program [DAS];TOGGLE_GPSLIST
+[2]
+Cool Lights Color;gr-light;FSG-1 Headlights;color=160,230,255/blink=0,0
+Warm Lights Color;gr-light;FSG-1 Headlights;color=255,255,180/blink=0,0
+Antenna;bl;FSG-1 Antenna;onoff
+Antenna Radius;antenna;FSG-1 Antenna;3000/500
+Ore Detector;bl;FSG-1 Ore Detector;onoff
+Projector On/Off;bl;FSG-1 Projector;onoff

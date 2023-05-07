@@ -1,0 +1,79 @@
+[Main]
+CockpitPrefix=[MEN1]
+LCDPrefix=[MEN1]
+
+[Add]
+Prefix=
+Screen=1
+DefaultMenu=0
+WASDAutoDisable=true
+SwitchThrusters=false
+SwitchGyros=true
+SwitchWheels=true
+LCDAutoOff=true
+WASDPrgOn=-1
+WASDPrgOff=-1
+
+[Color]
+BackgroundColor=0,0,0
+ItemBarColor=0,6,12
+MainColor=55,155,255
+SelItemBarColor=155,55,0
+SelItemTextColor=0,0,0
+OnColor=225,65,100
+ArrowColor=155,225,255
+ErrorMSGColor=225,65,100
+HelpColor=155,225,255
+
+[TopMenu]
+0=Quick
+1=Driver Assist
+2=Settings
+
+[0]
+Power MW;all-show;*;power
+Batteries;all-show;*;batt
+Battery Mode;gr-batt;TPG-2 Batteries;mode
+//Status;;pb;TPG-2 Program [EA2];status
+//Connector;conn_lock;TPG-2 Connector;toggle
+//Headlights;gr;TPG-2 Headlights;onoff
+//Spotlights;gr;TPG-2 Spotlights;onoff
+//Doors;pb;TPG-2 Program [EA2];doors
+[1]
+Start/Stop;pb;TPG-2 Program [DAS];STARTSTOP
+Low Ride;pb;TPG-2 Program [DAS];LOW_MODE
+High Ride;pb;TPG-2 Program [DAS];HIGH_MODE
+Hill Descent Control;pb;TPG-2 Program [DAS];TOGGLE_HDC
+Cruise Control;pb;TPG-2 Program [DAS];TOGGLE_CRUISECONTROL
+Auto Pilot;pb;TPG-2 Program [DAS];TOGGLE_AUTOPILOT
+Auto Pilot Resume;pb;TPG-2 Program [DAS];RESUME_AUTOPILOT
+Auto Pilot Mode;pb;TPG-2 Program [DAS];CYCLE_AUTOPILOT_MODE
+Auto Pilot Wait;pb;TPG-2 Program [DAS];CYCLE_AUTOPILOT_WAIT
+GPS Tracker On / Off;pb;TPG-2 Program [DAS];TOGGLE_GPSTRACKER
+GPS Tracker Display;pb;TPG-2 Program [DAS];TOGGLE_GPSLIST
+[2]
+Cool Lights Color;gr-light;TPG-2 Headlights;color=160,230,255/blink=0,0
+Warm Lights Color;gr-light;TPG-2 Headlights;color=255,255,180/blink=0,0
+Antenna;bl;TPG-2 Antenna;onoff
+Antenna Radius;antenna;TPG-2 Antenna;3000/500
+Ore Detector;bl;TPG-2 Ore Detector;onoff
+Projector On/Off;bl;TPG-2 Projector;onoff
+
+
+
+TPG-2 Program
+TPG-2 Antenna
+TPG-2 Button Door
+TPG-2 LCD Top
+TPG-2 Hinge Door
+TPG-2 Hinge Connector
+TPG-2 Hydrogen Engine
+TPG-2 Hydrogen Tank
+TPG-2 Light Panel Interior
+TPG-2 Ore Detector
+TPG-2 Projector
+TPG-2 Sensor Door
+TPG-2 Battery
+TPG-2 Standby Battery
+TPG-2 Spotlight
+TPG-2 Text Panel
