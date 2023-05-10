@@ -15,6 +15,10 @@
 {Connector}
     Lock TCX-4 Connector Below
     Unlock TCX-4 Connector Below
+    if connected of Connector_1 = Connectable {} 
+    "Connectable" 
+    "Connected" 
+    "Unconnected"
 {Delay}
     Delay 1000
 {Gatling Gun}
@@ -106,6 +110,8 @@
     Show Actions of MMG-4A Hinge Ramp
 {Show Properties}
     Show Properties of MyPiston
+{Sound Block}
+    Sound of Sound Block = Lights off 
 {Thruster}
     OnOff_Off TCX-4 Hydrogen Thruster
 {Variables}

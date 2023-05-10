@@ -1,36 +1,30 @@
 @status
 {
 // must be able to figure out what mode it is in and change to the next mode
+CustomWriteNew to TPG-2 Hydrogen Engine = "Standby Mode"
+if 
 }
 
 @connector
 {
-    // must be able to figure out if the hinge is connected or waiting
-    writenew to Debug LCD = Connecting Connector
-    delay 1000
-    attach TPG-2 Hinge Connector
+    if onoff of TPG-2 Hinge Connector = off{
+        OnOff_On TPG-2 Hinge Connector
+        attach TPG-2 Hinge Connector
+    }
 }
 
 @doors
 {
-    if current angle of TPG-2 Hinge Door < 45
-        {
-            writenew to Debug LCD = Opening Doors
-            reverse TPG-2 Hinge Door
-            OnOff_On TPG-2 Light Panel Interior
-            delay 3000
-            writenew to Debug LCD = Closing Doors
-            reverse TPG-2 Hinge Door
-            delay 3000
-            OnOff_On TPG-2 Light Panel Interior
-        }
-    else if current angle of TPG-2 Hinge Door > 45
-        {
-            writenew to Debug LCD = Closing Doors
-            reverse TPG-2 Hinge Door
-            delay 3000
-            OnOff_On TPG-2 Light Panel Interior
-        }
+    writenew to Debug LCD = Opening Doors
+    OnOff_On TPG-2 Light Panel Interior
+    delay 1000
+    Velocity of TPG-2 Hinge Door = -5
+    delay 7000
+    writenew to Debug LCD = Closing Doors
+    Velocity of TPG-2 Hinge Door = 5
+    delay 7000
+    OnOff_Off TPG-2 Light Panel Interior
+    Velocity of TPG-2 Hinge Door = 0
 }
 
 
