@@ -1,16 +1,45 @@
 @status
 {
-// must be able to figure out what mode it is in and change to the next mode
-CustomWriteNew to TPG-2 Hydrogen Engine = "Standby Mode"
-if 
+    if Color of TPG-2 Light Panel Interior = 255:255:255
+    {
+        Color of TPG-2 Light Panel Interior = 255:0:0
+        OnOff_Off TPG-2 Antenna
+        OnOff_Off TPG-2 Hydrogen Engine
+        OnOff_Off TPG-2 Ore Detector
+        OnOff_Off TPG-2 Sensor Door
+        OnOff_Off TPG-2 Spotlight
+        Recharge TPG-2 Battery
+        Recharge TPG-2 Standby Battery
+    }
+    else if Color of TPG-2 Light Panel Interior = 255:255:0
+    {
+        OnOff_Off TPG-2 Antenna
+        OnOff_Off TPG-2 Hydrogen Engine
+        OnOff_Off TPG-2 Ore Detector
+        OnOff_Off TPG-2 Sensor Door
+        Discharge TPG-2 Battery
+        Recharge TPG-2 Standby Battery
+    }
+    else if Color of TPG-2 Light Panel Interior = 255:0:0
+    {
+        OnOff_On TPG-2 Antenna
+        OnOff_On TPG-2 Hydrogen Engine
+        OnOff_On TPG-2 Ore Detector
+        OnOff_On TPG-2 Sensor Door
+        OnOff_On TPG-2 Headlight
+        Discharge TPG-2 Battery
+        Recharge TPG-2 Standby Battery
+    }
 }
 
-@connector
+@conatt
 {
-    if onoff of TPG-2 Hinge Connector = off{
-        OnOff_On TPG-2 Hinge Connector
-        attach TPG-2 Hinge Connector
-    }
+    attach TPG-2 Hinge Connector
+}
+
+@condet
+{
+    detach TPG-2 Hinge Connector
 }
 
 @doors

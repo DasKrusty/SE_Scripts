@@ -34,11 +34,12 @@ HelpColor=155,225,255
 Power MW;all-show;*;power
 Batteries;all-show;*;batt
 Battery Mode;gr-batt;TPG-2 Batteries;mode
-//Status;;pb;TPG-2 Program [EA2];status
-//Connector;conn_lock;TPG-2 Connector;toggle
-//Headlights;gr;TPG-2 Headlights;onoff
-//Spotlights;gr;TPG-2 Spotlights;onoff
-//Doors;pb;TPG-2 Program [EA2];doors
+Status;pb;TPG-2 Program [EA2];status
+Headlights;gr;TPG-2 Headlights;onoff
+Spotlights;gr;TPG-2 Spotlights;onoff
+Doors;pb;TPG-2 Program [EA2];doors
+Conn Det;pb;TPG-2 Program [EA2];condet
+Conn Att;pb;TPG-2 Program [EA2];conatt
 [1]
 Start/Stop;pb;TPG-2 Program [DAS];STARTSTOP
 Low Ride;pb;TPG-2 Program [DAS];LOW_MODE
