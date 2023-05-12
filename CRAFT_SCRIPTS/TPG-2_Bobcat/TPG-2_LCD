@@ -1,3 +1,5 @@
+//LCD_TAG = [LCD]
+
 Center <[   ---   POWER   ---   ]>
 PowerTime
 Power {XUR-8 Battery Main}

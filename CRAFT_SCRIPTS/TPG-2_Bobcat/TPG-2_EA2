@@ -3,74 +3,63 @@
     if Color of TPG-2 Light Panel Interior = 255:255:255
     {
         Color of TPG-2 Light Panel Interior = 255:0:0
+        writenew to Debug LCD = Powered Down
+        OnOff_Off TPG-2 Air Vent Fan
         OnOff_Off TPG-2 Antenna
+        Discharge TPG-2 Standby Battery
+        OnOff_Off TPG-2 Exhaust Pipe
         OnOff_Off TPG-2 Hydrogen Engine
+        Stockpile of TPG-2 Hydrogen Tank = True
+        OnOff_Off TPG-2 Offset Spotlight
         OnOff_Off TPG-2 Ore Detector
         OnOff_Off TPG-2 Sensor Door
-        OnOff_Off TPG-2 Spotlight
-        Recharge TPG-2 Battery
-        Recharge TPG-2 Standby Battery
-    }
-    else if Color of TPG-2 Light Panel Interior = 255:255:0
-    {
-        OnOff_Off TPG-2 Antenna
-        OnOff_Off TPG-2 Hydrogen Engine
-        OnOff_Off TPG-2 Ore Detector
-        OnOff_Off TPG-2 Sensor Door
-        Discharge TPG-2 Battery
-        Recharge TPG-2 Standby Battery
+        OnOff_Off TPG-2 Headlight
     }
     else if Color of TPG-2 Light Panel Interior = 255:0:0
     {
+        Color of TPG-2 Light Panel Interior = 255:255:0
+        writenew to Debug LCD = Standby
         OnOff_On TPG-2 Antenna
-        OnOff_On TPG-2 Hydrogen Engine
-        OnOff_On TPG-2 Ore Detector
-        OnOff_On TPG-2 Sensor Door
-        OnOff_On TPG-2 Headlight
         Discharge TPG-2 Battery
         Recharge TPG-2 Standby Battery
+        OnOff_On TPG-2 Ore Detector
+        OnOff_On TPG-2 Sensor Door
+    }
+    else if Color of TPG-2 Light Panel Interior = 255:255:0
+    {
+        Color of TPG-2 Light Panel Interior = 255:255:255
+        writenew to Debug LCD = Active
+        OnOff_On TPG-2 Air Vent Fan
+        OnOff_On TPG-2 Exhaust Pipe
+        OnOff_On TPG-2 Hydrogen Engine
+        Stockpile of TPG-2 Hydrogen Tank = False
+        OnOff_On TPG-2 Headlight
     }
 }
 
 @conatt
 {
-    attach TPG-2 Hinge Connector
+    Attach TPG-2 Hinge Connector
+    writenew to Debug LCD = Attempted Attach
 }
 
 @condet
 {
-    detach TPG-2 Hinge Connector
+    Detach TPG-2 Hinge Connector
+    writenew to Debug LCD = Attempted Detach
 }
 
 @doors
 {
-    writenew to Debug LCD = Opening Doors
+    writenew to TPG-2 Debug LCD = Opening Doors
     OnOff_On TPG-2 Light Panel Interior
     delay 1000
     Velocity of TPG-2 Hinge Door = -5
     delay 7000
-    writenew to Debug LCD = Closing Doors
+    writenew to TPG-2 Debug LCD = Closing Doors
     Velocity of TPG-2 Hinge Door = 5
-    delay 7000
+    delay 5000
     OnOff_Off TPG-2 Light Panel Interior
     Velocity of TPG-2 Hinge Door = 0
+    Writenew to TPG-2 Debug LCD = Doors Closed
 }
-
-
-
-TPG-2 Program
-TPG-2 Antenna
-TPG-2 Button Door
-TPG-2 LCD Top
-TPG-2 Hinge Door
-TPG-2 Hinge Connector
-TPG-2 Hydrogen Engine
-TPG-2 Hydrogen Tank
-TPG-2 Light Panel Interior
-TPG-2 Ore Detector
-TPG-2 Projector
-TPG-2 Sensor Door
-TPG-2 Battery
-TPG-2 Standby Battery
-TPG-2 Spotlight
-TPG-2 Text Panel

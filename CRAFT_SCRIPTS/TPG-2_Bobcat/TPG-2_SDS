@@ -1,6 +1,6 @@
 [Main]
-CockpitPrefix=[MEN1]
-LCDPrefix=[MEN1]
+CockpitPrefix=[MEN2]
+LCDPrefix=[MEN2]
 
 [Add]
 Prefix=
@@ -34,12 +34,12 @@ HelpColor=155,225,255
 Power MW;all-show;*;power
 Batteries;all-show;*;batt
 Battery Mode;gr-batt;TPG-2 Batteries;mode
-Status;pb;TPG-2 Program [EA2];status
+Status;pb;TPG-2 Program [EA2];TPG-2 Debug LCD(status)
 Headlights;gr;TPG-2 Headlights;onoff
 Spotlights;gr;TPG-2 Spotlights;onoff
-Doors;pb;TPG-2 Program [EA2];doors
-Conn Det;pb;TPG-2 Program [EA2];condet
-Conn Att;pb;TPG-2 Program [EA2];conatt
+Doors;pb;TPG-2 Program [EA2];TPG-2 Debug LCD(doors)
+Conn Det;pb;TPG-2 Program [EA2];TPG-2 Debug LCD(condet)
+Conn Att;pb;TPG-2 Program [EA2];TPG-2 Debug LCD(conatt)
 [1]
 Start/Stop;pb;TPG-2 Program [DAS];STARTSTOP
 Low Ride;pb;TPG-2 Program [DAS];LOW_MODE

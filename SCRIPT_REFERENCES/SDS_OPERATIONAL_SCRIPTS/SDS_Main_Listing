@@ -1,3 +1,7 @@
+// For DAS to allow SDS to control DAS commands:
+DAS - if((updateSource & (UpdateType.Terminal | UpdateType.Trigger | UpdateType.Script)) != 0)
+______________________________________________________________________________________________
+
 [Main]
 CockpitPrefix=[MEN]
 LCDPrefix=[MEN]
@@ -35,10 +39,11 @@ HelpColor=155,225,255
 6=Map
 7=Map Data
 
-[0] // Quick list to access - common requests
+[0]
 Power MW;all-show;*;power
 Batteries;all-show;*;batt
 Battery Mode;gr-batt;GFS-1A Batteries;mode
+MBP;gr-show;GUM-4 Batteries;batt
 Power On;pb;GUM-4 Program [EA2];GUM-4 Debug LCD(poweron)
 Recharge;pb;GUM-4 Program [EA2];GUM-4 Debug LCD(recharge)
 Standby;pb;GUM-4 Program [EA2];GUM-4 Debug LCD(standby)
@@ -47,8 +52,7 @@ Hydrogen Tank;stockpile;GFS-2A Hydrogen Tank;toggle
 Left connector;conn_lock;Connector Left (Launch Vehicle);toggle
 Headlights;gr;GFS-1A Headlights;onoff
 Toggle Ore Detector;bl;XUR-8 Ore Detector;onoff
-
-[1] // DAS Commands
+[1]
 Start/Stop;pb;GFS-1A Program [DAS];STARTSTOP
 Low Ride;pb;GFS-1A Program [DAS];LOW_MODE
 High Ride;pb;GFS-1A Program [DAS];HIGH_MODE
@@ -91,6 +95,9 @@ Hauling Mode;pb;GUM-4 Program [EA2];GUM-4 Debug LCD(haulingmode)
 Keep Ice;gr-sorter_list;GUM-4 Sorters;black/Ore-Ice
 Throw Ice;gr-sorter_list;GUM-4 Sorters;white/Ore-Ice
 Ejectors;gr;GUM-4 Ejectors;onoff
+Inv Vol;all-show;*;inv
+Ship Mass;all-show;*;mass/total/100000
+Cargo Fill;gr-show;Cargo Containers;inv
 [6]
 Log Waypoint;pb;XUR-8 Program [MAP];LOG_WAYPOINT
 Plot Jump;pb;XUR-8 Program [MAP];PLOT_JUMP
@@ -133,11 +140,3 @@ Prev Page;pb;XUR-8 Program [MAP];PREVIOUS_PAGE
 Scroll Up;pb;XUR-8 Program [MAP];SCROLL_UP
 Scroll Down;pb;XUR-8 Program [MAP];SCROLL_DOWN
 Scroll Home;pb;XUR-8 Program [MAP];SCROLL_HOME
-
-LOG_WAYPOINT <waypoint name>
-LOG_BASE <waypoint name>
-LOG_STATION <waypoint name>
-LOG_LANDMARK <waypoint name>
-LOG_ASTEROID <waypoint name>
-LOG_HAZARD <waypoint name>
-DELETE_WAYPOINT <waypoint name>

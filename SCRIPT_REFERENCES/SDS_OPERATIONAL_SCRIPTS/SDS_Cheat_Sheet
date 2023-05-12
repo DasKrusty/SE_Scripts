@@ -1,83 +1,7 @@
-// COMMANDS
-
-// ANTENNA & ORE
-Antenna;bl;GFS-1A Antenna;onoff
-Antenna Radius;antenna;GFS-1A Antenna;3000/500
-Ore Detector;bl;GFS-1A Ore Detector;onoff
-// DAS
-Start/Stop;pb;GFS-1A Program [DAS];STARTSTOP
-Low Ride;pb;GFS-1A Program [DAS];LOW_MODE
-High Ride;pb;GFS-1A Program [DAS];HIGH_MODE
-Hill Descent Control;pb;GFS-1A Program [DAS];TOGGLE_HDC
-Cruise Control;pb;GFS-1A Program [DAS];TOGGLE_CRUISECONTROL
-Auto Pilot;pb;GFS-1A Program [DAS];TOGGLE_AUTOPILOT
-Auto Pilot Resume;pb;GFS-1A Program [DAS];RESUME_AUTOPILOT
-Auto Pilot Mode;pb;GFS-1A Program [DAS];CYCLE_AUTOPILOT_MODE
-Auto Pilot Wait;pb;GFS-1A Program [DAS];CYCLE_AUTOPILOT_WAIT
-GPS Tracker On / Off;pb;GFS-1A Program [DAS];TOGGLE_GPSTRACKER
-GPS Tracker Display;pb;GFS-1A Program [DAS];TOGGLE_GPSLIST
-// EJECTORS
-Keep Ice;gr-sorter_list;GUM-4 Sorters;black/Ore-Ice
-Throw Ice;gr-sorter_list;GUM-4 Sorters;white/Ore-Ice
-Ejectors;gr;GUM-4 Ejectors;onoff
-// HYDROGEN
-Engine On/Off;bl;GFS-2A Hydrogen Engine;onoff
-Hydrogen Tank;stockpile;GFS-2A Hydrogen Tank;toggle
-// LIGHTS
-Headlights;gr;GFS-1A Headlights;onoff
-Cool Lights Color;gr-light;GFS-1A Lights;color=160,230,255/blink=0,0
-Warm Lights Color;gr-light;GFS-1A Lights;color=255,255,180/blink=0,0
-Covert Lights Color;gr-light;GFS-1A Lights;color=255,0,0/blink=0,0
-// POWER
-Power MW;all-show;*;power
-Batteries;all-show;*;batt
-MBP;gr-show;GUM-4 Batteries;batt
-Battery Mode;gr-batt;GFS-1A Batteries;mode
-// PROGRAMMING BLOCK
-Power On;pb;GUM-4 Program [EA2];GUM-4 Debug LCD(poweron)
-Recharge;pb;GUM-4 Program [EA2];GUM-4 Debug LCD(recharge)
-Standby;pb;GUM-4 Program [EA2];GUM-4 Debug LCD(standby)
-Mining Mode;pb;GUM-4 Program [EA2];GUM-4 Debug LCD(miningmode)
-Hauling Mode;pb;GUM-4 Program [EA2];GUM-4 Debug LCD(haulingmode)
-Piston Jacks;pb;GUM-4 Program [EA2];GUM-4 Debug LCD(pistonjacks)
-// PROJECTOR
-Projector On/Off;bl;GFS-2A Projector;onoff
-// WEAPONS
-Turret Controller;bl;GFS-1A Custom Turret Controller;onoff
-// WHIPS FIRING CONTROL FOR MISSILES
-Diable Firing;pb;GFS-2A Program [LAMP];disable_fire
-Enable Firing;pb;GFS-2A Program [LAMP];enable_fire
-Mode Switch;pb;GFS-2A Program [LAMP];mode_switch
-Lock;pb;GFS-2A Program [LAMP];lock_switch
-Fire Missile;pb;GFS-2A Program [LAMP];fire
-Retask Missile;pb;GFS-2A Program [LAMP];Retask
-Kill Missile;pb;GFS-2A Program [LAMP];kill
-Autofire;pb;GFS-2A Program [LAMP];autofire_switch
-Top Down Attack;pb;GFS-2A Program [LAMP];topdown_switch
-Evasion;pb;GFS-2A Program [LAMP];evasion_switch
-Stealth;pb;GFS-2A Program [LAMP];stealth_switch
-
-[0]                            - section of lights and doors control points
-Light 1;bl;Corner Light;onoff
-Light 2;bl;Corner Light 2;onoff
-All Lights;gr;Lights;onoff
-Door 1;door;Sliding Door;toggle
-Door 2;door;Sliding Door 2;toggle
-All Doors;gr-door;Doors;toggle
-[1]                            - section of thrusters and batt control points
-Brake Thrusters;thrust;all/backward;onoff
-All Thrusters;thrust;all/all;onoff
-Inv Vol;all-show;*;inv
-Ship Mass;all-show;*;mass/total/100000
-All Batts;all-show;*;batt
-Cargo Fill;gr-show;Cargo Containers;inv
-
 [AutoAirlocks]
 AutoAirlock;gr;1.5;0
 
 Group_name; gr; Time_to_AutoClose; Air_Pumping_Time
-
-
 
 [Command Type]  [Command Description]           [The Command Arguments]
 pb	            Programmable block	    	
@@ -306,3 +230,199 @@ And if we want to loop to infinity in 3 seconds we run [0] section ;run;0;3
 
 //To Start Sub Routine
 Run sub-program;run;0;0
+
+References: 
+
+Antenna: 
+
+Antenna;bl;Antenna;onoff 
+
+Antenna Radius;antenna;Antenna;3000/500 
+
+ 
+
+Airlocks / Doors: 
+
+Left Airlock;gr-airlock;Left Doors;0/2 
+
+Right Airlock;gr-airlock;Right Doors;0/2 
+
+Left Ext Door;door;Door Left Ext;toggle 
+
+Left Int Door;door;Door Left Int;toggle 
+
+Right Ext Door;door;Door Right Ext;toggle 
+
+Right Int Door;door;Door Right Int;toggle 
+
+Alarm Close All;gr-door;All Doors;close 
+
+ 
+
+Cargo: 
+
+Cargo Vol;all-show;*;inv 
+
+Cargo Mass;all-show;*;mass/cargo/1000000 
+
+Total Mass;all-show;*;mass/total/1376000 
+
+Ammo;show;Rocket Launcher;inv 
+
+ 
+
+Run [0] sub-program;run;0;0 
+
+Pistons: 
+
+Right Piston;piston_vel;Piston Right;0/set/1 
+
+Both Pistons;gr-piston_vel;Pistons Both;0/set/1 
+
+ 
+
+Rotors: 
+
+Right Rotor;rotor_vel;Rotor Right;0/1 
+
+Both Rotors;gr-rotor_vel;Rotors Both;0/1 
+
+ 
+
+Lights: 
+
+Cool Lights Color;gr-light;RMG-1A Lights;color=160,230,255/blink=0,0 
+
+Warm Lights Color;gr-light;RMG-1A Lights;color=255,255,180/blink=0,0 
+
+Spotlights Low;gr;RMG-1A Spotlight Low;onoff 
+
+Blink-Red Lights;gr-light;Interior Lights;color=255,0,0/blink=1.5,70 
+
+ 
+
+Connectors: 
+
+Connector;conn_lock;Connector;toggle 
+
+ 
+
+Batteries: 
+
+Batteries Mode;gr-batt;Batteries;mode 
+
+Power MW;all-show;*;power 
+
+Batts;all-show;*;batt 
+
+ 
+
+Gravity Generator: 
+
+Grav +/-;grav;Grav;-3-0.1 
+
+Grav Set;grav;Grav;0-set-5 
+
+Gravity;all-show;*;grav/nat 
+
+ 
+
+Other Menu: 
+
+Up;pb;+ProgrBlock OPER (Orange);up 
+
+Down;pb;+ProgrBlock OPER (Orange);down 
+
+Enter;pb;+ProgrBlock OPER (Orange);enter 
+
+Prev;pb;+ProgrBlock OPER (Orange);prev 
+
+Next;pb;+ProgrBlock OPER (Orange);next 
+
+ 
+
+[0 sub-program] 
+
+activate sound;sound;Sound Block;play/Alert 1/5 
+
+here we are lights off;gr;Lights Both;off 
+
+here we are stop rotating;gr-rotor_vel;Rotors Both;0 
+
+extend pistons....;gr-piston_vel;Pistons Both;2.5 
+
+...and go to 1 through 4 seconds;run;1;4 
+
+[1 rotate and light] 
+
+;gr-light;Lights Both;blink=0.5,50 
+
+;gr;Lights Both;on 
+
+;gr-rotor_vel;Rotors Both;5 
+
+;run;2;5 
+
+[2 reverse rotation] 
+
+;gr-rotor_vel;Rotors Both;-5 
+
+;run;3;5 
+
+[3 off and retract] 
+
+;gr-light;Lights Both;blink=0,0 
+
+;gr;Lights Both;off 
+
+;gr-rotor_vel;Rotors Both;0 
+
+;gr-piston_vel;Pistons Both;-2.5 
+
+;run;4;4 
+
+[4 last action] 
+
+;gr-piston_vel;Pistons Both;0 
+
+;sound;Sound Block;play/Objective complete 
+
+Spotlights;bl;TCX-4 Spolight;onoff 
+
+Launch;pb;TCX-4 Program [EA2];TCX-4 Debug LCD(launch) 
+
+Land;pb;TCX-4 Program [EA2];TCX-4 Debug LCD(land) 
+
+ 
+
+Program Blocks: 
+
+Orbit Planet;pb;TCX-4 Program [EA2];TCX-4 Debug LCD(escape) 
+
+Thrusters;bl;TCX-4 Hydrogen Thruster;onoff 
+
+Aux Thrusters;gr;TCX-4 Heavy Lift Thrusters;onoff 
+
+Connect POD;pb;TCX-4 Program [EA2];TCX-4 Debug LCD(cpod) 
+
+Disconnect POD;pb;TCX-4 Program [EA2];TCX-4 Debug LCD(dpod) 
+
+ 
+
+Thrusters: 
+
+All Thrusters (group);gr;All Thrusters;onoff 
+
+All Thrusters v2;thrust;all/all;onoff 
+
+Brake Thrusters v2;thrust;all/backward;onoff 
+
+ 
+
+Sound: 
+
+Play Alert 5 sec;sound;Sound Block;play/Alert 2/5 
+
+Play Fun Music;sound;Sound Block;play/Fun Music 
+
+Stop Sound;sound;Sound Block;stop 

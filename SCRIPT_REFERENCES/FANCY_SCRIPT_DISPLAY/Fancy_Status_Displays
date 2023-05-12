@@ -4,10 +4,7 @@ EndStats
 
 Program [2ACLCD],clone:0 position(285,10) fontsize=0.65 TextColor(55,155,255)
 
-Reactor + Batteries + Hydrogen Engine + Gap40 + Hydrogen Tank + O2/H2 Generator, Shortbar AnalogBar Length=175 FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
-
 Drill 1 + Drill 2, FrameColor(255,55,0) Scale=3 NoHeadline Position(30,30) IconColor(55,155,255)
-
 Advanced Rotor 3x3 Right, Optional barcolor(255,55,0) Position(405,90) Length=400 Tallbar AnalogBar FrameColor(55,155,255) NoHeadline
 
 TCX-4 Hydrogen Thruster, position(30,375) shortbar length=100 NoHeadline
@@ -15,10 +12,29 @@ TCX-4 Gatling Turret, shortbar length=150 NoHeadline position(20,30)
 TCX-4 Gatling Gun, shortbar length=150 NoHeadline 
 TCX-4 Gyroscope, shortbar length=150 NoHeadline 
 
-GUM-4 Batteries, barcolor(255,55,0) Smallbar AnalogBar Position(110,90) FrameColor(55,155,255) NoHeadline 
-GUM-4 Hydrogen Engines, barcolor(255,55,0) Smallbar AnalogBar Position(110,150) FrameColor(55,155,255) NoHeadline
-GUM-4 Hydrogen Tanks, barcolor(255,55,0) Smallbar AnalogBar Position(110,210) FrameColor(55,155,255) NoHeadline
-GUM-4 O2/H2 Generator, barcolor(255,55,0) Smallbar AnalogBar Position(110,270) FrameColor(55,155,255) NoHeadline
+//Power
+ShowStats 
+,Fontsize=1.3 TextColor(55,155,255) center Text:POWER
+GTP-2 Batteries, shortbar FrameColor(55,155,255) NoHeadline AnalogBar 
+GTP-2 Hydrogen Engine, shortbar FrameColor(55,155,255) NoHeadline AnalogBar 
+GTP-2 Hydrogen Tank, shortbar FrameColor(55,155,255) NoHeadline AnalogBar 
+XUK-5 O2/H2 Generator, Shortbar AnalogBar Length=175 FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+GTP-2 LCD [2LCD],clone:0 position(200,15) fontsize=0.6 TextColor(55,155,255) 
+EndStats 
 
-//Power Stats
-Reactor + Batteries + Hydrogen Engine, Shortbar AnalogBar Length=175 FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+//Life Support
+ShowStats
+,Fontsize=1.3 TextColor(55,155,255) center Text:LIFE SUPPORT
+XUR-8 Oxygen Tank, Widebar AnalogBar FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+XUR-8 Air Vent, Widebar AnalogBar FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+EndStats
+
+//Thrusters
+XUR-8 ShowStats
+,Fontsize=1.1 TextColor(55,155,255) center Text:THRUSTERS
+Gap30 + XUR-8 Large Thruster Main, Shortbar AnalogBar Length=175 FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+Gap30 + XUR-8 Thruster FO, Shortbar AnalogBar Length=175 FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+Gap30 + XUR-8 Thruster BA, Shortbar AnalogBar Length=175 FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+Gap30 + XUR-8 Thruster LE, Shortbar AnalogBar Length=175 FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+Gap30 + XUR-8 Thruster RI, Shortbar AnalogBar Length=175 FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+EndStats

@@ -93,3 +93,84 @@ echo
 echo
 time 
 date
+
+Center <[   ---   POWER   ---   ]>
+PowerTime
+Power {XUR-8 Battery Main}
+echo
+PowerUsedTop * 3
+
+Center <[   ---   FUEL   ---   ]>
+Center [ --- Hydrogen --- ]
+Working XUR-8 O2/H2 Generator
+invlistx T:* {XUR-8 O2/H2 Generator} ore/ice:5000
+echo
+Tanks * Hydrogen {XUR-8 Hydrogen Tank}
+PropBool {XUR-8 Hydrogen Tank} {Stockpile} {Hyrdogen Tanks} {STORING} {FLOWING}
+echo
+Center <[   ---   COCKPIT   ---   ]>
+Occupied {XUR-8 Remote Control}
+PropBool {XUR-8 Door} {Open} {Door} {Open} {Closed}
+Working XUR-8 Sensor
+Oxygen
+
+Center <[   ---   SYSTEMS   ---   ]>
+Center [ --- Flight Systems --- ]
+PropBool {XUR-8 Gyroscopes} {OnOff} {Gyros} {READY} {OFFLINE}
+PropBool {XUR-8 Large Thruster Main} {OnOff} {Main Thrust} {READY} {OFFLINE}
+PropBool {XUR-8 Thruster} {OnOff} {Manu Thrust} {READY} {OFFLINE}
+Center [ --- Lights Systems--- ]
+PropBool {XUR-8 Cockpit Light} {OnOff} {Cockpit} {ON} {OFF}
+PropBool {XUR-8 Exterior Light} {OnOff} {Exterior} {ON} {OFF}
+PropBool {XUR-8 Bay Light} {OnOff} {Bay} {ON} {OFF}
+Center [ --- Comms Systems --- ]
+Working XUR-8 Antenna
+Working XUR-8 Beacon
+Working XUR-8 Laser Antenna
+
+Center <[   ---   CARGO   ---   ]>
+ShipMass 450000
+CargoAll {G:XUR-8 Cargo Containers}
+CargoAll {XTC-5 Medium Cargo Container}
+echo
+Center <[   ---   INVENTORY   ---   ]>
+InvListXS *T: -ingot/uranium
+
+Center <[   ---   FLIGHT   ---   ]>
+Speed 50
+speedkmh
+speedmph
+Altitude
+echo
+altitudesea
+shipmass 1000000
+echo
+time 
+date
+
+Center <[   ---   DECK SYSTEMS   ---   ]>
+Center [ --- Bays --- ]
+PropBool {XUR-8 Merge Bay One} {OnOff} {Bay 1} {ON} {OFF}
+PropBool {XUR-8 Merge Bay Two} {OnOff} {Bay 2} {ON} {OFF}
+PropBool {XUR-8 Merge Bay Three} {OnOff} {Bay 3} {ON} {OFF}
+PropBool {XUR-8 Merge Bay Four} {OnOff} {Bay 4} {ON} {OFF}
+Center [ --- Connections --- ]
+Working XUR-8 Connector
+echo
+Center <[   ---   DAMAGE   ---   ]>
+Working XUR-8 Projector
+Damage
+
+Speed 40 
+
+speedkmh 
+
+speedmph 
+
+echo 
+
+PowerTime 
+
+echo 
+
+Damage 
