@@ -1,0 +1,91 @@
+@status
+{
+    if Color of DRG-2 Light Panel Interior = 255:255:255
+    {
+        Color of DRG-2 Light Panel Interior = 255:0:0
+        writenew to Debug LCD = Powered Down
+        OnOff_Off DRG-2 Air Vent Fan
+        OnOff_Off DRG-2 Antenna
+        Discharge DRG-2 Standby Battery
+        OnOff_Off DRG-2 Exhaust Pipe
+        OnOff_Off DRG-2 Hydrogen Engine
+        Stockpile of DRG-2 Hydrogen Tank = True
+        OnOff_Off DRG-2 Spotlight
+        OnOff_Off DRG-2 Ore Detector
+        OnOff_Off DRG-2 Sensor Door
+        OnOff_Off DRG-2 Headlight
+        OnOff_Off DRG-2 AI Defensive (Combat)
+        OnOff_Off DRG-2 Turret Controller
+        OnOff_Off DRG-2 Timer
+        OnOff_Off DRG-2 Beacon
+        Color of DRG-2 Headlight = 255:255:255
+        Color of DRG-2 Spotlight = 255:255:255
+    }
+    else if Color of DRG-2 Light Panel Interior = 255:0:0
+    {
+        Color of DRG-2 Light Panel Interior = 255:255:0
+        writenew to Debug LCD = Standby
+        OnOff_On DRG-2 Antenna
+        Discharge DRG-2 Battery
+        Recharge DRG-2 Standby Battery
+        OnOff_On DRG-2 Ore Detector
+        OnOff_On DRG-2 Sensor Door
+        OnOff_On DRG-2 AI Defensive (Combat)
+        OnOff_On DRG-2 Turret Controller
+        OnOff_On DRG-2 Timer
+        OnOff_On DRG-2 Beacon
+    }
+    else if Color of DRG-2 Light Panel Interior = 255:255:0
+    {
+        Color of DRG-2 Light Panel Interior = 255:255:255
+        writenew to Debug LCD = Active
+        OnOff_On DRG-2 Air Vent Fan
+        OnOff_On DRG-2 Exhaust Pipe
+        OnOff_On DRG-2 Hydrogen Engine
+        Stockpile of DRG-2 Hydrogen Tank = False
+        OnOff_On DRG-2 Headlight
+    }
+}
+
+@conatt
+{
+    Attach DRG-2 Hinge Connector
+    writenew to Debug LCD = Attempted Attach
+}
+
+@condet
+{
+    Detach DRG-2 Hinge Connector
+    writenew to Debug LCD = Attempted Detach
+}
+
+@doors
+{
+    writenew to DRG-2 Debug LCD = Opening Doors
+    OnOff_On DRG-2 Light Panel Interior
+    delay 1000
+    Velocity of DRG-2 Hinge Door = -5
+    delay 7000
+    writenew to DRG-2 Debug LCD = Closing Doors
+    Velocity of DRG-2 Hinge Door = 5
+    delay 5000
+    OnOff_Off DRG-2 Light Panel Interior
+    Velocity of DRG-2 Hinge Door = 0
+    Writenew to DRG-2 Debug LCD = Doors Closed
+}
+
+@Combat
+{
+    OnOff_On DRG-2 Headlight
+    OnOff_On DRG-2 Spotlight
+    Color of DRG-2 Headlight = 255:0:0
+    Color of DRG-2 Spotlight = 255:0:0
+}
+
+DRG-2 Small Cargo Container
+DRG-2 Weapon Rack
+
+DRG-2 AI Defensive (Combat)
+DRG-2 Turret Controller
+DRG-2 Timer
+DRG-2 Beacon

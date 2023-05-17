@@ -1295,3 +1295,108 @@ IncreaseFriction -> Increase Friction
 DecreaseFriction -> Decrease Friction
 IncreasePower -> Increase Power
 DecreasePower -> Decrease Power
+
+Properties of MyBasicMissionBlock "DWA-3 AI Basic (Task)":
+
+OnOff: True/False
+ShowInTerminal: True/False
+ShowInInventory: True/False
+ShowInToolbarConfig: True/False
+ShowOnHUD: True/False
+ScriptForegroundColor: Color
+ScriptBackgroundColor: Color
+FontSize: Number
+FontColor: Color
+TextPaddingSlider: Number
+BackgroundColor: Color
+ChangeIntervalSlider: Number
+PreserveAspectRatio: True/False
+ActivateBehavior: True/False
+FollowHomeMinRange: Number
+FollowHomeMaxRange: Number
+Wander: True/False
+FollowDistance: Number
+Actions of MyBasicMissionBlock "DWA-3 AI Basic (Task)":
+OnOff
+OnOff_On
+OnOff_Off
+ShowOnHUD
+ShowOnHUD_On
+ShowOnHUD_Off
+IncreaseFontSize
+DecreaseFontSize
+IncreaseTextPaddingSlider
+DecreaseTextPaddingSlider
+IncreaseChangeIntervalSlider
+DecreaseChangeIntervalSlider
+PreserveAspectRatio
+ActivateBehavior_On
+ActivateBehavior_Off
+ActivateBehavior
+SetCurrentPositionHome
+IncreaseFollowHomeMinRange
+DecreaseFollowHomeMinRange
+IncreaseFollowHomeMaxRange
+DecreaseFollowHomeMaxRange
+Wander
+FollowMe
+StopFollowing
+IncreaseFollowDistance
+DecreaseFollowDistance
+
+Properties of MyFlightMovementBlock "DWA-3 AI Flight (Move)":
+
+OnOff: True/False
+ShowInTerminal: True/False
+ShowInInventory: True/False
+ShowInToolbarConfig: True/False
+ShowOnHUD: True/False
+ScriptForegroundColor: Color
+ScriptBackgroundColor: Color
+FontSize: Number
+FontColor: Color
+TextPaddingSlider: Number
+BackgroundColor: Color
+ChangeIntervalSlider: Number
+PreserveAspectRatio: True/False
+ActivateBehavior: True/False
+CollisionAvoidance: True/False
+DockingMode: True/False
+SpeedLimit: Number
+MinHeightAboveTerrain: Number
+AlignToGravity: True/False
+MaxPitchAngle: Number
+MaxRollAngle: Number
+Actions of MyFlightMovementBlock "DWA-3 AI Flight (Move)":
+
+OnOff
+OnOff_On
+OnOff_Off
+ShowOnHUD
+ShowOnHUD_On
+ShowOnHUD_Off
+IncreaseFontSize
+DecreaseFontSize
+IncreaseTextPaddingSlider
+DecreaseTextPaddingSlider
+IncreaseChangeIntervalSlider
+DecreaseChangeIntervalSlider
+PreserveAspectRatio
+ActivateBehavior_On
+ActivateBehavior_Off
+ActivateBehavior
+CollisionAvoidance
+CollisionAvoidance_On
+CollisionAvoidance_Off
+DockingMode
+DockingMode_On
+DockingMode_Off
+IncreaseSpeedLimit
+DecreaseSpeedLimit
+IncreaseMinHeightAboveTerrain
+DecreaseMinHeightAboveTerrain
+AlignToGravity
+IncreaseMaxPitchAngle
+DecreaseMaxPitchAngle
+IncreaseMaxRollAngle
+DecreaseMaxRollAngle

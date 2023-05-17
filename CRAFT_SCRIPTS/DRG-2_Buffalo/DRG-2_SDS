@@ -1,0 +1,61 @@
+[Main]
+CockpitPrefix=
+LCDPrefix=[MEN2]
+
+[Add]
+Prefix=
+Screen=1
+DefaultMenu=0
+WASDAutoDisable=true
+SwitchThrusters=false
+SwitchGyros=true
+SwitchWheels=true
+LCDAutoOff=true
+WASDPrgOn=-1
+WASDPrgOff=-1
+
+[Color]
+BackgroundColor=0,0,0
+ItemBarColor=0,6,12
+MainColor=55,155,255
+SelItemBarColor=155,55,0
+SelItemTextColor=0,0,0
+OnColor=225,65,100
+ArrowColor=155,225,255
+ErrorMSGColor=225,65,100
+HelpColor=155,225,255
+
+[TopMenu]
+0=Quick
+1=Driver Assist
+2=Settings
+
+[0]
+Power MW;all-show;*;power
+Batteries;all-show;*;batt
+Battery Mode;gr-batt;DRG-2 Batteries;mode
+Status;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(status)
+Spotlights;gr;DRG-2 Spotlights;onoff
+Doors;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(doors)
+Conn Det;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(condet)
+Conn Att;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(conatt)
+[1]
+Start/Stop;pb;DRG-2 Program [DAS];STARTSTOP
+Low Ride;pb;DRG-2 Program [DAS];LOW_MODE
+High Ride;pb;DRG-2 Program [DAS];HIGH_MODE
+Hill Descent Control;pb;DRG-2 Program [DAS];TOGGLE_HDC
+Cruise Control;pb;DRG-2 Program [DAS];TOGGLE_CRUISECONTROL
+Auto Pilot;pb;DRG-2 Program [DAS];TOGGLE_AUTOPILOT
+Auto Pilot Resume;pb;DRG-2 Program [DAS];RESUME_AUTOPILOT
+Auto Pilot Mode;pb;DRG-2 Program [DAS];CYCLE_AUTOPILOT_MODE
+Auto Pilot Wait;pb;DRG-2 Program [DAS];CYCLE_AUTOPILOT_WAIT
+GPS Tracker On / Off;pb;DRG-2 Program [DAS];TOGGLE_GPSTRACKER
+GPS Tracker Display;pb;DRG-2 Program [DAS];TOGGLE_GPSLIST
+[2]
+Headlights;gr;DRG-2 Headlights;onoff
+Cool Lights Color;gr-light;DRG-2 Headlights;color=160,230,255/blink=0,0
+Warm Lights Color;gr-light;DRG-2 Headlights;color=255,255,180/blink=0,0
+Antenna;bl;DRG-2 Antenna;onoff
+Antenna Radius;antenna;DRG-2 Antenna;3000/500
+Ore Detector;bl;DRG-2 Ore Detector;onoff
+Projector On/Off;bl;DRG-2 Projector;onoff

@@ -1,7 +1,0 @@
-//Main Display
-ShowStats
-,Fontsize=1.2 TextColor(55,155,255) center Text:FUEL + POWER
-TPG-2 Hydrogen Tank, Shortbar AnalogBar Length=125 FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
-Gap20 + TPG-2 Hydrogen Engine, Shortbar AnalogBar Length=125 FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
-Gap20 + TPG-2 Batteries, Shortbar AnalogBar Length=125 FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
-EndStats

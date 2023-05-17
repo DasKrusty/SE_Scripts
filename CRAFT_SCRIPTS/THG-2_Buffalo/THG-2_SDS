@@ -1,0 +1,61 @@
+[Main]
+CockpitPrefix=
+LCDPrefix=[MEN2]
+
+[Add]
+Prefix=
+Screen=1
+DefaultMenu=0
+WASDAutoDisable=true
+SwitchThrusters=false
+SwitchGyros=true
+SwitchWheels=true
+LCDAutoOff=true
+WASDPrgOn=-1
+WASDPrgOff=-1
+
+[Color]
+BackgroundColor=0,0,0
+ItemBarColor=0,6,12
+MainColor=55,155,255
+SelItemBarColor=155,55,0
+SelItemTextColor=0,0,0
+OnColor=225,65,100
+ArrowColor=155,225,255
+ErrorMSGColor=225,65,100
+HelpColor=155,225,255
+
+[TopMenu]
+0=Quick
+1=Driver Assist
+2=Settings
+
+[0]
+Power MW;all-show;*;power
+Batteries;all-show;*;batt
+Battery Mode;gr-batt;THG-2 Batteries;mode
+Status;pb;THG-2 Program [EA2];THG-2 Debug LCD(status)
+Headlights;gr;THG-2 Headlights;onoff
+Spotlights;gr;THG-2 Spotlights;onoff
+Doors;pb;THG-2 Program [EA2];THG-2 Debug LCD(doors)
+Conn Det;pb;THG-2 Program [EA2];THG-2 Debug LCD(condet)
+Conn Att;pb;THG-2 Program [EA2];THG-2 Debug LCD(conatt)
+[1]
+Start/Stop;pb;THG-2 Program [DAS];STARTSTOP
+Low Ride;pb;THG-2 Program [DAS];LOW_MODE
+High Ride;pb;THG-2 Program [DAS];HIGH_MODE
+Hill Descent Control;pb;THG-2 Program [DAS];TOGGLE_HDC
+Cruise Control;pb;THG-2 Program [DAS];TOGGLE_CRUISECONTROL
+Auto Pilot;pb;THG-2 Program [DAS];TOGGLE_AUTOPILOT
+Auto Pilot Resume;pb;THG-2 Program [DAS];RESUME_AUTOPILOT
+Auto Pilot Mode;pb;THG-2 Program [DAS];CYCLE_AUTOPILOT_MODE
+Auto Pilot Wait;pb;THG-2 Program [DAS];CYCLE_AUTOPILOT_WAIT
+GPS Tracker On / Off;pb;THG-2 Program [DAS];TOGGLE_GPSTRACKER
+GPS Tracker Display;pb;THG-2 Program [DAS];TOGGLE_GPSLIST
+[2]
+Cool Lights Color;gr-light;THG-2 Headlights;color=160,230,255/blink=0,0
+Warm Lights Color;gr-light;THG-2 Headlights;color=255,255,180/blink=0,0
+Antenna;bl;THG-2 Antenna;onoff
+Antenna Radius;antenna;THG-2 Antenna;3000/500
+Ore Detector;bl;THG-2 Ore Detector;onoff
+Projector On/Off;bl;THG-2 Projector;onoff

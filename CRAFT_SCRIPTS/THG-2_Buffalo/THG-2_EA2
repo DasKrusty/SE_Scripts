@@ -1,0 +1,85 @@
+@status
+{
+    if Color of THG-2 Light Panel Interior = 255:255:255
+    {
+        Color of THG-2 Light Panel Interior = 255:0:0
+        writenew to Debug LCD = Powered Down
+        OnOff_Off THG-2 Air Vent Fan
+        OnOff_Off THG-2 Antenna
+        Discharge THG-2 Standby Battery
+        OnOff_Off THG-2 Exhaust Pipe
+        OnOff_Off THG-2 Hydrogen Engine
+        Stockpile of THG-2 Hydrogen Tank = True
+        OnOff_Off THG-2 Offset Spotlight
+        OnOff_Off THG-2 Ore Detector
+        OnOff_Off THG-2 Sensor Door
+        OnOff_Off THG-2 Headlight
+    }
+    else if Color of THG-2 Light Panel Interior = 255:0:0
+    {
+        Color of THG-2 Light Panel Interior = 255:255:0
+        writenew to Debug LCD = Standby
+        OnOff_On THG-2 Antenna
+        Discharge THG-2 Battery
+        Recharge THG-2 Standby Battery
+        OnOff_On THG-2 Ore Detector
+        OnOff_On THG-2 Sensor Door
+    }
+    else if Color of THG-2 Light Panel Interior = 255:255:0
+    {
+        Color of THG-2 Light Panel Interior = 255:255:255
+        writenew to Debug LCD = Active
+        OnOff_On THG-2 Air Vent Fan
+        OnOff_On THG-2 Exhaust Pipe
+        OnOff_On THG-2 Hydrogen Engine
+        Stockpile of THG-2 Hydrogen Tank = False
+        OnOff_On THG-2 Headlight
+    }
+}
+
+@conatt
+{
+    Attach THG-2 Hinge Connector
+    writenew to Debug LCD = Attempted Attach
+    if connected of THG-2 Small Connector = Connectable
+    {
+        Lock THG-2 Small Connector
+        writenew to Debug LCD = "
+        Connection 
+        Established"
+    }
+    else if connected of THG-2 Small Connector = Unconnected
+    {
+        writenew to Debug LCD = "
+        No Connection
+        Available"
+    }
+}
+
+@condet
+{
+    Detach THG-2 Hinge Connector
+    writenew to Debug LCD = Attempted Detach
+    if connected of THG-2 Small Connector = Connected
+    {
+        Unlock THG-2 Small Connector
+        writenew to Debug LCD = "
+        Connection 
+        Detached"
+    }
+}
+
+@doors
+{
+    writenew to THG-2 Debug LCD = Opening Doors
+    OnOff_On THG-2 Light Panel Interior
+    delay 1000
+    Velocity of THG-2 Hinge Door = -5
+    delay 7000
+    writenew to THG-2 Debug LCD = Closing Doors
+    Velocity of THG-2 Hinge Door = 5
+    delay 5000
+    OnOff_Off THG-2 Light Panel Interior
+    Velocity of THG-2 Hinge Door = 0
+    Writenew to THG-2 Debug LCD = Doors Closed
+}
