@@ -31,7 +31,6 @@
         OnOff_On DRG-2 Ore Detector
         OnOff_On DRG-2 Sensor Door
         OnOff_On DRG-2 AI Defensive (Combat)
-        OnOff_On DRG-2 Turret Controller
         OnOff_On DRG-2 Timer
         OnOff_On DRG-2 Beacon
     }
@@ -80,15 +79,14 @@
     OnOff_On DRG-2 Spotlight
     Color of DRG-2 Headlight = 255:0:0
     Color of DRG-2 Spotlight = 255:0:0
+    OnOff_On DRG-2 Turret Controller
 }
 
-DRG-2 Small Cargo Container
-DRG-2 Weapon Rack
+@Launch
+{
+    Run DDR-3 Program [EA2] = DDR-3 Debug LCD(Launch)
+}
 
-DRG-2 AI Defensive (Combat)
-DRG-2 Turret Controller
-DRG-2 Timer
-DRG-2 Beacon
 
 
 

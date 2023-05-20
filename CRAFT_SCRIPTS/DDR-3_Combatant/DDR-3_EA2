@@ -1,0 +1,52 @@
+DDR-3 AI Basic (Task)
+DDR-3 AI Flight (Move)
+DDR-3 AI Offensive (Combat)
+DDR-3 AI Recorder (Land)
+DDR-3 AI Recorder (Launch)
+DDR-3 Antenna
+DDR-3 Corner Light
+DDR-3 Event Controller
+DDR-3 Gatling Gun
+DDR-3 Offset Light
+DDR-3 Gyroscope
+DDR-3 Thrusters
+DDR-3 Connector
+DDR-3 Program [EA2]
+DDR-3 Debug LCD
+DDR-3 Timer
+DDR-3 Battery
+
+@Launch
+{
+    Discharge DDR-3 Battery
+    OnOff_On DDR-3 Thruster
+    OnOff_On DDR-3 Gyroscope
+    Writenew to DDR-3 Debug LCD = Flight Systems up
+    Delay 3000
+    OnOff_On DDR-3 Corner Light
+    OnOff_On DDR-3 Offset Light
+    Writeline to DDR-3 Debug LCD = Light Systems up
+    Delay 3000
+    OnOff_On DDR-3 Antenna
+    Writeline to DDR-3 Debug LCD = Comm Systems up
+    Delay 3000
+    Writeline to DDR-3 Debug LCD = Releasing Drone
+    Delay 3000
+    Unlock DDR-3 Connector
+}
+
+@Land
+{
+    Delay 3000
+    OnOff_Off DDR-3 Thruster
+    Delay 3000
+    When connected of DDR-3 Connector = Connectable 
+    {
+        Lock DDR-3 Connector
+        Recharge DDR-3 Battery
+        OnOff_Off DDR-3 Gyroscope
+        OnOff_Off DDR-3 Corner Light
+        OnOff_Off DDR-3 Offset Light
+        OnOff_Off DDR-3 Antenna
+    }
+}

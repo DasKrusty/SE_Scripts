@@ -37,6 +37,7 @@ Battery Mode;gr-batt;DRG-2 Batteries;mode
 Status;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(status)
 Spotlights;gr;DRG-2 Spotlights;onoff
 Doors;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(doors)
+Launch Drone;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(Launch)
 Conn Det;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(condet)
 Conn Att;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(conatt)
 [1]
