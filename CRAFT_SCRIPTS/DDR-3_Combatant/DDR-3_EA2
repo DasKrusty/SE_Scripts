@@ -33,6 +33,7 @@ DDR-3 Battery
     Writeline to DDR-3 Debug LCD = Releasing Drone
     Delay 3000
     Unlock DDR-3 Connector
+    ID_PLAY_CHECKBOX of DDR-3 AI Recorder (Launch) = True
 }
 
 @Land
