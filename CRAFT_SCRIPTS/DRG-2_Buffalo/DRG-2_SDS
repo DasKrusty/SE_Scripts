@@ -27,8 +27,9 @@ HelpColor=155,225,255
 
 [TopMenu]
 0=Quick
-1=Driver Assist
-2=Settings
+1=Weapons
+2=Driver Assist
+3=Settings
 
 [0]
 Power MW;all-show;*;power
@@ -37,10 +38,13 @@ Battery Mode;gr-batt;DRG-2 Batteries;mode
 Status;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(status)
 Spotlights;gr;DRG-2 Spotlights;onoff
 Doors;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(doors)
-Launch Drone;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(Launch)
 Conn Det;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(condet)
 Conn Att;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(conatt)
 [1]
+Drone Batt;bl-batt;DDR-3 Battery;mode
+Launch Drone;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(Launch)
+Turret;bl;DRG-2 Turret Controller;onoff
+[2]
 Start/Stop;pb;DRG-2 Program [DAS];STARTSTOP
 Low Ride;pb;DRG-2 Program [DAS];LOW_MODE
 High Ride;pb;DRG-2 Program [DAS];HIGH_MODE
@@ -52,7 +56,7 @@ Auto Pilot Mode;pb;DRG-2 Program [DAS];CYCLE_AUTOPILOT_MODE
 Auto Pilot Wait;pb;DRG-2 Program [DAS];CYCLE_AUTOPILOT_WAIT
 GPS Tracker On / Off;pb;DRG-2 Program [DAS];TOGGLE_GPSTRACKER
 GPS Tracker Display;pb;DRG-2 Program [DAS];TOGGLE_GPSLIST
-[2]
+[3]
 Headlights;gr;DRG-2 Headlights;onoff
 Cool Lights Color;gr-light;DRG-2 Headlights;color=160,230,255/blink=0,0
 Warm Lights Color;gr-light;DRG-2 Headlights;color=255,255,180/blink=0,0

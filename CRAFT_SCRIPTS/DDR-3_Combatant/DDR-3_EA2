@@ -18,14 +18,13 @@ DDR-3 Battery
 
 @Launch
 {
+    OnOff_On DDR-3 Light
+    Color of DDR-3 Light = 55:155:255
+    Blink Interval of DDR-3 Light = 1
     Discharge DDR-3 Battery
     OnOff_On DDR-3 Thruster
     OnOff_On DDR-3 Gyroscope
     Writenew to DDR-3 Debug LCD = Flight Systems up
-    Delay 1000
-    OnOff_On DDR-3 Corner Light
-    OnOff_On DDR-3 Offset Light
-    Writeline to DDR-3 Debug LCD = Light Systems up
     Delay 1000
     OnOff_On DDR-3 Antenna
     Writeline to DDR-3 Debug LCD = Comm Systems up
@@ -35,6 +34,10 @@ DDR-3 Battery
     Unlock DDR-3 Connector
     Delay 1000
     ID_PLAY_CHECKBOX of DDR-3 AI Recorder (Launch) = True
+    Color of DDR-3 Light Spot = 255:0:0
+    Blink Interval of DDR-3 Light Spot = 0
+    Color of DDR-3 Light Nav R = 0:0:255
+    Color of DDR-3 Light Nav L = 255:0:0
 }
 
 @Launch2
@@ -46,6 +49,9 @@ DDR-3 Battery
 
 @Land
 {
+    OnOff_On DDR-3 Light
+    Color of DDR-3 Light = 55:155:255
+    Blink Interval of DDR-3 Light = 1
     Delay 2000
     ID_PLAY_CHECKBOX of DDR-3 AI Offensive (Combat) = False
     OnOff_Off DDR-3 Thruster
@@ -55,8 +61,7 @@ DDR-3 Battery
         Lock DDR-3 Connector
         Recharge DDR-3 Battery
         OnOff_Off DDR-3 Gyroscope
-        OnOff_Off DDR-3 Corner Light
-        OnOff_Off DDR-3 Offset Light
+        OnOff_Off DDR-3 Light
         OnOff_Off DDR-3 Antenna
     }
 }

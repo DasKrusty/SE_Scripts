@@ -13,24 +13,10 @@ Setup of DRG-2 and Drone DDR-3
 
 TO DO:
 DRG-2
-    Set up AI Offensive (Combat)
     Set up SCART PB and timer
+    Update EA2
 DDR-3
-    Add Projector
-    Add Program
     Set up SCART PB and timer to return drone
-    Redo AI Recorder Launch and Land for drone to face backwards
-        Launch
-            0 - 10m up
-                Precision off
-            1 - 10m back
-                Collision on
-            2 - @Launch2
-        Land
-            0 - 20m back
-                Collision off
-            1 - 10m up
-                Precision on
-            2 - 0m
-                @Land
-
+    Correct Event controller to DDR-3 AI Recorder (Land)
+    Correct timer to DDR-3 AI Recorder (Land)
+    Update EA2
