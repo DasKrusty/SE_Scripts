@@ -41,8 +41,8 @@ Doors;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(doors)
 Conn Det;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(condet)
 Conn Att;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(conatt)
 [1]
-Drone Batt;bl-batt;DDR-3 Battery;mode
 Launch Drone;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(Launch)
+Recall Drone;pb;DRG-2 Program [SHA];start DDR-3Combatant
 Turret;bl;DRG-2 Turret Controller;onoff
 [2]
 Start/Stop;pb;DRG-2 Program [DAS];STARTSTOP

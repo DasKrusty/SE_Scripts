@@ -19,7 +19,7 @@
         OnOff_Off DRG-2 Beacon
         Color of DRG-2 Headlight = 255:255:255
         Color of DRG-2 Spotlight = 255:255:255
-        ID_PLAY_CHECKBOX of DRG-2 AI Defensive (Combat) = False
+        ActivateBehavior of DRG-2 AI Defensive (Combat) = False
     }
     else if Color of DRG-2 Light Panel Interior = 255:0:0
     {
@@ -30,7 +30,7 @@
         Recharge DRG-2 Standby Battery
         OnOff_On DRG-2 Ore Detector
         OnOff_On DRG-2 Sensor Door
-        ID_PLAY_CHECKBOX of DRG-2 AI Defensive (Combat) = True
+        ActivateBehavior of DRG-2 AI Defensive (Combat) = True
         OnOff_On DRG-2 Timer
         OnOff_On DRG-2 Beacon
     }

@@ -10,13 +10,3 @@ Setup of DRG-2 and Drone DDR-3
             Drone stands down on follow and combat
             Drone uses DDR-3 AI Recorder (Land) to get into land position and activates EA2 Drone Land script
             OR DDR-3 Event Controller states Battery is below 20%
-
-TO DO:
-DRG-2
-    Set up SCART PB and timer
-    Update EA2
-DDR-3
-    Set up SCART PB and timer to return drone
-    Correct Event controller to DDR-3 AI Recorder (Land)
-    Correct timer to DDR-3 AI Recorder (Land)
-    Update EA2
