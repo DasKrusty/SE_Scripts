@@ -1,0 +1,5 @@
+ShowStats
+,Fontsize=1.2 TextColor(55,155,255) center Text:STATS
+Gap50 + TCM-8 Cargo Container, AnalogBar Shortbar FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+Gap20 + TCM-8 Battery, AnalogBar Shortbar FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+EndStats

@@ -1,0 +1,39 @@
+[Main]
+CockpitPrefix=
+LCDPrefix=[MEN81]
+
+[Add]
+Prefix=
+Screen=1
+DefaultMenu=0
+WASDAutoDisable=true
+SwitchThrusters=false
+SwitchGyros=true
+SwitchWheels=true
+LCDAutoOff=true
+WASDPrgOn=-1
+WASDPrgOff=-1
+
+[Color]
+BackgroundColor=0,0,0
+ItemBarColor=0,6,12
+MainColor=55,155,255
+SelItemBarColor=155,55,0
+SelItemTextColor=0,0,0
+OnColor=225,65,100
+ArrowColor=155,225,255
+ErrorMSGColor=225,65,100
+HelpColor=155,225,255
+
+[TopMenu]
+0=FUNCTION
+
+[0]
+Top Connectors;conn_lock;TKM-8 Connector Top;toggle
+Top Merge;gr;TKM-8 Merge Blocks Top;onoff
+Bot Connectors;conn_lock;TKM-8 Connector Bottom;toggle
+Bot Merge;gr;TKM-8 Merge Blocks Bottom;onoff
+Left Connector;conn_lock;TKM-8 Connector Left;toggle
+Right Connector;conn_lock;TKM-8 Connector Right;toggle
+Antenna;bl;TKM-8 Antenna;onoff
+Projector On/Off;bl;TKM-8 Projector;onoff

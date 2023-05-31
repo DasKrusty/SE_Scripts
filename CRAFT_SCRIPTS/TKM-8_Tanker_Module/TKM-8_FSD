@@ -1,0 +1,8 @@
+ShowStats
+,Fontsize=1.2 TextColor(55,155,255) center Text:STATS
+Gap50 + TKM-8 Cargo Container, AnalogBar Shortbar FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+Gap20 + TKM-8 O2/H2 Generator, AnalogBar Shortbar FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+Gap20 + TKM-8 Hydrogen Tanks, AnalogBar Shortbar FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+Gap20 + TKM-8 Hydrogen Engine, AnalogBar Shortbar FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+Gap20 + TKM-8 Battery, AnalogBar Shortbar FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+EndStats

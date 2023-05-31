@@ -1,0 +1,8 @@
+ShowStats
+,Fontsize=1.2 TextColor(55,155,255) center Text:STATS
+Gap50 + UCM-8 Cargo Container, AnalogBar Shortbar FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+Gap20 + UCM-8 O2/H2 Generator, AnalogBar Shortbar FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+Gap20 + UCM-8 Hydrogen Tank, AnalogBar Shortbar FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+Gap20 + UCM-8 Oxygen Tank, AnalogBar Shortbar FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+Gap20 + UCM-8 Battery, AnalogBar Shortbar FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+EndStats
