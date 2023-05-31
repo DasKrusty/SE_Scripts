@@ -4,15 +4,19 @@ Build List:
 - 2 Seater Bakkie - Personal Carrier 
 - 4 Seater Bakkie - Personal Carrier 
 - 4 Seater bakkie - Heavy Scout  
-CONSTRUCTION:::
 - Atmospheric Missile
-    Parts - Thruster / Gryo / Batteries / Program Block / Camera / Antenna / Remote Control / Warhead
+CONSTRUCTION:::
 - Space Missile
 - Missile Module
+    Carry 8 missiles / antenna / battery / PB / Remote / parachutes
 - Cargo Module 
+    parachutes
 - Fuel Module 
+    solar panel / parachutes
 - Construction Module 
+    Battery / Antenna / Survival kit / gun rack / parachutes / oxygen generator / hydrogen tank / cargo
 - Satellite Module
+    2x Laser Antennas / Battery / Solar Panels / antenna / remote block / Thrusters?
 - Cargo Drone 
 - Trailor for Modules 
 - Forklift
