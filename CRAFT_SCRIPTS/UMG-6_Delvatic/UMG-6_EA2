@@ -1,0 +1,46 @@
+UMG-6 Antenna
+UMG-6 Connector Large
+UMG-6 Air Vent Fan
+UMG-6 Conveyor Sorter
+UMG-6 Drill Left 1
+UMG-6 Exhaust Pipe
+UMG-6 Gatling Turret
+UMG-6 Gyroscope
+UMG-6 Hinge Connector
+UMG-6 Hydrogen Engine
+UMG-6 Hydrogen Tank
+UMG-6 Cargo Container 2
+UMG-6 Cargo Container 1
+UMG-6 Light Panel Floor
+UMG-6 O2/H2 Generator
+UMG-6 Headlight
+UMG-6 Spotlight
+UMG-6 Ore Detector
+UMG-6 Piston Jack
+UMG-6 Projector
+UMG-6 Remote Control
+UMG-6 Rotating Light 
+UMG-6 Ejector
+UMG-6 Small Connector
+UMG-6 Small Battery
+
+UMG-6 Light Panel Floor Status
+
+@runmode
+{
+    if Color of UMG-6 Light Panel Floor Status = 255:255:255
+    {
+        Color of TPG-2 Light Panel Interior = 255:0:0
+        writenew to Debug LCD = Powered Down
+    }
+    else if Color of UMG-6 Light Panel Floor Status = 255:0:0
+    {
+        Color of TPG-2 Light Panel Interior = 255:255:0
+        writenew to Debug LCD = Standby
+    }
+    else if Color of UMG-6 Light Panel Floor Status = 255:255:0
+    {
+        Color of TPG-2 Light Panel Interior = 255:255:255
+        writenew to Debug LCD = Active
+    }
+}

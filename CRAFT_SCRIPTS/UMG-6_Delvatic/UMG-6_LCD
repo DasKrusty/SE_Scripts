@@ -1,0 +1,36 @@
+// Cockpit
+@1 AutoLCD
+echo
+Speed 35
+speedkmh
+speedmph
+echo
+altitudesea
+shipmass 245000
+echo
+Damage
+
+@2 AutoLCD
+Cargo
+Center <<<   INVENTORY   >>>
+InvListXS *T:
+
+// Status
+Center <[   ---   POWER   ---   ]>
+    PowerTime
+Center <[   ---   SYSTEMS   ---   ]>
+    Center [ --- Drive Systems --- ]
+        Working {UMG-6 Connector Large}
+        Working {UMG-6 Small Connector}
+    Center [ --- Light Systems --- ]
+        Working {UMG-6 Headlight 1}
+        Working {UMG-6 Spotlight 1}
+        Working {UMG-6 Rotating Light 1}
+        Working {UMG-6 Light Panel Floor 1}
+    Center <[   ---   DAMAGE   ---   ]>
+        PropsBool {UMG-6 Projector} {OnOff} {Online} {Offline}
+        Damage
+    Center <[   ---   TURRETS   ---   ]>
+        Propbool {UMG-6 Gatling Turret} {OnOff} {Turret} {Online} {Offline}
+        AmountBar {UMG-6 Gatling Turret}
+

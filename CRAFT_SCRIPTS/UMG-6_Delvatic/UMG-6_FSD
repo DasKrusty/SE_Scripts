@@ -1,0 +1,48 @@
+//Left Drills
+ShowStats
+,Fontsize=3 TextColor(55,155,255) center Text:LEFT DRILLS
+Gap40 + UMG-6 Drill Left, Health AnalogBar Scale=3 FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+EndStats
+
+//Right Drills
+ShowStats
+,Fontsize=3 TextColor(55,155,255) center Text:RIGHT DRILLS
+Gap40 + UMG-6 Drill Right, Health AnalogBar Scale=3 FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+EndStats
+
+//Power
+ShowStats
+,Fontsize=3 TextColor(55,155,255) center Text:POWER
+,Fontsize=1.5 TextColor(55,155,255) Position(90,90) Text:BAT
+UMG-6 Small Battery, barcolor(255,55,0) Smallbar AnalogBar Position(180,90) FrameColor(55,155,255) NoHeadline
+,Fontsize=1.5 TextColor(55,155,255) Position(90,150) Text:ENG
+UMG-6 Hydrogen Engine, barcolor(255,55,0) Smallbar AnalogBar Position(180,150) FrameColor(55,155,255) NoHeadline
+,Fontsize=1.5 TextColor(55,155,255) Position(90,210) Text:TAN
+UMG-6 Hydrogen Tank, barcolor(255,55,0) Smallbar AnalogBar Position(180,210) FrameColor(55,155,255) NoHeadline
+,Fontsize=1.5 TextColor(55,155,255) Position(90,270) Text:GEN
+UMG-6 O2/H2 Generator, barcolor(255,55,0) Smallbar AnalogBar Position(180,270) FrameColor(55,155,255) NoHeadline
+,Fontsize=1.5 TextColor(55,155,255) Position(90,330) Text:ICE
+UMG-6 Cargo Container, Filter(+Ice) barcolor(255,55,0) Smallbar AnalogBar Position(180,330) FrameColor(55,155,255) NoHeadline
+EndStats
+
+//Cargo
+ShowStats
+,Fontsize=3 TextColor(55,155,255) center Text:Cargo
+Gap80 + UMG-6 Drill, Scale=1.5 FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+Gap20 + UMG-6 Cargo Container 1, Scale=2.5 FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+EndStats
+
+
+
+ShowStats
+GUM-4 M Cargo M1, barcolor(255,55,0) Smallbar AnalogBar Position(135,90) FrameColor(55,155,255) NoHeadline
+GUM-4 L Cargo 1, barcolor(255,55,0) Smallbar AnalogBar Position(135,140) FrameColor(55,155,255) NoHeadline
+GUM-4 L Cargo 2, barcolor(255,55,0) Smallbar AnalogBar Position(135,190) FrameColor(55,155,255) NoHeadline
+GUM-4 L Cargo 3, barcolor(255,55,0) Smallbar AnalogBar Position(135,240) FrameColor(55,155,255) NoHeadline
+GUM-4 M Cargo L1, barcolor(255,55,0) Smallbar AnalogBar Position(135,290) FrameColor(55,155,255) NoHeadline
+GUM-4 M Cargo L2, barcolor(255,55,0) Smallbar AnalogBar Position(135,340) FrameColor(55,155,255) NoHeadline
+GUM-4 M Cargo R1, barcolor(255,55,0) Smallbar AnalogBar Position(135,390) FrameColor(55,155,255) NoHeadline
+GUM-4 M Cargo R2, barcolor(255,55,0) Smallbar AnalogBar Position(135,440) FrameColor(55,155,255) NoHeadline
+Cargo, barcolor(255,55,0) Position(30,90) Length=400 Tallbar AnalogBar FrameColor(55,155,255) NoHeadline
+GUM-4 Advanced Rotor 3x3 Right, Optional barcolor(255,55,0) Position(405,90) Length=400 Tallbar AnalogBar FrameColor(55,155,255) NoHeadline
+:gfxStart(10,0,0.1)

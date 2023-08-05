@@ -1,0 +1,81 @@
+[Main]
+CockpitPrefix=[MEN6]
+LCDPrefix=[MEN6]
+
+[Add]
+Prefix=
+Screen=1
+DefaultMenu=0
+WASDAutoDisable=true
+SwitchThrusters=false
+SwitchGyros=true
+SwitchWheels=true
+LCDAutoOff=true
+WASDPrgOn=-1
+WASDPrgOff=-1
+
+[Color]
+BackgroundColor=0,0,0
+ItemBarColor=0,6,12
+MainColor=55,155,255
+SelItemBarColor=155,55,0
+SelItemTextColor=0,0,0
+OnColor=225,65,100
+ArrowColor=155,225,255
+ErrorMSGColor=225,65,100
+HelpColor=155,225,255
+
+[TopMenu]
+0=Quick
+1=Driver Assist
+2=Lights
+3=Weapons
+4=Settings
+5=Mining
+
+[0]
+Batteries;all-show;*;batt
+Battery Mode;gr-batt;UMG-6 Batteries;mode
+Run Mode;pb;UMG-6 Program [EA2];UMG-6 Debug LCD(runmode)
+Large Connector;conn_lock;UMG-6 Connector Large;toggle
+Small Connector;conn_lock;UMG-6 Small Connector;toggle
+Headlights;gr;UMG-6 Headlights;onoff
+Spotlights;gr;UMG-6 Spotlights;onoff
+Floorlights;gr;UMG-6 Light Panel Floors;onoff
+Hazardlights;gr;UMG-6 Rotating Lights;onoff
+Toggle Ore Detector;bl;UMG-6 Ore Detector;onoff
+[1]
+Start/Stop;pb;UMG-6 Program [DAS];STARTSTOP
+Low Ride;pb;UMG-6 Program [DAS];LOW_MODE
+High Ride;pb;UMG-6 Program [DAS];HIGH_MODE
+Hill Descent Control;pb;UMG-6 Program [DAS];TOGGLE_HDC
+Cruise Control;pb;UMG-6 Program [DAS];TOGGLE_CRUISECONTROL
+Auto Pilot;pb;UMG-6 Program [DAS];TOGGLE_AUTOPILOT
+Auto Pilot Resume;pb;UMG-6 Program [DAS];RESUME_AUTOPILOT
+Auto Pilot Mode;pb;UMG-6 Program [DAS];CYCLE_AUTOPILOT_MODE
+Auto Pilot Wait;pb;UMG-6 Program [DAS];CYCLE_AUTOPILOT_WAIT
+GPS Tracker On / Off;pb;UMG-6  Program [DAS];TOGGLE_GPSTRACKER
+GPS Tracker Display;pb;UMG-6  Program [DAS];TOGGLE_GPSLIST
+[2]
+Cool Lights Color;gr-light;UMG-6 Lights;color=160,230,255/blink=0,0
+Warm Lights Color;gr-light;UMG-6 Lights;color=255,255,180/blink=0,0
+Covert Lights Color;gr-light;UMG-6 Lights;color=255,0,0/blink=0,0
+SpotLights;gr;UMG-6 Lights Front;onoff
+[3]
+Turret On/Off;bl;UMG-6 Custom Turret Controller;onoff
+[4]
+Antenna;bl;UMG-6 Antenna;onoff
+Antenna Radius;antenna;UMG-6 Antenna;3000/500
+Ore Detector;bl;UMG-6 Ore Detector;onoff
+Projector On/Off;bl;UMG-6 Projector;onoff
+Piston Jacks;pb;UMG-6 Program [EA2];UMG-6 Debug LCD(pistonjacks)
+Attach/Detach Module;timer;Timer Block - Attach Module - Launch Vehicle;trigger
+[5]
+Mining Mode;pb;UMG-6 Program [EA2];UMG-6 Debug LCD(miningmode)
+Hauling Mode;pb;UMG-6 Program [EA2];UMG-6 Debug LCD(haulingmode)
+Keep Ice;sorter_list;UMG-6 Conveyor Sorter;black/Ore-Ice
+Throw Ice;sorter_list;UMG-6 Conveyor Sorter;white/Ore-Ice
+Ejectors;gr;UMG-6 Ejectors;onoff
+Inv Vol;all-show;*;inv
+Ship Mass;all-show;*;mass/total/100000
+Cargo Fill;gr-show;Cargo Containers;inv
