@@ -1,99 +1,89 @@
-@variables{
-HL1 = UTG-7 Hinge Lift Arm 1
-HL2 = UTG-7 Hinge Lift Arm 2
-PL1 = UTG-7 Piston Lift Arm 1
-PL2 = UTG-7 Piston Lift Arm 2
-HL3 = UTG-7 Hinge Lift Arm 3
-ML1 = UTG-7 Mag Lift Arm
-DBL = UTG-7 Debug LCD
-HP1 = UTG-7 Hinge Pickup S1
-HP2 = UTG-7 Hinge Pickup S2
-PP1 = UTG-7 Piston Pickup
-}
-
 @liftarmunpack{
-    Writenew to DBL = Unpacking Arm
+    Writenew to UTG-7 Debug LCD = Unpacking Arm
     Delay 3000
-    HingeLock of HL1 = false
-    OnOff_On HL1
-    Velocity of HL1 = -1
-    When Current angle of HL1 < -30{
-        HingeLock of HL2 = false
-        OnOff_On HL2
-        Velocity of HL2 = 1
+    HingeLock of UTG-7 Hinge Lift Arm 1 = false
+    OnOff_On UTG-7 Hinge Lift Arm 1
+    Velocity of UTG-7 Hinge Lift Arm 1 = -1
+    When Current angle of UTG-7 Hinge Lift Arm 1 < -30{
+        HingeLock of UTG-7 Hinge Lift Arm 2 = false
+        OnOff_On UTG-7 Hinge Lift Arm 2
+        Velocity of UTG-7 Hinge Lift Arm 2 = 1
     }
-    When Current angle of HL2 > -60{
-        Velocity of PL1 = 1
-        Velocity of PL2 = 1
-        OnOff_On HL3
-        Velocity of HL3 = -3
+    When Current angle of UTG-7 Hinge Lift Arm 2 > -60{
+        Velocity of UTG-7 Piston Lift Arm 1 = 0.1
+        Velocity of UTG-7 Piston Lift Arm 2 = 0.1
     }
-    When Current angle of HL2 > -30{
-        Velocity of HL2 = 0
+    When Current angle of UTG-7 Hinge Lift Arm 2 > -30{
+        Velocity of UTG-7 Hinge Lift Arm 2 = 0
     }
-    Delay 15000
-    Velocity of HL2 = -1
-    When Current angle of HL2 < -40{
-        Velocity of HL2 = 0
+    When Current position of UTG-7 Piston Lift Arm 2 > 1.95{
+    Velocity of UTG-7 Hinge Lift Arm 2 = -1
     }
-    When Current angle of HL3 < -40{
-        Velocity of HL3 = 0
+    When Current angle of UTG-7 Hinge Lift Arm 2 < -40{
+        Velocity of UTG-7 Hinge Lift Arm 2 = 0
+        OnOff_On UTG-7 Hinge Lift Arm 3
+        Velocity of UTG-7 Hinge Lift Arm 3 = -3
+    }
+    When Current angle of UTG-7 Hinge Lift Arm 3 < -40{
+        Velocity of UTG-7 Hinge Lift Arm 3 = 0
     }
     Delay 3000
-    Writeline to DBL = Arm unpacked
+    Writeline to UTG-7 Debug LCD = Arm unpacked
 }
 
 @liftarmuplift{
-    Writenew to DBL = READY TO LOCK
-    When Lock State of ML1 = READY TO LOCK{
+    Writenew to UTG-7 Debug LCD = READY TO LOCK
+    When Lock State of UTG-7 Mag Lift Arm = READY TO LOCK
+    {
         Delay 3000
-        Lock ML1
-        Writeline to DBL = Locked, starting lift
-        OnOff_Off ML1
+        Lock UTG-7 Mag Lift Arm
+        Writeline to UTG-7 Debug LCD = Locked, starting lift
+        Delay 3000
+        OnOff_Off UTG-7 Hinge Lift Arm 3
     }
-    Velocity of HL2 = 0.25
-    Writeline to DBL = Dropping Pickup Arms
-    Velocity of HP1 = -1
-    When Current Angle of HP1 < -35{
-        Velocity of HP1 = 0
-        Velocity of HP2 = -3
-        Velocity of PP1 = 1
+    Velocity of UTG-7 Hinge Lift Arm 2 = 0.1
+    Writeline to UTG-7 Debug LCD = Dropping Pickup Arms
+    Velocity of UTG-7 Hinge Pickup S1 = -1
+    When Current Angle of UTG-7 Hinge Pickup S1 < -35{
+        Velocity of UTG-7 Hinge Pickup S1 = 0
+        Velocity of UTG-7 Hinge Pickup S2 = -3
+        Velocity of UTG-7 Piston Pickup = 0.1
     }
-    When Current position of PP1 = 1.95{
-        Writeline to DBL = Lifting Module
-        Velocity of HP1 = 0.25
-        Velocity of HP2 = -0.25
-        Velocity of PL2 = -0.25
+    When Current position of UTG-7 Piston Pickup > 1.95{
+        Writeline to UTG-7 Debug LCD = Lifting Module
+        Velocity of UTG-7 Hinge Pickup S1 = 0.25
+        Velocity of UTG-7 Hinge Pickup S2 = 0.25
+        Velocity of UTG-7 Piston Lift Arm 2 = -0.05
     }
-    When Current Angle of HP1 > 15{
-        Velocity of HP1 = 0
-        Velocity of HP2 = 0
+    When Current Angle of UTG-7 Hinge Pickup S1 > 15{
+        Velocity of UTG-7 Hinge Pickup S1 = 0
+        Velocity of UTG-7 Hinge Pickup S2 = 0.1
     }
-    When Current position of PL2 = 0{
-        OnOff_Off HL2
-        Writeline to DBL = Pulling Module
-        Velocity of PL1 = -0.25
-        Velocity of HL1 = 0.25
-        Velocity of HP1 = 0.25
-        Velocity of HP2 = -0.25
-        Velocity of PP1 = -0.25
+    When Current position of UTG-7 Piston Lift Arm 2 = 0{
+        OnOff_Off UTG-7 Hinge Lift Arm 2
+        Writeline to UTG-7 Debug LCD = Pulling Module
+        Velocity of UTG-7 Piston Lift Arm 1 = -0.05
+        Velocity of UTG-7 Hinge Lift Arm 1 = 0.25
+        Velocity of UTG-7 Hinge Pickup S1 = 0.25
+        Velocity of UTG-7 Hinge Pickup S2 = -0.25
+        Velocity of UTG-7 Piston Pickup = -0.25
     }
-    When Current angle of HL1 < -30{
-        Writeline to DBL = Stopping Module
-        Velocity of PL1 = 0
-        Velocity of HL1 = 0
-        Velocity of HP1 = 0
-        Velocity of HP2 = 0
-        Velocity of PP1 = 0
+    When Current angle of UTG-7 Hinge Lift Arm 1 > -30{
+        Writeline to UTG-7 Debug LCD = Stopping Module
+        Velocity of UTG-7 Piston Lift Arm 1 = 0
+        Velocity of UTG-7 Hinge Lift Arm 1 = 0
+        Velocity of UTG-7 Hinge Pickup S1 = 0
+        Velocity of UTG-7 Hinge Pickup S2 = 0
+        Velocity of UTG-7 Piston Pickup = 0
     }
     Delay 3000
-    Writeline to DBL = Releasing Module
-    Unlock ML1
-    Velocity of PL1 = -1
-    Velocity of PL2 = -1
+    Writeline to UTG-7 Debug LCD = Releasing Module
+    Velocity of UTG-7 Piston Lift Arm 1 = -0.1
+    Velocity of UTG-7 Piston Lift Arm 2 = -0.1
     Delay 3000
-    Velocity of HL1 = 1
-    Velocity of HL2 = -1
+    Velocity of UTG-7 Hinge Lift Arm 1 = 1
+    Velocity of UTG-7 Hinge Lift Arm 2 = -1
+    Unlock UTG-7 Mag Lift Arm
 }
 
 @liftarmdown{}
