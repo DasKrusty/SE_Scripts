@@ -27,11 +27,11 @@ HelpColor=155,225,255
 
 [TopMenu]
 0=Quick
-1=Driver Assist
-2=Lights
+1=Mining
+2=Driver Assist
 3=Weapons
 4=Settings
-5=Mining
+
 
 [0]
 Batteries;all-show;*;batt
@@ -39,12 +39,17 @@ Battery Mode;gr-batt;UMG-6 Batteries;mode
 Run Mode;pb;UMG-6 Program [EA2];UMG-6 Debug LCD(runmode)
 Large Connector;conn_lock;UMG-6 Connector Large;toggle
 Small Connector;conn_lock;UMG-6 Small Connector;toggle
-Headlights;gr;UMG-6 Headlights;onoff
 Spotlights;gr;UMG-6 Spotlights;onoff
-Floorlights;gr;UMG-6 Light Panel Floors;onoff
-Hazardlights;gr;UMG-6 Rotating Lights;onoff
-Toggle Ore Detector;bl;UMG-6 Ore Detector;onoff
 [1]
+Inv Vol;all-show;*;inv
+Ship Mass;all-show;*;mass/total/100000
+Mining Mode;pb;UMG-6 Program [EA2];UMG-6 Debug LCD(miningmode)
+Hauling Mode;pb;UMG-6 Program [EA2];UMG-6 Debug LCD(haulingmode)
+Keep Ice;sorter_list;UMG-6 Sorter for Ejectors;black/Ore-Ice
+Throw Ice;sorter_list;UMG-6 Sorter for Ejectors;white/Ore-Ice
+Ejectors;gr;UMG-6 Ejectors;onoff
+Toggle Ore Detector;bl;UMG-6 Ore Detector;onoff
+[2]
 Start/Stop;pb;UMG-6 Program [DAS];STARTSTOP
 Low Ride;pb;UMG-6 Program [DAS];LOW_MODE
 High Ride;pb;UMG-6 Program [DAS];HIGH_MODE
@@ -54,28 +59,12 @@ Auto Pilot;pb;UMG-6 Program [DAS];TOGGLE_AUTOPILOT
 Auto Pilot Resume;pb;UMG-6 Program [DAS];RESUME_AUTOPILOT
 Auto Pilot Mode;pb;UMG-6 Program [DAS];CYCLE_AUTOPILOT_MODE
 Auto Pilot Wait;pb;UMG-6 Program [DAS];CYCLE_AUTOPILOT_WAIT
-GPS Tracker On / Off;pb;UMG-6  Program [DAS];TOGGLE_GPSTRACKER
-GPS Tracker Display;pb;UMG-6  Program [DAS];TOGGLE_GPSLIST
-[2]
-Cool Lights Color;gr-light;UMG-6 Lights;color=160,230,255/blink=0,0
-Warm Lights Color;gr-light;UMG-6 Lights;color=255,255,180/blink=0,0
-Covert Lights Color;gr-light;UMG-6 Lights;color=255,0,0/blink=0,0
-SpotLights;gr;UMG-6 Lights Front;onoff
+GPS Tracker On / Off;pb;UMG-6 Program [DAS];TOGGLE_GPSTRACKER
+GPS Tracker Display;pb;UMG-6 Program [DAS];TOGGLE_GPSLIST
 [3]
-Turret On/Off;bl;UMG-6 Custom Turret Controller;onoff
+Turret On/Off;bl;UMG-6 Gatling Turret;onoff
 [4]
 Antenna;bl;UMG-6 Antenna;onoff
 Antenna Radius;antenna;UMG-6 Antenna;3000/500
-Ore Detector;bl;UMG-6 Ore Detector;onoff
 Projector On/Off;bl;UMG-6 Projector;onoff
 Piston Jacks;pb;UMG-6 Program [EA2];UMG-6 Debug LCD(pistonjacks)
-Attach/Detach Module;timer;Timer Block - Attach Module - Launch Vehicle;trigger
-[5]
-Mining Mode;pb;UMG-6 Program [EA2];UMG-6 Debug LCD(miningmode)
-Hauling Mode;pb;UMG-6 Program [EA2];UMG-6 Debug LCD(haulingmode)
-Keep Ice;sorter_list;UMG-6 Conveyor Sorter;black/Ore-Ice
-Throw Ice;sorter_list;UMG-6 Conveyor Sorter;white/Ore-Ice
-Ejectors;gr;UMG-6 Ejectors;onoff
-Inv Vol;all-show;*;inv
-Ship Mass;all-show;*;mass/total/100000
-Cargo Fill;gr-show;Cargo Containers;inv

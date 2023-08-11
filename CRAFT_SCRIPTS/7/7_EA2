@@ -1,0 +1,57 @@
+UTG-7 Hinge Lift Arm 1
+UTG-7 Hinge Lift Arm 2
+UTG-7 Piston Lift Arm 1
+UTG-7 Piston Lift Arm 2
+UTG-7 Hinge Lift Arm 3
+UTG-7 Mag Lift Arm
+
+@liftarmup{
+    HingeLock of UTG-7 Hinge Lift Arm 1 = false
+    OnOff_On UTG-7 Hinge Lift Arm 1
+    Velocity of UTG-7 Hinge Lift Arm 1 = -1
+    When Current angle of UTG-7 Hinge Lift Arm 1 < -30{
+        Velocity of UTG-7 Hinge Lift Arm 2 = 1
+    }
+    When Current angle of UTG-7 Hinge Lift Arm 2 > -60{
+        Extend UTG-7 Piston Lift Arm
+        OnOff_On UTG-7 Hinge Lift Arm 3
+    }
+    When Current angle of UTG-7 Hinge Lift Arm 2 > -30{
+        Velocity of UTG-7 Hinge Lift Arm 2 = 0
+    }
+    Extend UTG-7 Piston Lift Arm
+    OnOff_On UTG-7 Hinge Lift Arm 3
+    Velocity of UTG-7 Hinge Lift Arm 3 = -1
+    Delay 15000
+    Velocity of UTG-7 Hinge Lift Arm 2 = -1
+    When Current angle of UTG-7 Hinge Lift Arm 2 < -40{
+        Velocity of UTG-7 Hinge Lift Arm 2 = 0
+    }
+    When Current angle of UTG-7 Hinge Lift Arm 3 < -40{
+        Velocity of UTG-7 Hinge Lift Arm 3 = 0
+    }
+    When Lock State of UTG-7 Mag Lift Arm = READY TO LOCK{
+        Delay 15000
+        if Lock State of UTG-7 Mag Lift Arm = READY TO LOCK{
+            Lock UTG-7 Mag Lift Arm
+            OnOff_Off UTG-7 Mag Lift Arm
+            @liftarmup2
+        }
+        else if Lock State of UTG-7 Mag Lift Arm = UNLOCKED{
+            @liftarmdown
+        }
+    }
+}
+
+@liftarmup2{
+    Velocity of UTG-7 Hinge Lift Arm 2 = 1
+    Velocity of UTG-7 Hinge Pickup S1 = -1
+    When Current Angle of UTG-7 Hinge Pickup S1 < -35{
+        Velocity of UTG-7 Hinge Pickup S1 = 0
+        Velocity of UTG-7 Hinge Pickup S2 = -1
+        Extend UTG-7 Piston Pickup
+        Retract UTG-7 Piston Lift Arm 2
+    }
+}
+
+@liftarmdown{}
