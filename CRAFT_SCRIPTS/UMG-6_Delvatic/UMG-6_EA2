@@ -18,6 +18,12 @@
     }
 }
 
+@autostart{
+    @offlinetostandby
+    Delay 3000
+    @standbytoonline
+}
+
 @offlinetostandby{
     Color of UMG-6 Light Panel Status = 255:255:0
     writenew to UMG-6 Debug LCD = Standby
