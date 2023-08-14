@@ -1,0 +1,1501 @@
+@vars {
+lcd = "Control Seat"
+
+mhead = "-= \x =-"
+main = "Projector Drone\NProjector Bind\NPrint Drone\NExit"
+
+* projector menu (Custom Data)
+proj = ""
+* projector name
+prjn = ""
+* projector option set
+prjs = ""
+
+menu = ""
+mid = "main"
+marg = ""
+msel = ""
+mopt = 1
+
+x = 0
+}
+
+@menu {
+\lcd = cond(Oper of Control Seat = True : "Control Seat" : "PB EasyPlay")
+
+if \1 ? \ {
+  \x = Text of \lcd
+  if \x ? "-=" { 
+    \marg = select 
+  } else { 
+    \marg = ""
+    @tomenu(\main,main)
+  }
+} else {
+  \marg = \1
+}
+
+if \menu = "" {
+   \menu = \main
+}
+\x = TokenLine of menu
+
+if \marg = exit {
+  @tomenu(exit)
+
+} else if \marg = down {
+  if \prjs = "" {
+     \mopt = math(\mopt + 1)
+     if \mopt > \x { 
+       \mopt = 1 
+     }
+  } else {
+    @menu_project_set(\marg)
+  }
+
+} else if \marg = up {
+  if \prjs = "" {
+     \mopt = math(\mopt - 1)
+     if \mopt = 0 { 
+       \mopt = \x 
+     }
+  } else {
+    @menu_project_set(\marg)
+  }
+
+} else if \marg = select {
+  if \mid = main {
+     if \msel != "main\mopt" { 
+       @menu_main 
+     } else { 
+       @tomenu(\main,main) 
+     }
+   } else { 
+     if \msel != "proj\mopt" { 
+       @menu_project
+     } else { 
+       @menu_project_write
+       \msel = "proj0"
+     }
+   }
+}
+
+\x = cond(\mid = "main" : "Projector Menu" : "\prjn Set")
+Write to \lcd = "\mhead\N"
+WriteLineMenu(\mopt) to \lcd = \menu
+}
+
+@tomenu {
+if \1 = exit {
+  \menu = \main
+  \mid = "main"
+  \msel = ""
+  \marg = ""
+  \prjs = ""
+  Write to \lcd = ""
+  @projector_switch(0,0)
+  Stop
+} else {
+  \mopt = 1
+  \menu = \1
+  \mid  = \2
+}
+}
+
+@menu_main {
+\msel = "main\mopt"
+\x = TokenLine[\mopt] of menu
+
+if \x = "Exit" {
+  @tomenu(exit)
+} else if \x ? "Print" {
+  @drone_print
+} else {
+  \prjn = \x
+  OnOff_On \prjn
+  \proj = Data of \x
+  if \proj = "" {
+    @menu_project_write
+    \proj = Data of \prjn
+  }
+  @tomenu(\proj,proj)
+}
+}
+
+@menu_project {
+\msel = "proj\mopt"
+\x = TokenLine[\mopt] of menu
+
+if \x ? "main" {
+  OnOff_Off \prjn
+  @tomenu(\main,main)
+} else {
+  @menu_project_write(\x)
+}
+
+}
+
+@menu_project_write {
+Data of \prjn = ""
+
+\x = cond("\1" ? "Pos X" : "=" : ":")
+DataLine of \prjn = "Pos X \x {X of \prjn}"
+
+\x = cond("\1" ? "Pos Y" : "=" : ":")
+DataLine of \prjn = "Pos Y \x {Y of \prjn}"
+
+\x = cond("\1" ? "Pos Z" : "=" : ":")
+DataLine of \prjn = "Pos Z \x {Z of \prjn}"
+
+\x = cond("\1" ? "Rot X" : "=" : ":")
+DataLine of \prjn = "Rot X \x {RotX of \prjn}"
+
+\x = cond("\1" ? "Rot Y" : "=" : ":")
+DataLine of \prjn = "Rot Y \x {RotY of \prjn}"
+
+\x = cond("\1" ? "Rot Z" : "=" : ":")
+DataLine of \prjn = "Rot Z \x {RotZ of \prjn}"
+
+DataLine of \prjn = "Main menu"
+\menu = Data of \prjn
+
+if TokenLine[\mopt] of menu ? "=" {
+  \prjs = TokenLine[\mopt] of menu
+} else if \1 ? \ {
+  \prjs = ""
+}
+}
+
+@menu_project_set {
+if \prjs ? "Pos" {
+  if \1 = down {
+     if \prjs ? X {
+        IncreaseX \prjn
+     } else if \prjs ? Y {
+        IncreaseY \prjn
+     } else {
+        IncreaseZ \prjn
+     }
+  } else {
+     if \prjs ? X {
+        DecreaseX \prjn
+     } else if \prjs ? Y {
+        DecreaseY \prjn
+     } else {
+        DecreaseZ \prjn
+     }
+  }
+} else {
+  if \1 = down {
+     if \prjs ? X {
+        IncreaseRotX \prjn
+     } else if \prjs ? Y {
+        IncreaseRotY \prjn
+     } else {
+        IncreaseRotZ \prjn
+     }
+  } else {
+     if \prjs ? X {
+        DecreaseRotX \prjn
+     } else if \prjs ? Y {
+        DecreaseRotY \prjn
+     } else {
+        DecreaseRotZ \prjn
+     }
+  }
+}
+@menu_project_write(\prjs)
+}
+
+@drone_print {
+if StatusX of Connector Print = Unconnected {
+  @projector_switch(0,1)
+  Delay 1000
+  OnOff_On Welder Print
+  Delay 5000
+  OnOff_Off Welder Print
+  OnOff_On Ion Print
+  Delay 20000
+  OnOff_Off Ion Print
+  @projector_switch(0,0)
+  OnOff_On Welder Print
+  Delay 1000
+  OnOff_Off Welder Print
+  Lock Connector Print
+}
+Stop
+}
+
+@projector_switch {
+\x = math(\1 + 1)
+\mopt = TokenLine[\x] of main
+
+if \mopt != "Print Drone" {
+   if \2 = 1 {
+    OnOff_On \mopt
+  } else {
+    OnOff_Off \mopt
+  }
+  @projector_switch(\x,\2)
+}
+}
+
+@show {
+Show \1
+}
+
+Copter
+
+@var {
+v = 60
+}
+
+@ landing {
+    OnOff_Off Light Flash
+    if Value of v > 0 {
+        \v = math(\v - 10)
+        Echo = \v
+        Velocity of Rotor Copter = \v
+        Delay 300
+        @landing
+    }
+    \v = 60 
+}
+
+@ escape {
+    OnOff_On Light Flash
+    Velocity of Rotor Copter = 60
+}
+
+@show {
+Show Rotor Copter
+}
+
+
+@var {
+lcd = "Cockpit Cruise"
+camera = "Camera Cruise"
+range  = 15000
+mind = 5
+over = 100
+kr = 0.0261
+kb = 0.0268
+
+lidar = Data of \camera
+dist  = Distance \lidar of MyShip
+cont  = Operate of MyShip
+
+s = 0
+b = 0
+x = 0
+y = 0
+z = 0
+w = 0
+}
+
+@fly4 {
+\s = 0
+\b = 0
+@check
+
+if Damp of MyShip = False {
+   Damp of MyShip = True
+}
+
+if \kr ? "." { 
+  if \1 ? "go" { @scan }
+  if \dist > 0 {
+     \x = math((\mind/\dist)*100) 
+     if \x > 70 { @info(Stop,Reach) }
+  }
+} else {
+  @setup(50)
+}
+
+if \lidar ? GPS {
+  @speed(0)
+  if \s = 0 { @info(Stop,Reach) }
+
+  OnOff_On (Thruster Fwd)
+  OnOff_Off (Thruster Bwd)
+  Override of (Thruster Fwd) = \over%
+  @race
+  Override of (Thruster Fwd) = 0
+  OnOff_On (Thruster Bwd)
+  @brake
+  \x = math((\mind/\dist)*100) 
+  if \x < 70 { @fly4 }
+  @info(Stop,Reach)
+} else {   
+  @info(Fly,No GPS)
+}
+}
+
+@race {
+if \b < \dist {
+   \y = math(Speed of MyShip + 1)
+  if \s < \y {
+    Override of (Thruster Fwd) = 0
+    \y = "Free fly"
+  } else {  
+    \y = "Racing"
+  }
+  \x = OperAxis of \cont
+  if \x = True {
+    @info(Stop,Break)
+  } else {
+    @info(\y/\s,\dist/\b m)
+  }
+  Delay 100
+  @race
+}
+}
+
+@brake {
+if Speed of MyShip > 1 {
+  \x = OperAxis of \cont
+  if \x = True {
+    @info(Stop,Break)
+  } else {
+    @info(Braking,\dist m) 
+  }
+  Delay 100
+  @brake
+}
+}
+
+@speed {
+\z = math(\1+10)
+if \z < 101 {
+   \x = math((Mass of MyShip/10000) * \kr * \z * \z)
+   \y = math((Mass of MyShip/10000) * \kb * \z * \z)
+   \w = math(\x + \y + \mind)
+*   Echo = "\z : \w"
+   if \w < \dist {
+       \b = math(Int(\y+\mind))
+       \s = \z
+       @speed(\z)
+   }
+}
+}
+
+@check {
+\x = OnOff of \camera
+if \x != True {
+  @info(Stop,Camera turn off or not found)
+} else if Number of (Thruster Fwd) = 0 {
+  @info(Stop,Group (Thruster Fwd) not found)
+} else if Number of (Thruster Bwd) = 0 {
+  @info(Stop,Group (Thruster Bwd) not found)
+} else if \mind < 1 {
+  @info(Stop,"mind" must be > 0)
+} else if \over < 1 {
+  @info(Stop,"over" must be > 0)
+}
+}
+
+@scan {
+Scanr of \camera at \range
+if \dist > 0 {
+  @info(Scan,\dist m)
+  Write to LCD Lidar = "Target: \dist m" 
+} else {
+  @info(Scan,No Target)
+  Write to LCD Lidar = "No Target" 
+}
+}
+
+@info {
+\w = math(int(Speed of MyShip))
+if \lcd = "" {
+   Echo =  "Mode: \1\NTarget: \2\NSpeed: \w m/s"
+ } else {
+   Write to \lcd = "Mode: \1\NTarget: \2\NSpeed: \w m/s"
+}
+if \1 = Stop { 
+   Over of (Thruster Fwd) = 0
+   OnOff_On (Thruster Bwd)
+   Data of \camera = ""
+   Stop 
+}
+}
+
+@setup {
+\s = Speed of MyShip
+if \s < 1 {
+  \s = cond(\1 > 99 : 99 : \1)
+  OnOff_On (Thruster Fwd)
+  OnOff_On (Thruster Bwd)
+
+  @sout(Calculate...)
+  \y = Grid Pos of MyShip
+  Data of \camera = \y
+
+  OnOff_Off (Thruster Bwd)
+  Override of (Thruster Fwd) = \over%
+  When Speed of MyShip > \s
+
+  \z = Distance \lidar of MyShip
+  \y = math(\z / (Base Mass of MyShip/1000) / (\1*(\1/10)))
+  \w = "Racing: \z m\Nkr = \y"
+
+  \z = Grid Pos of MyShip
+  Data of \camera = \z
+
+  Override of (Thruster Fwd) = 0
+  OnOff_On (Thruster Bwd)
+  When Speed of MyShip < 1
+
+  \z = Distance \lidar of MyShip
+  \y = math(\z / (Base Mass of MyShip/1000) / (\1*(\1/10)))
+
+  @sout(\w\NBrake = \z m\Nkb = \y)
+} else {
+  @sout(Stop the ship)
+}
+Stop
+}
+
+@sout {
+if \lcd = "" { Echo = \1 } else { Write to \lcd = \1 }
+}
+
+===========================
+@var {
+lcd = Data of Timer EasySync
+my = Grid Name of MyShip
+pos = Grid Margin[30] of MyShip
+camera = Camera SEC Lidar
+lidar = Data of \camera
+radio = Send of MyShip
+range = 15000
+racing = 99
+
+mhead   = "= Ship Control Menu ="
+main    = "Ship status\NShip control\NDrone control\NLidar targeting\NGPS navigator\NShow horizon\NMenu color"
+control = "Thruster mode:\NWeapon mode:\NBroadcast       :\NHold gate        :"
+invent  = "General info\NTurret status\NStock ingots\NShip damage"
+drone   = "Drone status\NSend to target\NCall to carrier\NPrint drone\NRelease drone"
+target  = "Scan target\NShow target\NClear target\NFly to target\NSend drones"
+gpsmap  = "\N"
+
+menu = ""
+mid = "main"
+marg = ""
+msel = ""
+mopt = 1
+
+x = 0
+}
+
+@test {
+Echo = ""
+}
+
+@menu {
+if \1 ? \ {
+  \x = Text of \lcd
+  if \x ? \mhead { 
+    \marg = select 
+  } else { 
+    \marg = ""
+    @tomenu(\main,main)
+  }
+} else {
+  \marg = \1
+}
+
+if \menu = "" {
+   \menu = \main
+}
+\x = TokenLine of menu
+
+if \marg = exit {
+  @tomenu(exit)
+
+} else if \marg = down {
+  \mopt = math(\mopt + 1)
+  if \mopt > \x { 
+    \mopt = 1 
+  }
+
+} else if \marg = select {
+  if \mid = main {
+     if \msel != "main\mopt" { 
+       @menu_main 
+     } else { 
+       @tomenu(\main,main) 
+     }
+   } else if \mid = control { 
+     if \msel != "control\mopt" { 
+       @menu_control 
+     } else { 
+       @tomenu(\main,main) 
+     }
+   } else if \mid = invent { 
+     if \msel != "invent\mopt" { 
+       @menu_invent 
+     } else { 
+       @tomenu(exit) 
+     }
+   } else if \mid = drone { 
+     if \msel != "drone\mopt" { 
+        @menu_drone 
+     } else { 
+       @tomenu(exit) 
+     }
+   } else if \mid = target { 
+     if \msel != "target\mopt" { 
+       @menu_target 
+     } else { 
+       @tomenu(\main,main) 
+     }
+   } else if \mid = gpsmap { 
+     if \msel != "gpsmap\mopt" { 
+       @menu_gpsmap
+     } else { 
+       @tomenu(\main,main) 
+     }
+   }
+}
+
+Write to \lcd = "\mhead\N"
+WriteLineMenu(\mopt) to \lcd = \menu
+}
+
+@tomenu {
+if \1 = exit {
+  \menu = \main
+  \mid = "main"
+  \msel = ""
+  \marg = ""
+  BgColor of \lcd = "0:0:0"
+  Write to \lcd = ""
+  Stop
+} else {
+  \mopt = 1
+  \menu = \1
+  \mid  = \2
+}
+}
+
+@menu_main {
+\msel = "main\mopt"
+\x = TokenLine[\mopt] of menu
+
+if \x ? "status" {
+  @tomenu(\invent,invent)
+} else if \x ? "ship control" {  
+  @tomenu(\control,control)
+  @menu_control_set
+} else if \x ? "drone" {  
+  @tomenu(\drone,drone)
+} else if \x ? "lidar" {  
+  @tomenu(\target,target)
+} else if \x ? "navigator" {
+  @menu_gpsmap_write
+} else if \x ? "horizon" {  
+  WriteScript to \lcd = TSS_ArtificialHorizon
+  Stop
+} else if \x ? "color" { 
+  \x = BgColor of \lcd
+  \x = cond("\x" = "0:0:0" : "50:65:205" : "0:0:0")
+  BgColor of \lcd = \x
+  \msel = "main0"
+}
+}
+
+@menu_gpsmap {
+\x = TokenLine[\mopt] of menu
+\msel = Data of Jump Drive
+
+if \x ? "Set" {
+   \x = TokenLine of msel
+   DataLine of Jump Drive = "GPS:Point \x:{Grid Pos of MyShip}:#"
+   @menu_gpsmap_write
+} else {
+   \x = TokenLine[\mopt] of msel
+   Data of \camera = \x
+   Fly Clear
+   Fly to \x at \racing
+   OnOff_Off Thruster on MyGrid
+   OnOff_On (SEC, Econom Thrusters)
+   Fly Start
+   \msel = "main0"
+   Stop
+}
+}
+
+@menu_gpsmap_set {
+\x = math(\x + 1)
+\msel = Data of Jump Drive
+\mopt = math(TokenLine of msel + 1)
+
+if \mopt > \x {
+   \menu = TokenLine[\x] of msel
+   \mid = Token[2] of menu
+   DataLine of \lcd = \mid
+   @menu_gpsmap_set
+}
+}
+
+@menu_gpsmap_write {
+\x = 0
+Data of \lcd = "Set GPS Point"
+@menu_gpsmap_set
+\gpsmap = Data of \lcd
+@tomenu(\gpsmap,gpsmap)
+}
+
+@menu_control {
+\msel = "control\mopt"
+\x = TokenLine[\mopt] of menu
+
+if \x ? "thruster" {
+  if \x ? "force" {
+    OnOff_Off Thruster on MyGrid
+    OnOff_On (SEC, Econom Thrusters)
+  } else if \x ? "econom" {
+    OnOff of Thruster on MyGrid = False
+  } else {
+    OnOff of Thruster on MyGrid = True
+  }
+} else if \x ? "weapon" {
+  if \x ? "armed" {
+    OnOff_On (SEC, PDC Turret)
+    OnOff_Off (SEC, Artillery)
+  } else if \x ? "pdc" {
+    OnOff of Turret on MyGrid = False
+  } else {
+    OnOff of Turret on MyGrid = True
+  }
+} else if \x ? "broadcast" {
+  if \x ? "air" {
+    OnOff_Off Antenna
+    OnOff_Off Beacon
+  } else {
+    OnOff_On Antenna
+    OnOff_On Beacon
+  }
+} else if \x ? "gate" {
+  @gate(menu)
+}
+@menu_control_set
+\msel = "control0"
+}
+
+@menu_control_set {
+\x = TokenLine[1] of control
+if OnOff of Thruster on MyGrid = True {
+  if OnOff of Hydrogen Thruster Force = True { 
+    \x = "\x Force" 
+  } else { 
+    \x = "\x Econom" 
+  }
+} else {
+  \x = "\x Off"
+}
+TokenLine[1] of menu = \x
+
+\x = TokenLine[2] of control
+if OnOff of Turret on MyGrid = True {
+  if OnOff of (SEC, Artillery) = True { 
+    \x = "\x Armed" 
+  } else {
+    \x = "\x PDC"
+  }
+} else {
+  \x = "\x Off"
+}
+TokenLine[2] of menu = \x
+
+\x = TokenLine[3] of control
+if OnOff of Antenna = True {
+  \x = "\x On air"
+} else {
+  \x = "\x Silent"
+}
+TokenLine[3] of menu = \x
+
+\x = TokenLine[4] of control
+if Position of Piston Gate = 1 {
+  \x = "\x Close"
+} else {
+  \x = "\x Open"
+}
+TokenLine[4] of menu = \x
+}
+
+@menu_invent {
+\msel = "invent\mopt"
+\x = TokenLine[\mopt] of menu
+
+if \x ? "general" {
+  @ship_status
+} else if \x ? "turret" {
+  WriteLine to \lcd = "{Status Turret of MyGrid}"
+} else if \x ? "ingot" {
+  WriteLine to \lcd = "{Invent ingot[*] of MyGrid}"
+} else if \x ? "damage" {
+  if OnOff of Projector SEC = False {
+     OnOff_On Projector SEC
+     Delay 1000
+  }
+  \x = Info[4] of Projector SEC
+  \x = math((\x) * 100.0)
+  \x = math(Int(\x))
+  WriteLine to \lcd = "Total blocks     : {Info[4] of Projector SEC} (\x %)
+Armor damage : {Armor blocks of Projector SEC}"
+  OnOff_Off Projector SEC
+}
+Stop
+}
+
+@menu_drone {
+\msel = "drone\mopt"
+\x = TokenLine[\mopt] of menu
+
+if \x ? "status" {
+  @drone_status
+} else if \x ? "Send" {
+  @drone_deploy
+} else if \x ? "Call" {
+  @drone_call  
+  @lcd_line(Call drone to carrier)
+} else if \x ? "Print" {
+  @drone_print(menu)
+} else if \x ? "Release" {
+  \x = cond(StatusX of Connector Print = Connected & OnOff of Welder Print = False : 1 : 0)
+  if \x = 1 {
+    @lcd_line(Release drone started)
+    @drone_release
+  } else {
+    @lcd_line(Drone not ready)
+  }
+}
+Stop
+}
+
+@menu_target {
+\msel = "target\mopt"
+\x = TokenLine[\mopt] of menu
+
+if \x ? "scan" {
+  @scan(menu)
+  \msel = "target0"
+} else if \x ? "show" {
+  @scan(show)
+} else if \x ? "clear" {
+  Fly Clear
+  Data of \camera = ""
+  @lcd_line(Lidar target clean)
+} else if \x ? "fly" {
+  if \lidar ? GPS {
+    OnOff_Off Thruster on MyGrid
+    OnOff_On (SEC, Econom Thrusters)
+    AutoPilot of Remote SEC = True
+    \x = Token[3] of lidar
+    @lcd_line(Fly to \x started)
+  } else {
+    @lcd_line(No target to fly)
+  }
+} else if \x ? "send" {
+  @drone_deploy
+}
+Stop
+}
+
+@drone_deploy {
+if \lidar ? GPS {
+  @drone_send
+  @lcd_line(Send drone to tagret)
+} else {
+  @lcd_line(No target to send drone)
+}
+}
+
+@lcd_line {
+\x = Time[dd/MM/yy HH:mm:ss] of MyShip
+WriteLine to \lcd = "\x\N\1"
+}
+
+@ship_status {
+\x = math(int(InvX Ice of MyGrid / 1000))
+
+WriteLine to \lcd = "Battery   : {StatusM Battery of MyGrid} %
+O2/H2    : {StatusM Oxygen Tank of MyGrid} / {StatusM Hydrogen Tank of MyGrid} %%
+Ice/Uran : \x tn / {InvX Uranium of MyGrid} kg"
+
+WriteLine to \lcd = "\NReactors active   : {Status[Active] Reactor of MyGrid}
+O2/H2 Generator : {Status[Active] O2/H2 Generator of MyGrid}"
+
+if Status of Jump Drive = Charging {
+  \x = Info[6] of Jump Drive
+} else {
+  \x = math((Info[7] of Jump Drive * JumpDistance of Jump Drive)/100)
+  \x = math(Int(\x)+5)
+}
+WriteLine to \lcd = "Jump: {Status of Jump Drive} to \x/{Info[7] of Jump Drive}"
+WriteLine to \lcd = "\N{Status Connector of AllGrid}"
+}
+
+@radio {
+if \radio ? "T-Fighter" { 
+  if \radio ? "callback" {
+    @drone_call
+  } else if \radio ? "status" {
+    \x = Text of \lcd 
+    if \x ? "T-Fighter" {
+      WriteLine to \lcd = "\1\N"
+    } else {
+      Write to \lcd = "\1\N"
+      Delay 200
+    }
+  }
+}
+Send Clear
+}
+
+@drone_stop {
+Send to Antenna SEC = "\my:@order(stop)" 
+}
+
+@drone_call {
+Send to Antenna SEC = "\my:@order(call,GPS:\pos:#)"
+}
+
+@drone_send {
+if \lidar ? "GPS" {
+  Send to Antenna SEC = "\my:@order(send,\lidar)" 
+}
+}
+
+@drone_status {
+  \x = Grid Pos of MyShip  
+  Send to Antenna SEC = "\my:@order(status,GPS:\x:#)"
+}
+
+@drone_print {
+if Text of LCD Autokit ? staff {
+  if StatusX of Connector Print = Unconnected {
+     if \1 = menu { 
+        @lcd_line(Print drone started) 
+     }
+     Move Piston Print to  8.25 at 3
+     When Position of Piston Print > 8.0
+     OnOff_On Projector Print TF1
+     OnOff_On  Welder Print
+     Delay 200
+     OnOff_On Projector Print TF2
+     Move Piston Print to 0 at 0.2
+  } else {
+    if \1 = menu { 
+       @lcd_line(Connector print occuped) 
+    }
+  }
+} else{
+  if \1 = menu { 
+     @lcd_line(Not enough components) 
+  }
+}
+}
+
+@drone_release {
+OnOff_On Projector Print TF1
+Delay 300
+\x = Info[4] of Projector Print TF1
+\x = math(\x)
+OnOff_Off Projector Print TF1
+
+if \x = 1 {
+   if Position of Piston Gate = 1 { 
+      @gate 
+   }
+   @printgun
+   RunAll PBL EasyPlay(gateout)
+}
+}
+
+@printgun {
+if Angle of Hinge Gun 2 > 2 {
+   Rotate Hinge Gun 2 to 0 at 3
+   Rotate Hinge Gun 1 to 0 at 3
+   When Angle of Hinge Gun 2 = 0.0
+   Velocity of Hinge Gun = 0
+} else {
+   Rotate Hinge Gun 2 to 90 at 3
+   Rotate Hinge Gun 1 to -90 at 3
+   When Angle of Hinge Gun 2 = 90.0
+   Velocity of Hinge Gun = 0
+   Delay 200
+   ShootOnce Print Gun
+   Delay 200
+   ShootOnce Print Gun
+   @printgun
+ }
+}
+
+@printlcd {
+If Position of Piston Print = 0 {
+   OnOff_On Projector Print TF2
+   Delay 2000
+   if Text of LCD Print ? "COMPONENTS:" {
+       Run PB Projector = Projector Print TF2;;LCD Print
+       Write to Buttons Hold[3] = "Components\Nfor drone"
+   } else {
+      Run PB Projector = Projector Print TF2;LCD Print
+      Write to Buttons Hold[3] = "Ingots & Ores\Nfor drone"
+   }
+   OnOff_Off Projector Print TF2
+}
+}
+
+@scan {
+\x = cond(\1 ? \ | \1 ? menu : 1 : 0)
+
+if \x ? 1 { 
+  if \1 ? \ { 
+    Write to \lcd = "... Wait Lidar ...\N" 
+  }
+  Scan of \camera at \range
+  if \lidar ? "GPS" { 
+     Fly Clear
+     Fly to \lidar at \racing
+  }
+  if \1 ? \ { 
+    Write to \lcd = "= Ship Lidar =\N" 
+  }
+}
+
+if \1 ? menu {
+  Write to \lcd = "\mhead\N"
+  WriteLineMenu(\mopt) to \lcd = \menu
+}
+
+\x = Distance \lidar of MyShip
+Delay 100
+if \x > 0 {
+  WriteLine to \lcd = "Distance: \x m\N{Token[3] of lidar}: {Token[5] of lidar} m"
+} else {
+  WriteLine to \lcd = "No Target"
+}
+WriteLine to \lcd = "Scan at: \range m"
+}
+
+@gate {
+if Position of Piston Gate = 1 {
+   Reverse Piston Gate
+   Delay 2000
+   Reverse Hinge Gate
+   if \1 = menu {
+     When Position of Piston Gate = 10
+   }
+   Write to Buttons Hold[0] = "Gate\NOpen"
+} else if Position of Piston Gate = 10 {
+   Reverse Hinge Gate
+   Delay 3000
+   Reverse Piston Gate
+   if \1 = menu {
+     When Position of Piston Gate = 1
+   }
+   Write to Buttons Hold[0] = "Gate\NClose"
+}
+Send Clear
+}
+
+@show {
+Show \1
+}
+
+=======================================
+@var {
+lcd = "LCD Info"
+camera = "Camera"
+range  = 15000
+mind = 40
+over = 100
+kr = 0.0005
+kb = 0.0025
+
+lidar = Data of \camera
+dist  = Distance \lidar of MyShip
+cont  = Operate of MyShip
+
+s = 0
+b = 0
+x = 0
+y = 0
+z = 0
+w = 0
+}
+
+@test {
+Echo = "{Base Mass of MyShip}"
+}
+
+@retro {
+if Damp of MyShip = False {
+   Damp of MyShip = True
+}
+OnOff_On Thruster
+Over of (Thruster Fwd) = 0
+@pitch
+When Speed of MyShip < 5
+@pitch
+}
+
+@pitch {
+Pitch of Gyro = 30
+Over of Gyro = True
+Delay 1680
+Over of Gyro = False
+Pitch of Gyro = 0
+}
+
+@airlock {
+If Data of Door Int = "" {
+  Data of Door Int = "Airlock"
+  if Status of Door Int = Open {
+     OnOff_Off Door Ext
+     Open_Off Door Int
+     Delay 1500
+     OnOff_On Door Ext
+     Open_On Door Ext
+  } else if Status of Door Ext = Open {
+     OnOff_Off Door Int
+     Open_Off Door Ext
+     Delay 1500
+     OnOff_On Door Int
+     Open_On Door Int
+  }
+  Delay 2000
+  Open_Off Door
+  Data of Door Int = ""
+}
+}
+
+@calc {
+\s = 0
+\b = 0
+@scan
+@speed(0)
+Echo = "\NCalc: \s / \b"
+}
+
+@speed {
+\z = math(\1+10)
+if \z < 101 {
+    \x = math((Mass of MyShip/10000) * \kr * \z * \z)
+    \y = math((Mass of MyShip/10000) * \kb * \z * \z)
+    \w = math(\x + \y + \mind)
+*   Echo = "\z :  \w : \dist"
+   if \w < \dist {
+       \b = math(Int(\y+\mind))
+       \s = \z
+       @speed(\z)
+   }
+}
+}
+
+@fly4 {
+\s = 0
+\b = 0
+@check
+
+if \kr ? "." { 
+  if \1 ? "go" { @scan }
+  if \dist > 0 {
+     \x = math((\mind/\dist)*100) 
+     if \x > 70 { @info(Stop,Reach) }
+  }
+} else {
+  @setup(50)
+}
+
+if \lidar ? GPS {
+  @speed(0)
+  if \s = 0 { @info(Stop,Reach) }
+
+  OnOff_On (Thruster Fwd)
+  OnOff_Off (Thruster Bwd)
+  Override of (Thruster Fwd) = \over%
+  @race
+  Override of (Thruster Fwd) = 0
+  OnOff_On (Thruster Bwd)
+  @brake
+  \x = math((\mind/\dist)*100) 
+  if \x < 70 { @fly4 }
+  @info(Stop,Reach)
+} else {   
+  @info(Fly,No GPS)
+}
+}
+
+@race {
+if \b < \dist {
+   \y = math(Speed of MyShip + 1)
+  if \s < \y {
+    Override of (Thruster Fwd) = 0
+    \y = "Free fly"
+  } else {  
+    \y = "Racing"
+  }
+  \x = OperAxis of \cont
+  if \x = True {
+    @info(Stop,Break)
+  } else {
+    @info(\y/\s,\dist/\b m)
+  }
+  Delay 100
+  @race
+}
+}
+
+@brake {
+if Speed of MyShip > 1 {
+  \x = OperAxis of \cont
+  if \x = True {
+    @info(Stop,Break)
+  } else {
+    @info(Braking,\dist m) 
+  }
+  Delay 100
+  @brake
+}
+}
+
+@check {
+\x = OnOff of \camera
+if \x != True {
+  @info(Stop,Camera turn off or not found)
+} else if Number of (Thruster Fwd) = 0 {
+  @info(Stop,Group (Thruster Fwd) not found)
+} else if Number of (Thruster Bwd) = 0 {
+  @info(Stop,Group (Thruster Bwd) not found)
+} else if \mind < 1 {
+  @info(Stop,"mind" must be > 0)
+} else if \over < 1 {
+  @info(Stop,"over" must be > 0)
+}
+}
+
+@scan {
+Scanr of \camera at \range
+if \dist > 0 {
+  @info(Scan,\dist m)
+  Write to LCD Lidar = "Target: \dist m" 
+} else {
+  @info(Scan,No Target)
+  Write to LCD Lidar = "No Target" 
+}
+}
+
+@info {
+\w = math(int(Speed of MyShip))
+if \lcd = "" {
+   Echo =  "Mode: \1\NTarget: \2\NSpeed: \w m/s"
+ } else {
+   Write to \lcd = "Mode: \1\NTarget: \2\NSpeed: \w m/s"
+}
+if \1 = Stop { 
+   Over of (Thruster Fwd) = 0
+   OnOff_On (Thruster Bwd)
+   Data of \camera = ""
+   Stop 
+}
+}
+
+@setup {
+\s = Speed of MyShip
+if \s < 1 {
+  \s = cond(\1 > 99 : 99 : \1)
+  OnOff_On (Thruster Fwd)
+  OnOff_On (Thruster Bwd)
+
+  @sout(Calculate...)
+  \y = Grid Pos of MyShip
+  Data of \camera = \y
+
+  OnOff_Off (Thruster Bwd)
+  Override of (Thruster Fwd) = \over%
+  When Speed of MyShip > \s
+
+  \z = Distance \lidar of MyShip
+  \y = math(\z / (Base Mass of MyShip/1000) / (\1*(\1/10)))
+  \w = "Racing: \z m\Nkr = \y"
+
+  \z = Grid Pos of MyShip
+  Data of \camera = \z
+
+  Override of (Thruster Fwd) = 0
+  OnOff_On (Thruster Bwd)
+  When Speed of MyShip < 1
+
+  \z = Distance \lidar of MyShip
+  \y = math(\z / (Base Mass of MyShip/1000) / (\1*(\1/10)))
+
+  @sout(\w\NBrake = \z m\Nkb = \y)
+} else {
+  @sout(Stop the ship)
+}
+Stop
+}
+
+@sout {
+if \lcd = "" { Echo = \1 } else { Write to \lcd = \1 }
+}
+
+@vars {
+brake = cond(Status of S1 Connector = Unconnected : 850 : 750)
+lidar = Data of Camera Lidar
+help = 1  
+x = 0
+}
+
+@s2_merge {
+if Natural Gravity of MyShip = 0.00 { 
+  if Status of S1 Connector ? Connectable {
+     Lock S1 Connector
+     Delay 100
+     OnOff_Off Thruster
+     Run S2 PBL Solar(pause)
+     OnOff_On S1 Hydro Thruster
+     Rotate Hinge Solar to 90 at 3  
+  } else if Status of S1 Connector != Unconnected {
+     OnOff_On Thruster
+     Start S2 Timer
+     Unlock S1 Connector
+     Delay 100
+     Over of S1 Hydro Thruster Forw = 30%
+     Delay 500
+     Over of S1 Hydro Thruster Forw = 0
+  }
+}
+}
+
+@s2_call {
+if Status of S1 Connector = Unconnected {
+    \x = Grid Position of S1 Remote
+    Send = "SE Sputnic:@fly4gps(GPS:S1:\x:#)"
+    @info(Send signal)
+}
+}
+
+@fly4lidar {
+if Data of Camera Lidar ? GPS {
+   @info(Fly To Lidar)
+   OnOff_On Thruster
+   OnOff_Off Thruster Back
+   Override of Thruster Forw = 100%
+   When Speed of MyShip > 95
+   Override of Thruster Forw = 0
+   @fly
+   OnOff_On Thruster
+   When Speed of MyShip < 5
+   OnOff_Off S2 Hydro Thruster
+   Data of Camera Lidar = ""
+   @info(Ready)
+} else {   
+  @info(No Lidar Data)
+}
+}
+
+@fly {
+\x = Distance \lidar of MyShip
+@info(Distance: \x m)
+if Value of x > \brake {
+   Delay 500
+   @fly 
+}
+}
+
+@info {
+if Value of 1 = Ready {
+    PlaySound Dinamic
+}
+Write to LCD Auto = "Easy Play\N\1"
+}
+
+@help {
+if Value of help < 2 {
+  \help = math(\help + 1)
+} else {
+  \help = 1
+}
+Write to Cockpit = "{Data[@help_\help] of Cockpit}"
+}
+
+@show {
+show \1
+}
+
+@vars {
+lidar = Data of CN Camera left
+brake = 750
+smax = 95
+x = 0
+y = 0
+z = 0
+}
+
+@scan {
+Scan of CN Camera left at 15000
+\x = Distance \lidar of MyShip
+@info(Distance: \x m)
+}
+
+@fly4lidar {
+if Value of lidar ? GPS {
+   @info(Fly To Lidar)
+   OnOff_On Thruster
+   OnOff_Off Thruster Back
+   Override of Thruster Forw = 100%
+   @fly
+   OnOff_On Thruster
+   @retro
+   When Speed of MyShip < 5
+   Data of CN Camera Left = ""
+   @info(Fly complete)
+} else {   
+  @info(No Lidar Data)
+}
+}
+
+@fly {
+\x = Distance \lidar of MyShip
+\y = math(int(Speed of MyShip))
+\z = cond(\x < \brake | \y > \smax : True : False)
+
+if \z = True {
+   Override of Thruster Forw = 0
+}
+
+@info(Distance: \x m\NSpeed: \y)
+if \x > \brake {
+   Delay 300
+   @fly 
+}
+}
+
+@info {
+Write to CN Pilot Seat Top = "Easy Play\N\N\1"
+}
+
+@jump {
+\x = math((\1 / Info[7] of Jump Drive 1 ) * 100)
+JumpDistance of Jump Drive 1 = \x
+}
+
+@airlock {
+If Data of CN Door Bridge Int = "" {
+  Data of CN Door Bridge Int = "Airlock"
+  if Status of CN Door Bridge Int = Open {
+     OnOff_Off CN Door Bridge Ext
+     Open_Off CN Door Bridge Int
+     Delay 1000
+     OnOff_On CN Door Bridge Ext
+     Open_On CN Door Bridge Ext
+  } else if Status of CN Door Bridge Ext = Open {
+     OnOff_Off CN Door Bridge Int
+     Open_Off CN Door Bridge Ext
+     Delay 1000
+     OnOff_On CN Door Bridge Int
+     Open_On CN Door Bridge Int
+  }
+  Delay 2000
+  Data of CN Door Bridge Int = ""
+}
+}
+
+@welders {
+if OnOff of Welder = False {
+  OnOff_On Welder on MyGrid
+  Color of CN Light Hold Top = 255:0:0
+  Write to Buttons Hold left[3] = Welders\NActive
+  Write to Buttons Hold Right[0] = Welders\NActive
+} else {
+  OnOff_Off Welder on MyGrid
+  Set Light Hold Top on CN Light Hold
+  Radius of Light Hold Top = 15
+  Write to Buttons Hold left[3] = Welders\NOff
+  Write to Buttons Hold Right[0] = Welders\NOff
+}
+}
+
+@retro {
+if Speed of MyShip > 0 {
+   if Damp of MyShip = True {
+      Damp of MyShip = False
+   } 
+   \x = Grid Pos of CN Pilot Seat Int
+   \y = GPS:\x
+   Delay 300
+   Fly to \y at 0
+   Fly Start
+   When Speed of MyShip < 5
+   Fly Clear
+}
+}
+
+@gate {
+if Value of 1 = Left {
+  \x = cond(Angle of Hinge Gate left = 0 : -90 : 0) 
+  \y = \x
+  Rotate Hinge Gate left to \x at 3
+  When Angle of Hinge Gate left = \y
+  \y = cond(Angle of Hinge Gate left = 0 : Open : Close)   
+  Write to Buttons Hold left[0] = "Left Gate\N\y"
+} else if Value of 1 = Right {
+  \x = cond(Angle of Hinge Gate right = 0 : 90 : 0)
+  \y = \x
+  Rotate Hinge Gate right to \x at 3
+  When Angle of Hinge Gate right = \y
+  \y = cond(Angle of Hinge Gate right = 0 : Open : Close)   
+  Write to Buttons Hold Right[3] = "Right Gate\N\y"
+}
+}
+
+@scooter {
+if Status of Sensor Scooter ext = "SE Scooter" {
+    if Status of Scooter Door ext = Closed {
+      Open_On Scooter Door ext
+      Data of Scooter Door ext = ""
+    } else if Status of Scooter Door ext = Open {
+      When Status of Sensor Scooter ext != "SE Scooter"
+      Open_Off Scooter Door ext
+      Data of Scooter Door ext = OutSide
+    }
+} else if Status of Sensor Scooter int = "SE Scooter" {
+    if Status of Scooter Door ext = Open {
+      Open_Off Scooter Door ext
+      if Data of Scooter Door ext = "" {
+         Data of Scooter Door ext = Inside
+      } 
+    } else {
+      Open_On Scooter Door ext
+    }
+} else {
+    if Status of Scooter Door ext = Open {
+      Open_Off Scooter Door ext
+    } else {
+      Open_On Scooter Door ext
+    }
+}
+}
+
+@but4 {
+\x = Surface of \2
+Surface of \1[0] = \x
+Surface of \1[1] = \x
+Surface of \1[2] = \x
+Surface of \1[3] = \x
+}
+
+@set {
+Echo = \2
+Set \1 on \2
+}
+
+@show {
+show \1
+}
