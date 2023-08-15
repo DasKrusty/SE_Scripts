@@ -1,0 +1,851 @@
+TERMS AND DEFINITIONS:
+@           - Code Block - where a set of commands is stored to run a specific task
+Data        - Refers to CustomData area
+Echo        - Refers to display bottom right
+Controller  - Cockpit, Remote Controller...
+
+DATA TYPES:
+There are 5 data types that are defined by the representation of a variable:
+    - Boolean type - can have two values ​​True or False
+    - Number (Number) - a positive or negative number with a decimal point, the boundary values ​​of which are determined by the game properties of the block.
+    - Color (Color) is the RGB representation of a triad of colors separated by ":", such as 0:0:255 (blue).
+    - GPS coordinatesis a triad of X:Y:Z, for example " GPS:Base:-62664.81 : -80178.37:-27915.08:# ".
+    - String (String) - Below is the initialization and output to the console of three string variables
+        @vars { 
+            name = Iroquois 
+            type = "Impact Media" 
+            value = "" 
+        } 
+        @view { 
+            Console = "\name \N \type \value" 
+        }
+
+@ Code Block will run a list of commands set out start and end with {} 
+Additionally, in parentheses "()", separated by a comma ",", you can specify the parameters that can be accessed inside the @-block by serial number.
+Example:
+@move_piston { 
+    UpperLimit of MyPiston = 1.5 
+    Reverse MyPiston 
+}
+
+CALLING VARIABLES:
+    @variables {
+        x = 100
+    }
+
+    @test {
+        Velocity of Piston 1 = \x   // "\" symbol looks and calls variable requested
+    }
+
+KNOWN COMMANDS:
+    * - Comment     {* Anything on the same line of this asterix will be ignored}
+    # - Hash        {Override #Gyros} - will cause all gyroscopes to be overridden if their name begins with Gyro
+    ! - Exclamation {Override ! Gyroscope 1} - will the interception be performed only for one gyroscope named Gyroscope 1
+    ? - Question    {Override ?gyro turn} - will override all gyroscopes that have words beginning with "gyro" and "turn"
+    () - Groups     {Override (Gyroscopes)} - Overrides all gyroscopes in that group
+
+    Grid    
+        {MyGrid} - (main grid) - blocks located on the grid in which the Easy Play PB is installed
+        {AllGrid} - MyGrid and all subgrids connected to the main one through dynamic blocks - rotors, hinges, pistons
+        {MyShip} - AllGrid and all what is docked to it through the connectors
+        {Grid_Name} - For example, " Unlock Connector on SE Escape Pod" will detach all connectors of the shuttle named "SE Escape Pod"
+
+    Show Information
+        @info { Show Airvent }
+
+    Ship Commands
+        Fly to GPS co-ords at 30   // ship will fly to the GPS coordinations at 30m/s
+        Fly Start
+
+    Custom Data 
+        Data of Camera Lidar   // reads data in Custom Data of Camera
+
+    Echo    
+        Echo = "Piston position: Position of MyPiston" //
+        Echo = "\x tons of ice left"
+        \x = 50 \speed = Speed ​​of MyShip \x = cond(\speed = 0 : Stoped : \x) Echo = Speed: \x
+
+    Stop / End / Reset  - Ends script
+
+    Variables
+        @var { 
+            camera = Camera Lidar   // Possibly rename blocks???
+        } 
+        @test { 
+            Data of \camera = "" 
+        }  
+
+        @var { 
+            controller = "Cockpit" 
+            x = 0 
+        } 
+        @damp_off { 
+            \x = Damp of \controller 
+            if \x = False { 
+                Damp of \controller = True 
+            }}
+
+    If / Else Statements
+        If Status of Gatling = Target { 
+            @alert(Enemy attack) } 
+        else { 
+            @silent 
+        }
+
+        \x = Angle of MyRotor 
+        IF Position Of MyPiston on MyGrid > \x { ... } 
+        Else If Value OF x = 90.0 { ... } 
+        Else { ... }
+
+        if Data of Camera Lidar ? "GPS:" {   // "?" checks if there is a "GPS:" in the CustomData of the camera named Camera Lidar
+            \coord = Data of Camera Lidar
+            Fly to \coord at 30 Fly Start 
+        }
+
+        if Open of Door = True { ... }   // this will check if ANY doors are open
+        if Open of Door on MyGrid == False { ... }   // if all the doors on the ship are closed, then you need to use a doubled comparison operator
+
+    Conditions - cond()   // And = & / Or = |
+        // And
+        \x = cond(OnOff of AirVent = False & OnOff of Door = False : 0 : 1)
+        if \x = 0 { Write to LCD = "Closed" }
+
+        \x = cond(Position of Piston Escape = 0 : closed : open) 
+        Write to LCD Info = "Gate \x"   // And/Or conditions, simpler than writing if else conditions
+
+        \x = cond(Position of Piston Escape = 7 & Angle of Rotor Escape = 180 : open : closed) 
+        Write to LCD Info = "Gate \x"
+        // Or
+        \x = cond(Position of Piston Escape < 7 | Angle of Rotor Escape != 180 : closed : open) 
+        Write to LCD Info = "Gate \x"
+
+    Conditional Loops
+        @wheel_up { 
+            if Height of Wheel 5x5 FL > -0.49 { 
+                DecreaseHeight (APC, Wheels)
+                Delay 250 
+                @wheel_up } }
+        
+        @vars { x = 10 } 
+        @countdown { 
+            if Value of x > 0 { 
+                Write to LCD Alert = "Countdown: \x"   
+                \x = math(\x - 1 )   // decrement the value of the global variable by 1 using math()
+                Delay 1000   // wait 1 sec  
+                @countdown }   // and call ourselves
+            Write to LCD Alert = "Evacuation!"  
+            \x = 10 }   // reset the value of the variable for possible script reuse
+
+    Delay / When 
+        // delay
+        Delay 3000 Write to LCD Info = "3 seconds elapsed."
+        // when
+        Move MyPiston to 7 at 1   // start the movement of the piston to the mark of 7 m at a speed of 1 
+        When Position of MyPiston = 7   // wait for the mark to be reached 
+        Write to LCD Info = "Gate open"   // display on the LCD about the end of the event 
+
+    Maths
+        abs() — absolute value
+        int() — rounding to an integer
+        @vars { level = math( (Position of Piston/2.5) + (abs(Angle of Rotor*0.5) - 1) }
+
+        \x = math(Info[3] of Airvent)   // * sets x = 100 of 100% pressure value
+        \x = math("GPS:Base:-31.789 :67.978:29.17965")   // * sets x = -31.789 - first number in GPS coordinates 
+        \x = Info[4] of Projector   // * will put information from the projector's Build Progress into x, e.g. "4/20"  
+        \x = math(\x )   // * calculate x = 0.2 from the string representation of the division 4/20
+
+    Tokens
+        \jump = "5:6:7:8:9:10"  
+        x = 9   // * x = 1, and without quotes
+        \x = Token["5"] of jump
+
+    Status
+        // Status of Blocks on Grid - If you don't need the extra information printed in the "()" parentheses, then use StatusX instead of Status
+        assembler	                - Idle, Producing, Stopped - if there are no ingots for production, in () mode of operation: Assembly, Disassembly
+        Tank (O2/H2)	            - chdt = tank full percentage, in () storage mode: StockOn, StockOff
+        Batteries	                - chdt = charge percentage, in () state of charge: Auto, Recharge, Discharge
+        Ventilation	                - Depressurized, Depressurized, Pressurized, Pressurized
+        wind generator	            - chdt = current output in watts, in () percentage of maximum output
+        Doors, gates, hangar doors	- Opening, Opening, Closing, Closed
+        Connector	                - Unconnected, Connectable, Connected, in () the name of the parked ship
+        Course weapons              - Idle, Ready, in () remaining ammo
+        laser antenna	            - Idle, RotatingToTarget, SearchingTargetForAntenna, Connecting, Connected, OutOfRange
+        Jump Drive	                - chdt = jump distance in km, in () current state: Charging, Ready, Jumping)
+        Piston	                    - Extending, Extended, Retracting, Retracted, Stopped - if speed is set to 0
+        Rotor and joint	            - attached, detached
+        Sensor	                    - Idle or friendly faction player/grid name
+        solar panel	                - chdt = current output in watts, in () percentage of maximum output
+        Connector	                - Idle, Merged
+        Sorter	                    - Whitelist, Blacklist - mode, not filter list
+        Timer	                    - Countdown - if countdown is in progress
+        Turrets automatic	        - Idle, Target - sees the target, Aimed - aims, in () the rest of the ammunition
+        Chassis and magnetic plates	- Unlocked, ReadyToLock, Locked
+
+        @ship_status { 
+            Write to LCD Status = "< Connector Status>\N {Status Connector of MyGrid}\N <Assembler Status>\N {Status Assembler of MyGrid}" }
+            // Writes to LCD 
+                // <Connector Status> Heading - \N is space
+                // Status of all Connectors on MyGrid
+                // Status of all Assemblers on MyGrid
+
+        // Status[Active]. Block activity
+        Echo = "{Status[Active] (Reactors) of MyShip}"   // * will output 1/3 if one of the three Reactors in the group (Reactors) is active 
+
+        // Status[Middle]. Average value
+        if Status[Middle] Oxygen Tank of MyShip < 75 {   // * if oxygen, including all tanks, is less than 75% 
+            if InvX of O2/H2 Generator > 0 {   // * if there is ice in O2/H2 Generators 
+                OnOff_On O2/H2 Generator } }   // * enable all generators 
+
+        // Status[Total]. Total value
+        if Status[Total] Solar Panel of MyShip < 100 {   // * if the output level is less than 100 W 
+            OnOff_On Gydrogen Generator }
+
+    Air Vent
+        Depressurize   // switches depressurization from one position to another
+        Depressurize_On   //turns on depressurization
+        Depressurize_Off   //turns off depressurization
+
+    Camera
+        Scan of Camera at 15000   // lidar scan using camera to get gps co-ords
+        \gps = "GPS:{Token[3] of Camera}:{Token[8] of Camera} :{Token[9] of Camera}:{Token[10] of Camera}:#"
+
+    Connector
+        If Status of MyConnector = Connectable { Lock MyConnector }
+
+    Gyroscope
+        Override Gyroscope
+
+    LCD
+        Write to LCD Alert = \1 //Variable used
+        Write to LCD Alert = "" //Clears LCD
+
+    Lights
+        Blink Interval of (Alert light) = 0.5
+
+    O2H2 Generator
+        math(int(InvX Ice of O2\H2 Generator / 1000))
+        OnOff_On O2\H2 Generator
+        OnOff_Off O2\H2 Generator
+
+    Oxygen / Hydrogen Tanks
+        if StatusX of Oxygen Tank on MyGrid < 50
+
+    Piston
+        UpperLimit of MyPiston = 7
+        Position of MyPiston   //Calls for the actual position of the piston
+        Reverse MyPiston
+
+    Thrusters   
+        Override of Ion Thruster = 100%
+
+    Turrets
+        If Status of Gatling = Target {}
+
+    Wheels
+        if Height of Wheel 5x5 FL > -0.49 {}
+        DecreaseHeight (APC, Wheels)
+
+BLOCK COMMANDS:
+Air Vent
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off ->Toggle Block Off
+    Depressurize -> Depressurize On/Off
+    Depressurize_On -> Depressurize On
+    Depressurize_Off -> Depressurize Off
+
+Advanced Rotor
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off ->Toggle Block Off
+    Reverse -> Reverse
+    Attach -> Attach
+    IncreaseTorque -> Increase Torque
+    DecreaseTorque -> Decrease Torque
+    IncreaseBrakingTorque -> Increase Braking Torque
+    DecreaseBrakingTorque -> Decrease Braking Torque
+    IncreaseVelocity -> Increase Velocity
+    ResetVelocity -> Reset Velocity
+    IncreaseLowerLimit -> Increase Lower Limit
+    DecreaseLowerLimit -> Decrease Lower Limit
+    IncreaseUpperLimit -> Increase Upper Limit
+    DecreaseUpperLimit -> Decrease Upper Limit
+    IncreaseDisplacement -> Increase Rotor Displacement
+    DecreaseDisplacement -> Decrease Rotor Displacement
+
+Antenna
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    IncreaseRadius -> Increase Broadcast radius
+    DecreaseRadius -> Decrease Broadcast radius
+    EnableBroadCast -> Toggle Broadcast On/Off
+    ShowShipName -> Toggle Showing Ship Name
+
+Artificial Mass
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    UseConveyor -> Use Conveyor System On/Off
+    slaveMode -> Cooperative Mode On/Off
+
+Battery
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    Recharge -> Recharge On/Off
+    Discharge -> Discharge On/Off
+    SemiAuto -> Semi-auto On/Off
+
+Beacon
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+
+Camera
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    View -> View
+
+Cockpit, Control Station, Flight Seat
+    ControlThrusters -> Control thrusters On/Off
+    ControlWheels -> Control wheels On/Off
+    HandBrake -> Handbrake On/Off
+    DampenersOverride -> Inertia dampeners On/Off
+    MainCockpit -> Main Cockpit On/Off
+    HorizonIndicator -> Show Horizon and Altitude On/Off
+
+Collector
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    UseConveyor -> Use Conveyor System On/Off
+
+Connector
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    ThrowOut -> Throw Out On/Off
+    CollectAll -> Collect All On/Off
+    SwitchLock -> Switch lock
+
+Control Panel
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    DrainAll -> Drain All On/Off
+
+Door
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    Open -> Open/Close Door
+    Open_On -> Open Door
+    Open_Off -> Close Door
+
+Drill
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    UseConveyor -> Use Conveyor System On/Off
+
+Gatling Gun
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    UseConveyor -> Use Conveyor System On/Off
+    ShootOnce -> Shoots Once
+    Shoot -> Shoot On/Off
+    Shoot_On -> Shoot On
+    Shoot_Off-> Shoot Off
+
+Gatling Turret
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    Control -> Control
+    IncreaseRange -> Increase Radius
+    DecreaseRange -> Decrease Radius
+    UseConveyor -> Use Conveyor System On/Off
+    ShootOnce -> Shoot once
+    Shoot -> Shoot On/Off
+    Shoot_On -> Shoot On
+    Shoot_Off -> Shoot Off
+    IncreaseRange -> Increase Aiming Radius
+    DecreaseRange -> Decrease Aiming Radius
+    EnableIdleMovement -> Idle Movement On/Off
+    EnableIdleMovement_On -> Idle Movement On
+    EnableIdleMovement_Off -> Idle Movement Off
+    TargetMeteors -> Target meteors On/Off
+    TargetMeteors_On -> Target meteors On
+    TargetMeteors_Off -> Target meteors Off
+    TargetMoving -> Target moving On/Off
+    TargetMoving_On -> Target moving On
+    TargetMoving_Off -> Target moving Off
+    TargetMissiles -> Target missiles On/Off
+    TargetMissiles_On -> Target missiles On
+    TargetMissiles_Off -> Target missiles Off
+    TargetSmallShips -> Target small ships On/Off
+    TargetSmallShips_On -> Target small ships On
+    TargetSmallShips_Off -> Target small ships Off
+    TargetLargeShips -> Target large ship On/Off
+    TargetLargeShips_On -> Target large ship On
+    TargetLargeShips_Off -> Target large ship Off
+    TargetCharacters -> Target characters On/Off
+    TargetCharacters_On -> Target characters On
+    TargetCharacters_Off -> Target characters Off
+    TargetStations -> Target stations On/Off
+    TargetStations_On -> Target stations On
+    TargetStations_Off -> Target stations Off
+    TargetNeutrals -> Target neutrals On/Off
+    TargetNeutrals_On -> Target neutrals On
+    TargetNeutrals_Off -> Target neutrals Off
+
+Gravity Generator
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    IncreaseWidth -> Increase Field width
+    DecreaseWidth -> Decrease Field width
+    IncreaseHeight -> Increase Field height
+    DecreaseHeight -> Decrease Field height
+    IncreaseDepth -> Increase Field depth
+    DecreaseDepth -> Decrease Field depth
+    IncreaseGravity -> Increase Acceleration
+    DecreaseGravity -> Decrease Acceleration
+
+Grinder
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    UseConveyor -> Use Conveyor System On/Off
+
+Gyroscope
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    IncreasePower -> Increase Power
+    DecreasePower -> Decrease Power
+    Override -> Override controls On/Off
+    IncreaseYaw -> Increase Yaw override
+    DecreaseYaw -> Decrease Yaw override
+    IncreasePitch -> Increase Pitch override
+    DecreasePitch -> Decrease Pitch override
+    IncreaseRoll -> Increase Roll override
+    DecreaseRoll -> Decrease Roll override
+
+Interior Light
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    IncreaseRadius -> Increase Radius
+    DecreaseRadius -> Decrease Radius
+    IncreaseBlink Interval -> Increase Blink Interval
+    DecreaseBlink Interval -> Decrease Blink Interval
+    IncreaseBlink Lenght -> Increase Blink Length
+    DecreaseBlink Lenght -> Decrease Blink Length
+    IncreaseBlink Offset -> Increase Blink Offset
+    DecreaseBlink Offset -> Decrease Blink Offset
+
+Interior Turret
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    Control -> Control
+    IncreaseRange -> Increase Radius
+    DecreaseRange -> Decrease Radius
+    ShootOnce -> Shoot once
+    Shoot -> Shoot On/Off
+    Shoot_On -> Shoot On
+    Shoot_Off -> Shoot Off
+    IncreaseRange -> Increase Aiming Radius
+    DecreaseRange -> Decrease Aiming Radius
+    EnableIdleMovement -> Idle Movement On/Off
+    EnableIdleMovement_On -> Idle Movement On
+    EnableIdleMovement_Off -> Idle Movement Off
+    TargetMeteors -> Target meteors On/Off
+    TargetMeteors_On -> Target meteors On
+    TargetMeteors_Off -> Target meteors Off
+    TargetMoving -> Target moving On/Off
+    TargetMoving_On -> Target moving On
+    TargetMoving_Off -> Target moving Off
+    TargetMissiles -> Target missiles On/Off
+    TargetMissiles_On -> Target missiles On
+    TargetMissiles_Off -> Target missiles Off
+    TargetSmallShips -> Target small ships On/Off
+    TargetSmallShips_On -> Target small ships On
+    TargetSmallShips_Off -> Target small ships Off
+    TargetLargeShips -> Target large ship On/Off
+    TargetLargeShips_On -> Target large ship On
+    TargetLargeShips_Off -> Target large ship Off
+    TargetCharacters -> Target characters On/Off
+    TargetCharacters_On -> Target characters On
+    TargetCharacters_Off -> Target characters Off
+    TargetStations -> Target stations On/Off
+    TargetStations_On -> Target stations On
+    TargetStations_Off -> Target stations Off
+    TargetNeutrals -> Target neutrals On/Off
+    TargetNeutrals_On -> Target neutrals On
+    TargetNeutrals_Off -> Target neutrals Off
+
+Jump Drive
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    Recharge -> Recharge On/Off
+    Recharge_On -> Recharge On
+    Recharge_Off -> Recharge Off
+    IncreaseJumpDistance -> Increase jump distance
+    DecreaseJumpDistance -> Decrease jump distance
+
+Landing Gear
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    Lock -> Lock
+    Unlock -> Unlock
+    SwitchLock -> Switch lock
+    Autolock -> Autolock On/Off
+    IncreaseBreakForce -> Increase Break Force
+    DecreaseBreakForce -> Decrease Break Force
+
+Laser Antenna
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    Idle -> Idle
+    PasteGpsCoords -> Paste coordinates
+    ConnectGPS -> Connect to coordinates
+    isPerm -> Permanent connection On/Off
+
+Medical Room
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+
+Merge Block
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+
+Missile Turret
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    Control -> Control
+    IncreaseRange -> Increase Radius
+    DecreaseRange -> Decrease Radius
+    ShootOnce -> Shoot once
+    Shoot -> Shoot On/Off
+    Shoot_On -> Shoot On
+    Shoot_Off -> Shoot Off
+    IncreaseRange -> Increase Aiming Radius
+    DecreaseRange -> Decrease Aiming Radius
+    UseConveyor -> Use Conveyor System On/Off
+    EnableIdleMovement -> Idle Movement On/Off
+    EnableIdleMovement_On -> Idle Movement On
+    EnableIdleMovement_Off -> Idle Movement Off
+    TargetMeteors -> Target meteors On/Off
+    TargetMeteors_On -> Target meteors On
+    TargetMeteors_Off -> Target meteors Off
+    TargetMoving -> Target moving On/Off
+    TargetMoving_On -> Target moving On
+    TargetMoving_Off -> Target moving Off
+    TargetMissiles -> Target missiles On/Off
+    TargetMissiles_On -> Target missiles On
+    TargetMissiles_Off -> Target missiles Off
+    TargetSmallShips -> Target small ships On/Off
+    TargetSmallShips_On -> Target small ships On
+    TargetSmallShips_Off -> Target small ships Off
+    TargetLargeShips -> Target large ship On/Off
+    TargetLargeShips_On -> Target large ship On
+    TargetLargeShips_Off -> Target large ship Off
+    TargetCharacters -> Target characters On/Off
+    TargetCharacters_On -> Target characters On
+    TargetCharacters_Off -> Target characters Off
+    TargetStations -> Target stations On/Off
+    TargetStations_On -> Target stations On
+    TargetStations_Off -> Target stations Off
+    TargetNeutrals -> Target neutrals On/Off
+    TargetNeutrals_On -> Target neutrals On
+    TargetNeutrals_Off -> Target neutrals Off
+
+Ore Detector
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+
+Oxygen Generator
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    Refill -> Refill Bottles
+    Auto-Refill -> Auto-Refill On/Off
+
+Oxygen/Hydrogen Tank
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    Stockpile -> Stockpile On/Off
+    Stockpile_On -> Stockpile On
+    Stockpile_Off -> Stockpile Off
+    Refill -> Refill Bottles
+    Auto-Refill -> Auto-Refill On/Off
+
+Passenger Seat
+    ControlThrusters -> Control thrusters On/Off
+    ControlWheels -> Control wheels On/Off
+    HandBrake -> Handbrake On/Off
+    DampenersOverride -> Inertia dampeners On/Off
+
+Piston
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    Reverse -> Reverse
+    Extend -> Extend
+    Retract -> Retract
+    IncreaseVelocity -> Increase Velocity
+    DecreaseVelocity -> Decrease Velocity
+    ResetVelocity -> Reset Velocity
+    IncreaseUpperLimit -> Increase Maximal distance
+    DecreaseUpperLimit -> Decrease Maximal distance
+    IncreaseLowerLimit -> Increase Minimal distance
+    DecreaseLowerLimit -> Decrease Minimal distance
+    IncreaseWeld speed -> Increase Safety lock speed
+    DecreaseWeld speed -> Decrease Safety lock speed
+    IncreaseMaxImpulseAxis
+    DecreaseMaxImpulseAxis
+    IncreaseMaxImpulseNonAxis
+    DecreaseMaxImpulseNonAxis
+    Force weld -> Safety override lock On/Off
+    Force weld
+    IncreaseSafetyDetach
+    DecreaseSafetyDetach
+    ShareInertiaTensor
+    Add Top Part
+
+Programmable block
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    Run -> Run
+    RunWithDefaultArgument -> Run with default argument
+
+Projector
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    KeepProjection -> Keep Projection On/Off
+    IncreaseX -> Increase horizontal offset
+    DecreaseX -> Decrease horizontal offset
+    IncreaseY -> Increase vertical offset
+    DecreaseY -> Decrease vertical offset
+    IncreaseZ -> Increase forward offset
+    DecreaseZ -> Decrease forward offset
+    IncreaseRotX -> Increase Pitch
+    DecreaseRotX -> Decrease Pitch
+    IncreaseRotY -> Increase Yaw
+    DecreaseRotY -> Decrease Yaw
+    IncreaseRotZ -> Increase Roll
+    DecreaseRotZ -> Decrease Roll
+    IncreaseScale
+    DecreaseScale
+    SpawnProjection -> Spawn projection
+    IncreaseFontSize
+    DecreaseFontSize
+    IncreaseTextPaddingSlider
+    DecreaseTextPaddingSlider
+    IncreaseChangeIntervalSlider
+    DecreaseChangeIntervalSlider
+    PreserveAspectRatio
+
+Reactor (Small, Large)
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    UseConveyor -> Use Conveyor System On/Off
+
+Refinery and Arc Furnace
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    UseConveyor -> Use Conveyor System On/Off
+
+Reloadable Rocket Launcher
+    Off -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    UseConveyor -> Use Conveyor System On/Off
+    ShootOnce -> Shoot once
+    Shoot -> Shoot On/Off
+    Shoot_On -> Shoot On
+    Shoot_Off -> Shoot Off
+
+Remote Control
+    ControlThrusters -> Control thrusters On/Off
+    ControlWheels -> Control wheels On/Off
+    HandBrake -> Handbrake On/Off
+    DampenersOverride -> Inertia dampeners On/Off
+    MainCockpit -> Main cockpit On/Off
+    AutoPilot -> Autopilot On/Off
+    AutoPilot_On -> Autopilot On
+    AutoPilot_Off -> Autopilot Off
+    CollisionAvoidance -> Collision avoidance On/Off
+    CollisionAvoidance_On -> Collision avoidance On
+    CollisionAvoicance_Off -> Collision avoidance Off
+    DockingMode -> Precision mode On/Off
+    DockingMode_On -> Precision mode On
+    DockingMode_Off -> Precision mode Off
+    Forward -> Set front part of remote control as reference for autopilot
+    Backward -> Set rear part of remote control as reference for autopilot
+    Left -> Set left part of remote control as reference for autopilot
+    Right -> Set right part of remote control as reference for autopilot
+    Up -> Set top part of remote control as reference for autopilot
+    Down -> Set bottom part of remote control as reference for autopilot
+
+Rocket Launcher
+    Off -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    UseConveyor -> Use Conveyor System On/Off
+    ShootOnce -> Shoot once
+    Shoot -> Shoot On/Off
+    Shoot_On -> Shoot On
+    Shoot_Off -> Shoot Off
+
+Rotor
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    Reverse -> Reverse
+    Detach -> Detach
+    Attach -> Attach
+    IncreaseTorque -> Increase Torque
+    DecreaseTorque -> Decrease Torque
+    IncreaseBrakingTorque -> Increase Braking tor.
+    DecreaseBrakingTorque -> Decrease Braking tor.
+    IncreaseVelocity -> Increase Velocity
+    DecreaseVelocity -> Decrease Velocity
+    ResetVelocity -> Reset Velocity
+    IncreaseLowerLimit -> Increase Lower limit
+    DecreaseLowerLimit -> Decrease Lower limit
+    IncreaseUpperLimit -> Increase Upper limit
+    DecreaseUpperLimit -> Decrease Upper limit
+    IncreaseDisplacement -> Increase Rotor displacement
+    DecreaseDisplacement -> Decrease Rotor displacement
+
+Sensor
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    IncreaseLeft -> Increase Left extent
+    DecreaseLeft -> Decrease Left extent
+    IncreaseRight -> Increase Right extent
+    DecreaseRight -> Decrease Right extent
+    IncreaseBottom -> Increase Bottom extent
+    DecreaseBottom -> Decrease Bottom extent
+    IncreaseTop -> Increase Top extent
+    DecreaseTop -> Decrease Top extent
+    IncreaseBack -> Increase Back extent
+    DecreaseBack -> Decrease Back extent
+    IncreaseFront -> Increase Front extent
+    DecreaseFront -> Decrease Front extent
+    Detect Players -> Detect players On/Off
+    Detect Floating Objects -> Detect floating objects On/Off
+    Detect Small Ships -> Detect small ships On/Off
+    Detect Large Ships -> Detect large ships On/Off
+    Detect Stations -> Detect stations On/Off
+    Detect Asteroids -> Detect Asteroids On/Off
+
+Solar Panel
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    IncreaseVolumeSlider -> Increase Volume
+    DecreaseVolumeSlider -> Decrease Volume
+    IncreaseRangeSlider -> Increase Range
+    DecreaseRangeSlider -> Decrease Range
+    PlaySound -> Play
+    StopSound -> Stop
+    IncreaseLoopableSlider -> Increase Loop time
+    DecreaseLoopableSlider -> Decrease Loop time
+
+Space Balls
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    IncreaseRadius -> Increase Radius
+    DecreaseRadius -> Decrease Radius
+    IncreaseGravity -> Increase Acceleration
+    DecreaseGravity -> Decrease Acceleration
+
+Spotlight
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    IncreaseRadius -> Increase Radius
+    DecreaseRadius -> Decrease Radius
+    IncreaseBlink Interval -> Increase Blink Interval
+    DecreaseBlink Interval -> Decrease Blink Interval
+    IncreaseBlink Lenght -> Increase Blink Length
+    DecreaseBlink Lenght -> Decrease Blink Length
+    IncreaseBlink Offset -> Increase Blink Offset
+    DecreaseBlink Offset -> Decrease Blink Offset
+
+Text Panel, LCD, Wide LCD
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    IncreaseFontSize -> Increase Font Size
+    DecreaseFontSize -> Decrease Font Size
+    IncreaseChangeIntervalSlider -> Increase Image change interval
+    DecreaseChangeIntervalSlider -> Decrease Image change interval
+
+Thruster (Ion, Hydrogen, Atmospheric)
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    IncreaseOverride -> Increase thrust override
+    DecreaseOverride -> Decrease thrust override
+
+Timer Block
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    IncreaseTriggerDelay -> Increase Delay
+    DecreaseTriggerDelay -> Decrease Delay
+    TriggerNow -> Trigger now
+    Start -> Start
+    Stop -> Stop
+
+Warhead
+    IncreaseDetonationTime -> Increase Detonation time
+    DecreaseDetonationTime -> Decrease Detonation time
+    StartCountdown -> Start countdown
+    StopCountdown -> Stop countdown
+    Safety -> Safety On/Off
+    Detonate -> Detonate
+
+Welder
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    UseConveyor -> Use Conveyor System On/Off
+
+Wheel Suspension (1x1, 3x3, 5x5)
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    Steering -> Steering On/Off
+    Propulsion -> Propulsion On/Off
+    IncreaseDamping -> Increase Damping
+    DecreaseDamping -> Decrease Damping
+    IncreaseStrength -> Increase Strength
+    DecreaseStrength -> Decrease Strength
+    IncreaseFriction -> Increase Friction
+    DecreaseFriction -> Decrease Friction
+    IncreasePower -> Increase Power
+    DecreasePower -> Decrease Power
+

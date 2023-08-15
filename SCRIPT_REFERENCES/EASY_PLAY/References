@@ -1,6 +1,5 @@
 TERMS AND DEFINITIONS:
 @ - Code Block - where a set of commands is stored to run a specific task
-@show {Show \1}
 @rename {Rename \1 to \2}
 
 Variables
@@ -257,5 +256,7 @@ Note: 0 is returned for blocks of other types. Can be abbreviated to StatusM
 
 Status[Total]. Total value
 Applicable for blocks whose state is returned as a number with "." decimal point with:
-* if the output level is less than 100 W if Status[Total] Solar Panel of MyShip < 100 { * start the OnOff_On Gydrogen Generator }
+* if the output level is less than 100 W 
+if Status[Total] Solar Panel of MyShip < 100 {
+     * start the OnOff_On Gydrogen Generator }
 Note: for other block types, 0 is returned. Can be abbreviated to StatusT
