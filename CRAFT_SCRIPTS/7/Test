@@ -1,0 +1,53 @@
+// Doors will not be automated
+// Template vehicle to have standard auto shut down as an operation
+// Auto Shutdown and start
+// Auto engines shutdown and start when levels reached
+// Check if trailor connected
+
+@craft_para {
+    * Ship Name
+    * Length
+    * width
+    * Height
+    * Weight
+    * Max Speed
+    * Amount of Batteries / Hydrogen Engines / Hydrogen Tanks
+    * Wheel max power / Average power usage???
+    * Range???
+    * If has wheels ele flyable ship
+}
+
+@var {
+    Craft = Grid Name of MyGrid
+    ILCD = LCD Info
+}
+
+@autoonoff {}
+
+@autorun {}
+
+@trailorconnect {}
+
+UTG-7 Antenna
+UTG-7 Camera Fore
+UTG-7 Control Seat Left
+UTG-7 Corner LCD
+UTG-7 Exhaust Pipe
+UTG-7 Hydrogen Engine
+UTG-7 Gyroscope
+UTG-7 Hydrogen Engine 1
+UTG-7 Medium Cargo Container 4
+UTG-7 O2/H2 Generator
+UTG-7 Wheel Suspension 5x5 Right 4
+UTG-7 Light Brake
+UTG-7 Spotlight
+UTG-7 Light Hitch
+UTG-7 Ore Detector
+UTG-7 Projector
+UTG-7 Remote Control
+UTG-7 Rotor Trailor Hitch
+UTG-7 Small Connector
+UTG-7 Small Hydrogen Tank
+UTG-7 Headlight
+UTG-7 Survival Kit
+UTG-7 Battery

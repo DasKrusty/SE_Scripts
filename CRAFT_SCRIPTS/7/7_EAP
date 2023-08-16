@@ -1,29 +1,11 @@
-// Doors will not be automated
-// Template vehicle to have standard auto shut down as an operation
-// Auto Shutdown and start
-// Auto engines shutdown and start when levels reached
-// Check if trailor connected
+@var {
+    MCL = Grid SizeL Of MyShip
+    MCW = Grid SizeW Of MyShip
+    MCH = Grid SizeH Of MyShip
+}
 
 @craft_para {
-    * Ship Name
-    * Length
-    * width
-    * Height
-    * Weight
-    * Max Speed
-    * Amount of Batteries / Hydrogen Engines / Hydrogen Tanks
-    * Wheel max power / Average power usage???
-    * Range???
-    * If has wheels ele flyable ship
+    WriteLine to LCD Info = "Length: "\MCL m
+    WriteLine to LCD Info = "Width: "\MCW m
+    WriteLine to LCD Info = "Height: "\MCH m
 }
-
-@var {
-    Craft = Grid Name of MyGrid
-    ILCD = LCD Info
-}
-
-@autoonoff {}
-
-@autorun {}
-
-@trailorconnect {}

@@ -83,7 +83,17 @@ KNOWN COMMANDS:
         Park — grid_name: connector_name to which the ship is parked (not abbreviated)
         Position— triad of GPS coordinates of the center of mass of the grid on which the controller is installed
         Margin[NN] — triad of GPS coordinates of the grid boundary, calculated upwards from the controller at a distance equal to NN meters or the maximum dimension of the grid along its three axes LxWxH.
+        @var {
+            MCL = Grid SizeL Of MyShip
+            MCW = Grid SizeW Of MyShip
+            MCH = Grid SizeH Of MyShip
+        }
 
+        @craft_para {
+            WriteLine to LCD Info = "Length: "\MCL m
+            WriteLine to LCD Info = "Width: "\MCW m
+            WriteLine to LCD Info = "Height: "\MCH m
+        }
     Custom Data 
         Data of Camera Lidar   // reads data in Custom Data of Camera
 
