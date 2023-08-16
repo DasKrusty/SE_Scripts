@@ -55,7 +55,34 @@ KNOWN COMMANDS:
 
     Ship Commands
         Fly to GPS co-ords at 30   // ship will fly to the GPS coordinations at 30m/s
+        
+        \coord = "GPS:Base:-62664.81:-80178.37:-27915.08:#" 
+        Fly to \coord at 30 Fly Start
+        
         Fly Start
+        Fly Stop
+        
+        Damp of MyShip = True
+        
+        if Oper of MyCockpit = True { * Close Door of MyGrid }   // * if the character is in the cockpit 
+
+        @var { * defines the controller in which the character is located cont = Operate of MyShip x = 0 } 
+        @test { \x = OperAxis of \cont * if the WASD control button is pressed, echo if \x = True { Echo = "Operate!" } }
+
+    Ship Information
+        * use first available controller \myname = Grid Name of MyShip 
+        * use remote control \mypos = Grid Pos of Remote Control 
+        * use cockpit \mygrav = Art Gravity of MyCockpit 
+        \myspeed = Speed ​​of MyShip 
+        \mycargo = math(Mass of MyShip - Base Mass of MyShip) 
+        Write to LCD Info = "\myname Length: {Grid SizeL Of MyShip} m. Width: {Grid SizeW Of MyShip} m. Height: {Grid SizeH Of MyShip} m. Speed: \speed m/s Weight cargo: \mycargo kg Coordinates: \mypos"
+        Name - ship name in the "Info" tab of the system panel (not reduced)
+        SizeL - ship length in meters (not reduced)
+        SizeW - ship width in meters (not reduced)
+        SizeH - height of the ship in meters (not abbreviated)
+        Park — grid_name: connector_name to which the ship is parked (not abbreviated)
+        Position— triad of GPS coordinates of the center of mass of the grid on which the controller is installed
+        Margin[NN] — triad of GPS coordinates of the grid boundary, calculated upwards from the controller at a distance equal to NN meters or the maximum dimension of the grid along its three axes LxWxH.
 
     Custom Data 
         Data of Camera Lidar   // reads data in Custom Data of Camera
@@ -200,6 +227,107 @@ KNOWN COMMANDS:
         if Status[Total] Solar Panel of MyShip < 100 {   // * if the output level is less than 100 W 
             OnOff_On Gydrogen Generator }
 
+    Info Block Information
+        Info[Val] of Blocks on Grid   // pulls the value of a block by the line selected
+        Info[3] of Airvent
+        \x = Info[3] of Airvent 1 
+        \y = Info[Pressure] of Airvent 1   // * both will print 100.00% 
+        Echo = "Value in 3rd line: \x & \y" 
+        if Value of x ? "100.00" { 
+            Write to LCD Info = "The room is sealed" }
+
+    Rename. Renaming blocks
+        Rename Gyroscope to Gyro #n3   // * all gyroscopes will be named Gyro 001, Gyro 002 ... Gyro 999
+        Rename MyShip to Drone_#r3   // * resulting in something like Drone_607
+        Rename MyGrid to #def   // rename blocks to original naming convention
+        Rename MyGrid to New #*-Old // rename MyGrid to XUR-8 #*-XUR-7
+
+    Running Other Scripts
+        Run PBL Fire = 1 Run PBL Fire(2, decoy)
+        RunWithDefaultArgument PBL Fire Run PBL Fire(defarg)
+
+    Customization of Multiple Blocks by one
+        Set #Light bridge on Light bridge 01   // sets all lights from the one light
+        \light = "OnOff_Off Color = 255:0:0 Radius = 10 Blink Interval = 1 OnOff_On" 
+        Set Light Bridge on "\light"
+
+        \behavior = "AI = CycleOrbit OffensiveCombatIntercept_OverrideCollisionAvoidance = True OffensiveCombatCircleOrbit_CircleDistance = 800 SetTargetPriority_Largest SetTargetingGroup_Weapons" 
+        Set AI Offensive on "\behavior"
+
+    CustomData Manipulation
+        Data of LCD Info = ""   // clears screen
+        DataAdd of LCD Info = "5" // * add 5 to existing data, resulting in Color = 0:0:255
+        DataLine of LCD Info = "BgColor = 255:0:0"  // * add new line to existing data
+        \y = Data[Color] of LCD Code // * reads the value of the Color parameter into the \y variable (search is case sensitive)
+        Data[Color] of LCD Info = 100:100:100  // * sets the value of the Color variable (setting is case sensitive)
+        Data of LCD Info = "[setup] Font = 1 Color = 255:0:0 BgColor = 255:255:255"   // * will overwrite CustomData (multiline notation using double quotes)
+
+        Distance: 10703 m Type: Asteroid Size: 768 m ------------------------ 
+        \size = math(Data[:Size] of LCD Lidar)   // * getting the size of the asteroid 
+
+    Write/Text. Writing and reading LCD
+        
+        Write to LCD Info = ""   // * will clear the screen of the panel
+        Write to Industrial Cockpit [1] = "{Time of MyShip}"   // * will display the time of the ship on the central screen of the cockpit
+        Write to Button Panel [3] = "Door closed"   // * will display the last screen of the Sci-Fi 4-button panel
+        WriteAdd to LCD Info = \x   // * will add "Open" or "Closed" to the existing data \x = cond(Open of MyDoor = True : Open : Closed) 
+        WriteLine of LCD Info = "Connector {Status of MyConnector}"   // * will add a new line to the existing data
+        Write to LCD Info = "Control #1 - enable #2 - disable"   // * multi-line output
+        Write to LCD Info = "{Status of Connect}"   // * will print line by line the status of all blocks whose name starts with "Connect"
+        // In order not to make out a multi-line entry each time, you can use "\N" to move to a new line.
+
+        Text of LCD Info   // * read the contents of the screen into a variable Value of screen
+        Text of LCD Info = "Contents of the screen \N\screen"   // * add a title and overwrite the entire contents of the screen
+
+    LCD Settings
+        FontSize of Industrial Cockpit[1] = 4.5   // * set the font size of the industrial cockpit central screen
+        FontSize — font size, a number with a decimal point from 0.1 to 10.0
+        FontFace — font, usually Debug, Monospace or any available from the list in the control panel, context-sensitive font name
+        TextAlign — text alignment on the screen, one of the values : Left, Right, Center 
+        FontColor - font color , RGB triad with ":" separator with ":" separator, for example red = 255:0:0 
+        BgRotate — screen rotation angle, one of the values: 0, 90, 180, 270 (only for LCD panels) Image
+
+    Sending Receiving Commands
+        @var { 
+            ship name = SE Mothership 
+            my = Grid Name of MyShip
+            pos = Grid Margin of MyShip } 
+        @gps_send { 
+            Send = "\1:GPS:\my:\pos:#" 
+            Send Clear }
+
+        @var { 
+            ship name = SE Escape Pod 
+            my = Grid Name of MyShip
+            pos = Grid Position of MyShip
+            rec = Send of MyShip } 
+        @fly_in { Send = "SE Mothership:@gps_send(\my,GPS:\pos:#)"
+            Delay 500
+            if Value of rec ? \my { 
+                if Value of rec ? "GPS" { * if it is, then we enter the coordinates into the autopilot and set the max. ???
+        
+    Distance to GPS point
+        Distance property - Distance GPS of MyShip
+            \pos = "-240416.621:-2342908.495:360086.708"
+            if Distance \pos of MyShip < 500 True { 
+                DampenersOverride of Remote Control = True }
+        
+        Scan command
+            Command syntax: Scan of MyCamera at Range
+                Scan of Camera Left at 15000
+
+                Scan of Camera Lidar at 15000 
+                \x = Data of Camera Lidar 
+                Write to \lcd = "Name: {Token[3] of x}\N Type: {Token[7] of x}\N Size: {Token[5] of x}m"
+
+                Scan of Camera at 10000
+                \gps = Data of Camera
+                if Value of gps ? GPS { 
+                    \dist = Distance 
+                    \gps of MyShip
+                    Write to LCD Info = "Distance: \dist m" } 
+                    else { Write to LCD Info = "No target" }
+    
     Air Vent
         Depressurize   // switches depressurization from one position to another
         Depressurize_On   //turns on depressurization
@@ -234,6 +362,19 @@ KNOWN COMMANDS:
         UpperLimit of MyPiston = 7
         Position of MyPiston   //Calls for the actual position of the piston
         Reverse MyPiston
+        Move MyPiston to 7 at 1   // advance/retract piston 7 at speed 1
+        if Position of MyPiston = 0 { Move MyPiston to 3.5 at 1 }
+    
+    Rotors
+        Rotate MyRotor to 160 at -5
+        ShortRotate MyRotor to -30 at 1
+        if Angle of MyRotor = 90 { ShortRotate MyHinge to 30 at 1 }
+        \x = cond(Angle of MyRotor = 0 | Angle of MyRotor = 360 : 0 : 1)   // * if rotor is at zero position 
+        if Value of x = 0 { 
+            Move MyPiston to 5 at 1 }
+
+    Hinges
+        if Angle of MyRotor = 90 { ShortRotate MyHinge to 30 at 1 }
 
     Thrusters   
         Override of Ion Thruster = 100%
