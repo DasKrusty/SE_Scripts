@@ -1,9 +1,6 @@
 @var {
-    ILCD = UTG-7 LCD Info
-    RTH1 = UTG-7 Rotor Trailor Hitch
-    LTH1 = UTG-7 Light Trailor Hitch * Change name of light
-    LPS1 = UTG-7 Light Panel Status * Add to Craft
-    LPF1 = UTG-7 Light Panel Floor * Add to Craft
+    LPS1 = UTG-7 Light Panel Status
+    LPF1 = UTG-7 Light Panel Floor
     ANT1 = UTG-7 Antenna
     OHG1 = UTG-7 O2/H2 Generator
     ODE1 = UTG-7 Ore Detector
@@ -12,14 +9,16 @@
     AVF1 = UTG-7 Air Vent Fan
     EPI1 = UTG-7 Exhaust Pipe
     HEN1 = UTG-7 Hydrogen Engine
-    HLG1 = UTG-7 Hinge Lift G1 * Add to Craft
-    HLG2 = UTG-7 Hinge Lift G2 * Add to Craft
-    PLF1 = UTG-7 Piston Lift Front * Add to Craft
-    PLB1 = UTG-7 Piston Lift Back * Add to Craft
-    MLO1 = UTG-7 Maglock Lift * Add to Craft
-    TST1 = UTG-7 Timer Standby * Add to Craft
-    TST2 = UTG-7 Timer Shutdown * Add to Craft
+    HLG1 = UTG-7 Hinge Lift G1
+    HLG2 = UTG-7 Hinge Lift G2
+    PLF1 = UTG-7 Piston Lift Front
+    PLB1 = UTG-7 Piston Lift Back
+    MLO1 = UTG-7 Maglock Lift
+    TST1 = UTG-7 Timer Standby
+    TST2 = UTG-7 Timer Shutdown
     HGO1 = UTG-7 Hinge Door
+    UTG-7 Event Controller Battery99
+    UTG-7 Event Controller Battery20
 }
 
 @autostart{
@@ -30,20 +29,16 @@
 }
 
 @trailorconnect {
-    if Status of RTH1 = Detached {
-        Attach Head of RTH1
-    }
-    else if Status of RTH1 = Attached {
-        Detach Head of RTH1
-    }
-    Delay 250
-    if Status of RTH1 = Detached {
-        Color of LTH1 = 0:255:0
-        Write to ILCD = "No Trailor Detected"
+    if Status of UTG-7 Rotor Trailor Hitch = "Attached" {
+        Delay 500
+        Detach UTG-7 Rotor Trailor Hitch
+        Color of UTG-7 Light Trailor Hitch = 0:255:0
+        Write to UTG-7 LCD Info = "Trailor Detached"
     }
     else {
-        Color of LTH1 = 255:0:0
-        Write to ILCD = "Trailor Attached"
+        Attach UTG-7 Rotor Trailor Hitch
+        Color of UTG-7 Light Trailor Hitch = 255:0:0
+        Write to UTG-7 LCD Info = "Trailor Attached"
     }
 }
 
@@ -66,7 +61,7 @@
 @offlinetostandby {
     * Craft currently offline going to standby
     Color of LPS1 = 255:255:0
-    Write to ILCD = "Standby"
+    Write to UTG-7 LCD Info = "Standby"
     OnOff_On ANT1
     OnOff_On LPF1
     OnOff_On LPS1
@@ -81,7 +76,7 @@
 @standbytoonline {
     * Craft currently in standby going to online
     Color of LPS1 = 255:255:255
-    Write to ILCD = "Active"
+    Write to UTG-7 LCD Info = "Active"
     OnOff_On HEA1
     OnOff_On ODE1
     Stop TST1
@@ -91,7 +86,7 @@
 @onlinetostandby {
     * Craft currently powered going to standby
     Color of LPS1 = 255:255:50
-    Write to ILCD = "Standby"
+    Write to UTG-7 LCD Info = "Standby"
     OnOff_On ANT1
     OnOff_On LPF1
     OnOff_On LPS1
@@ -104,7 +99,7 @@
 @standbytooffline {
     * Craft currently in standby going to offline
     Color of LPS1 = 255:0:0
-    Write to ILCD = "Powered Down"
+    Write to UTG-7 LCD Info = "Powered Down"
     OnOff_Off ANT1
     OnOff_Off LPF1
     OnOff_Off LPS1
@@ -118,9 +113,9 @@
     OnOff_On AVF1
     OnOff_On EPI1
     OnOff_On HEN1
-    Write to ILCD = "Batteries Require Charging"
+    Write to UTG-7 LCD Info = "Batteries Require Charging"
     Delay 1000
-    Write to ILCD = "Engines On"
+    Write to UTG-7 LCD Info = "Engines On"
 }
 
 @engines_off {
@@ -128,30 +123,8 @@
     OnOff_Off AVF1
     OnOff_Off EPI1
     OnOff_Off HEN1
-    Write to ILCD = "Batteries Charged"
+    Write to UTG-7 LCD Info = "Batteries Charged"
     Delay 1000
-    Write to ILCD = "Engines Off"
+    Write to UTG-7 LCD Info = "Engines Off"
 }
 
-@pistons_lift {
-    if Current Angle of HLG1 < -45 {
-        Velocity of HLG1 = -1
-        When Current Angle of HLG1 > -85 {
-            Short Rotate HLG2 to 0 at 1
-            Delay 3000
-            Extend PLF1
-            Extend PLB1
-        }
-    }
-    else if Current Angle of HLG1 > -45 {
-        Unlock MLO1
-        Delay 250
-        Retract PLB1
-        Retract PLF1
-        Delay 250
-        Velocity of HLG1 = 1
-        When Current Angle of HLG1 < 0 {
-            Velocity of HLG1 = 0
-        }
-    }
-}

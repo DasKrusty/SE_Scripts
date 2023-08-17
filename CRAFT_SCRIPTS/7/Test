@@ -26,7 +26,9 @@
 
 @autorun {}
 
-
+@info{
+    Rotor Trailor Hitch
+}
 
 UTG-7 Antenna
 UTG-7 Camera Fore
@@ -51,3 +53,26 @@ UTG-7 Small Hydrogen Tank
 UTG-7 Headlight
 UTG-7 Survival Kit
 UTG-7 Battery
+
+@pistons_lift{
+    if Current Angle of HLG1 < -45{
+        Velocity of HLG1 = -1
+        When Current Angle of HLG1 > -85{
+            Short Rotate HLG2 to 0 at 1
+            Delay 3000
+            Extend PLF1
+            Extend PLB1
+        }
+    }
+    else if Current Angle of HLG1 > -45{
+        Unlock MLO1
+        Delay 250
+        Retract PLB1
+        Retract PLF1
+        Delay 250
+        Velocity of HLG1 = 1
+        When Current Angle of HLG1 < 0{
+            Velocity of HLG1 = 0
+        }
+    }
+}
