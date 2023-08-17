@@ -94,6 +94,11 @@ KNOWN COMMANDS:
             WriteLine to LCD Info = "Width: "\MCW m
             WriteLine to LCD Info = "Height: "\MCH m
         }
+
+        @test {
+            Echo = "{Planet Altitude of MyShip}"
+        }
+
     Custom Data 
         Data of Camera Lidar   // reads data in Custom Data of Camera
 

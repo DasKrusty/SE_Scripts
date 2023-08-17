@@ -1,11 +1,157 @@
 @var {
-    MCL = Grid SizeL Of MyShip
-    MCW = Grid SizeW Of MyShip
-    MCH = Grid SizeH Of MyShip
+    ILCD = UTG-7 LCD Info
+    RTH1 = UTG-7 Rotor Trailor Hitch
+    LTH1 = UTG-7 Light Trailor Hitch * Change name of light
+    LPS1 = UTG-7 Light Panel Status * Add to Craft
+    LPF1 = UTG-7 Light Panel Floor * Add to Craft
+    ANT1 = UTG-7 Antenna
+    OHG1 = UTG-7 O2/H2 Generator
+    ODE1 = UTG-7 Ore Detector
+    HEA1 = UTG-7 Headlight
+    SPO1 = UTG-7 Spotlight
+    AVF1 = UTG-7 Air Vent Fan
+    EPI1 = UTG-7 Exhaust Pipe
+    HEN1 = UTG-7 Hydrogen Engine
+    HLG1 = UTG-7 Hinge Lift G1 * Add to Craft
+    HLG2 = UTG-7 Hinge Lift G2 * Add to Craft
+    PLF1 = UTG-7 Piston Lift Front * Add to Craft
+    PLB1 = UTG-7 Piston Lift Back * Add to Craft
+    MLO1 = UTG-7 Maglock Lift * Add to Craft
+    TST1 = UTG-7 Timer Standby * Add to Craft
+    TST2 = UTG-7 Timer Shutdown * Add to Craft
+    HGO1 = UTG-7 Hinge Door
 }
 
-@craft_para {
-    WriteLine to LCD Info = "Length: "\MCL m
-    WriteLine to LCD Info = "Width: "\MCW m
-    WriteLine to LCD Info = "Height: "\MCH m
+@autostart{
+    @offlinetostandby
+    Delay 3000
+    Velocity of HGO1 = 3
+    @standbytoonline
+}
+
+@trailorconnect {
+    if Status of RTH1 = Detached {
+        Attach Head of RTH1
+    }
+    else if Status of RTH1 = Attached {
+        Detach Head of RTH1
+    }
+    Delay 250
+    if Status of RTH1 = Detached {
+        Color of LTH1 = 0:255:0
+        Write to ILCD = "No Trailor Detected"
+    }
+    else {
+        Color of LTH1 = 255:0:0
+        Write to ILCD = "Trailor Attached"
+    }
+}
+
+@runmode {
+    * Note - this script switches between power cycles using Light Panel Status
+    if Color of LPS1 = 255:0:0 {
+        @offlinetostandby
+    }
+    else if Color of LPS1 = 255:255:0 {
+        @standbytoonline
+    }
+    else if Color of LPS1 = 255:255:255 {
+        @onlinetostandby
+    }
+    else if Color of LPS1 = 255:255:50 {
+        @standbytooffline
+    }
+}
+
+@offlinetostandby {
+    * Craft currently offline going to standby
+    Color of LPS1 = 255:255:0
+    Write to ILCD = "Standby"
+    OnOff_On ANT1
+    OnOff_On LPF1
+    OnOff_On LPS1
+    OnOff_On OHG1
+    OnOff_Off ODE1
+    OnOff_Off HEA1
+    OnOff_Off SPO1
+    Stop TST1
+    Stop TST2
+}
+
+@standbytoonline {
+    * Craft currently in standby going to online
+    Color of LPS1 = 255:255:255
+    Write to ILCD = "Active"
+    OnOff_On HEA1
+    OnOff_On ODE1
+    Stop TST1
+    Stop TST2
+}
+
+@onlinetostandby {
+    * Craft currently powered going to standby
+    Color of LPS1 = 255:255:50
+    Write to ILCD = "Standby"
+    OnOff_On ANT1
+    OnOff_On LPF1
+    OnOff_On LPS1
+    OnOff_On OHG1
+    OnOff_Off ODE1
+    OnOff_Off HEA1
+    OnOff_Off SPO1
+}
+
+@standbytooffline {
+    * Craft currently in standby going to offline
+    Color of LPS1 = 255:0:0
+    Write to ILCD = "Powered Down"
+    OnOff_Off ANT1
+    OnOff_Off LPF1
+    OnOff_Off LPS1
+    OnOff_Off HEA1
+    OnOff_Off SPO1
+    OnOff_Off OHG1
+}
+
+@engines_on {
+    * Engines, exhausts and airvents go to online
+    OnOff_On AVF1
+    OnOff_On EPI1
+    OnOff_On HEN1
+    Write to ILCD = "Batteries Require Charging"
+    Delay 1000
+    Write to ILCD = "Engines On"
+}
+
+@engines_off {
+    * Engines, exhausts and airvents go to offline
+    OnOff_Off AVF1
+    OnOff_Off EPI1
+    OnOff_Off HEN1
+    Write to ILCD = "Batteries Charged"
+    Delay 1000
+    Write to ILCD = "Engines Off"
+}
+
+@pistons_lift {
+    if Current Angle of HLG1 < -45 {
+        Velocity of HLG1 = -1
+        When Current Angle of HLG1 > -85 {
+            Short Rotate HLG2 to 0 at 1
+            Delay 3000
+            Extend PLF1
+            Extend PLB1
+        }
+    }
+    else if Current Angle of HLG1 > -45 {
+        Unlock MLO1
+        Delay 250
+        Retract PLB1
+        Retract PLF1
+        Delay 250
+        Velocity of HLG1 = 1
+        When Current Angle of HLG1 < 0 {
+            Velocity of HLG1 = 0
+        }
+    }
 }

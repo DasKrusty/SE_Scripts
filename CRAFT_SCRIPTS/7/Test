@@ -1,8 +1,8 @@
-// Doors will not be automated
+// Doors will not be automated - sensor to pick up player when approaching / shut doors when seated by event controller
 // Template vehicle to have standard auto shut down as an operation
-// Auto Shutdown and start
-// Auto engines shutdown and start when levels reached
-// Check if trailor connected
+// TESTING - Needs 2x Timers / Auto Shutdown and start
+// TESTING - Needs 2x Auto Events / Auto engines shutdown and start when levels reached
+// TESTING - Check if trailor connected
 
 @craft_para {
     * Ship Name
@@ -19,14 +19,14 @@
 
 @var {
     Craft = Grid Name of MyGrid
-    ILCD = LCD Info
+    ILCD = UTG-7 LCD Info
 }
 
 @autoonoff {}
 
 @autorun {}
 
-@trailorconnect {}
+
 
 UTG-7 Antenna
 UTG-7 Camera Fore
