@@ -1,34 +1,29 @@
 @var {
-    LPS1 = UTG-7 Light Panel Status
-    LPF1 = UTG-7 Light Panel Floor
-    ANT1 = UTG-7 Antenna
-    OHG1 = UTG-7 O2/H2 Generator
-    ODE1 = UTG-7 Ore Detector
-    HEA1 = UTG-7 Headlight
-    SPO1 = UTG-7 Spotlight
-    AVF1 = UTG-7 Air Vent Fan
-    EPI1 = UTG-7 Exhaust Pipe
-    HEN1 = UTG-7 Hydrogen Engine
-    HLG1 = UTG-7 Hinge Lift G1
-    HLG2 = UTG-7 Hinge Lift G2
-    PLF1 = UTG-7 Piston Lift Front
-    PLB1 = UTG-7 Piston Lift Back
-    MLO1 = UTG-7 Maglock Lift
-    TST1 = UTG-7 Timer Standby
-    TST2 = UTG-7 Timer Shutdown
-    HGO1 = UTG-7 Hinge Door
+    UTG-7 Light Panel Status = UTG-7 Light Panel Status
+    UTG-7 Light Panel Floor = UTG-7 Light Panel Floor
+    UTG-7 Antenna = UTG-7 Antenna
+    UTG-7 O2/H2 Generator = UTG-7 O2/H2 Generator
+    UTG-7 Ore Detector = UTG-7 Ore Detector
+    UTG-7 Headlight = UTG-7 Headlight
+    UTG-7 Spotlight = UTG-7 Spotlight
+    UTG-7 Air Vent Fan = UTG-7 Air Vent Fan
+    UTG-7 Exhaust Pipe = UTG-7 Exhaust Pipe
+    UTG-7 Hydrogen Engine = UTG-7 Hydrogen Engine
+    UTG-7 Hinge Lift G1 = UTG-7 Hinge Lift G1
+    UTG-7 Hinge Lift G2 = UTG-7 Hinge Lift G2
+    UTG-7 Piston Lift Front = UTG-7 Piston Lift Front
+    UTG-7 Piston Lift Back = UTG-7 Piston Lift Back
+    UTG-7 Maglock Lift = UTG-7 Maglock Lift
+    UTG-7 Timer Standby = UTG-7 Timer Standby
+    UTG-7 Timer Shutdown = UTG-7 Timer Shutdown
+    UTG-7 Hinge Door = UTG-7 Hinge Door
     UTG-7 Event Controller Battery99
     UTG-7 Event Controller Battery20
-}
-
-@autostart{
-    @offlinetostandby
-    Delay 3000
-    Velocity of HGO1 = 3
-    @standbytoonline
+    UTG-7 Event Control Autostart
 }
 
 @trailorconnect {
+    * NOT WORKING
     if Status of UTG-7 Rotor Trailor Hitch = "Attached" {
         Delay 500
         Detach UTG-7 Rotor Trailor Hitch
@@ -42,89 +37,148 @@
     }
 }
 
+@autostart{
+    @offlinetostandby
+    Delay 3000
+    Velocity of UTG-7 Hinge Door = 3
+    @standbytoonline
+}
+
 @runmode {
     * Note - this script switches between power cycles using Light Panel Status
-    if Color of LPS1 = 255:0:0 {
+    if Color of UTG-7 Light Panel Status = 255:0:0 {
         @offlinetostandby
     }
-    else if Color of LPS1 = 255:255:0 {
+    else if Color of UTG-7 Light Panel Status = 255:255:0 {
         @standbytoonline
     }
-    else if Color of LPS1 = 255:255:255 {
+    else if Color of UTG-7 Light Panel Status = 255:255:255 {
         @onlinetostandby
     }
-    else if Color of LPS1 = 255:255:50 {
+    else if Color of UTG-7 Light Panel Status = 255:255:50 {
         @standbytooffline
+    }
+}
+
+@auto_run_mode {
+    if OnOff_On of UTG-7 Event Control Battery99 = True {
+        Write to UTG-7 LCD Info = "Automated Systems Deactivated"
+        Delay 250
+        OnOff_Off UTG-7 Event Control Battery99
+        OnOff_Off UTG-7 Event Control Battery20
+        OnOff_Off UTG-7 Event Control Autostart
+    }
+    else {
+        Write to UTG-7 LCD Info = "Automated Systems Activated"
+        Delay 250
+        OnOff_On UTG-7 Event Control Battery99
+        OnOff_On UTG-7 Event Control Battery20
+        OnOff_On UTG-7 Event Control Autostart
     }
 }
 
 @offlinetostandby {
     * Craft currently offline going to standby
-    Color of LPS1 = 255:255:0
+    Color of UTG-7 Light Panel Status = 255:255:0
     Write to UTG-7 LCD Info = "Standby"
-    OnOff_On ANT1
-    OnOff_On LPF1
-    OnOff_On LPS1
-    OnOff_On OHG1
-    OnOff_Off ODE1
-    OnOff_Off HEA1
-    OnOff_Off SPO1
-    Stop TST1
-    Stop TST2
+    OnOff_On UTG-7 Antenna
+    OnOff_On UTG-7 Light Panel Floor
+    OnOff_On UTG-7 Light Panel Status
+    OnOff_On UTG-7 O2/H2 Generator
+    OnOff_Off UTG-7 Ore Detector
+    OnOff_Off UTG-7 Headlight
+    OnOff_Off UTG-7 Spotlight
+    Stop UTG-7 Timer Standby
+    Stop UTG-7 Timer Shutdown
 }
 
 @standbytoonline {
     * Craft currently in standby going to online
-    Color of LPS1 = 255:255:255
+    Color of UTG-7 Light Panel Status = 255:255:255
     Write to UTG-7 LCD Info = "Active"
-    OnOff_On HEA1
-    OnOff_On ODE1
-    Stop TST1
-    Stop TST2
+    OnOff_On UTG-7 Headlight
+    OnOff_On UTG-7 Ore Detector
+    Stop UTG-7 Timer Standby
+    Stop UTG-7 Timer Shutdown
 }
 
 @onlinetostandby {
     * Craft currently powered going to standby
-    Color of LPS1 = 255:255:50
+    Color of UTG-7 Light Panel Status = 255:255:50
     Write to UTG-7 LCD Info = "Standby"
-    OnOff_On ANT1
-    OnOff_On LPF1
-    OnOff_On LPS1
-    OnOff_On OHG1
-    OnOff_Off ODE1
-    OnOff_Off HEA1
-    OnOff_Off SPO1
+    OnOff_On UTG-7 Antenna
+    OnOff_On UTG-7 Light Panel Floor
+    OnOff_On UTG-7 Light Panel Status
+    OnOff_On UTG-7 O2/H2 Generator
+    OnOff_Off UTG-7 Ore Detector
+    OnOff_Off UTG-7 Headlight
+    OnOff_Off UTG-7 Spotlight
 }
 
 @standbytooffline {
     * Craft currently in standby going to offline
-    Color of LPS1 = 255:0:0
+    Color of UTG-7 Light Panel Status = 255:0:0
     Write to UTG-7 LCD Info = "Powered Down"
-    OnOff_Off ANT1
-    OnOff_Off LPF1
-    OnOff_Off LPS1
-    OnOff_Off HEA1
-    OnOff_Off SPO1
-    OnOff_Off OHG1
+    OnOff_Off UTG-7 Antenna
+    OnOff_Off UTG-7 Light Panel Floor
+    OnOff_Off UTG-7 Light Panel Status
+    OnOff_Off UTG-7 Headlight
+    OnOff_Off UTG-7 Spotlight
+    OnOff_Off UTG-7 O2/H2 Generator
 }
 
 @engines_on {
     * Engines, exhausts and airvents go to online
-    OnOff_On AVF1
-    OnOff_On EPI1
-    OnOff_On HEN1
+    OnOff_On UTG-7 Air Vent Fan * Add fans
+    OnOff_On UTG-7 Exhaust Pipe
+    OnOff_On UTG-7 Hydrogen Engine
     Write to UTG-7 LCD Info = "Batteries Require Charging"
     Delay 1000
-    Write to UTG-7 LCD Info = "Engines On"
+    Writeline to UTG-7 LCD Info = "Engines On"
 }
 
 @engines_off {
     * Engines, exhausts and airvents go to offline
-    OnOff_Off AVF1
-    OnOff_Off EPI1
-    OnOff_Off HEN1
+    OnOff_Off UTG-7 Air Vent Fan * Add fans
+    OnOff_Off UTG-7 Exhaust Pipe
+    OnOff_Off UTG-7 Hydrogen Engine
     Write to UTG-7 LCD Info = "Batteries Charged"
     Delay 1000
-    Write to UTG-7 LCD Info = "Engines Off"
+    Writeline to UTG-7 LCD Info = "Engines Off"
 }
 
+@pistons_lift{
+    if Status of UTG-7 Maglock Lift = Locked {
+        Write to UTG-7 LCD Info = "ERROR... Mags locked"
+        Delay 1000
+        Writeline to UTG-7 LCD Info = "Please check Mags"
+    }
+    else if Current Angle of UTG-7 Hinge Lift G1 < -45 {
+        Write to UTG-7 LCD Info = "Maintenance Mode Started"
+        Velocity of UTG-7 Hinge Lift G1 = -1
+        When Current Angle of UTG-7 Hinge Lift G1 > -85{
+            Short Rotate UTG-7 Hinge Lift G2 to 0 at 1
+            Delay 3000
+            Velocity of UTG-7 Piston Lift = 1
+            When Status of UTG-7 Maglock Lift = ReadyToLock {
+                Velocity of UTG-7 Hinge Lift G = 0
+                Delay 2000
+                Lock UTG-7 Maglock Lift
+                Velocity of UTG-7 Piston Lift = 0
+                Writeline to UTG-7 LCD Info = "Maintenance Mode Ready"
+            }
+        }
+    }
+    else if Current Angle of UTG-7 Hinge Lift G1 > -45 {
+        Write to UTG-7 LCD Info = "Maintenance Mode Packing Up"
+        Unlock UTG-7 Maglock Lift
+        Delay 250
+        Velocity of UTG-7 Piston Lift = -1
+        Delay 250
+        Velocity of UTG-7 Hinge Lift G1 = 1
+        When Current Angle of UTG-7 Hinge Lift G1 < -1{
+            Velocity of UTG-7 Hinge Lift G1 = 0
+            Writeline to UTG-7 LCD Info = "Maintenance Mode Completed"
+        }
+    }
+}

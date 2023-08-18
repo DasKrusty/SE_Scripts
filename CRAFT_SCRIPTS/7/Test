@@ -30,49 +30,48 @@
     Rotor Trailor Hitch
 }
 
-UTG-7 Antenna
-UTG-7 Camera Fore
-UTG-7 Control Seat Left
-UTG-7 Corner LCD
-UTG-7 Exhaust Pipe
-UTG-7 Hydrogen Engine
-UTG-7 Gyroscope
-UTG-7 Hydrogen Engine 1
-UTG-7 Medium Cargo Container 4
-UTG-7 O2/H2 Generator
-UTG-7 Wheel Suspension 5x5 Right 4
-UTG-7 Light Brake
-UTG-7 Spotlight
-UTG-7 Light Hitch
-UTG-7 Ore Detector
-UTG-7 Projector
-UTG-7 Remote Control
-UTG-7 Rotor Trailor Hitch
-UTG-7 Small Connector
-UTG-7 Small Hydrogen Tank
-UTG-7 Headlight
-UTG-7 Survival Kit
-UTG-7 Battery
+    UTG-7 Antenna
+    UTG-7 Camera Fore
+    UTG-7 Control Seat Left
+    UTG-7 Corner LCD
+    UTG-7 Exhaust Pipe
+    UTG-7 Hydrogen Engine
+    UTG-7 Gyroscope
+    UTG-7 Hydrogen Engine 1
+    UTG-7 Medium Cargo Container 4
+    UTG-7 O2/H2 Generator
+    UTG-7 Wheel Suspension 5x5 Right 4
+    UTG-7 Light Brake
+    UTG-7 Spotlight
+    UTG-7 Light Hitch
+    UTG-7 Ore Detector
+    UTG-7 Projector
+    UTG-7 Remote Control
+    UTG-7 Rotor Trailor Hitch
+    UTG-7 Small Connector
+    UTG-7 Small Hydrogen Tank
+    UTG-7 Headlight
+    UTG-7 Survival Kit
+    UTG-7 Battery
+    UTG-7 Light Panel Status = UTG-7 Light Panel Status
+    UTG-7 Light Panel Floor = UTG-7 Light Panel Floor
+    UTG-7 Antenna = UTG-7 Antenna
+    UTG-7 O2/H2 Generator = UTG-7 O2/H2 Generator
+    UTG-7 Ore Detector = UTG-7 Ore Detector
+    UTG-7 Headlight = UTG-7 Headlight
+    UTG-7 Spotlight = UTG-7 Spotlight
+    UTG-7 Air Vent Fan = UTG-7 Air Vent Fan
+    UTG-7 Exhaust Pipe = UTG-7 Exhaust Pipe
+    UTG-7 Hydrogen Engine = UTG-7 Hydrogen Engine
+    UTG-7 Hinge Lift G1 = UTG-7 Hinge Lift G1
+    UTG-7 Hinge Lift G2 = UTG-7 Hinge Lift G2
+    UTG-7 Piston Lift Front = UTG-7 Piston Lift Front
+    UTG-7 Piston Lift Back = UTG-7 Piston Lift Back
+    UTG-7 Maglock Lift = UTG-7 Maglock Lift
+    UTG-7 Timer Standby = UTG-7 Timer Standby
+    UTG-7 Timer Shutdown = UTG-7 Timer Shutdown
+    UTG-7 Hinge Door = UTG-7 Hinge Door
+    UTG-7 Event Controller Battery99
+    UTG-7 Event Controller Battery20
+    UTG-7 Event Control Autostart
 
-@pistons_lift{
-    if Current Angle of HLG1 < -45{
-        Velocity of HLG1 = -1
-        When Current Angle of HLG1 > -85{
-            Short Rotate HLG2 to 0 at 1
-            Delay 3000
-            Extend PLF1
-            Extend PLB1
-        }
-    }
-    else if Current Angle of HLG1 > -45{
-        Unlock MLO1
-        Delay 250
-        Retract PLB1
-        Retract PLF1
-        Delay 250
-        Velocity of HLG1 = 1
-        When Current Angle of HLG1 < 0{
-            Velocity of HLG1 = 0
-        }
-    }
-}
