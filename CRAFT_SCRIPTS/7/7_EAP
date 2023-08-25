@@ -1,3 +1,11 @@
+@vars {
+    ECO = (UTG-7 Event Controllers)
+}
+
+@test {
+    OnOff_Off \ECO
+}
+
 @autostart{
     @offlinetostandby
     Write to UTG-7 LCD Info = "Standby"
@@ -31,7 +39,7 @@
         OnOff_Off UTG-7 Event Control Battery20
         OnOff_Off UTG-7 Event Control Autostart
     }
-    else {
+    else if OnOff_Off of UTG-7 Event Control Battery99 = True {
         Write to UTG-7 LCD Info = "Automated Systems Activated"
         Delay 250
         OnOff_On UTG-7 Event Control Battery99
