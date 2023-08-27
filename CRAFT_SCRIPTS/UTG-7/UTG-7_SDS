@@ -1,0 +1,61 @@
+[Main]
+CockpitPrefix=
+LCDPrefix=[MEN7]
+
+[Add]
+Prefix=
+Screen=1
+DefaultMenu=0
+WASDAutoDisable=true
+SwitchThrusters=false
+SwitchGyros=true
+SwitchWheels=true
+LCDAutoOff=true
+WASDPrgOn=-1
+WASDPrgOff=-1
+
+[Color]
+BackgroundColor=0,0,0
+ItemBarColor=0,6,12
+MainColor=55,155,255
+SelItemBarColor=155,55,0
+SelItemTextColor=0,0,0
+OnColor=225,65,100
+ArrowColor=155,225,255
+ErrorMSGColor=225,65,100
+HelpColor=155,225,255
+
+[TopMenu]
+0=Quick
+1=Utilities
+2=Driver Assist
+3=Settings
+
+
+[0]
+Batteries;all-show;*;batt
+Battery Mode;gr-batt;UTG-7 Batteries;mode
+Run Mode;pb;UTG-7 Program [EAP];runmode
+Rear Connector;conn_lock;UTG-7 Rear Connector;toggle
+Spotlights;gr;UTG-7 Spotlights;onoff
+[1]
+Inv Vol;all-show;*;inv
+Ship Mass;all-show;*;mass/total/100000
+Con Discon Trailer;pb;UTG-7 Program [EAP];trailer_connect
+[2]
+Start/Stop;pb;UTG-7 Program [DAS];STARTSTOP
+Low Ride;pb;UTG-7 Program [DAS];LOW_MODE
+High Ride;pb;UTG-7 Program [DAS];HIGH_MODE
+Hill Descent Control;pb;UTG-7 Program [DAS];TOGGLE_HDC
+Cruise Control;pb;UTG-7 Program [DAS];TOGGLE_CRUISECONTROL
+Auto Pilot;pb;UTG-7 Program [DAS];TOGGLE_AUTOPILOT
+Auto Pilot Resume;pb;UTG-7 Program [DAS];RESUME_AUTOPILOT
+Auto Pilot Mode;pb;UTG-7 Program [DAS];CYCLE_AUTOPILOT_MODE
+Auto Pilot Wait;pb;UTG-7 Program [DAS];CYCLE_AUTOPILOT_WAIT
+GPS Tracker On / Off;pb;UTG-7 Program [DAS];TOGGLE_GPSTRACKER
+GPS Tracker Display;pb;UTG-7 Program [DAS];TOGGLE_GPSLIST
+[3]
+Antenna;bl;UTG-7 Antenna;onoff
+Antenna Radius;antenna;UTG-7 Antenna;3000/500
+Projector On/Off;bl;UTG-7 Projector;onoff
+Piston Jacks;pb;UTG-7 Program [EAP];main_mode

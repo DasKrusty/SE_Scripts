@@ -1,0 +1,25 @@
+@0 AutoLCD
+Center <[   ---   CRAFT STATS   ---   ]>
+    Speed 35
+    speedkmh
+    speedmph
+    echo
+    altitudesea
+    Altitude
+    echo
+    shipmass 245000
+    shipmass
+    echo
+    time 
+    date
+
+Center <[   ---   ENERGY   ---   ]>
+Center [ --- Power --- ]
+    PowerTime
+    Power {G:UTG-7 Batteries}
+    Propbool {UTG-7 Hydrogen Engine 1} {OnOff} {Hydro Engines} {ON} {OFF}
+    PowerP {G:UTG-7 Hydro Engines}
+Center [ --- Fuel --- ]
+    invlistx T:* {UTG-7 O2/H2 Generators} ore/ice:5000
+    Tanks * Hydrogen {G:UTG-7 Hydrogen Tanks}
+    PropBool {UTG-7 Small Hydrogen Tank 8} {Stockpile} {Hydro Tanks} {CLOSED} {OPEN}

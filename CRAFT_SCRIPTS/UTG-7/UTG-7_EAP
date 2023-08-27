@@ -1,11 +1,3 @@
-@vars {
-    ECO = (UTG-7 Event Controllers)
-}
-
-@test {
-    OnOff_Off \ECO
-}
-
 @autostart{
     @offlinetostandby
     Write to UTG-7 LCD Info = "Standby"
@@ -28,23 +20,6 @@
     }
     else if Color of UTG-7 Light Panel Status = 255:255:50 {
         @standbytooffline
-    }
-}
-
-@auto_run_mode {
-    if OnOff_On of UTG-7 Event Control Battery99 = True {
-        Write to UTG-7 LCD Info = "Automated Systems Deactivated"
-        Delay 250
-        OnOff_Off UTG-7 Event Control Battery99
-        OnOff_Off UTG-7 Event Control Battery20
-        OnOff_Off UTG-7 Event Control Autostart
-    }
-    else if OnOff_Off of UTG-7 Event Control Battery99 = True {
-        Write to UTG-7 LCD Info = "Automated Systems Activated"
-        Delay 250
-        OnOff_On UTG-7 Event Control Battery99
-        OnOff_On UTG-7 Event Control Battery20
-        OnOff_On UTG-7 Event Control Autostart
     }
 }
 
@@ -104,7 +79,7 @@
     OnOff_On UTG-7 Exhaust Pipe
     OnOff_On UTG-7 Hydrogen Engine
     Color of UTG-7 Light Engines Status = 0:255:0
-    Write to UTG-7 LCD Info = "Batteries Require Charging"
+    Write to UTG-7 LCD Info = "Bats Require Charging"
     Delay 1000
     Writeline to UTG-7 LCD Info = "Engines On"
 }
@@ -115,45 +90,47 @@
     OnOff_Off UTG-7 Exhaust Pipe
     OnOff_Off UTG-7 Hydrogen Engine
     Color of UTG-7 Light Engines Status = 255:0:0
-    Write to UTG-7 LCD Info = "Batteries Charged"
+    Write to UTG-7 LCD Info = "Bats Charged"
     Delay 1000
     Writeline to UTG-7 LCD Info = "Engines Off"
 }
 
 @main_mode {
-    Write to UTG-7 LCD Info = "Running Maintenance Mode"
+    Write to UTG-7 LCD Info = "Maint. Mode"
     Delay 1000
     Color of UTG-7 Light Panel Floor = 255:255:0
-    Writeline to UTG-7 LCD Info = "CHECKING SYSTEMS"
+    Writeline to UTG-7 LCD Info = "CHECK SYSTEMS"
     Delay 1000
     if Angle of UTG-7 Hinge Lift G1 > 0 {
         Velocity of UTG-7 Hinge Lift G1 = -1
-        Writeline to UTG-7 LCD Info = "Rotating Pistons"
+        Writeline to UTG-7 LCD Info = "Rot. Pistons"
         When Angle of UTG-7 Hinge Lift G1 < -85
             Velocity of UTG-7 Hinge Lift G2 = -1
-            Writeline to UTG-7 LCD Info = "Aligning Pistons"
+            Writeline to UTG-7 LCD Info = "Ali. Pistons"
         When Angle of UTG-7 Hinge Lift G2 < -1 
             Velocity of UTG-7 Hinge Lift G2 = 0
             Velocity of UTG-7 Piston Lift Back = 0.25
             Velocity of UTG-7 Piston Lift Front = 0.25
-            Writeline to UTG-7 LCD Info = "Extending Pistons"
+            Writeline to UTG-7 LCD Info = "Ext. Pistons"
         When Status of UTG-7 Maglock Lift = ReadyToLock
             Delay 2000
             Lock UTG-7 Maglock Lift
+            Writeline to UTG-7 LCD Info = "DONE"
     }
     Else if Angle of UTG-7 Hinge Lift G1 < -85 {
-        Writeline to UTG-7 LCD Info = "Maintenance Mode Packing Up"
+        Writeline to UTG-7 LCD Info = "Maint. Pack. Up"
         Delay 1000
         Unlock UTG-7 Maglock Lift
-        Writeline to UTG-7 LCD Info = "Retracting Pistons"
+        Writeline to UTG-7 LCD Info = "Ret. Pistons"
         Velocity of UTG-7 Piston Lift Back = -0.25
         Velocity of UTG-7 Piston Lift Front = -0.25
-        Delay 2000
+        Delay 4000
         Velocity of UTG-7 Hinge Lift G1 = 1
         When Angle of UTG-7 Hinge Lift G1 > 0
             Velocity of UTG-7 Hinge Lift G1 = 0
-            Writeline to UTG-7 LCD Info = "Maintenance Mode Completed"
+            Writeline to UTG-7 LCD Info = "Maint. Completed"
             Color of UTG-7 Light Panel Floor = 55:255:255
+            Writeline to UTG-7 LCD Info = "DONE"
     }
 }
 
