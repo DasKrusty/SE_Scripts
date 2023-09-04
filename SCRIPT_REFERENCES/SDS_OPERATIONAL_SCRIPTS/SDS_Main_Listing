@@ -140,3 +140,198 @@ Prev Page;pb;XUR-8 Program [MAP];PREVIOUS_PAGE
 Scroll Up;pb;XUR-8 Program [MAP];SCROLL_UP
 Scroll Down;pb;XUR-8 Program [MAP];SCROLL_DOWN
 Scroll Home;pb;XUR-8 Program [MAP];SCROLL_HOME
+
+[TopMenu]
+0=Quick
+1=Weapons
+2=Driver Assist
+3=Settings
+
+[0]
+Power MW;all-show;*;power
+Batteries;all-show;*;batt
+Battery Mode;gr-batt;DRG-2 Batteries;mode
+Status;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(status)
+Spotlights;gr;DRG-2 Spotlights;onoff
+Doors;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(doors)
+Conn Det;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(condet)
+Conn Att;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(conatt)
+[1]
+Launch Drone;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(Launch)
+Recall Drone;pb;DRG-2 Program [SHA];start DDR-3Combatant
+Turret;bl;DRG-2 Turret Controller;onoff
+[2]
+Start/Stop;pb;DRG-2 Program [DAS];STARTSTOP
+Low Ride;pb;DRG-2 Program [DAS];LOW_MODE
+High Ride;pb;DRG-2 Program [DAS];HIGH_MODE
+Hill Descent Control;pb;DRG-2 Program [DAS];TOGGLE_HDC
+Cruise Control;pb;DRG-2 Program [DAS];TOGGLE_CRUISECONTROL
+Auto Pilot;pb;DRG-2 Program [DAS];TOGGLE_AUTOPILOT
+Auto Pilot Resume;pb;DRG-2 Program [DAS];RESUME_AUTOPILOT
+Auto Pilot Mode;pb;DRG-2 Program [DAS];CYCLE_AUTOPILOT_MODE
+Auto Pilot Wait;pb;DRG-2 Program [DAS];CYCLE_AUTOPILOT_WAIT
+GPS Tracker On / Off;pb;DRG-2 Program [DAS];TOGGLE_GPSTRACKER
+GPS Tracker Display;pb;DRG-2 Program [DAS];TOGGLE_GPSLIST
+[3]
+Headlights;gr;DRG-2 Headlights;onoff
+Cool Lights Color;gr-light;DRG-2 Headlights;color=160,230,255/blink=0,0
+Warm Lights Color;gr-light;DRG-2 Headlights;color=255,255,180/blink=0,0
+Antenna;bl;DRG-2 Antenna;onoff
+Antenna Radius;antenna;DRG-2 Antenna;3000/500
+Ore Detector;bl;DRG-2 Ore Detector;onoff
+Projector On/Off;bl;DRG-2 Projector;onoff
+
+0=Quick
+1=Driver Assist
+2=Settings
+
+[0]
+Power MW;all-show;*;power
+Batteries;all-show;*;batt
+Battery Mode;gr-batt;FSG-1 Batteries;mode
+Connector;conn_lock;FSG-1 Connector;toggle
+Turret;bl;FSG-1 Custom Turret Controller;onoff
+Headlights;gr;FSG-1 Headlights;onoff
+Toggle Ore Detector;bl;FSG-1 Ore Detector;onoff
+[1]
+Start/Stop;pb;FSG-1 Program [DAS];STARTSTOP
+Low Ride;pb;FSG-1 Program [DAS];LOW_MODE
+High Ride;pb;FSG-1 Program [DAS];HIGH_MODE
+Hill Descent Control;pb;FSG-1 Program [DAS];TOGGLE_HDC
+Cruise Control;pb;FSG-1 Program [DAS];TOGGLE_CRUISECONTROL
+Auto Pilot;pb;FSG-1 Program [DAS];TOGGLE_AUTOPILOT
+Auto Pilot Resume;pb;FSG-1 Program [DAS];RESUME_AUTOPILOT
+Auto Pilot Mode;pb;FSG-1 Program [DAS];CYCLE_AUTOPILOT_MODE
+Auto Pilot Wait;pb;FSG-1 Program [DAS];CYCLE_AUTOPILOT_WAIT
+GPS Tracker On / Off;pb;FSG-1 Program [DAS];TOGGLE_GPSTRACKER
+GPS Tracker Display;pb;FSG-1 Program [DAS];TOGGLE_GPSLIST
+[2]
+Cool Lights Color;gr-light;FSG-1 Headlights;color=160,230,255/blink=0,0
+Warm Lights Color;gr-light;FSG-1 Headlights;color=255,255,180/blink=0,0
+Antenna;bl;FSG-1 Antenna;onoff
+Antenna Radius;antenna;FSG-1 Antenna;3000/500
+Ore Detector;bl;FSG-1 Ore Detector;onoff
+Projector On/Off;bl;FSG-1 Projector;onoff
+
+0=FUNCTION
+
+[0]
+Top Connectors;conn_lock;TCM-8 Connector Top;toggle
+Top Merge;gr;TCM-8 Merge Blocks Top;onoff
+Bot Connectors;conn_lock;TCM-8 Connector Bottom;toggle
+Bot Merge;gr;TCM-8 Merge Blocks Bottom;onoff
+Left Connector;conn_lock;TCM-8 Connector Left;toggle
+Right Connector;conn_lock;TCM-8 Connector Right;toggle
+Antenna;bl;TCM-8 Antenna;onoff
+Projector On/Off;bl;TCM-8 Projector;onoff
+
+0=Quick
+1=Driver Assist
+2=Settings
+
+[0]
+Power MW;all-show;*;power
+Batteries;all-show;*;batt
+Battery Mode;gr-batt;THG-2 Batteries;mode
+Status;pb;THG-2 Program [EA2];THG-2 Debug LCD(status)
+Headlights;gr;THG-2 Headlights;onoff
+Spotlights;gr;THG-2 Spotlights;onoff
+Doors;pb;THG-2 Program [EA2];THG-2 Debug LCD(doors)
+Conn Det;pb;THG-2 Program [EA2];THG-2 Debug LCD(condet)
+Conn Att;pb;THG-2 Program [EA2];THG-2 Debug LCD(conatt)
+[1]
+Start/Stop;pb;THG-2 Program [DAS];STARTSTOP
+Low Ride;pb;THG-2 Program [DAS];LOW_MODE
+High Ride;pb;THG-2 Program [DAS];HIGH_MODE
+Hill Descent Control;pb;THG-2 Program [DAS];TOGGLE_HDC
+Cruise Control;pb;THG-2 Program [DAS];TOGGLE_CRUISECONTROL
+Auto Pilot;pb;THG-2 Program [DAS];TOGGLE_AUTOPILOT
+Auto Pilot Resume;pb;THG-2 Program [DAS];RESUME_AUTOPILOT
+Auto Pilot Mode;pb;THG-2 Program [DAS];CYCLE_AUTOPILOT_MODE
+Auto Pilot Wait;pb;THG-2 Program [DAS];CYCLE_AUTOPILOT_WAIT
+GPS Tracker On / Off;pb;THG-2 Program [DAS];TOGGLE_GPSTRACKER
+GPS Tracker Display;pb;THG-2 Program [DAS];TOGGLE_GPSLIST
+[2]
+Cool Lights Color;gr-light;THG-2 Headlights;color=160,230,255/blink=0,0
+Warm Lights Color;gr-light;THG-2 Headlights;color=255,255,180/blink=0,0
+Antenna;bl;THG-2 Antenna;onoff
+Antenna Radius;antenna;THG-2 Antenna;3000/500
+Ore Detector;bl;THG-2 Ore Detector;onoff
+Projector On/Off;bl;THG-2 Projector;onoff
+
+0=Quick
+1=Mining
+2=Driver Assist
+3=Weapons
+4=Settings
+
+
+[0]
+Batteries;all-show;*;batt
+Battery Mode;gr-batt;UMG-6 Batteries;mode
+Run Mode;pb;UMG-6 Program [EA2];UMG-6 Debug LCD(runmode)
+Large Connector;conn_lock;UMG-6 Connector Large;toggle
+Small Connector;conn_lock;UMG-6 Small Connector;toggle
+Spotlights;gr;UMG-6 Spotlights;onoff
+[1]
+Inv Vol;all-show;*;inv
+Ship Mass;all-show;*;mass/total/100000
+Mining Mode;pb;UMG-6 Program [EA2];UMG-6 Debug LCD(miningmode)
+Hauling Mode;pb;UMG-6 Program [EA2];UMG-6 Debug LCD(haulingmode)
+Keep Ice;sorter_list;UMG-6 Sorter for Ejectors;black/Ore-Ice
+Throw Ice;sorter_list;UMG-6 Sorter for Ejectors;white/Ore-Ice
+Ejectors;gr;UMG-6 Ejectors;onoff
+Toggle Ore Detector;bl;UMG-6 Ore Detector;onoff
+[2]
+Start/Stop;pb;UMG-6 Program [DAS];STARTSTOP
+Low Ride;pb;UMG-6 Program [DAS];LOW_MODE
+High Ride;pb;UMG-6 Program [DAS];HIGH_MODE
+Hill Descent Control;pb;UMG-6 Program [DAS];TOGGLE_HDC
+Cruise Control;pb;UMG-6 Program [DAS];TOGGLE_CRUISECONTROL
+Auto Pilot;pb;UMG-6 Program [DAS];TOGGLE_AUTOPILOT
+Auto Pilot Resume;pb;UMG-6 Program [DAS];RESUME_AUTOPILOT
+Auto Pilot Mode;pb;UMG-6 Program [DAS];CYCLE_AUTOPILOT_MODE
+Auto Pilot Wait;pb;UMG-6 Program [DAS];CYCLE_AUTOPILOT_WAIT
+GPS Tracker On / Off;pb;UMG-6 Program [DAS];TOGGLE_GPSTRACKER
+GPS Tracker Display;pb;UMG-6 Program [DAS];TOGGLE_GPSLIST
+[3]
+Turret On/Off;bl;UMG-6 Gatling Turret;onoff
+[4]
+Antenna;bl;UMG-6 Antenna;onoff
+Antenna Radius;antenna;UMG-6 Antenna;3000/500
+Projector On/Off;bl;UMG-6 Projector;onoff
+Piston Jacks;pb;UMG-6 Program [EA2];UMG-6 Debug LCD(pistonjacks)
+
+0=Quick
+1=Utilities
+2=Driver Assist
+3=Settings
+
+
+[0]
+Batteries;all-show;*;batt
+Battery Mode;gr-batt;UTG-7 Batteries;mode
+Run Mode;pb;UTG-7 Program [EAP];runmode
+Rear Connector;conn_lock;UTG-7 Rear Connector;toggle
+Spotlights;gr;UTG-7 Spotlights;onoff
+[1]
+Inv Vol;all-show;*;inv
+Ship Mass;all-show;*;mass/total/100000
+Con Discon Trailer;pb;UTG-7 Program [EAP];trailer_connect
+[2]
+Start/Stop;pb;UTG-7 Program [DAS];STARTSTOP
+Low Ride;pb;UTG-7 Program [DAS];LOW_MODE
+High Ride;pb;UTG-7 Program [DAS];HIGH_MODE
+Hill Descent Control;pb;UTG-7 Program [DAS];TOGGLE_HDC
+Cruise Control;pb;UTG-7 Program [DAS];TOGGLE_CRUISECONTROL
+Auto Pilot;pb;UTG-7 Program [DAS];TOGGLE_AUTOPILOT
+Auto Pilot Resume;pb;UTG-7 Program [DAS];RESUME_AUTOPILOT
+Auto Pilot Mode;pb;UTG-7 Program [DAS];CYCLE_AUTOPILOT_MODE
+Auto Pilot Wait;pb;UTG-7 Program [DAS];CYCLE_AUTOPILOT_WAIT
+GPS Tracker On / Off;pb;UTG-7 Program [DAS];TOGGLE_GPSTRACKER
+GPS Tracker Display;pb;UTG-7 Program [DAS];TOGGLE_GPSLIST
+[3]
+Antenna;bl;UTG-7 Antenna;onoff
+Antenna Radius;antenna;UTG-7 Antenna;3000/500
+Projector On/Off;bl;UTG-7 Projector;onoff
+Piston Jacks;pb;UTG-7 Program [EAP];main_mode

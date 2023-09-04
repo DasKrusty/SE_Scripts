@@ -1,0 +1,9 @@
+//Power
+ShowStats
+Panel 1
+,Fontsize=1 TextColor(55,155,255) center Text:POWER
+UTG-9 Battery, Length=160 barcolor(255,55,0) ShortBar AnalogBar Position(5,30) FrameColor(55,155,255) NoHeadline 
+UTG-9 Hydrogen Engine, Length=160 barcolor(255,55,0) ShortBar AnalogBar Position(65,30) FrameColor(55,155,255) NoHeadline
+UTG-9 Hydrogen Tank, Length=160 barcolor(255,55,0) ShortBar AnalogBar Position(125,30) FrameColor(55,155,255) NoHeadline
+UTG-9 O2/H2 Generator, Length=160 barcolor(255,55,0) ShortBar AnalogBar Position(185,30) FrameColor(55,155,255) NoHeadline
+EndStats
