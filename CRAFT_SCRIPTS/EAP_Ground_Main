@@ -1,0 +1,114 @@
+@variables{
+    LPS = Light Panel Status
+}
+
+@runmode
+{
+    if Color of UMG-6 Light Panel Status = 255:0:0
+    {
+        @offlinetostandby
+    }
+    else if Color of UMG-6 Light Panel Status = 255:255:0
+    {
+        @standbytoonline
+    }
+    else if Color of UMG-6 Light Panel Status = 255:255:255
+    {
+        @onlinetostandby
+    }
+    else if Color of UMG-6 Light Panel Status = 255:255:50
+    {
+        @standbytooffline
+    }
+}
+
+@autostart{
+    @offlinetostandby
+    Delay 3000
+    @standbytoonline
+}
+
+@offlinetostandby{
+    Color of UMG-6 Light Panel Status = 255:255:0
+    writenew to UMG-6 Debug LCD = Standby
+    OnOff_On UMG-6 Antenna
+    OnOff_On UMG-6 Gatling Turret
+    OnOff_On UMG-6 Light Panel Floor
+    OnOff_On UMG-6 Light Panel Status
+    OnOff_On UMG-6 O2/H2 Generator
+    OnOff_Off UMG-6 Ore Detector
+    OnOff_On UMG-6 Rotor Arm
+    OnOff_Off UMG-6 Air Vent Fan
+    OnOff_Off UMG-6 Exhaust Pipe
+    OnOff_Off UMG-6 Hydrogen Engine
+    OnOff_Off UMG-6 Headlight
+    OnOff_Off UMG-6 Spotlight
+    Stop UMG-6 Timer Standby
+    Stop UMG-6 Timer Shutdown
+}
+
+@standbytoonline{
+    Color of UMG-6 Light Panel Status = 255:255:255
+    writenew to UMG-6 Debug LCD = Active
+    OnOff_On UMG-6 Air Vent Fan
+    OnOff_On UMG-6 Exhaust Pipe
+    OnOff_On UMG-6 Hydrogen Engine
+    OnOff_On UMG-6 Headlight
+    OnOff_On UMG-6 Ore Detector
+    Stop UMG-6 Timer Standby
+    Stop UMG-6 Timer Shutdown
+}
+
+@onlinetostandby{
+    Color of UMG-6 Light Panel Status = 255:255:50
+    writenew to UMG-6 Debug LCD = Standby
+    OnOff_On UMG-6 Antenna
+    OnOff_On UMG-6 Gatling Turret
+    OnOff_On UMG-6 Light Panel Floor
+    OnOff_On UMG-6 Light Panel Status
+    OnOff_On UMG-6 O2/H2 Generator
+    OnOff_Off UMG-6 Ore Detector
+    OnOff_On UMG-6 Rotor Arm
+    OnOff_Off UMG-6 Air Vent Fan
+    OnOff_Off UMG-6 Exhaust Pipe
+    OnOff_Off UMG-6 Hydrogen Engine
+    OnOff_Off UMG-6 Headlight
+    OnOff_Off UMG-6 Spotlight
+}
+
+@standbytooffline{
+    Color of UMG-6 Light Panel Status = 255:0:0
+    writenew to UMG-6 Debug LCD = Powered Down
+    OnOff_Off UMG-6 Antenna
+    OnOff_Off UMG-6 Air Vent Fan
+    OnOff_Off UMG-6 Exhaust Pipe
+    OnOff_Off UMG-6 Gatling Turret
+    OnOff_Off UMG-6 Hydrogen Engine
+    OnOff_Off UMG-6 Light Panel Floor
+    OnOff_Off UMG-6 Light Panel Status
+    OnOff_Off UMG-6 Headlight
+    OnOff_Off UMG-6 Spotlight
+    OnOff_Off UMG-6 O2/H2 Generator
+    OnOff_Off UMG-6 Rotating Light
+    OnOff_Off UMG-6 Rotor Arm
+}
+
+@miningmode{
+    OnOff_On UMG-6 Spotlight
+    OnOff_On UMG-6 Rotating Light
+    OnOff_On UMG-6 Light Panel Floor
+    Color of UMG-6 Spotlight = 255:255:0
+    Color of UMG-6 Rotating Light = 255:255:0
+    Color of UMG-6 Light Panel Floor = 255:255:0
+}
+
+@haulingmode{
+    OnOff_Off UMG-6 Rotating Light
+    Color of UMG-6 Spotlight = 55:155:255
+    Color of UMG-6 Rotating Light = 55:155:255
+    Color of UMG-6 Light Panel Floor = 55:155:255
+}
+
+@pistonjacks{
+    Reverse UMG-6 Piston Jack
+}
