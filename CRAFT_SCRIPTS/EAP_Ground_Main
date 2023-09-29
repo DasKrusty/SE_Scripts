@@ -20,7 +20,6 @@
     SPLI = Spotlight
     TISH = Timer Shutdown
     TIST = Timer Standby
-    
 }
 
 @connect{
