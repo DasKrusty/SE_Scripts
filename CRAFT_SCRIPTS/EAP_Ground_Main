@@ -1,42 +1,77 @@
 @variables{
-    LPS = Light Panel Status
+    * Abreviated names for blocks
+    ANTE = Antenna
+    COMA = Connector Main
+    GATU = Gatling Turret
+    LCIN = LCD Info
+    LIFL = Light Floor
+    LIGH = Light
+    LIST = Light Status
+    O2H2 = O2/H2 Generator
+    ORDE = Ore Detector
+    TIST = Timer Standby
 }
 
-@runmode
-{
-    if Color of UMG-6 Light Panel Status = 255:0:0
-    {
-        @offlinetostandby
+@connect{
+    * Uses Event Controller to trigger auto lock of Connector Main
+    Write to LCIN = "CONNECTING"
+    Color of LIGH = 255:255:0
+    Blink Interval of LIGH = 1
+    Delay 3000
+    If Status of COMA = Connectable{
+        Write to LCIN = "CONNECTED"
+        Lock COMA
+        Color of LIGH = 0:255:0
+        Delay 2000
+        Blink Interval of LIGH = 0
+        Color of LIGH = 250:250:255
+        Delay 500
+        Color of LIST = 255:255:255
     }
-    else if Color of UMG-6 Light Panel Status = 255:255:0
-    {
-        @standbytoonline
-    }
-    else if Color of UMG-6 Light Panel Status = 255:255:255
-    {
-        @onlinetostandby
-    }
-    else if Color of UMG-6 Light Panel Status = 255:255:50
-    {
-        @standbytooffline
-    }
+}
+
+@exit{
+    * Uses Event Controller to trigger timer to go into standby if exiting Cockpit
+    Start TIST
+    * Timer Standby after countdown will run 
 }
 
 @autostart{
+    * Uses Event Controller to trigger when player enters Cockpit
     @offlinetostandby
     Delay 3000
     @standbytoonline
 }
 
+@runmode
+{
+    if Color of LIST = 255:0:0
+    {
+        @offlinetostandby
+    }
+    else if Color of LIST = 255:255:0
+    {
+        @standbytoonline
+    }
+    else if Color of LIST = 255:255:255
+    {
+        @onlinetostandby
+    }
+    else if Color of LIST = 255:255:50
+    {
+        @standbytooffline
+    }
+}
+
 @offlinetostandby{
-    Color of UMG-6 Light Panel Status = 255:255:0
-    writenew to UMG-6 Debug LCD = Standby
-    OnOff_On UMG-6 Antenna
-    OnOff_On UMG-6 Gatling Turret
-    OnOff_On UMG-6 Light Panel Floor
-    OnOff_On UMG-6 Light Panel Status
-    OnOff_On UMG-6 O2/H2 Generator
-    OnOff_Off UMG-6 Ore Detector
+    Color of LIST = 255:255:0
+    Write to LCIN = Standby
+    OnOff_On ANTE
+    OnOff_On GATU
+    OnOff_On LIFL
+    OnOff_On LIST
+    OnOff_On O2H2
+    OnOff_Off ORDE
     OnOff_On UMG-6 Rotor Arm
     OnOff_Off UMG-6 Air Vent Fan
     OnOff_Off UMG-6 Exhaust Pipe
@@ -48,26 +83,26 @@
 }
 
 @standbytoonline{
-    Color of UMG-6 Light Panel Status = 255:255:255
-    writenew to UMG-6 Debug LCD = Active
+    Color of LIST = 255:255:255
+    writenew to LCIN = Active
     OnOff_On UMG-6 Air Vent Fan
     OnOff_On UMG-6 Exhaust Pipe
     OnOff_On UMG-6 Hydrogen Engine
     OnOff_On UMG-6 Headlight
-    OnOff_On UMG-6 Ore Detector
+    OnOff_On ORDE
     Stop UMG-6 Timer Standby
     Stop UMG-6 Timer Shutdown
 }
 
 @onlinetostandby{
-    Color of UMG-6 Light Panel Status = 255:255:50
-    writenew to UMG-6 Debug LCD = Standby
-    OnOff_On UMG-6 Antenna
-    OnOff_On UMG-6 Gatling Turret
+    Color of LIST = 255:255:50
+    writenew to LCIN = Standby
+    OnOff_On ANTE
+    OnOff_On GATU
     OnOff_On UMG-6 Light Panel Floor
-    OnOff_On UMG-6 Light Panel Status
-    OnOff_On UMG-6 O2/H2 Generator
-    OnOff_Off UMG-6 Ore Detector
+    OnOff_On LIST
+    OnOff_On O2H2
+    OnOff_Off ORDE
     OnOff_On UMG-6 Rotor Arm
     OnOff_Off UMG-6 Air Vent Fan
     OnOff_Off UMG-6 Exhaust Pipe
@@ -77,18 +112,18 @@
 }
 
 @standbytooffline{
-    Color of UMG-6 Light Panel Status = 255:0:0
-    writenew to UMG-6 Debug LCD = Powered Down
-    OnOff_Off UMG-6 Antenna
+    Color of LIST = 255:0:0
+    writenew to LCIN = Powered Down
+    OnOff_Off ANTE
     OnOff_Off UMG-6 Air Vent Fan
     OnOff_Off UMG-6 Exhaust Pipe
-    OnOff_Off UMG-6 Gatling Turret
+    OnOff_Off GATU
     OnOff_Off UMG-6 Hydrogen Engine
     OnOff_Off UMG-6 Light Panel Floor
-    OnOff_Off UMG-6 Light Panel Status
+    OnOff_Off LIST
     OnOff_Off UMG-6 Headlight
     OnOff_Off UMG-6 Spotlight
-    OnOff_Off UMG-6 O2/H2 Generator
+    OnOff_Off O2H2
     OnOff_Off UMG-6 Rotating Light
     OnOff_Off UMG-6 Rotor Arm
 }
