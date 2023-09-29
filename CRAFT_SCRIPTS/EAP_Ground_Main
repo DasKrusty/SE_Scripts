@@ -1,15 +1,26 @@
 @variables{
     * Abreviated names for blocks
+    AIVE = Air Vent Fan
     ANTE = Antenna
     COMA = Connector Main
+    EXPI = Exhaust Pipe
     GATU = Gatling Turret
+    HELI = Headlight
+    HYEN = Hydrogen Engine
     LCIN = LCD Info
     LIFL = Light Floor
     LIGH = Light
+    LIPA = Light Panel Floor
     LIST = Light Status
     O2H2 = O2/H2 Generator
     ORDE = Ore Detector
+    PIJA = Piston Jack
+    ROAR = Rotor Arm
+    ROLI = Rotating Light
+    SPLI = Spotlight
+    TISH = Timer Shutdown
     TIST = Timer Standby
+    
 }
 
 @connect{
@@ -72,78 +83,78 @@
     OnOff_On LIST
     OnOff_On O2H2
     OnOff_Off ORDE
-    OnOff_On UMG-6 Rotor Arm
-    OnOff_Off UMG-6 Air Vent Fan
-    OnOff_Off UMG-6 Exhaust Pipe
-    OnOff_Off UMG-6 Hydrogen Engine
-    OnOff_Off UMG-6 Headlight
-    OnOff_Off UMG-6 Spotlight
-    Stop UMG-6 Timer Standby
-    Stop UMG-6 Timer Shutdown
+    OnOff_On ROAR
+    OnOff_Off AIVE
+    OnOff_Off EXPI
+    OnOff_Off HYEN
+    OnOff_Off HELI
+    OnOff_Off SPLI
+    Stop TIST
+    Stop TISH
 }
 
 @standbytoonline{
     Color of LIST = 255:255:255
-    writenew to LCIN = Active
-    OnOff_On UMG-6 Air Vent Fan
-    OnOff_On UMG-6 Exhaust Pipe
-    OnOff_On UMG-6 Hydrogen Engine
-    OnOff_On UMG-6 Headlight
+    Write to LCIN = Active
+    OnOff_On AIVE
+    OnOff_On EXPI
+    OnOff_On HYEN
+    OnOff_On HELI
     OnOff_On ORDE
-    Stop UMG-6 Timer Standby
-    Stop UMG-6 Timer Shutdown
+    Stop TIST
+    Stop TISH
 }
 
 @onlinetostandby{
     Color of LIST = 255:255:50
-    writenew to LCIN = Standby
+    Write to LCIN = Standby
     OnOff_On ANTE
     OnOff_On GATU
-    OnOff_On UMG-6 Light Panel Floor
+    OnOff_On LIPA
     OnOff_On LIST
     OnOff_On O2H2
     OnOff_Off ORDE
-    OnOff_On UMG-6 Rotor Arm
-    OnOff_Off UMG-6 Air Vent Fan
-    OnOff_Off UMG-6 Exhaust Pipe
-    OnOff_Off UMG-6 Hydrogen Engine
-    OnOff_Off UMG-6 Headlight
-    OnOff_Off UMG-6 Spotlight
+    OnOff_On ROAR
+    OnOff_Off AIVE
+    OnOff_Off EXPI
+    OnOff_Off HYEN
+    OnOff_Off HELI
+    OnOff_Off SPLI
 }
 
 @standbytooffline{
     Color of LIST = 255:0:0
-    writenew to LCIN = Powered Down
+    Write to LCIN = Powered Down
     OnOff_Off ANTE
-    OnOff_Off UMG-6 Air Vent Fan
-    OnOff_Off UMG-6 Exhaust Pipe
+    OnOff_Off AIVE
+    OnOff_Off EXPI
     OnOff_Off GATU
-    OnOff_Off UMG-6 Hydrogen Engine
-    OnOff_Off UMG-6 Light Panel Floor
+    OnOff_Off HYEN
+    OnOff_Off LIPA
     OnOff_Off LIST
-    OnOff_Off UMG-6 Headlight
-    OnOff_Off UMG-6 Spotlight
+    OnOff_Off HELI
+    OnOff_Off SPLI
     OnOff_Off O2H2
-    OnOff_Off UMG-6 Rotating Light
-    OnOff_Off UMG-6 Rotor Arm
+    OnOff_Off ROLI
+    OnOff_Off ROAR
 }
 
 @miningmode{
-    OnOff_On UMG-6 Spotlight
-    OnOff_On UMG-6 Rotating Light
-    OnOff_On UMG-6 Light Panel Floor
-    Color of UMG-6 Spotlight = 255:255:0
-    Color of UMG-6 Rotating Light = 255:255:0
-    Color of UMG-6 Light Panel Floor = 255:255:0
+    OnOff_On SPLI
+    OnOff_On ROLI
+    OnOff_On LIPA
+    Color of SPLI = 255:255:0
+    Color of ROLI = 255:255:0
+    Color of LIPA = 255:255:0
 }
 
 @haulingmode{
-    OnOff_Off UMG-6 Rotating Light
-    Color of UMG-6 Spotlight = 55:155:255
-    Color of UMG-6 Rotating Light = 55:155:255
-    Color of UMG-6 Light Panel Floor = 55:155:255
+    OnOff_Off ROLI
+    Color of SPLI = 55:155:255
+    Color of ROLI = 55:155:255
+    Color of LIPA = 55:155:255
 }
 
 @pistonjacks{
-    Reverse UMG-6 Piston Jack
+    Reverse PIJA
 }
