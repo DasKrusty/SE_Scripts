@@ -36,15 +36,15 @@ HelpColor=155,225,255
 [0]
 Batteries;all-show;*;batt
 Battery Mode;gr-batt;UMG-6 Batteries;mode
-Run Mode;pb;UMG-6 Program [EA2];UMG-6 Debug LCD(runmode)
+Run Mode;pb;UMG-6 Program [EAP];runmode
 Large Connector;conn_lock;UMG-6 Connector Large;toggle
 Small Connector;conn_lock;UMG-6 Small Connector;toggle
 Spotlights;gr;UMG-6 Spotlights;onoff
 [1]
 Inv Vol;all-show;*;inv
 Ship Mass;all-show;*;mass/total/100000
-Mining Mode;pb;UMG-6 Program [EA2];UMG-6 Debug LCD(miningmode)
-Hauling Mode;pb;UMG-6 Program [EA2];UMG-6 Debug LCD(haulingmode)
+Mining Mode;pb;UMG-6 Program [EAP];miningmode
+Hauling Mode;pb;UMG-6 Program [EAP];haulingmode
 Keep Ice;sorter_list;UMG-6 Sorter for Ejectors;black/Ore-Ice
 Throw Ice;sorter_list;UMG-6 Sorter for Ejectors;white/Ore-Ice
 Ejectors;gr;UMG-6 Ejectors;onoff
@@ -67,4 +67,4 @@ Turret On/Off;bl;UMG-6 Gatling Turret;onoff
 Antenna;bl;UMG-6 Antenna;onoff
 Antenna Radius;antenna;UMG-6 Antenna;3000/500
 Projector On/Off;bl;UMG-6 Projector;onoff
-Piston Jacks;pb;UMG-6 Program [EA2];UMG-6 Debug LCD(pistonjacks)
+Piston Jacks;pb;UMG-6 Program [EAP];pistonjacks

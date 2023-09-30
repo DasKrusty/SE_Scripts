@@ -9,7 +9,6 @@
     HELI = "Headlight"
     HYEN = "Hydrogen Engine"
     LCIN = "LCD Info"
-    LIFL = "Light Floor"
     LIGH = "Light"
     LIPA = "Light Panel Floor"
     LIST = "Light Status"
@@ -32,7 +31,6 @@
     If Status of UMG-6 Connector Main = Connectable {
         Write to \LCIN = "CONNECTED"
         Lock \COMA
-        Color of \LIGH = 0:255:0
         Delay 2000
         Blink Interval of \LIGH = 0
         Color of \LIGH = 250:250:255
@@ -45,24 +43,27 @@
 @autostart {
     * Uses Event Controller to trigger when player enters Cockpit
     @offlinetostandby
-    Delay 3000
-    @standbytoonline
+    If Status of UMG-6 Connector Main = Unconnected {
+        Delay 3000
+        @standbytoonline
+        OnOff_On \EVC2
+    }
 }
 
 @runmode {
-    if Color of \LIST = 255:0:0
+    if Color of UMG-6 Light Status = 255:0:0
     {
         @offlinetostandby
     }
-    else if Color of \LIST = 255:255:0
+    else if Color of UMG-6 Light Status = 255:255:0
     {
         @standbytoonline
     }
-    else if Color of \LIST = 255:255:255
+    else if Color of UMG-6 Light Status = 255:255:255
     {
         @onlinetostandby
     }
-    else if Color of \LIST = 255:255:50
+    else if Color of UMG-6 Light Status = 255:255:50
     {
         @standbytooffline
     }
@@ -73,7 +74,7 @@
     Write to \LCIN = Standby
     OnOff_On \ANTE
     OnOff_On \GATU
-    OnOff_On \LIFL
+    OnOff_On \LIPA
     OnOff_On \LIST
     OnOff_On \O2H2
     OnOff_Off \ORDE
@@ -95,8 +96,10 @@
     OnOff_On \HYEN
     OnOff_On \HELI
     OnOff_On \ORDE
+    OnOff_On \LIPA
     Stop \TIST
     Stop \TISH
+    Unlock \COMA
 }
 
 @onlinetostandby {
@@ -104,7 +107,7 @@
     Write to \LCIN = Standby
     OnOff_On \ANTE
     OnOff_On \GATU
-    OnOff_On \LIPA
+    OnOff_Off \LIPA
     OnOff_On \LIST
     OnOff_On \O2H2
     OnOff_Off \ORDE
@@ -124,7 +127,6 @@
     OnOff_Off \EXPI
     OnOff_Off \GATU
     OnOff_Off \HYEN
-    OnOff_Off \LIPA
     OnOff_Off \LIST
     OnOff_Off \HELI
     OnOff_Off \SPLI
