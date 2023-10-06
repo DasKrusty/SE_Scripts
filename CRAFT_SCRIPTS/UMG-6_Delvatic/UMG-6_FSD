@@ -12,24 +12,29 @@ EndStats
 
 //Power
 ShowStats
-,Fontsize=3 TextColor(55,155,255) center Text:POWER
-,Fontsize=1.5 TextColor(55,155,255) Position(90,90) Text:BAT
-UMG-6 Small Battery, barcolor(255,55,0) Smallbar AnalogBar Position(180,90) FrameColor(55,155,255) NoHeadline
-,Fontsize=1.5 TextColor(55,155,255) Position(90,150) Text:ENG
-UMG-6 Hydrogen Engine, barcolor(255,55,0) Smallbar AnalogBar Position(180,150) FrameColor(55,155,255) NoHeadline
-,Fontsize=1.5 TextColor(55,155,255) Position(90,210) Text:TAN
-UMG-6 Hydrogen Tank, barcolor(255,55,0) Smallbar AnalogBar Position(180,210) FrameColor(55,155,255) NoHeadline
-,Fontsize=1.5 TextColor(55,155,255) Position(90,270) Text:GEN
-UMG-6 O2/H2 Generator, barcolor(255,55,0) Smallbar AnalogBar Position(180,270) FrameColor(55,155,255) NoHeadline
-,Fontsize=1.5 TextColor(55,155,255) Position(90,330) Text:ICE
-UMG-6 Cargo Container, Filter(+Ice) barcolor(255,55,0) Smallbar AnalogBar Position(180,330) FrameColor(55,155,255) NoHeadline
+,Fontsize=2 TextColor(255,55,0) center Text:POWER
+,Fontsize=1.5 TextColor(255,55,0) Position(40,60) Text:BAT
+Battery, ShortBar AnalogBar Position(40,110) NoHeadline FrameColor(55,155,255)
+,Fontsize=1.5 TextColor(255,55,0) Position(120,110) Text:ENG
+Engine, Smallbar AnalogBar Position(200,110) NoHeadline FrameColor(55,155,255)
+,Fontsize=1.5 TextColor(255,55,0) Position(120,170) Text:TAN
+Hydrogen Tank, Smallbar AnalogBar Position(200,170) NoHeadline FrameColor(55,155,255)
+,Fontsize=1.5 TextColor(255,55,0) Position(120,230) Text:GEN
+Generator, Smallbar AnalogBar Position(200,230) NoHeadline FrameColor(55,155,255)
+,Fontsize=1.5 TextColor(255,55,0) Position(40,360) Text:CON
+Battery, optional Smallbar AnalogBar Position(120,360) NoHeadline FrameColor(55,155,255)
+,Fontsize=1.5 TextColor(255,55,0) Position(40,420) Text:THR
+Thruster, Smallbar AnalogBar Position(120,420) NoHeadline FrameColor(55,155,255)
 EndStats
+
 
 //Cargo
 ShowStats
-,Fontsize=3 TextColor(55,155,255) center Text:Cargo
-Gap80 + UMG-6 Drill, Scale=1.5 FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
-Gap20 + UMG-6 Cargo Container 1, Scale=2.5 FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+,Fontsize=2 TextColor(255,55,0) center Text:CARGO
+Gap40 + Drill, Scale=1.5 FrameColor(55,155,255) NoHeadline
+Gap80 + Cargo Container, Scale=2.5 FrameColor(55,155,255) NoHeadline
+,Fontsize=1.5 TextColor(255,55,0) Position(90,440) Text:TUR
+Turret, Smallbar AnalogBar Position(170,440) NoHeadline FrameColor(55,155,255)
 EndStats
 
 
