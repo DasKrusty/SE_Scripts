@@ -2,12 +2,14 @@
     * Abreviated names for blocks
     AIVE = "Air Vent Fan"
     ANTE = "Antenna"
+    BATT = "Battery"
     COMA = "Connector Main"
     EVC2 = "Event Controller - Connect"
     EXPI = "Exhaust Pipe"
     GATU = "Gatling Turret"
     HELI = "Headlight"
     HYEN = "Hydrogen Engine"
+    HYTA = "Hydrogen Tank"
     LCIN = "LCD Info"
     LIGH = "Light"
     LIPA = "Light Panel Floor"
@@ -36,6 +38,8 @@
         Color of \LIGH = 250:250:255
         Delay 500
         Color of \LIST = 255:255:255
+        Recharge \BATT
+        Stockpile of \HYTA = True
     }
     OnOff_Off \EVC2
 }
@@ -46,7 +50,6 @@
     If Status of UMG-6 Connector Main = Unconnected {
         Delay 3000
         @standbytoonline
-        OnOff_On \EVC2
     }
 }
 
@@ -99,7 +102,11 @@
     OnOff_On \LIPA
     Stop \TIST
     Stop \TISH
+    Stockpile of \HYTA = False
+    Discharge \BATT
     Unlock \COMA
+    Delay 5000
+    OnOff_On \EVC2
 }
 
 @onlinetostandby {
