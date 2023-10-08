@@ -1,0 +1,52 @@
+@variables{
+    * Abreviated names for blocks
+    AIVE = "Air Vent Fan"
+    ANTE = "Antenna"
+    BATT = "Battery"
+    BEAC = "Beacon"
+    COMA = "Connector Main"
+    EVC2 = "Event Controller - Connect"
+    EXPI = "Exhaust Pipe"
+    GATU = "Gatling Turret"
+    GYRO = "Gyroscope"
+    HELI = "Headlight"
+    HLL1 = "Hinge Landing Leg 1"
+    HYEN = "Hydrogen Engine"
+    HYTA = "Hydrogen Tank"
+    LCIN = "LCD Info"
+    LIGH = "Light"
+    LIPA = "Light Panel Floor"
+    LIST = "Light Status"
+    O2H2 = "O2/H2 Generator"
+    ORDE = "Ore Detector"
+    PAHA = "Parachute Hatch"
+    PRPA = "Program [PAM]"
+    PIJA = "Piston Jack"
+    ROAR = "Rotor Arm"
+    ROLI = "Rotating Light"
+    SPLI = "Spotlight"
+    THRU = "Thruster"
+    TISH = "Timer Shutdown"
+    TIST = "Timer Standby"
+}
+
+@low_alt{
+    OnOff_On \LIPA
+    Rotate \HLL1 to 55 at -5
+    Write to \LCIN = "LOW ALTITUDE"
+}
+
+@high_alt{
+    OnOff_Off \LIPA
+    Rotate \HLL1 to 85 at 5
+    Write to \LCIN = "HIGH ALTITUDE"
+}
+
+@failure{
+    OnOff_Off \PRPA
+    OnOff_Off \THRU
+    OnOff_Off \GYRO
+    OnOff_On \BEAC
+    Open_On \PAHA
+    Write to \LCIN = "ASSISTANCE REQUIRED"
+}
