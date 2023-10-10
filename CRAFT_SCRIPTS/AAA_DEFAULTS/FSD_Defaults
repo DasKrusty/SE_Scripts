@@ -27,3 +27,25 @@ Turret, Smallbar AnalogBar Position(200,240) NoHeadline FrameColor(55,155,255)
 ,Fontsize=2 TextColor(255,55,0) center Text:STATUS
 LCD Info,clone:0 position(40,350) fontsize=2 TextColor(55,155,255)
 EndStats
+
+// Cargo
+ShowStats
+,Fontsize=2 TextColor(255,55,0) center Text:CARGO
+,Fontsize=1.5 TextColor(255,55,0) Position(40,60) Text:Cargo
+Cargo, Smallbar AnalogBar Position(200,60) NoHeadline FrameColor(55,155,255)
+,Fontsize=1.5 TextColor(255,55,0) Position(40,120) Text:Top Turr
+Gatling, Smallbar AnalogBar Position(200,120) NoHeadline FrameColor(55,155,255)
+,Fontsize=1.5 TextColor(255,55,0) Position(40,180) Text:Bot Tur
+Turret, Smallbar AnalogBar Position(200,180) NoHeadline FrameColor(55,155,255)
+,Fontsize=2 TextColor(255,55,0) center Text:STATUS
+LCD Info,clone:0 position(40,350) fontsize=2 TextColor(55,155,255)
+EndStats
+
+40.60
+200.60
+40.120
+200.120
+40.180
+200.180
+40.240
+200.240
