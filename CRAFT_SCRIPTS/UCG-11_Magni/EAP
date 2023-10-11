@@ -5,6 +5,7 @@
     BATT = "Battery"
     BEAC = "Beacon"
     COMA = "Connector Main"
+    COSE = "Connector Second"
     EVC2 = "Event Controller - Connect"
     EXPI = "Exhaust Pipe"
     GATU = "Gatling Turret"
@@ -49,6 +50,7 @@
     * Triggered by Event Controller checking Altitude
     OnOff_Off \LIPA
     Rotate \HILA to -85 at 1
+    Move \PILA to 0 at -1
     Write to \LCIN = "HIGH ALTITUDE"
 }
 
@@ -83,70 +85,84 @@
 @offlinetostandby {
     Color of \LIST = 255:255:0
     Write to \LCIN = Standby
+    OnOff_On \AIVE
+    Delay 1000
+    Write to \LCIN = Comms Systems Up
     OnOff_On \ANTE
-    OnOff_On \GATU
+    OnOff_On \ORDE
+    Delay 1000
+    Write to \LCIN = Light Systems Up
+    OnOff_On \LIGH
     OnOff_On \LIPA
-    OnOff_On \LIST
     OnOff_On \O2H2
-    OnOff_Off \ORDE
-    OnOff_On \ROAR
-    OnOff_Off \AIVE
-    OnOff_Off \EXPI
-    OnOff_Off \HYEN
-    OnOff_Off \HELI
-    OnOff_Off \SPLI
-    Stop \TIST
-    Stop \TISH
+    
 }
 
 @standbytoonline {
     Color of \LIST = 255:255:255
     Write to \LCIN = Active
-    OnOff_On \AIVE
-    OnOff_On \EXPI
-    OnOff_On \HYEN
-    OnOff_On \HELI
-    OnOff_On \ORDE
-    OnOff_On \LIPA
-    Stop \TIST
-    Stop \TISH
-    Stockpile of \HYTA = False
+    OnOff_Off \EVC2
+    Delay 1000
+    Write to \LCIN = Power Systems Up
     Discharge \BATT
-    Unlock \COMA
+    Stockpile of \HYTA = False
+    Delay 1000
+    if UCG-11 Connector Main = Connected {
+        Delay 1000
+        Write to \LCIN = Unlocking Back Connector
+        Unlock \COMA
+    }
+        if UCG-11 Connector Second = Connected {
+        Delay 1000
+        Write to \LCIN = Unlocking Down Connector
+        Unlock \COSE
+    }
+    Delay 1000
+    Write to \LCIN = Flight Systems Up
+    OnOff_On \GYRO
+    OnOff_On \THRU
     Delay 5000
     OnOff_On \EVC2
+    Stop \TIST
+    Stop \TISH
 }
 
 @onlinetostandby {
     Color of \LIST = 255:255:50
     Write to \LCIN = Standby
-    OnOff_On \ANTE
-    OnOff_On \GATU
-    OnOff_Off \LIPA
-    OnOff_On \LIST
-    OnOff_On \O2H2
-    OnOff_Off \ORDE
-    OnOff_On \ROAR
     OnOff_Off \AIVE
-    OnOff_Off \EXPI
-    OnOff_Off \HYEN
-    OnOff_Off \HELI
-    OnOff_Off \SPLI
+    Delay 1000
+    Write to \LCIN = Flight Systems Down
+    OnOff_Off \GYRO
+    OnOff_Off \THRU
+    OnOff_Off \LIPA
     Start \TISH
 }
 
 @standbytooffline {
     Color of \LIST = 255:0:0
-    Write to \LCIN = Powered Down
+    Delay 1000
+    Write to \LCIN = Comms Systems Down
     OnOff_Off \ANTE
-    OnOff_Off \AIVE
-    OnOff_Off \EXPI
-    OnOff_Off \GATU
-    OnOff_Off \HYEN
-    OnOff_Off \LIST
-    OnOff_Off \HELI
-    OnOff_Off \SPLI
+    OnOff_Off \ORDE
+    Delay 1000
+    Write to \LCIN = Checking Connection
+    if UCG-11 Connector Main = Connected {
+        Recharge \BATT
+        Stockpile of \HYTA = True
+        Delay 1000
+        Write to \LCIN = Recharging Batteries
+    }
+        if UCG-11 Connector Second = Connected {
+        Recharge \BATT
+        Stockpile of \HYTA = True
+        Delay 1000
+        Write to \LCIN = Recharging Batteries
+    }
+    Delay 1000
+    Write to \LCIN = Light Systems Down
+    OnOff_Off \LIGH
     OnOff_Off \O2H2
-    OnOff_Off \ROLI
-    OnOff_Off \ROAR
+    Delay 1000
+    Write to \LCIN = Powered Down
 }
