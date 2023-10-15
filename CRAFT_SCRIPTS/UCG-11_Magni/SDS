@@ -1,0 +1,50 @@
+[Main]
+CockpitPrefix=[MEN11]
+LCDPrefix=[MEN11]
+
+[Add]
+Prefix=
+Screen=1
+DefaultMenu=0
+WASDAutoDisable=true
+SwitchThrusters=true
+SwitchGyros=true
+SwitchWheels=true
+LCDAutoOff=true
+WASDPrgOn=-1
+WASDPrgOff=-1
+
+[Color]
+BackgroundColor=0,0,0
+ItemBarColor=0,6,12
+MainColor=55,155,255
+SelItemBarColor=155,55,0
+SelItemTextColor=0,0,0
+OnColor=225,65,100
+ArrowColor=155,225,255
+ErrorMSGColor=225,65,100
+HelpColor=155,225,255
+
+[TopMenu]
+0=Quick
+1=Hauling
+2=Weapons
+3=Settings
+
+[0]
+Batteries;all-show;*;batt
+Battery Mode;gr-batt;UCA-11 Batteries;mode
+Run Mode;pb;UCA-11 Program [EAP];runmode
+Launch!;pb;UCA-11 Program [EAP];launch
+Conn Rear;conn_lock;UCA-11 Connector Main;toggle
+Conn Bottom;conn_lock;UCA-11 Connector Second;toggle
+Searchlights;gr-light;UCA-11 Searchlights;onoff
+[1]
+Inv Vol;all-show;*;inv
+Ship Mass;all-show;*;mass/total/100000
+[2]
+Turret On/Off;bl;UCA-11 Gatling Turret;onoff
+[3]
+Antenna;bl;UCA-11 Antenna;onoff
+Antenna Radius;antenna;UCA-11 Antenna;3000/500
+Projector On/Off;bl;UCA-11 Projector;onoff
