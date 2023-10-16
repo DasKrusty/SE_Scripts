@@ -57,6 +57,7 @@
     Rotate \HIL2 to -1 at 1
     Move \PILA to 0 at 1
     OnOff_Off \EVC3
+    OnOff_Off \EVC4
 }
 
 @land{
@@ -111,26 +112,82 @@
 }
 
 @offlinetostandby{
-    Color of \LIST = 255:255:0
-    Write to \LCIN = Standby
-    Stop \TIST
+    Write to \LCIN = "Running"
+    Delay 1000
+    WriteLine to \LCIN = "Power Sys ON"
+    Discharge \BATT
+    Stockpile of \HYTA = False
+    OnOff_On \O2H2
+    Delay 1000
+    WriteLine to \LCIN = "Support Sys ON"
     Stop \TISH
+    Stop \TIST
+    OnOff_On \AIVE
+    OnOff_On \LIGH
+    Delay 1000
+    WriteLine to \LCIN = "Comms Sys ON"
+    OnOff_On \ANTE
+    OnOff_On \ORDE
+    Delay 1000
+    Color of \LIST = 255:255:0
+    Write to \LCIN = "Standby"
 }
 
 @standbytoonline{
-    Color of \LIST = 255:255:255
-    Write to \LCIN = Active
-    
-    Stop \TIST
+    Write to \LCIN = "Running"
     Stop \TISH
+    Delay 1000
+    WriteLine to \LCIN = "Flight Sys ON"
+    OnOff_On \GYRO
+    OnOff_On \THRU
+    Delay 1000
+    Color of \LIST = 255:255:255
+    Write to \LCIN = "Active"
 }
 
 @onlinetostandby{
+    Write to \LCIN = "Running"
+    Delay 1000
+    WriteLine to \LCIN = "Flight Sys OFF"
+    OnOff_Off \GYRO
+    OnOff_Off \THRU
+    Delay 1000
+    WriteLine to \LCIN = "Support Sys OFF"
+    OnOff_Off \AIVE
+    Delay 1000
     Color of \LIST = 255:255:50
-    Write to \LCIN = Standby
+    Write to \LCIN = "Standby"
 }
 
 @standbytooffline{
+    Write to \LCIN = "Running"
+    Delay 1000
+    WriteLine to \LCIN = "Comms Sys OFF"
+    OnOff_Off \ANTE
+    OnOff_Off \ORDE
+    WriteLine to \LCIN = "Checking Connection Status"
+    Delay 1000
+    if UCA-11 Connector Main = Connected {
+        Delay 1000
+        WriteLine to \LCIN = "Power Sys OFF"
+        Discharge \BATT
+        Stockpile of \HYTA = True
+        OnOff_Off \O2H2
+        Delay 1000
+        WriteLine to \LCIN = "Connection Good"
+    }
+    if UCA-11 Connector Second = Connected {
+        Delay 1000
+        WriteLine to \LCIN = "Power Sys OFF"
+        Discharge \BATT
+        Stockpile of \HYTA = True
+        OnOff_Off \O2H2
+        Delay 1000
+        WriteLine to \LCIN = "Connection Good"
+    }
+    Delay 1000
+    OnOff_Off \LIGH
+    OnOff_Off \SPLI
     Color of \LIST = 255:0:0
-    Write to \LCIN = Powered Down
+    Write to \LCIN = "Powered Down"
 }
