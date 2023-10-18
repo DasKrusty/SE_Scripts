@@ -42,6 +42,8 @@ Searchlights;gr-light;UCA-11 Searchlights;onoff
 [1]
 Inv Vol;all-show;*;inv
 Ship Mass;all-show;*;mass/total/100000
+Module Toggle;pb;UCA-11 Program [EAP];module_toggle
+Pickup Toggle;pb;UCA-11 Program [EAP];pickup_toggle
 [2]
 Turret On/Off;bl;UCA-11 Gatling Turret;onoff
 [3]
