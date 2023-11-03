@@ -58,6 +58,7 @@
 }
 
 @pickup_drop{
+    * Safety - if landed dont do anything
     OnOff_On \EVC2
     OnOff_On \EVC3
     OnOff_On \EVC4
@@ -69,6 +70,7 @@
 }
 
 @pickup_lock{
+    * Safety - if landed dont do anything
     OnOff_Off \EVC2
     OnOff_Off \EVC3
     OnOff_Off \EVC4
@@ -113,6 +115,7 @@
 }
 
 @module_toggle{
+    * Safety - if landed dont do anything
     if Status of UCA-11 Connector Landing Front = Locked {
         @module_release
     }
@@ -122,6 +125,7 @@
 }
 
 @module_lock{
+    * Safety - if landed dont do anything
     * Triggered by Menu
     Write to \LCIN = "Module Mode Activated"
     if Status of UCA-11 Maglock BL= Locked {
