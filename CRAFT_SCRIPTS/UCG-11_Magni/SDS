@@ -50,3 +50,4 @@ Turret On/Off;bl;UCA-11 Gatling Turret;onoff
 Antenna;bl;UCA-11 Antenna;onoff
 Antenna Radius;antenna;UCA-11 Antenna;3000/500
 Projector On/Off;bl;UCA-11 Projector;onoff
+Version;pb;UCA-11 Program [EAP];info

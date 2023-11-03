@@ -50,3 +50,8 @@
     Open_On \PAHA
     Write to \LCIN = "ASSISTANCE REQUIRED"
 }
+
+@info {
+    Write to \LCIN = EAP - V.1.05
+    WriteLine to \LCIN = Craft - V1.03
+}

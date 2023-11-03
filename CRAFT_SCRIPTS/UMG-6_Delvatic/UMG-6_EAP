@@ -161,3 +161,11 @@
 @pistonjacks {
     Reverse \PIJA
 }
+
+@info {
+    Write to \LCIN = EAP - V.1.08
+    WriteLine to \LCIN = FSD - V1.00
+    WriteLine to \LCIN = LCD - V1.00
+    WriteLine to \LCIN = SDS - V1.01
+    WriteLine to \LCIN = Craft - V1.05
+}

@@ -67,3 +67,4 @@ Antenna;bl;UMG-6 Antenna;onoff
 Antenna Radius;antenna;UMG-6 Antenna;3000/500
 Projector On/Off;bl;UMG-6 Projector;onoff
 Piston Jacks;pb;UMG-6 Program [EAP];pistonjacks
+Version;pb;UMG-6 Program [EAP];info

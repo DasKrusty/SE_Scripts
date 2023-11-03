@@ -350,3 +350,10 @@
     Color of \LIST = 255:0:0
     Write to \LCIN = "Powered Down"
 }
+
+@info {
+    Write to \LCIN = EAP - V.1.07
+    WriteLine to \LCIN = FSD - V1.00
+    WriteLine to \LCIN = SDS - V1.00
+    WriteLine to \LCIN = Craft - V1.00
+}
