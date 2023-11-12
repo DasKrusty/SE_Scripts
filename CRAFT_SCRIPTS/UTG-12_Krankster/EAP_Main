@@ -1,0 +1,116 @@
+@variables{
+    * Blocks
+    LIST = "Light Status"
+    LCIN = "LCD Info"
+    HISM = "Hinge Suspension Main"
+    WHAL = "Wheel Suspension"
+    WHSF = "Wheel Suspension Front"
+    WHSB = "Wheel Suspension Back"
+    * Calculations
+    x = Mass of MyShip
+    y = Gravity of MyShip
+    z = "0"
+}
+
+@gear_up{
+    if Color of Light Status = 255:0:0{
+        @gear_1
+    }
+    else if Color of Light Status = 0:255:0{
+        @gear_2
+    }
+    else if Color of Light Status = 50:255:0{
+        @gear_3
+    }
+    else if Color of Light Status = 100:255:0{
+        @gear_4
+    }
+    else if Color of Light Status = 150:255:0{
+        @gear_5
+    }
+}
+
+@gear_down{
+    if Color of Light Status = 200:255:0{
+        @gear_4
+    }
+    else if Color of Light Status = 150:255:0{
+        @gear_3
+    }
+    else if Color of Light Status = 100:255:0{
+        @gear_2
+    }
+    else if Color of Light Status = 50:255:0{
+        @gear_1
+    }
+    else if Color of Light Status = 0:255:0{
+        @park
+    }
+}
+
+@park{
+    Color of \LIST = 255:0:0
+    Write to \LCIN = P
+    Rotate \HISM to 10 at 1
+    \z = math(\x*y)
+    Torque of \HISM = \z
+    MaxSteerAngle of \WHSF = 0
+    MaxSteerAngle of \WHSB = 0
+    Power of \WHAL = 0
+    Speed Limit of \WHAL = 0
+}
+
+@gear_1{
+    Color of \LIST = 0:255:0
+    Write to \LCIN = 1
+    Rotate \HISM to -35 at 1
+    Torque of \HISM = \z
+    MaxSteerAngle of \WHSF = 40
+    MaxSteerAngle of \WHSB = 20
+    Power of \WHAL = 100
+    Speed Limit of \WHAL = 10
+}
+
+@gear_2{
+    Color of \LIST = 50:255:0
+    Write to \LCIN = 2
+    Rotate \HISM to -30 at 1
+    Torque of \HISM = \z
+    MaxSteerAngle of \WHSF = 30
+    MaxSteerAngle of \WHSB = 15
+    Power of \WHAL = 80
+    Speed Limit of \WHAL = 30
+}
+
+@gear_3{
+    Color of \LIST = 100:255:0
+    Write to \LCIN = 3
+    Rotate \HISM to -20 at 1
+    Torque of \HISM = \z
+    MaxSteerAngle of \WHSF = 20
+    MaxSteerAngle of \WHSB = 10
+    Power of \WHAL = 60
+    Speed Limit of \WHAL = 60
+}
+
+@gear_4{
+    Color of \LIST = 150:255:0
+    Write to \LCIN = 4
+    Rotate \HISM to -10 at 1
+    Torque of \HISM = \z
+    MaxSteerAngle of \WHSF = 10
+    MaxSteerAngle of \WHSB = 5
+    Power of \WHAL = 40
+    Speed Limit of \WHAL = 90
+}
+
+@gear_5{
+    Color of \LIST = 200:255:0
+    Write to \LCIN = 5
+    Rotate \HISM to 0 at 1
+    Torque of \HISM = \z
+    MaxSteerAngle of \WHSF = 5
+    MaxSteerAngle of \WHSB = 0
+    Power of \WHAL = 20
+    Speed Limit of \WHAL = 120
+}

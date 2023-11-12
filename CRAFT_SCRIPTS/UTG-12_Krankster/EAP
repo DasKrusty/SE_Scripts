@@ -108,3 +108,53 @@
     Write to \LCIN = 8
     Rotate \HIWA to 10 at 1
 }
+
+@variables{
+    Mass of MyShip = MASS
+    LIST = "Light Status"
+    LCIN = "LCD Info"
+}
+
+@test{
+    Write to \LCIN = \MASS
+}
+
+@variables{
+    LCIN = "LCD Info"
+    Mass of MyShip = aa
+}
+
+@test{
+    Write to \LCIN = "{Mass of MyShip}"
+}
+
+@variables{
+    LCIN = "LCD Info"
+    x = Mass of MyShip
+    y = Gravity of MyShip
+}
+
+@test{
+    Write to \LCIN = "Gravity = \y"
+    WriteLine to \LCIN = "Mass = \x kg"
+}
+
+@test{
+    Torque of Hinge Main = 10000
+    LowerLimit of Hinge Main = -10
+}
+
+@info{
+    Write to LCD Info = "{Show Offroad Short Wheel Suspension 3x3 Left}"
+}
+
+@test{
+    Torque of Hinge Main = 10000
+    LowerLimit of Hinge Main = -10
+    MaxSteerAngle of Wheel = 10
+    Power of Wheel = 10
+    EnableParking of Wheel = True
+    SpeedLimit of Wheel = 10
+}
+
+*FontSize
