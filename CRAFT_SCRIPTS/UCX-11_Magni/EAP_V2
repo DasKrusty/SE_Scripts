@@ -1,8 +1,4 @@
 *TO DO
-*   Automate landing/taking off procedure
-*       High / Low Altitude
-*           Deploying landing gear
-*           Locking on to group and or connector
 *           Stand by / Shutting down
 *               Cannot shutdown if flying
 *   Legs
@@ -11,26 +7,41 @@
 *       used for picking up things
 
 *WORKING ON
-*   Automate landing/taking off procedure
-*       High / Low Altitude
-*           Deploying landing gear
+*   Stand by / Shutting down
+*Feautres
+*   Automated landing procedure
+*   Automated connector procedure
 
 @variables{
     * Abreviated names for blocks
+    AIVE = "UCX-11 Air Vent Fan"
+    ANTE = "UCX-11 Antenna"
     BATT = "UCX-11 Battery"
     COMA = "UCX-11 Connector Main"
     COSE = "UCX-11 Connector Second"
     EVC1 = "UCX-11 Event Controller - Land"
     EVC2 = "UCX-11 Event Controller - Cockpit"
     GYRO = "UCX-11 Gyroscope"
+    HEVE = "UCX-11 Heat Vent"
     HIL1 = "UCX-11 Hinge Landing One"
     HIL2 = "UCX-11 Hinge Landing Two"
     HYTA = "UCX-11 Hydrogen Tank"
     LCIN = "UCX-11 LCD Info"
     LIPA = "UCX-11 Light Panel Floor"
+    LIST = "UCX-11 Light Status"
+    LIGH = "UCX-11 Light"
     MALO = "UCX-11 Maglock"
+    O2H2 = "UCX-11 O2/H2 Generator"
     PILA = "UCX-11 Piston Landing"
+    TURR = "UCX-11 Turret" 
     THRU = "UCX-11 Hydrogen Thruster"
+}
+
+@info {
+    Write to \LCIN = EAP - V.1.98
+    WriteLine to \LCIN = FSD - V1.00
+    WriteLine to \LCIN = SDS - V0.07
+    WriteLine to \LCIN = Craft - V0.35
 }
 
 @low_alt{
@@ -63,7 +74,7 @@
     Damp of MyShip = False
     OnOff_Off \GYRO
     OnOff_Off \THRU
-    Delay 1000
+    Delay 3000
     if Status of UCX-11 Maglock BL = ReadyToLock {
         Color of \LIPA = 0:255:0
         Lock \MALO
@@ -103,10 +114,12 @@
         Delay 3000
         Color of \LIPA = 255:255:255
     }
+    @onlinetostandby
 }
 
 @launch{
     Write to \LCIN = "PREPPING FLIGHT"
+    @offlinetostandby
     Discharge \BATT
     Stockpile of \HYTA = False
     Delay 1000
@@ -124,9 +137,65 @@
     OnOff_On \EVC1
 }
 
-@info {
-    Write to \LCIN = EAP - V.0.73
-    WriteLine to \LCIN = FSD - V1.00
-    WriteLine to \LCIN = SDS - V1.00
-    WriteLine to \LCIN = Craft - V1.00
+@runmode{
+    if Color of UCX-11 Light Status = 255:0:0
+    {
+        @offlinetostandby
+    }
+    else if Color of UCX-11 Light Status = 255:255:0
+    {
+        @standbytoonline
+    }
+    else if Color of UCX-11 Light Status = 255:255:255
+    {
+        @onlinetostandby
+    }
+    else if Color of UCX-11 Light Status = 255:255:50
+    {
+        @standbytooffline
+    }
+}
+
+@offlinetostandby{
+    Write to \LCIN = "Running"
+    OnOff_On \AIVE
+    OnOff_On \HEVE
+    OnOff_On \O2H2
+    OnOff_On \ANTE
+    OnOff_On \LIGH
+    OnOff_On \TURR
+    Color of \LIST = 255:255:0
+    WriteLine to \LCIN = "Standby"
+}
+
+@standbytoonline{
+    Write to \LCIN = "Running"
+    Damp of MyShip = True
+    OnOff_On \GYRO
+    OnOff_On \HYTA
+    OnOff_On \THRU
+    Color of \LIST = 255:255:255
+    WriteLine to \LCIN = "Active"
+}
+
+@onlinetostandby{
+    Write to \LCIN = "Running"
+    Damp of MyShip = False
+    OnOff_Off \GYRO
+    OnOff_Off \HYTA
+    OnOff_Off \THRU
+    Color of \LIST = 255:255:50
+    WriteLine to \LCIN = "Standby"
+}
+
+@standbytooffline{
+    Write to \LCIN = "Running"
+    OnOff_Off \AIVE
+    OnOff_Off \HEVE
+    OnOff_Off \O2H2
+    OnOff_Off \ANTE
+    OnOff_Off \LIGH
+    OnOff_Off \TURR
+    Color of \LIST = 255:0:0
+    WriteLine to \LCIN = "Powered Down"
 }
