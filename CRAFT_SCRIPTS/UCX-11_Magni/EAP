@@ -207,6 +207,7 @@
     * Triggered by Event Controller checking if Maglock ready to lock
     Color of \LIPA = 255:255:0
     Write to \LCIN = "Ready to Land"
+    Damp of MyShip = False
     Delay 5000
     if Status of UCA-11 Maglock BL = ReadyToLock {
         WriteLine to \LCIN = "Mags Locked"

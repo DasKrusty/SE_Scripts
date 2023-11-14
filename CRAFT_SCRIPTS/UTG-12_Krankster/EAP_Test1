@@ -7,6 +7,7 @@
     WHSF = "Wheel Suspension Front"
     WHSB = "Wheel Suspension Back"
     * Calculations
+    v = "0"
     w = "4"
     x = Mass of MyShip
     y = Gravity of MyShip
@@ -53,9 +54,12 @@
     Color of \LIST = 255:0:0
     Write to \LCIN = P
     \z = math((((\x*\y)/100)/\w)*1)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
     Write to \LCST = "Grav = \y"
     WriteLine to \LCST = "Mass = \x kg"
-    WriteLine to \LCST = ""
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
     MaxSteerAngle of \WHSF = 0
     MaxSteerAngle of \WHSB = 0
     Power of \WHAL = 0
@@ -66,6 +70,12 @@
     Color of \LIST = 0:255:0
     Write to \LCIN = 1
     \z = math((((\x*\y)/100)/\w)*3)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
     MaxSteerAngle of \WHSF = 40
     MaxSteerAngle of \WHSB = 20
     Power of \WHAL = 100
@@ -76,6 +86,12 @@
     Color of \LIST = 50:255:0
     Write to \LCIN = 2
     \z = math((((\x*\y)/100)/\w)*4)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
     MaxSteerAngle of \WHSF = 30
     MaxSteerAngle of \WHSB = 15
     Power of \WHAL = 80
@@ -86,6 +102,12 @@
     Color of \LIST = 100:255:0
     Write to \LCIN = 3
     \z = math((((\x*\y)/100)/\w)*5)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
     MaxSteerAngle of \WHSF = 20
     MaxSteerAngle of \WHSB = 10
     Power of \WHAL = 60
@@ -96,6 +118,12 @@
     Color of \LIST = 150:255:0
     Write to \LCIN = 4
     \z = math((((\x*\y)/100)/\w)*6)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
     MaxSteerAngle of \WHSF = 10
     MaxSteerAngle of \WHSB = 5
     Power of \WHAL = 40
@@ -106,6 +134,12 @@
     Color of \LIST = 200:255:0
     Write to \LCIN = 5
     \z = math((((\x*\y)/100)/\w)*7)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
     MaxSteerAngle of \WHSF = 5
     MaxSteerAngle of \WHSB = 0
     Power of \WHAL = 20

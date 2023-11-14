@@ -8,6 +8,7 @@
     WHSF = "Wheel Suspension Front"
     WHSB = "Wheel Suspension Back"
     * Calculations
+    v = "0"
     w = "4"
     x = Mass of MyShip
     y = Gravity of MyShip
@@ -53,8 +54,14 @@
 @park{
     Color of \LIST = 255:0:0
     Write to \LCIN = P
-    Rotate \HISM to 10 at 1
+    Rotate \HISM to 0 at 1
     \z = math((((\x*\y)/100)/\w)*1)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
     Torque of \HISM = \z
     MaxSteerAngle of \WHSF = 0
     MaxSteerAngle of \WHSB = 0
@@ -65,11 +72,17 @@
 @gear_1{
     Color of \LIST = 0:255:0
     Write to \LCIN = 1
-    Rotate \HISM to -35 at 30
-    \z = math((((\x*\y)/100)/\w)*3)
+    Rotate \HISM to 35 at 30
+    \z = math((((\x*\y)/100)/\w)*6)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
     Torque of \HISM = \z
-    MaxSteerAngle of \WHSF = 40
-    MaxSteerAngle of \WHSB = 20
+    MaxSteerAngle of \WHSF = 25
+    MaxSteerAngle of \WHSB = 13
     Power of \WHAL = 100
     Speed Limit of \WHAL = 10
 }
@@ -77,11 +90,17 @@
 @gear_2{
     Color of \LIST = 50:255:0
     Write to \LCIN = 2
-    Rotate \HISM to -30 at 30
-    \z = math((((\x*\y)/100)/\w)*4)
+    Rotate \HISM to 30 at 30
+    \z = math((((\x*\y)/100)/\w)*7)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
     Torque of \HISM = \z
-    MaxSteerAngle of \WHSF = 30
-    MaxSteerAngle of \WHSB = 15
+    MaxSteerAngle of \WHSF = 20
+    MaxSteerAngle of \WHSB = 10
     Power of \WHAL = 80
     Speed Limit of \WHAL = 30
 }
@@ -89,11 +108,17 @@
 @gear_3{
     Color of \LIST = 100:255:0
     Write to \LCIN = 3
-    Rotate \HISM to -20 at 30
-    \z = math((((\x*\y)/100)/\w)*5)
+    Rotate \HISM to 20 at 30
+    \z = math((((\x*\y)/100)/\w)*8)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
     Torque of \HISM = \z
-    MaxSteerAngle of \WHSF = 20
-    MaxSteerAngle of \WHSB = 10
+    MaxSteerAngle of \WHSF = 15
+    MaxSteerAngle of \WHSB = 8
     Power of \WHAL = 60
     Speed Limit of \WHAL = 60
 }
@@ -101,8 +126,14 @@
 @gear_4{
     Color of \LIST = 150:255:0
     Write to \LCIN = 4
-    Rotate \HISM to -10 at 30
-    \z = math((((\x*\y)/100)/\w)*6)
+    Rotate \HISM to 10 at 30
+    \z = math((((\x*\y)/100)/\w)*9)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
     Torque of \HISM = \z
     MaxSteerAngle of \WHSF = 10
     MaxSteerAngle of \WHSB = 5
@@ -114,7 +145,13 @@
     Color of \LIST = 200:255:0
     Write to \LCIN = 5
     Rotate \HISM to 0 at 30
-    \z = math((((\x*\y)/100)/\w)*7)
+    \z = math((((\x*\y)/100)/\w)*10)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
     Torque of \HISM = \z
     MaxSteerAngle of \WHSF = 5
     MaxSteerAngle of \WHSB = 0

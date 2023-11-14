@@ -1,0 +1,132 @@
+*TO DO
+*   Automate landing/taking off procedure
+*       High / Low Altitude
+*           Deploying landing gear
+*           Locking on to group and or connector
+*           Stand by / Shutting down
+*               Cannot shutdown if flying
+*   Legs
+*       used for landing
+*       used for connecting to modules
+*       used for picking up things
+
+*WORKING ON
+*   Automate landing/taking off procedure
+*       High / Low Altitude
+*           Deploying landing gear
+
+@variables{
+    * Abreviated names for blocks
+    BATT = "UCX-11 Battery"
+    COMA = "UCX-11 Connector Main"
+    COSE = "UCX-11 Connector Second"
+    EVC1 = "UCX-11 Event Controller - Land"
+    EVC2 = "UCX-11 Event Controller - Cockpit"
+    GYRO = "UCX-11 Gyroscope"
+    HIL1 = "UCX-11 Hinge Landing One"
+    HIL2 = "UCX-11 Hinge Landing Two"
+    HYTA = "UCX-11 Hydrogen Tank"
+    LCIN = "UCX-11 LCD Info"
+    LIPA = "UCX-11 Light Panel Floor"
+    MALO = "UCX-11 Maglock"
+    PILA = "UCX-11 Piston Landing"
+    THRU = "UCX-11 Hydrogen Thruster"
+}
+
+@low_alt{
+    * Triggered by Event Controller checking Altitude
+    Color of \LIPA = 255:255:255
+    OnOff_On \LIPA
+    Write to \LCIN = "LOW ALTITUDE"
+    Rotate \HIL1 to 30 at 3
+    Delay 500
+    Rotate \HIL2 to 30 at 6
+    Move \PILA to 0.5 at 1
+    OnOff_On \EVC1
+}
+
+@high_alt{
+    * Triggered by Event Controller checking Altitude
+    OnOff_Off \LIPA
+    Write to \LCIN = "HIGH ALTITUDE"
+    Rotate \HIL1 to 1 at 1
+    Rotate \HIL2 to -1 at 1
+    Move \PILA to 0 at 1
+    OnOff_Off \EVC1
+    OnOff_Off \EVC2
+}
+
+@land{
+    * Triggered by Event Controller checking if Maglock ready to lock
+    Color of \LIPA = 255:255:0
+    Write to \LCIN = "Ready to Land"
+    Damp of MyShip = False
+    OnOff_Off \GYRO
+    OnOff_Off \THRU
+    Delay 1000
+    if Status of UCX-11 Maglock BL = ReadyToLock {
+        Color of \LIPA = 0:255:0
+        Lock \MALO
+        WriteLine to \LCIN = "Mags Locked"
+        Delay 2000
+        OnOff_Off \EVC1
+        OnOff_On \EVC2
+        Delay 500
+        @connect
+    }
+}
+
+@connect{
+    * Uses Event Controller to trigger auto lock of Connector Main
+    Write to \LCIN = "CHECKING CONNECTORS"
+    Color of \LIPA = 255:255:0
+    Delay 1000
+    If Status of UCX-11 Connector Main = Connectable {
+        Writeline to \LCIN = "CONNECTED MAIN"
+        Lock \COMA
+        Delay 2000
+        Color of \LIPA = 0:255:0
+        Recharge \BATT
+        Stockpile of \HYTA = True
+    }
+    Else If Status of UCX-11 Connector Second = Connectable {
+        Writeline to \LCIN = "CONNECTED SECOND"
+        Lock \COSE
+        Delay 2000
+        Color of \LIPA = 0:255:0
+        Recharge \BATT
+        Stockpile of \HYTA = True
+    }
+    Else {
+        Writeline to \LCIN = "NO CONNECTORS"
+        Color of \LIPA = 255:0:0
+        Delay 3000
+        Color of \LIPA = 255:255:255
+    }
+}
+
+@launch{
+    Write to \LCIN = "PREPPING FLIGHT"
+    Discharge \BATT
+    Stockpile of \HYTA = False
+    Delay 1000
+    Writeline to \LCIN = "Unlocking Connections"
+    Unlock \COMA
+    Unlock \COSE
+    Unlock \MALO
+    Delay 1000
+    Writeline to \LCIN = "Flight Sys ON"
+    Damp of MyShip = True
+    OnOff_On \GYRO
+    OnOff_On \THRU
+    Delay 3000
+    Write to \LCIN = "FLIGHT GO GO"
+    OnOff_On \EVC1
+}
+
+@info {
+    Write to \LCIN = EAP - V.0.73
+    WriteLine to \LCIN = FSD - V1.00
+    WriteLine to \LCIN = SDS - V1.00
+    WriteLine to \LCIN = Craft - V1.00
+}

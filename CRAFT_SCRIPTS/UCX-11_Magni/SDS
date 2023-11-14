@@ -33,21 +33,21 @@ HelpColor=155,225,255
 
 [0]
 Batteries;all-show;*;batt
-Battery Mode;gr-batt;UCA-11 Batteries;mode
-Run Mode;pb;UCA-11 Program [EAP];runmode
-Launch!;pb;UCA-11 Program [EAP];launch
-Conn Rear;conn_lock;UCA-11 Connector Main;toggle
-Conn Bottom;conn_lock;UCA-11 Connector Second;toggle
-Searchlights;gr-light;UCA-11 Searchlights;onoff
+Battery Mode;gr-batt;UCX-11 Batteries;mode
+Run Mode;pb;UCX-11 Program [EAP];runmode
+Launch!;pb;UCX-11 Program [EAP];launch
+Conn Rear;conn_lock;UCX-11 Connector Main;toggle
+Conn Bottom;conn_lock;UCX-11 Connector Second;toggle
+Searchlights;gr-light;UCX-11 Searchlights;onoff
 [1]
 Inv Vol;all-show;*;inv
 Ship Mass;all-show;*;mass/total/100000
-Module Toggle;pb;UCA-11 Program [EAP];module_toggle
-Pickup Toggle;pb;UCA-11 Program [EAP];pickup_toggle
+Module Toggle;pb;UCX-11 Program [EAP];module_toggle
+Pickup Toggle;pb;UCX-11 Program [EAP];pickup_toggle
 [2]
-Turret On/Off;bl;UCA-11 Gatling Turret;onoff
+Turret On/Off;bl;UCX-11 Gatling Turret;onoff
 [3]
-Antenna;bl;UCA-11 Antenna;onoff
-Antenna Radius;antenna;UCA-11 Antenna;3000/500
-Projector On/Off;bl;UCA-11 Projector;onoff
-Version;pb;UCA-11 Program [EAP];info
+Antenna;bl;UCX-11 Antenna;onoff
+Antenna Radius;antenna;UCX-11 Antenna;3000/500
+Projector On/Off;bl;UCX-11 Projector;onoff
+Version;pb;UCX-11 Program [EAP];info
