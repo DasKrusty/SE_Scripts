@@ -29,19 +29,24 @@
     LCIN = "UCX-11 LCD Info"
     LIPA = "UCX-11 Light Panel Floor"
     LIST = "UCX-11 Light Status"
+    LISE = "UCX-11 Light Search"
+    LINA = "UCX-11 Light Nav"
+    LIFL = "UCX-11 Light Flight"
     LIGH = "UCX-11 Light"
     MALO = "UCX-11 Maglock"
     O2H2 = "UCX-11 O2/H2 Generator"
     PILA = "UCX-11 Piston Landing"
     TURR = "UCX-11 Turret" 
     THRU = "UCX-11 Hydrogen Thruster"
+    TISH = "UCX-11 Timer Shutdown"
+    TIST = "UCX-11 Timer Standby"
 }
 
 @info {
-    Write to \LCIN = EAP - V.1.98
+    Write to \LCIN = EAP - V.2.25
     WriteLine to \LCIN = FSD - V1.00
     WriteLine to \LCIN = SDS - V0.07
-    WriteLine to \LCIN = Craft - V0.35
+    WriteLine to \LCIN = Craft - V0.77
 }
 
 @low_alt{
@@ -72,17 +77,15 @@
     Color of \LIPA = 255:255:0
     Write to \LCIN = "Ready to Land"
     Damp of MyShip = False
-    OnOff_Off \GYRO
-    OnOff_Off \THRU
     Delay 3000
     if Status of UCX-11 Maglock BL = ReadyToLock {
         Color of \LIPA = 0:255:0
         Lock \MALO
         WriteLine to \LCIN = "Mags Locked"
-        Delay 2000
+        Delay 3000
         OnOff_Off \EVC1
         OnOff_On \EVC2
-        Delay 500
+        Delay 3000
         @connect
     }
 }
@@ -91,29 +94,30 @@
     * Uses Event Controller to trigger auto lock of Connector Main
     Write to \LCIN = "CHECKING CONNECTORS"
     Color of \LIPA = 255:255:0
-    Delay 1000
+    Delay 3000
     If Status of UCX-11 Connector Main = Connectable {
-        Writeline to \LCIN = "CONNECTED MAIN"
+        WriteLine to \LCIN = "CONNECTED MAIN"
         Lock \COMA
-        Delay 2000
         Color of \LIPA = 0:255:0
+        Delay 500
         Recharge \BATT
         Stockpile of \HYTA = True
     }
     Else If Status of UCX-11 Connector Second = Connectable {
-        Writeline to \LCIN = "CONNECTED SECOND"
+        WriteLine to \LCIN = "CONNECTED SECOND"
         Lock \COSE
-        Delay 2000
         Color of \LIPA = 0:255:0
+        Delay 500
         Recharge \BATT
         Stockpile of \HYTA = True
     }
     Else {
-        Writeline to \LCIN = "NO CONNECTORS"
+        WriteLine to \LCIN = "NO CONNECTORS"
         Color of \LIPA = 255:0:0
         Delay 3000
         Color of \LIPA = 255:255:255
     }
+    Delay 3000
     @onlinetostandby
 }
 
@@ -122,16 +126,15 @@
     @offlinetostandby
     Discharge \BATT
     Stockpile of \HYTA = False
-    Delay 1000
-    Writeline to \LCIN = "Unlocking Connections"
+    Delay 3000
+    WriteLine to \LCIN = "Unlocking Connections"
     Unlock \COMA
     Unlock \COSE
     Unlock \MALO
-    Delay 1000
-    Writeline to \LCIN = "Flight Sys ON"
+    Delay 3000
+    WriteLine to \LCIN = "Flight Sys ON"
     Damp of MyShip = True
-    OnOff_On \GYRO
-    OnOff_On \THRU
+    @standbytoonline
     Delay 3000
     Write to \LCIN = "FLIGHT GO GO"
     OnOff_On \EVC1
@@ -157,39 +160,41 @@
 }
 
 @offlinetostandby{
-    Write to \LCIN = "Running"
+    Stop \TISH
+    Stop \TIST
     OnOff_On \AIVE
     OnOff_On \HEVE
     OnOff_On \O2H2
     OnOff_On \ANTE
-    OnOff_On \LIGH
     OnOff_On \TURR
     Color of \LIST = 255:255:0
+    Color of \LIPA = 255:255:0
     WriteLine to \LCIN = "Standby"
 }
 
 @standbytoonline{
-    Write to \LCIN = "Running"
     Damp of MyShip = True
     OnOff_On \GYRO
     OnOff_On \HYTA
     OnOff_On \THRU
+    OnOff_On \LINA
+    OnOff_On \LIFL
     Color of \LIST = 255:255:255
+    Color of \LIPA = 255:255:255
     WriteLine to \LCIN = "Active"
 }
 
 @onlinetostandby{
-    Write to \LCIN = "Running"
     Damp of MyShip = False
     OnOff_Off \GYRO
     OnOff_Off \HYTA
     OnOff_Off \THRU
     Color of \LIST = 255:255:50
+    Color of \LIPA = 255:255:50
     WriteLine to \LCIN = "Standby"
 }
 
 @standbytooffline{
-    Write to \LCIN = "Running"
     OnOff_Off \AIVE
     OnOff_Off \HEVE
     OnOff_Off \O2H2
@@ -197,5 +202,6 @@
     OnOff_Off \LIGH
     OnOff_Off \TURR
     Color of \LIST = 255:0:0
+    Color of \LIPA = 255:0:0
     WriteLine to \LCIN = "Powered Down"
 }
