@@ -39,11 +39,77 @@
     TIST = "UCX-11 Timer Standby"
 }
 
+@module_toggle{
+    * Safety - if landed dont do anything
+    if Status of UCX-11 Connector Landing Front = Locked {
+        @module_release
+    }
+    else if Status of UCX-11 Connector Landing Front = Unlocked {
+        @module_lock
+    }
+}
+
+@module_lock{
+    * Safety - if landed dont do anything
+    * Triggered by Menu
+    Write to \LCIN = "Module Mode Activated"
+    if Status of UCX-11 Maglock BL= Locked {
+        Delay 1000
+        WriteLine to \LCIN = "ERROR... Check Maglocks"
+    }
+    else if Status of UCX-11 Maglock BL = Unlocked {
+        OnOff_Off \EVC2
+        OnOff_Off \EVC3
+        OnOff_Off \EVC4
+        OnOff_On \LIPA
+        Rotate \HIL1 to 45 at 1
+        Delay 1000
+        Rotate \HIL2 to -45 at 2
+        Move \PILA to 2 at 1
+        Delay 3000
+        if Status of UCX-11 Connector Landing Front = ReadyToLock {
+            OnOff_On \MEBL
+            Delay 1000
+            Lock \COLA
+            Color of \LIST = 128:0:128
+            WriteLine to \LCIN = "Module Good"
+        }
+        Delay 1000
+        Rotate \HIL1 to 5 at 1
+        Rotate \HIL2 to -90 at 1
+        Move \PILA to 0 at 0.1
+        WriteLine to \LCIN = "Module Secured"
+    }
+}
+
+@module_release{
+    Write to \LCIN = "Module Drop Prepping"
+    Rotate \HIL1 to 45 at 1
+    Delay 1000
+    Rotate \HIL2 to -45 at 1
+    Move \PILA to 2 at 1
+    Delay 5000
+    OnOff_Off \MEBL
+    Delay 1000
+    Unlock \COLA
+    Color of \LIST = 0:255:0
+    WriteLine to \LCIN = "Module Released"
+    Delay 1000
+    Color of \LIST = 255:255:255
+    Rotate \HIL1 to 1 at 1
+    Rotate \HIL2 to -1 at 1
+    Move \PILA to 0 at 1
+    OnOff_On \EVC2
+    OnOff_On \EVC3
+    OnOff_On \EVC4
+    OnOff_Off \LIPA
+}
+
 @info {
-    Write to \LCIN = EAP - V.2.31
+    Write to \LCIN = EAP - V.2.38
     WriteLine to \LCIN = FSD - V1.00
     WriteLine to \LCIN = SDS - V0.14
-    WriteLine to \LCIN = Craft - V0.77
+    WriteLine to \LCIN = Craft - V0.84
 }
 
 @low_alt{
@@ -78,7 +144,7 @@
     if Status of UCX-11 Maglock BL = ReadyToLock {
         Color of \LIPA = 0:255:0
         Lock \MALO
-        WriteLine to \LCIN = "Mags Locked"
+        Write to \LCIN = "Mags Locked"
         Delay 3000
         OnOff_Off \EVC1
         OnOff_On \EVC2
@@ -124,12 +190,12 @@
     Discharge \BATT
     Stockpile of \HYTA = False
     Delay 3000
-    WriteLine to \LCIN = "Unlocking Connections"
+    Write to \LCIN = "Unlocking Connections"
     Unlock \COMA
     Unlock \COSE
     Unlock \MALO
     Delay 3000
-    WriteLine to \LCIN = "Flight Sys ON"
+    Write to \LCIN = "Flight Sys ON"
     Damp of MyShip = True
     @standbytoonline
     Delay 3000
@@ -167,7 +233,7 @@
     OnOff_On \LIFL
     Color of \LIST = 255:255:0
     Color of \LIPA = 255:255:0
-    WriteLine to \LCIN = "Standby"
+    Write to \LCIN = "Standby"
 }
 
 @standbytoonline{
@@ -179,7 +245,7 @@
     OnOff_On \LIPA
     Color of \LIST = 255:255:255
     Color of \LIPA = 255:255:255
-    WriteLine to \LCIN = "Active"
+    Write to \LCIN = "Active"
 }
 
 @onlinetostandby{
@@ -191,7 +257,7 @@
     OnOff_Off \LISE
     Color of \LIST = 255:255:50
     Color of \LIPA = 255:255:50
-    WriteLine to \LCIN = "Standby"
+    Write to \LCIN = "Standby"
 }
 
 @standbytooffline{
@@ -203,5 +269,5 @@
     OnOff_Off \TURR
     Color of \LIST = 255:0:0
     Color of \LIPA = 255:0:0
-    WriteLine to \LCIN = "Powered Down"
+    Write to \LCIN = "Powered Down"
 }
