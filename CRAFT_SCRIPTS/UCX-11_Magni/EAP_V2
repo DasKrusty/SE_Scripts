@@ -1,13 +1,10 @@
 *TO DO
-*           Stand by / Shutting down
-*               Cannot shutdown if flying
 *   Legs
-*       used for landing
 *       used for connecting to modules
 *       used for picking up things
+*   Check all screens for correct info
+*   See why SDS searchllights not working
 
-*WORKING ON
-*   Stand by / Shutting down
 *Feautres
 *   Automated landing procedure
 *   Automated connector procedure
@@ -43,9 +40,9 @@
 }
 
 @info {
-    Write to \LCIN = EAP - V.2.25
+    Write to \LCIN = EAP - V.2.31
     WriteLine to \LCIN = FSD - V1.00
-    WriteLine to \LCIN = SDS - V0.07
+    WriteLine to \LCIN = SDS - V0.14
     WriteLine to \LCIN = Craft - V0.77
 }
 
@@ -96,7 +93,7 @@
     Color of \LIPA = 255:255:0
     Delay 3000
     If Status of UCX-11 Connector Main = Connectable {
-        WriteLine to \LCIN = "CONNECTED MAIN"
+        Write to \LCIN = "CONNECTED MAIN"
         Lock \COMA
         Color of \LIPA = 0:255:0
         Delay 500
@@ -104,7 +101,7 @@
         Stockpile of \HYTA = True
     }
     Else If Status of UCX-11 Connector Second = Connectable {
-        WriteLine to \LCIN = "CONNECTED SECOND"
+        Write to \LCIN = "CONNECTED SECOND"
         Lock \COSE
         Color of \LIPA = 0:255:0
         Delay 500
@@ -167,6 +164,7 @@
     OnOff_On \O2H2
     OnOff_On \ANTE
     OnOff_On \TURR
+    OnOff_On \LIFL
     Color of \LIST = 255:255:0
     Color of \LIPA = 255:255:0
     WriteLine to \LCIN = "Standby"
@@ -178,7 +176,7 @@
     OnOff_On \HYTA
     OnOff_On \THRU
     OnOff_On \LINA
-    OnOff_On \LIFL
+    OnOff_On \LIPA
     Color of \LIST = 255:255:255
     Color of \LIPA = 255:255:255
     WriteLine to \LCIN = "Active"
@@ -189,6 +187,8 @@
     OnOff_Off \GYRO
     OnOff_Off \HYTA
     OnOff_Off \THRU
+    OnOff_Off \LINA
+    OnOff_Off \LISE
     Color of \LIST = 255:255:50
     Color of \LIPA = 255:255:50
     WriteLine to \LCIN = "Standby"

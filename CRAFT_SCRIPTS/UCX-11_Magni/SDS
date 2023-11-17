@@ -36,16 +36,17 @@ Batteries;all-show;*;batt
 Battery Mode;gr-batt;UCX-11 Batteries;mode
 Run Mode;pb;UCX-11 Program [EAP];runmode
 Launch!;pb;UCX-11 Program [EAP];launch
-Conn Rear;conn_lock;UCX-11 Connector Main;toggle
-Conn Bottom;conn_lock;UCX-11 Connector Second;toggle
-Searchlights;gr-light;UCX-11 Searchlights;onoff
+Conn Rear;conn_lock;UCX-11 Connector Second;toggle
+Conn Bottom;conn_lock;UCX-11 Connector Main;toggle
+Searchlights;gr-light;UCX-11 Light Search;onoff
 [1]
 Inv Vol;all-show;*;inv
 Ship Mass;all-show;*;mass/total/100000
 Module Toggle;pb;UCX-11 Program [EAP];module_toggle
 Pickup Toggle;pb;UCX-11 Program [EAP];pickup_toggle
 [2]
-Turret On/Off;bl;UCX-11 Gatling Turret;onoff
+Turret Top;bl;UCX-11 Turret Controller;onoff
+Turret Rear;bl;UCX-11 Turret Rear;onoff
 [3]
 Antenna;bl;UCX-11 Antenna;onoff
 Antenna Radius;antenna;UCX-11 Antenna;3000/500
