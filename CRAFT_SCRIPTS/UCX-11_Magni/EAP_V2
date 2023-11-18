@@ -3,7 +3,10 @@
 *       used for connecting to modules
 *       used for picking up things
 *   Check all screens for correct info
-*   See why SDS searchllights not working
+*   See why SDS searchllights not working / if cant make work around with all lights onlinetostandby
+*   See how to fix double tab module issu#End Region
+*   See for module if can lift module up = remove torque and brake from hinges and piston
+*   Add ascent script and possibly a automated transport script
 
 *Feautres
 *   Automated landing procedure
@@ -14,10 +17,12 @@
     AIVE = "UCX-11 Air Vent Fan"
     ANTE = "UCX-11 Antenna"
     BATT = "UCX-11 Battery"
+    COLA = "UCX-11 Connector Landing"
     COMA = "UCX-11 Connector Main"
     COSE = "UCX-11 Connector Second"
     EVC1 = "UCX-11 Event Controller - Land"
     EVC2 = "UCX-11 Event Controller - Cockpit"
+    EVC3 = "UCX-11 Event Controller - Altitude"
     GYRO = "UCX-11 Gyroscope"
     HEVE = "UCX-11 Heat Vent"
     HIL1 = "UCX-11 Hinge Landing One"
@@ -31,6 +36,8 @@
     LIFL = "UCX-11 Light Flight"
     LIGH = "UCX-11 Light"
     MALO = "UCX-11 Maglock"
+    MEBL = "UCX-11 Merge Landing"
+    MEBF = "UCX-11 Merge Landing Front"
     O2H2 = "UCX-11 O2/H2 Generator"
     PILA = "UCX-11 Piston Landing"
     TURR = "UCX-11 Turret" 
@@ -41,54 +48,49 @@
 
 @module_toggle{
     * Safety - if landed dont do anything
-    if Status of UCX-11 Connector Landing Front = Locked {
-        @module_release
-    }
-    else if Status of UCX-11 Connector Landing Front = Unlocked {
+    If Status of UCX-11 Connector Landing Front = Unconnected {
+        Write to \LCIN = "Not Connected"
+        Delay 3000
         @module_lock
     }
+    Else If Status of UCX-11 Merge Landing Front = Merged {
+        Write to \LCIN = "Is Connected"
+        Delay 3000
+        @module_release
+    }
+    
 }
 
 @module_lock{
     * Safety - if landed dont do anything
     * Triggered by Menu
     Write to \LCIN = "Module Mode Activated"
-    if Status of UCX-11 Maglock BL= Locked {
+    if Status of UCX-11 Maglock BL = Locked {
         Delay 1000
         WriteLine to \LCIN = "ERROR... Check Maglocks"
     }
-    else if Status of UCX-11 Maglock BL = Unlocked {
+    else {
+        OnOff_Off \EVC1
         OnOff_Off \EVC2
-        OnOff_Off \EVC3
-        OnOff_Off \EVC4
+        OnOff_On \MEBL
         OnOff_On \LIPA
-        Rotate \HIL1 to 45 at 1
-        Delay 1000
-        Rotate \HIL2 to -45 at 2
-        Move \PILA to 2 at 1
+        Rotate \HIL1 to 65 at 1
         Delay 3000
-        if Status of UCX-11 Connector Landing Front = ReadyToLock {
-            OnOff_On \MEBL
-            Delay 1000
-            Lock \COLA
-            Color of \LIST = 128:0:128
-            WriteLine to \LCIN = "Module Good"
-        }
-        Delay 1000
-        Rotate \HIL1 to 5 at 1
-        Rotate \HIL2 to -90 at 1
-        Move \PILA to 0 at 0.1
-        WriteLine to \LCIN = "Module Secured"
+        Rotate \HIL2 to -25 at 2
+        Move \PILA to 2 at 1
+        OnOff_Off \EVC3
+        Write to \LCIN = "Arms Ready"
+        Delay 3000
+        OnOff_On \MEBL
+        Delay 3000
+        Lock \COLA
+        Color of \LIPA = 128:0:128
+        Write to \LCIN = "Module Good"
     }
 }
 
 @module_release{
     Write to \LCIN = "Module Drop Prepping"
-    Rotate \HIL1 to 45 at 1
-    Delay 1000
-    Rotate \HIL2 to -45 at 1
-    Move \PILA to 2 at 1
-    Delay 5000
     OnOff_Off \MEBL
     Delay 1000
     Unlock \COLA
@@ -96,20 +98,15 @@
     WriteLine to \LCIN = "Module Released"
     Delay 1000
     Color of \LIST = 255:255:255
-    Rotate \HIL1 to 1 at 1
-    Rotate \HIL2 to -1 at 1
-    Move \PILA to 0 at 1
-    OnOff_On \EVC2
     OnOff_On \EVC3
-    OnOff_On \EVC4
-    OnOff_Off \LIPA
+    @low_alt
 }
 
 @info {
-    Write to \LCIN = EAP - V.2.38
+    Write to \LCIN = EAP - V.2.68
     WriteLine to \LCIN = FSD - V1.00
-    WriteLine to \LCIN = SDS - V0.14
-    WriteLine to \LCIN = Craft - V0.84
+    WriteLine to \LCIN = SDS - V0.15
+    WriteLine to \LCIN = Craft - V0.94
 }
 
 @low_alt{
