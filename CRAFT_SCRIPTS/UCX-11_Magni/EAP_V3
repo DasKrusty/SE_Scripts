@@ -1,17 +1,3 @@
-*TO DO
-*   Legs
-*       used for connecting to modules
-*       used for picking up things
-*   Check all screens for correct info
-*   See why SDS searchllights not working / if cant make work around with all lights onlinetostandby
-*   See how to fix double tab module issu#End Region
-*   See for module if can lift module up = remove torque and brake from hinges and piston
-*   Add ascent script and possibly a automated transport script
-
-*Feautres
-*   Automated landing procedure
-*   Automated connector procedure
-
 @variables{
     * Abreviated names for blocks
     AIVE = "UCX-11 Air Vent Fan"
@@ -22,9 +8,13 @@
     EVC1 = "UCX-11 Event Controller - Land"
     EVC2 = "UCX-11 Event Controller - Cockpit"
     EVC3 = "UCX-11 Event Controller - Altitude"
+    EVC4 = "UCX-11 Event Controller - Lock"
     GYRO = "UCX-11 Gyroscope"
     HEVE = "UCX-11 Heat Vent"
     HYTA = "UCX-11 Hydrogen Tank"
+    LAMP = "UCX-11 Landing Magnetic Plate"
+    LAMB = "UCX-11 Landing Magnetic Plate Back"
+    LAND = "UCX-11 Landing Piston"
     LCIN = "UCX-11 LCD Info"
     LIPA = "UCX-11 Light Panel Floor"
     LIST = "UCX-11 Light Status"
@@ -40,66 +30,12 @@
     TIST = "UCX-11 Timer Standby"
 }
 
-@module_toggle{
-    * Safety - if landed dont do anything
-    If Status of UCX-11 Connector Landing Front = Unconnected {
-        Write to \LCIN = "Not Connected"
-        Delay 3000
-        @module_lock
-    }
-    Else If Status of UCX-11 Merge Landing Front = Merged {
-        Write to \LCIN = "Is Connected"
-        Delay 3000
-        @module_release
-    }
+@high_alt{
+    * Triggered by Event Controller checking Altitude
+    OnOff_Off \LIPA
+    Write to \LCIN = "HIGH ALTITUDE"
+    OnOff_Off \EVC1
     
-}
-
-@module_lock{
-    * Safety - if landed dont do anything
-    * Triggered by Menu
-    Write to \LCIN = "Module Mode Activated"
-    if Status of UCX-11 Maglock BL = Locked {
-        Delay 1000
-        WriteLine to \LCIN = "ERROR... Check Maglocks"
-    }
-    else {
-        OnOff_Off \EVC1
-        OnOff_Off \EVC2
-        OnOff_On \MEBL
-        OnOff_On \LIPA
-        Rotate \HIL1 to 65 at 1
-        Delay 3000
-        Rotate \HIL2 to -25 at 2
-        OnOff_Off \EVC3
-        Write to \LCIN = "Arms Ready"
-        Delay 3000
-        OnOff_On \MEBL
-        Delay 10000
-        Lock \COLA
-        Color of \LIPA = 128:0:128
-        Write to \LCIN = "Module Good"
-    }
-}
-
-@module_release{
-    Write to \LCIN = "Module Drop Prepping"
-    OnOff_Off \MEBL
-    Delay 1000
-    Unlock \COLA
-    Color of \LIST = 0:255:0
-    WriteLine to \LCIN = "Module Released"
-    Delay 1000
-    Color of \LIST = 255:255:255
-    OnOff_On \EVC3
-    @low_alt
-}
-
-@info {
-    Write to \LCIN = EAP - V.2.68
-    WriteLine to \LCIN = FSD - V1.00
-    WriteLine to \LCIN = SDS - V0.15
-    WriteLine to \LCIN = Craft - V0.94
 }
 
 @low_alt{
@@ -110,34 +46,42 @@
     OnOff_On \EVC1
 }
 
-@high_alt{
-    * Triggered by Event Controller checking Altitude
-    OnOff_Off \LIPA
-    Write to \LCIN = "HIGH ALTITUDE"
-    OnOff_Off \EVC1
-    OnOff_Off \EVC2
+@land_on{
+    * Triggered by Event Controller checking if close to object
+    Write to \LCIN = "LOCK AVAILABLE"
+    OnOff_On \EVC4
+    OnOff_On \EVC2
+    Color of \LIPA = 255:255:0
+    Delay 1000
+    Move \LAND to 2 at 0.2
+    Delay 6000
+    OnOff_On \LAMB
 }
 
-@land{
-    * Triggered by Event Controller checking if Maglock ready to lock
-    Color of \LIPA = 255:255:0
-    Write to \LCIN = "Ready to Land"
+@land_off{
+    * Triggered by Event Controller checking if close to object
+    Write to \LCIN = "LOCK LOST"
+    Move \LAND to 0 at 0.5
+    OnOff_Off \EVC2
+    Color of \LIPA = 255:255:255
+    OnOff_Off \LAMB
+}
+
+@lock{
+    Write to \LCIN = "LOCKING DOWN"
     Damp of MyShip = False
     Delay 3000
-    if Status of UCX-11 Maglock BL = ReadyToLock {
-        Color of \LIPA = 0:255:0
-        Lock \MALO
-        Write to \LCIN = "Mags Locked"
-        Delay 3000
-        OnOff_Off \EVC1
-        OnOff_On \EVC2
-        Delay 3000
-        @connect
-    }
+    Lock \LAMP
+    Write to \LCIN = "LOCKED DOWN"
+    OnOff_Off \EVC1
+    OnOff_Off \EVC4
+    Color of \LIPA = 0:255:0
+    Delay 3000
+    @connect
 }
 
 @connect{
-    * Uses Event Controller to trigger auto lock of Connector Main
+    * Run by @lock
     Write to \LCIN = "CHECKING CONNECTORS"
     Color of \LIPA = 255:255:0
     Delay 3000
@@ -176,14 +120,17 @@
     Write to \LCIN = "Unlocking Connections"
     Unlock \COMA
     Unlock \COSE
-    Unlock \MALO
+    Delay 3000
+    Unlock \LAMP
     Delay 3000
     Write to \LCIN = "Flight Sys ON"
     Damp of MyShip = True
     @standbytoonline
     Delay 3000
     Write to \LCIN = "FLIGHT GO GO"
+    Delay 3000
     OnOff_On \EVC1
+    Move \LAND to 0 at 0.5
 }
 
 @runmode{
