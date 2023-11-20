@@ -13,6 +13,7 @@
     HEVE = "UCX-11 Heat Vent"
     HYTA = "UCX-11 Hydrogen Tank"
     LAMP = "UCX-11 Landing Magnetic Plate"
+    LAMF = "UCX-11 Landing Magnetic Plate Front 1"
     LAMB = "UCX-11 Landing Magnetic Plate Back"
     LAND = "UCX-11 Landing Piston"
     LCIN = "UCX-11 LCD Info"
@@ -22,6 +23,11 @@
     LINA = "UCX-11 Light Nav"
     LIFL = "UCX-11 Light Flight"
     LIGH = "UCX-11 Light"
+    MOCO = "UCX-11 Module Connector"
+    MOCF = "UCX-11 Module Connector Front"
+    MOHI = "UCX-11 Module Hinge"
+    MOME = "UCX-11 Module Merge"
+    MOMF = "UCX-11 Module Merge Front"
     O2H2 = "UCX-11 O2/H2 Generator"
     LAPI = "UCX-11 Landing Piston"
     TURR = "UCX-11 Turret" 
@@ -30,12 +36,82 @@
     TIST = "UCX-11 Timer Standby"
 }
 
+@info {
+    Write to \LCIN = EAP - V.2.79
+    WriteLine to \LCIN = FSD - V0.00
+    WriteLine to \LCIN = SDS - V0.00
+    WriteLine to \LCIN = Craft - V0.00
+}
+
+@module_toggle{
+    * Safety - if landed dont do anything
+    If Status of UCX-11 Module Connector Front = Unconnected {
+        Write to \LCIN = "Not Connected"
+        Delay 3000
+        @module_lock
+    }
+    Else If Status of UCX-11 Module Merge Front = Merged {
+        Write to \LCIN = "Is Connected"
+        Delay 3000
+        @module_release
+    }
+    
+}
+
+@module_lock{
+    * Safety - if landed dont do anything
+    * Triggered by Menu
+    Write to \LCIN = "Module Mode Activated"
+    if Status of UCX-11 Landing Magnetic Plate Front 1 = Locked {
+        Delay 1000
+        WriteLine to \LCIN = "ERROR... Check Maglocks"
+    }
+    else {
+        OnOff_Off \EVC1
+        OnOff_Off \EVC2
+        OnOff_On \MOME
+        OnOff_On \LIPA
+        Rotate \MOHI to 90 at 3
+        Delay 3000
+        OnOff_Off \EVC3
+        Write to \LCIN = "Ready to Connect"
+        Delay 20000
+        Lock \MOCO
+        If Status of UCX-11 Module Connector Front = Unconnected {
+            Color of \LIPA = 255:0:55
+            Write to \LCIN = "Module Bad"
+            Delay 3000
+            @module_release
+        }
+        Else {
+            Color of \LIPA = 128:0:128
+            Write to \LCIN = "Module Good"
+        }
+    }
+}
+
+@module_release{
+    Write to \LCIN = "Module Drop Prepping"
+    Delay 3000
+    OnOff_Off \MOME
+    Delay 1000
+    Unlock \MOCO
+    Color of \LIST = 0:255:0
+    WriteLine to \LCIN = "Module Released"
+    Delay 1000
+    OnOff_Off \MOCO
+    Rotate \MOHI to -30 at 1
+    Color of \LIST = 255:255:255
+    OnOff_On \EVC3
+    @low_alt
+    OnOff_On \MOCO
+}
+
 @high_alt{
     * Triggered by Event Controller checking Altitude
     OnOff_Off \LIPA
     Write to \LCIN = "HIGH ALTITUDE"
     OnOff_Off \EVC1
-    
 }
 
 @low_alt{
