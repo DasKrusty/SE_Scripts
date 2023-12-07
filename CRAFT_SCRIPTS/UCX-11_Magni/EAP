@@ -358,7 +358,7 @@
 
 @info {
     Write to \LCIN = EAP - V.1.07
-    WriteLine to \LCIN = FSD - V1.00
+    WriteLine to \LCIN = FSD - V0.39
     WriteLine to \LCIN = SDS - V1.00
     WriteLine to \LCIN = Craft - V1.00
 }

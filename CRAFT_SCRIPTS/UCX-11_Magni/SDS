@@ -38,7 +38,7 @@ Run Mode;pb;UCX-11 Program [EAP];runmode
 Launch!;pb;UCX-11 Program [EAP];launch
 Conn Rear;conn_lock;UCX-11 Connector Second;toggle
 Conn Bottom;conn_lock;UCX-11 Connector Main;toggle
-Searchlights;gr-light;UCX-11 Light Search;onoff
+Searchlights;gr;UCX-11 Light Search;onoff
 [1]
 Inv Vol;all-show;*;inv
 Ship Mass;all-show;*;mass/total/100000
@@ -48,6 +48,7 @@ Pickup Toggle;pb;UCX-11 Program [EAP];pickup_toggle
 Turret Top;bl;UCX-11 Turret Controller;onoff
 Turret Rear;bl;UCX-11 Turret Rear;onoff
 [3]
+Automation;gr;UCX-11 Event Controllers;onoff
 Antenna;bl;UCX-11 Antenna;onoff
 Antenna Radius;antenna;UCX-11 Antenna;3000/500
 Projector On/Off;bl;UCX-11 Projector;onoff

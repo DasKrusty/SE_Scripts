@@ -2,13 +2,13 @@
 ShowStats
 ,Fontsize=2 TextColor(255,55,0) center Text:POWER
 ,Fontsize=1.5 TextColor(255,55,0) Position(40,60) Text:BAT
-Battery, ShortBar AnalogBar Position(40,110) NoHeadline FrameColor(55,155,255)
+UCX-11 Battery, ShortBar AnalogBar Position(40,110) NoHeadline FrameColor(55,155,255)
 ,Fontsize=1.5 TextColor(255,55,0) Position(120,110) Text:ENG
 Engine, Smallbar AnalogBar Position(200,110) NoHeadline FrameColor(55,155,255)
 ,Fontsize=1.5 TextColor(255,55,0) Position(120,170) Text:TAN
-Hydrogen Tank, Smallbar AnalogBar Position(200,170) NoHeadline FrameColor(55,155,255)
+UCX-11 Hydrogen Tank, Smallbar AnalogBar Position(200,170) NoHeadline FrameColor(55,155,255)
 ,Fontsize=1.5 TextColor(255,55,0) Position(120,230) Text:GEN
-Generator, Smallbar AnalogBar Position(200,230) NoHeadline FrameColor(55,155,255)
+UCX-11 O2/H2 Generator, Smallbar AnalogBar Position(200,230) NoHeadline FrameColor(55,155,255)
 ,Fontsize=1.5 TextColor(255,55,0) Position(40,360) Text:CON
 Battery, optional Smallbar AnalogBar Position(120,360) NoHeadline FrameColor(55,155,255)
 ,Fontsize=1.5 TextColor(255,55,0) Position(40,420) Text:THR
@@ -21,18 +21,11 @@ ShowStats
 ,Fontsize=1.5 TextColor(255,55,0) Position(40,60) Text:Cargo
 Cargo, Smallbar AnalogBar Position(200,60) NoHeadline FrameColor(55,155,255)
 ,Fontsize=1.5 TextColor(255,55,0) Position(40,120) Text:Top Turr
-Gatling, Smallbar AnalogBar Position(200,120) NoHeadline FrameColor(55,155,255)
-,Fontsize=1.5 TextColor(255,55,0) Position(40,180) Text:Bot Tur
-Turret, Smallbar AnalogBar Position(200,180) NoHeadline FrameColor(55,155,255)
+UCX-11 Gatling Gun Top Mount, Smallbar AnalogBar Position(200,120) NoHeadline FrameColor(55,155,255)
+,Fontsize=1.5 TextColor(255,55,0) Position(40,180) Text:Bot Turr
+UCX-11 Turret Rear, Smallbar AnalogBar Position(200,180) NoHeadline FrameColor(55,155,255)
+,Fontsize=1.5 TextColor(255,55,0) Position(40,240) Text:Fro Guns
+UCX-11 Gatling Gun Front, Smallbar AnalogBar Position(200,240) NoHeadline FrameColor(55,155,255)
 ,Fontsize=2 TextColor(255,55,0) center Text:STATUS
 LCD Info,clone:0 position(40,350) fontsize=1.75 TextColor(55,155,255)
 EndStats
-
-40.60
-200.60
-40.120
-200.120
-40.180
-200.180
-40.240
-200.240
