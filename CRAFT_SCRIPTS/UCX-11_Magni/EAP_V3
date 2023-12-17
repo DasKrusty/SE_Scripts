@@ -37,7 +37,7 @@
 }
 
 @info {
-    Write to \LCIN = EAP - V.2.79
+    Write to \LCIN = EAP - V.2.81
     WriteLine to \LCIN = FSD - V0.39
     WriteLine to \LCIN = SDS - V0.00
     WriteLine to \LCIN = Craft - V0.00
@@ -245,7 +245,6 @@
 @standbytoonline{
     Damp of MyShip = True
     OnOff_On \GYRO
-    OnOff_On \HYTA
     OnOff_On \THRU
     OnOff_On \LINA
     OnOff_On \LIPA
@@ -257,7 +256,6 @@
 @onlinetostandby{
     Damp of MyShip = False
     OnOff_Off \GYRO
-    OnOff_Off \HYTA
     OnOff_Off \THRU
     OnOff_Off \LINA
     OnOff_Off \LISE

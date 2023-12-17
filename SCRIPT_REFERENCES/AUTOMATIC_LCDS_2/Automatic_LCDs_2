@@ -118,3 +118,37 @@ Center <[   ---   INVENTORY   ---   ]>
         Inventory [STORAGE] +component
         Inventory {Cargo Container} +all -tool -ammo
         Inventory {Large Cargo Container 3} +ingot:1000 +component:50
+
+        // Info of Craft
+@0 AutoLCD
+Speed 35
+speedkmh
+speedmph
+echo
+altitudesea
+PosGPS
+Distance {UMG-6 Industrial Cockpit [LCD6] [MEN6]} {GPS:Base:-36976.76:-20339.44:-44104.36:#FF75C9F1:}
+echo
+Damage
+
+// Cargo info
+@2 AutoLCD
+Cargo
+Center <<<   INVENTORY   >>>
+InvListXS *T:
+
+// Systems of Craft
+Center <[   ---   POWER   ---   ]>
+    PowerTime
+Center <[   ---   SYSTEMS   ---   ]>
+    Center [ --- Drive Systems --- ]
+        Working {UMG-6 Connector Large}
+        Working {UMG-6 Small Connector}
+    Center [ --- Light Systems --- ]
+        Working {UMG-6 Headlight 1}
+        Working {UMG-6 Spotlight 1}
+        Working {UMG-6 Rotating Light 1}
+        Working {UMG-6 Light Panel Floor 1}
+    Center <[   ---   TURRETS   ---   ]>
+        Propbool {UMG-6 Gatling Turret} {OnOff} {Turret} {Online} {Offline}
+        AmountBar {UMG-6 Gatling Turret}

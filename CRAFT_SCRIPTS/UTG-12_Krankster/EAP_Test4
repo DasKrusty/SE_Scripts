@@ -1,11 +1,24 @@
 @variables{
     * Blocks
-    LIST = "Light Status"
-    LCIN = "LCD Info"
-    LCST = "LCD Status"
-    WHAL = "Wheel Suspension"
-    WHSF = "Wheel Suspension Front"
-    WHSB = "Wheel Suspension Back"
+    UTG-12 Air Vent Fan
+    UTG-12 Spotlight
+    UTG-12 Headlight
+    UTG-12 Rotor Front
+    UTG-12 Rotor Back
+    UTG-12 Battery
+    UTG-12 Hydrogen Tank
+    UTG-12 Connector
+    UTG-12 Gyroscope
+    UTG-12 Hydrogen Engine
+    UTG-12 LCD Front Bumper
+    UTG-12 Wheel Suspension Back Left
+    UTG-12 Wheel Suspension Back Right
+    UTG-12 Wheel Suspension Front Left
+    UTG-12 Wheel Suspension Front Right
+    UTG-12 Main Sus
+    LIST = "UTG-12 Light Status"
+    LCIN = "UTG-12 LCD Info"
+    LCST = "UTG-12 LCD Status"
     * Calculations
     v = "0"
     w = "4"
@@ -15,37 +28,37 @@
 }
 
 @gear_up{
-    if Color of Light Status = 255:0:0{
+    if Color of UTG-12 Light Status = 255:0:0{
         @gear_1
     }
-    else if Color of Light Status = 0:255:0{
+    else if Color of UTG-12 Light Status = 0:255:0{
         @gear_2
     }
-    else if Color of Light Status = 50:255:0{
+    else if Color of UTG-12 Light Status = 50:255:0{
         @gear_3
     }
-    else if Color of Light Status = 100:255:0{
+    else if Color of UTG-12 Light Status = 100:255:0{
         @gear_4
     }
-    else if Color of Light Status = 150:255:0{
+    else if Color of UTG-12 Light Status = 150:255:0{
         @gear_5
     }
 }
 
 @gear_down{
-    if Color of Light Status = 200:255:0{
+    if Color of UTG-12 Light Status = 200:255:0{
         @gear_4
     }
-    else if Color of Light Status = 150:255:0{
+    else if Color of UTG-12 Light Status = 150:255:0{
         @gear_3
     }
-    else if Color of Light Status = 100:255:0{
+    else if Color of UTG-12 Light Status = 100:255:0{
         @gear_2
     }
-    else if Color of Light Status = 50:255:0{
+    else if Color of UTG-12 Light Status = 50:255:0{
         @gear_1
     }
-    else if Color of Light Status = 0:255:0{
+    else if Color of UTG-12 Light Status = 0:255:0{
         @park
     }
 }

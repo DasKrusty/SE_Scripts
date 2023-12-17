@@ -1499,3 +1499,1510 @@ Set \1 on \2
 @show {
 show \1
 }
+
+@variables{
+    * Abreviated names for blocks
+    AIVE = "Air Vent Fan"
+    ANTE = "Antenna"
+    BATT = "Battery"
+    BEAC = "Beacon"
+    COMA = "Connector Main"
+    EVC2 = "Event Controller - Connect"
+    EXPI = "Exhaust Pipe"
+    GATU = "Gatling Turret"
+    GYRO = "Gyroscope"
+    HELI = "Headlight"
+    HLL1 = "Hinge Landing Leg 1"
+    HYEN = "Hydrogen Engine"
+    HYTA = "Hydrogen Tank"
+    LCIN = "LCD Info"
+    LIGH = "Light"
+    LIPA = "Light Panel Floor"
+    LIST = "Light Status"
+    O2H2 = "O2/H2 Generator"
+    ORDE = "Ore Detector"
+    PAHA = "Parachute Hatch"
+    PRPA = "Program [PAM]"
+    PIJA = "Piston Jack"
+    ROAR = "Rotor Arm"
+    ROLI = "Rotating Light"
+    SPLI = "Spotlight"
+    THRU = "Thruster"
+    TISH = "Timer Shutdown"
+    TIST = "Timer Standby"
+}
+
+@connect {
+    * Uses Event Controller to trigger auto lock of Connector Main
+    Write to \LCIN = "CONNECTING"
+    Color of \LIGH = 255:255:0
+    Blink Interval of \LIGH = 1
+    Delay 3000
+    If Status of UMG-6 Connector Main = Connectable {
+        Write to \LCIN = "CONNECTED"
+        Lock \COMA
+        Delay 2000
+        Blink Interval of \LIGH = 0
+        Color of \LIGH = 250:250:255
+        Delay 500
+        Color of \LIST = 255:255:255
+        Recharge \BATT
+        Stockpile of \HYTA = True
+    }
+    OnOff_Off \EVC2
+}
+
+@autostart {
+    * Uses Event Controller to trigger when player enters Cockpit
+    @offlinetostandby
+    If Status of UMG-6 Connector Main = Unconnected {
+        Delay 3000
+        @standbytoonline
+    }
+}
+
+@runmode {
+    if Color of UMG-6 Light Status = 255:0:0
+    {
+        @offlinetostandby
+    }
+    else if Color of UMG-6 Light Status = 255:255:0
+    {
+        @standbytoonline
+    }
+    else if Color of UMG-6 Light Status = 255:255:255
+    {
+        @onlinetostandby
+    }
+    else if Color of UMG-6 Light Status = 255:255:50
+    {
+        @standbytooffline
+    }
+}
+
+@offlinetostandby {
+    Color of \LIST = 255:255:0
+    Write to \LCIN = Standby
+    OnOff_On \ANTE
+    OnOff_On \GATU
+    OnOff_On \LIPA
+    OnOff_On \LIST
+    OnOff_On \O2H2
+    OnOff_Off \ORDE
+    OnOff_On \ROAR
+    OnOff_Off \AIVE
+    OnOff_Off \EXPI
+    OnOff_Off \HYEN
+    OnOff_Off \HELI
+    OnOff_Off \SPLI
+    Stop \TIST
+    Stop \TISH
+}
+
+@standbytoonline {
+    Color of \LIST = 255:255:255
+    Write to \LCIN = Active
+    OnOff_On \AIVE
+    OnOff_On \EXPI
+    OnOff_On \HYEN
+    OnOff_On \HELI
+    OnOff_On \ORDE
+    OnOff_On \LIPA
+    Stop \TIST
+    Stop \TISH
+    Stockpile of \HYTA = False
+    Discharge \BATT
+    Unlock \COMA
+    Delay 5000
+    OnOff_On \EVC2
+}
+
+@onlinetostandby {
+    Color of \LIST = 255:255:50
+    Write to \LCIN = Standby
+    OnOff_On \ANTE
+    OnOff_On \GATU
+    OnOff_Off \LIPA
+    OnOff_On \LIST
+    OnOff_On \O2H2
+    OnOff_Off \ORDE
+    OnOff_On \ROAR
+    OnOff_Off \AIVE
+    OnOff_Off \EXPI
+    OnOff_Off \HYEN
+    OnOff_Off \HELI
+    OnOff_Off \SPLI
+}
+
+@standbytooffline {
+    Color of \LIST = 255:0:0
+    Write to \LCIN = Powered Down
+    OnOff_Off \ANTE
+    OnOff_Off \AIVE
+    OnOff_Off \EXPI
+    OnOff_Off \GATU
+    OnOff_Off \HYEN
+    OnOff_Off \LIST
+    OnOff_Off \HELI
+    OnOff_Off \SPLI
+    OnOff_Off \O2H2
+    OnOff_Off \ROLI
+    OnOff_Off \ROAR
+}
+
+@miningmode {
+    OnOff_On \SPLI
+    OnOff_On \ROLI
+    OnOff_On \LIPA
+    Color of \SPLI = 255:255:0
+    Color of \ROLI = 255:255:0
+    Color of \LIPA = 255:255:0
+}
+
+@haulingmode {
+    OnOff_Off \ROLI
+    Color of \SPLI = 55:155:255
+    Color of \ROLI = 55:155:255
+    Color of \LIPA = 55:155:255
+}
+
+@pistonjacks {
+    Reverse \PIJA
+}
+
+@variables{
+    * Abreviated names for blocks
+    AIVE = "UCX-11 Air Vent Fan"
+    ANTE = "UCX-11 Antenna"
+    BATT = "UCX-11 Battery"
+    COMA = "UCX-11 Connector Main"
+    COSE = "UCX-11 Connector Second"
+    EVC1 = "UCX-11 Event Controller - Land"
+    EVC2 = "UCX-11 Event Controller - Cockpit"
+    EVC3 = "UCX-11 Event Controller - Altitude"
+    EVC4 = "UCX-11 Event Controller - Lock"
+    GYRO = "UCX-11 Gyroscope"
+    HEVE = "UCX-11 Heat Vent"
+    HYTA = "UCX-11 Hydrogen Tank"
+    LAMP = "UCX-11 Landing Magnetic Plate"
+    LAMF = "UCX-11 Landing Magnetic Plate Front 1"
+    LAMB = "UCX-11 Landing Magnetic Plate Back"
+    LAND = "UCX-11 Landing Piston"
+    LCIN = "UCX-11 LCD Info"
+    LIPA = "UCX-11 Light Panel Floor"
+    LIST = "UCX-11 Light Status"
+    LISE = "UCX-11 Light Search"
+    LINA = "UCX-11 Light Nav"
+    LIFL = "UCX-11 Light Flight"
+    LIGH = "UCX-11 Light"
+    MOCO = "UCX-11 Module Connector"
+    MOCF = "UCX-11 Module Connector Front"
+    MOHI = "UCX-11 Module Hinge"
+    MOME = "UCX-11 Module Merge"
+    MOMF = "UCX-11 Module Merge Front"
+    O2H2 = "UCX-11 O2/H2 Generator"
+    LAPI = "UCX-11 Landing Piston"
+    TURR = "UCX-11 Turret" 
+    THRU = "UCX-11 Hydrogen Thruster"
+    TISH = "UCX-11 Timer Shutdown"
+    TIST = "UCX-11 Timer Standby"
+}
+
+@info {
+    Write to \LCIN = EAP - V.2.81
+    WriteLine to \LCIN = FSD - V0.39
+    WriteLine to \LCIN = SDS - V0.00
+    WriteLine to \LCIN = Craft - V0.00
+}
+
+@module_toggle{
+    * Safety - if landed dont do anything
+    If Status of UCX-11 Module Connector Front = Unconnected {
+        Write to \LCIN = "Not Connected"
+        Delay 3000
+        @module_lock
+    }
+    Else If Status of UCX-11 Module Merge Front = Merged {
+        Write to \LCIN = "Is Connected"
+        Delay 3000
+        @module_release
+    }
+    
+}
+
+@module_lock{
+    * Safety - if landed dont do anything
+    * Triggered by Menu
+    Write to \LCIN = "Module Mode Activated"
+    if Status of UCX-11 Landing Magnetic Plate Front 1 = Locked {
+        Delay 1000
+        WriteLine to \LCIN = "ERROR... Check Maglocks"
+    }
+    else {
+        OnOff_Off \EVC1
+        OnOff_Off \EVC2
+        OnOff_On \MOME
+        OnOff_On \LIPA
+        Rotate \MOHI to 90 at 3
+        Delay 3000
+        OnOff_Off \EVC3
+        Write to \LCIN = "Ready to Connect"
+        Delay 20000
+        Lock \MOCO
+        If Status of UCX-11 Module Connector Front = Unconnected {
+            Color of \LIPA = 255:0:55
+            Write to \LCIN = "Module Bad"
+            Delay 3000
+            @module_release
+        }
+        Else {
+            Color of \LIPA = 128:0:128
+            Write to \LCIN = "Module Good"
+        }
+    }
+}
+
+@module_release{
+    Write to \LCIN = "Module Drop Prepping"
+    Delay 3000
+    OnOff_Off \MOME
+    Delay 1000
+    Unlock \MOCO
+    Color of \LIST = 0:255:0
+    WriteLine to \LCIN = "Module Released"
+    Delay 1000
+    OnOff_Off \MOCO
+    Rotate \MOHI to -30 at 1
+    Color of \LIST = 255:255:255
+    OnOff_On \EVC3
+    @low_alt
+    OnOff_On \MOCO
+}
+
+@high_alt{
+    * Triggered by Event Controller checking Altitude
+    OnOff_Off \LIPA
+    Write to \LCIN = "HIGH ALTITUDE"
+    OnOff_Off \EVC1
+}
+
+@low_alt{
+    * Triggered by Event Controller checking Altitude
+    Color of \LIPA = 255:255:255
+    OnOff_On \LIPA
+    Write to \LCIN = "LOW ALTITUDE"
+    OnOff_On \EVC1
+}
+
+@land_on{
+    * Triggered by Event Controller checking if close to object
+    Write to \LCIN = "LOCK AVAILABLE"
+    OnOff_On \EVC4
+    OnOff_On \EVC2
+    Color of \LIPA = 255:255:0
+    Delay 1000
+    Move \LAND to 2 at 0.2
+    Delay 6000
+    OnOff_On \LAMB
+}
+
+@land_off{
+    * Triggered by Event Controller checking if close to object
+    Write to \LCIN = "LOCK LOST"
+    Move \LAND to 0 at 0.5
+    OnOff_Off \EVC2
+    Color of \LIPA = 255:255:255
+    OnOff_Off \LAMB
+}
+
+@lock{
+    Write to \LCIN = "LOCKING DOWN"
+    Damp of MyShip = False
+    Delay 3000
+    Lock \LAMP
+    Write to \LCIN = "LOCKED DOWN"
+    OnOff_Off \EVC1
+    OnOff_Off \EVC4
+    Color of \LIPA = 0:255:0
+    Delay 3000
+    @connect
+}
+
+@connect{
+    * Run by @lock
+    Write to \LCIN = "CHECKING CONNECTORS"
+    Color of \LIPA = 255:255:0
+    Delay 3000
+    If Status of UCX-11 Connector Main = Connectable {
+        Write to \LCIN = "CONNECTED MAIN"
+        Lock \COMA
+        Color of \LIPA = 0:255:0
+        Delay 500
+        Recharge \BATT
+        Stockpile of \HYTA = True
+    }
+    Else If Status of UCX-11 Connector Second = Connectable {
+        Write to \LCIN = "CONNECTED SECOND"
+        Lock \COSE
+        Color of \LIPA = 0:255:0
+        Delay 500
+        Recharge \BATT
+        Stockpile of \HYTA = True
+    }
+    Else {
+        WriteLine to \LCIN = "NO CONNECTORS"
+        Color of \LIPA = 255:0:0
+        Delay 3000
+        Color of \LIPA = 255:255:255
+    }
+    Delay 3000
+    @onlinetostandby
+}
+
+@launch{
+    Write to \LCIN = "PREPPING FLIGHT"
+    @offlinetostandby
+    Discharge \BATT
+    Stockpile of \HYTA = False
+    Delay 3000
+    Write to \LCIN = "Unlocking Connections"
+    Unlock \COMA
+    Unlock \COSE
+    Delay 3000
+    Unlock \LAMP
+    Delay 3000
+    Write to \LCIN = "Flight Sys ON"
+    Damp of MyShip = True
+    @standbytoonline
+    Delay 3000
+    Write to \LCIN = "FLIGHT GO GO"
+    Delay 3000
+    OnOff_On \EVC1
+    Move \LAND to 0 at 0.5
+}
+
+@runmode{
+    if Color of UCX-11 Light Status = 255:0:0
+    {
+        @offlinetostandby
+    }
+    else if Color of UCX-11 Light Status = 255:255:0
+    {
+        @standbytoonline
+    }
+    else if Color of UCX-11 Light Status = 255:255:255
+    {
+        @onlinetostandby
+    }
+    else if Color of UCX-11 Light Status = 255:255:50
+    {
+        @standbytooffline
+    }
+}
+
+@offlinetostandby{
+    Stop \TISH
+    Stop \TIST
+    OnOff_On \AIVE
+    OnOff_On \HEVE
+    OnOff_On \O2H2
+    OnOff_On \ANTE
+    OnOff_On \TURR
+    OnOff_On \LIFL
+    Color of \LIST = 255:255:0
+    Color of \LIPA = 255:255:0
+    Write to \LCIN = "Standby"
+}
+
+@standbytoonline{
+    Damp of MyShip = True
+    OnOff_On \GYRO
+    OnOff_On \THRU
+    OnOff_On \LINA
+    OnOff_On \LIPA
+    Color of \LIST = 255:255:255
+    Color of \LIPA = 255:255:255
+    Write to \LCIN = "Active"
+}
+
+@onlinetostandby{
+    Damp of MyShip = False
+    OnOff_Off \GYRO
+    OnOff_Off \THRU
+    OnOff_Off \LINA
+    OnOff_Off \LISE
+    Color of \LIST = 255:255:50
+    Color of \LIPA = 255:255:50
+    Write to \LCIN = "Standby"
+}
+
+@standbytooffline{
+    OnOff_Off \AIVE
+    OnOff_Off \HEVE
+    OnOff_Off \O2H2
+    OnOff_Off \ANTE
+    OnOff_Off \LIGH
+    OnOff_Off \TURR
+    Color of \LIST = 255:0:0
+    Color of \LIPA = 255:0:0
+    Write to \LCIN = "Powered Down"
+}
+
+@variables{
+    * Abreviated names for blocks
+    AIVE = "Air Vent Fan"
+    ANTE = "Antenna"
+    BATT = "Battery"
+    BEAC = "Beacon"
+    COMA = "Connector Main"
+    EVC2 = "Event Controller - Connect"
+    EXPI = "Exhaust Pipe"
+    GATU = "Gatling Turret"
+    GYRO = "Gyroscope"
+    HELI = "Headlight"
+    HLL1 = "Hinge Landing Leg 1"
+    HYEN = "Hydrogen Engine"
+    HYTA = "Hydrogen Tank"
+    LCIN = "LCD Info"
+    LIGH = "Light"
+    LIPA = "Light Panel Floor"
+    LIST = "Light Status"
+    O2H2 = "O2/H2 Generator"
+    ORDE = "Ore Detector"
+    PAHA = "Parachute Hatch"
+    PRPA = "Program [PAM]"
+    PIJA = "Piston Jack"
+    ROAR = "Rotor Arm"
+    ROLI = "Rotating Light"
+    SPLI = "Spotlight"
+    THRU = "Thruster"
+    TISH = "Timer Shutdown"
+    TIST = "Timer Standby"
+}
+
+@low_alt{
+    OnOff_On \LIPA
+    Rotate \HLL1 to 55 at -5
+    Write to \LCIN = "LOW ALTITUDE"
+}
+
+@high_alt{
+    OnOff_Off \LIPA
+    Rotate \HLL1 to 85 at 5
+    Write to \LCIN = "HIGH ALTITUDE"
+}
+
+@failure{
+    OnOff_Off \PRPA
+    OnOff_Off \THRU
+    OnOff_Off \GYRO
+    OnOff_On \BEAC
+    Open_On \PAHA
+    Write to \LCIN = "ASSISTANCE REQUIRED"
+}
+
+@info {
+    Write to \LCIN = EAP - V.1.05
+    WriteLine to \LCIN = Craft - V1.03
+}
+
+@variables{
+    * Abreviated names for blocks
+    AIVE = "UMG-6 Air Vent Fan"
+    ANTE = "UMG-6 Antenna"
+    BATT = "UMG-6 Battery"
+    COMA = "UMG-6 Connector Main"
+    EVC2 = "UMG-6 Event Controller - Connect"
+    EXPI = "UMG-6 Exhaust Pipe"
+    GATU = "UMG-6 Gatling Turret"
+    HELI = "UMG-6 Headlight"
+    HYEN = "UMG-6 Hydrogen Engine"
+    HYTA = "UMG-6 Hydrogen Tank"
+    LCIN = "UMG-6 LCD Info"
+    LIGH = "UMG-6 Light"
+    LIPA = "UMG-6 Light Panel Floor"
+    LIST = "UMG-6 Light Status"
+    O2H2 = "UMG-6 O2/H2 Generator"
+    ORDE = "UMG-6 Ore Detector"
+    PIJA = "UMG-6 Piston Jack"
+    ROAR = "UMG-6 Rotor Arm"
+    ROLI = "UMG-6 Rotating Light"
+    SPLI = "UMG-6 Spotlight"
+    TISH = "UMG-6 Timer Shutdown"
+    TIST = "UMG-6 Timer Standby"
+}
+
+@connect {
+    * Uses Event Controller to trigger auto lock of Connector Main
+    Write to \LCIN = "CONNECTING"
+    Color of \LIGH = 255:255:0
+    Blink Interval of \LIGH = 1
+    Delay 3000
+    If Status of UMG-6 Connector Main = Connectable {
+        Write to \LCIN = "CONNECTED"
+        Lock \COMA
+        Delay 2000
+        Blink Interval of \LIGH = 0
+        Color of \LIGH = 250:250:255
+        Delay 500
+        Color of \LIST = 255:255:255
+        Recharge \BATT
+        Stockpile of \HYTA = True
+    }
+    OnOff_Off \EVC2
+}
+
+@autostart {
+    * Uses Event Controller to trigger when player enters Cockpit
+    @offlinetostandby
+    If Status of UMG-6 Connector Main = Unconnected {
+        Delay 3000
+        @standbytoonline
+    }
+}
+
+@runmode {
+    if Color of UMG-6 Light Status = 255:0:0
+    {
+        @offlinetostandby
+    }
+    else if Color of UMG-6 Light Status = 255:255:0
+    {
+        @standbytoonline
+    }
+    else if Color of UMG-6 Light Status = 255:255:255
+    {
+        @onlinetostandby
+    }
+    else if Color of UMG-6 Light Status = 255:255:50
+    {
+        @standbytooffline
+    }
+}
+
+@offlinetostandby {
+    Color of \LIST = 255:255:0
+    Write to \LCIN = Standby
+    OnOff_On \ANTE
+    OnOff_On \GATU
+    OnOff_On \LIPA
+    OnOff_On \LIST
+    OnOff_On \O2H2
+    OnOff_Off \ORDE
+    OnOff_On \ROAR
+    OnOff_Off \AIVE
+    OnOff_Off \EXPI
+    OnOff_Off \HYEN
+    OnOff_Off \HELI
+    OnOff_Off \SPLI
+    Stop \TIST
+    Stop \TISH
+}
+
+@standbytoonline {
+    Color of \LIST = 255:255:255
+    Write to \LCIN = Active
+    OnOff_On \AIVE
+    OnOff_On \EXPI
+    OnOff_On \HYEN
+    OnOff_On \HELI
+    OnOff_On \ORDE
+    OnOff_On \LIPA
+    Stop \TIST
+    Stop \TISH
+    Stockpile of \HYTA = False
+    Discharge \BATT
+    Unlock \COMA
+    Delay 5000
+    OnOff_On \EVC2
+}
+
+@onlinetostandby {
+    Color of \LIST = 255:255:50
+    Write to \LCIN = Standby
+    OnOff_On \ANTE
+    OnOff_On \GATU
+    OnOff_Off \LIPA
+    OnOff_On \LIST
+    OnOff_On \O2H2
+    OnOff_Off \ORDE
+    OnOff_On \ROAR
+    OnOff_Off \AIVE
+    OnOff_Off \EXPI
+    OnOff_Off \HYEN
+    OnOff_Off \HELI
+    OnOff_Off \SPLI
+}
+
+@standbytooffline {
+    Color of \LIST = 255:0:0
+    Write to \LCIN = Powered Down
+    OnOff_Off \ANTE
+    OnOff_Off \AIVE
+    OnOff_Off \EXPI
+    OnOff_Off \GATU
+    OnOff_Off \HYEN
+    OnOff_Off \LIST
+    OnOff_Off \HELI
+    OnOff_Off \SPLI
+    OnOff_Off \O2H2
+    OnOff_Off \ROLI
+    OnOff_Off \ROAR
+}
+
+@miningmode {
+    OnOff_On \SPLI
+    OnOff_On \ROLI
+    OnOff_On \LIPA
+    Color of \SPLI = 255:255:0
+    Color of \ROLI = 255:255:0
+    Color of \LIPA = 255:255:0
+}
+
+@haulingmode {
+    OnOff_Off \ROLI
+    Color of \SPLI = 55:155:255
+    Color of \ROLI = 55:155:255
+    Color of \LIPA = 55:155:255
+}
+
+@pistonjacks {
+    Reverse \PIJA
+}
+
+@info {
+    Write to \LCIN = EAP - V.1.08
+    WriteLine to \LCIN = FSD - V1.00
+    WriteLine to \LCIN = LCD - V1.00
+    WriteLine to \LCIN = SDS - V1.01
+    WriteLine to \LCIN = Craft - V1.05
+}
+
+@craft_para {
+    * Ship Name
+    * Length
+    * width
+    * Height
+    * Weight
+    * Max Speed
+    * Amount of Batteries / Hydrogen Engines / Hydrogen Tanks
+    * Wheel max power / Average power usage???
+    * Range???
+    * If has wheels ele flyable ship
+}
+
+@var {
+    Craft = Grid Name of MyGrid
+    ILCD = UTG-7 LCD Info
+}
+
+@variables{
+    Mass of MyShip = MASS
+    LIST = "Light Status"
+    LCIN = "LCD Info"
+}
+
+@test{
+    Write to \LCIN = \MASS
+}
+
+@variables{
+    LCIN = "LCD Info"
+    Mass of MyShip = aa
+}
+
+@test{
+    Write to \LCIN = "{Mass of MyShip}"
+}
+
+@variables{
+    LCIN = "LCD Info"
+    x = Mass of MyShip
+    y = Gravity of MyShip
+}
+
+@test{
+    Write to \LCIN = "Gravity = \y"
+    WriteLine to \LCIN = "Mass = \x kg"
+}
+
+@test{
+    Torque of Hinge Main = 10000
+    LowerLimit of Hinge Main = -10
+}
+
+@info{
+    Write to LCD Info = "{Show Offroad Short Wheel Suspension 3x3 Left}"
+}
+
+@test{
+    Torque of Hinge Main = 10000
+    LowerLimit of Hinge Main = -10
+    MaxSteerAngle of Wheel = 10
+    Power of Wheel = 10
+    EnableParking of Wheel = True
+    SpeedLimit of Wheel = 10
+}
+
+*FontSize
+
+@variables{
+    * Blocks
+    LIST = "Light Status"
+    LCIN = "LCD Info"
+    LCST = "LCD Status"
+    WHAL = "Wheel Suspension"
+    WHSF = "Wheel Suspension Front"
+    WHSB = "Wheel Suspension Back"
+    * Calculations
+    v = "0"
+    w = "4"
+    x = Mass of MyShip
+    y = Gravity of MyShip
+    z = "0"
+}
+
+@gear_up{
+    if Color of Light Status = 255:0:0{
+        @gear_1
+    }
+    else if Color of Light Status = 0:255:0{
+        @gear_2
+    }
+    else if Color of Light Status = 50:255:0{
+        @gear_3
+    }
+    else if Color of Light Status = 100:255:0{
+        @gear_4
+    }
+    else if Color of Light Status = 150:255:0{
+        @gear_5
+    }
+}
+
+@gear_down{
+    if Color of Light Status = 200:255:0{
+        @gear_4
+    }
+    else if Color of Light Status = 150:255:0{
+        @gear_3
+    }
+    else if Color of Light Status = 100:255:0{
+        @gear_2
+    }
+    else if Color of Light Status = 50:255:0{
+        @gear_1
+    }
+    else if Color of Light Status = 0:255:0{
+        @park
+    }
+}
+
+@park{
+    Color of \LIST = 255:0:0
+    Write to \LCIN = P
+    \z = math((((\x*\y)/100)/\w)*1)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
+    MaxSteerAngle of \WHSF = 0
+    MaxSteerAngle of \WHSB = 0
+    Power of \WHAL = 0
+    Speed Limit of \WHAL = 0
+}
+
+@gear_1{
+    Color of \LIST = 0:255:0
+    Write to \LCIN = 1
+    \z = math((((\x*\y)/100)/\w)*3)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
+    MaxSteerAngle of \WHSF = 40
+    MaxSteerAngle of \WHSB = 20
+    Power of \WHAL = 100
+    Speed Limit of \WHAL = 10
+}
+
+@gear_2{
+    Color of \LIST = 50:255:0
+    Write to \LCIN = 2
+    \z = math((((\x*\y)/100)/\w)*4)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
+    MaxSteerAngle of \WHSF = 30
+    MaxSteerAngle of \WHSB = 15
+    Power of \WHAL = 80
+    Speed Limit of \WHAL = 30
+}
+
+@gear_3{
+    Color of \LIST = 100:255:0
+    Write to \LCIN = 3
+    \z = math((((\x*\y)/100)/\w)*5)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
+    MaxSteerAngle of \WHSF = 20
+    MaxSteerAngle of \WHSB = 10
+    Power of \WHAL = 60
+    Speed Limit of \WHAL = 60
+}
+
+@gear_4{
+    Color of \LIST = 150:255:0
+    Write to \LCIN = 4
+    \z = math((((\x*\y)/100)/\w)*6)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
+    MaxSteerAngle of \WHSF = 10
+    MaxSteerAngle of \WHSB = 5
+    Power of \WHAL = 40
+    Speed Limit of \WHAL = 90
+}
+
+@gear_5{
+    Color of \LIST = 200:255:0
+    Write to \LCIN = 5
+    \z = math((((\x*\y)/100)/\w)*7)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
+    MaxSteerAngle of \WHSF = 5
+    MaxSteerAngle of \WHSB = 0
+    Power of \WHAL = 20
+    Speed Limit of \WHAL = 120
+}
+
+@info{
+    Show Cockpit
+}
+
+@variables{
+    * Blocks
+    LIST = "Light Status"
+    LCIN = "LCD Info"
+    LCST = "LCD Status"
+    HISM = "Hinge Suspension Main"
+    WHAL = "Wheel Suspension"
+    WHSF = "Wheel Suspension Front"
+    WHSB = "Wheel Suspension Back"
+    * Calculations
+    v = "0"
+    w = "4"
+    x = Mass of MyShip
+    y = Gravity of MyShip
+    z = "0"
+}
+
+@gear_up{
+    if Color of Light Status = 255:0:0{
+        @gear_1
+    }
+    else if Color of Light Status = 0:255:0{
+        @gear_2
+    }
+    else if Color of Light Status = 50:255:0{
+        @gear_3
+    }
+    else if Color of Light Status = 100:255:0{
+        @gear_4
+    }
+    else if Color of Light Status = 150:255:0{
+        @gear_5
+    }
+}
+
+@gear_down{
+    if Color of Light Status = 200:255:0{
+        @gear_4
+    }
+    else if Color of Light Status = 150:255:0{
+        @gear_3
+    }
+    else if Color of Light Status = 100:255:0{
+        @gear_2
+    }
+    else if Color of Light Status = 50:255:0{
+        @gear_1
+    }
+    else if Color of Light Status = 0:255:0{
+        @park
+    }
+}
+
+@park{
+    Color of \LIST = 255:0:0
+    Write to \LCIN = P
+    Rotate \HISM to 0 at 1
+    \z = math((((\x*\y)/100)/\w)*1)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
+    Torque of \HISM = \z
+    MaxSteerAngle of \WHSF = 0
+    MaxSteerAngle of \WHSB = 0
+    Power of \WHAL = 0
+    Speed Limit of \WHAL = 0
+}
+
+@gear_1{
+    Color of \LIST = 0:255:0
+    Write to \LCIN = 1
+    Rotate \HISM to 35 at 30
+    \z = math((((\x*\y)/100)/\w)*6)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
+    Torque of \HISM = \z
+    MaxSteerAngle of \WHSF = 25
+    MaxSteerAngle of \WHSB = 13
+    Power of \WHAL = 100
+    Speed Limit of \WHAL = 10
+}
+
+@gear_2{
+    Color of \LIST = 50:255:0
+    Write to \LCIN = 2
+    Rotate \HISM to 30 at 30
+    \z = math((((\x*\y)/100)/\w)*7)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
+    Torque of \HISM = \z
+    MaxSteerAngle of \WHSF = 20
+    MaxSteerAngle of \WHSB = 10
+    Power of \WHAL = 80
+    Speed Limit of \WHAL = 30
+}
+
+@gear_3{
+    Color of \LIST = 100:255:0
+    Write to \LCIN = 3
+    Rotate \HISM to 20 at 30
+    \z = math((((\x*\y)/100)/\w)*8)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
+    Torque of \HISM = \z
+    MaxSteerAngle of \WHSF = 15
+    MaxSteerAngle of \WHSB = 8
+    Power of \WHAL = 60
+    Speed Limit of \WHAL = 60
+}
+
+@gear_4{
+    Color of \LIST = 150:255:0
+    Write to \LCIN = 4
+    Rotate \HISM to 10 at 30
+    \z = math((((\x*\y)/100)/\w)*9)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
+    Torque of \HISM = \z
+    MaxSteerAngle of \WHSF = 10
+    MaxSteerAngle of \WHSB = 5
+    Power of \WHAL = 40
+    Speed Limit of \WHAL = 90
+}
+
+@gear_5{
+    Color of \LIST = 200:255:0
+    Write to \LCIN = 5
+    Rotate \HISM to 0 at 30
+    \z = math((((\x*\y)/100)/\w)*10)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
+    Torque of \HISM = \z
+    MaxSteerAngle of \WHSF = 5
+    MaxSteerAngle of \WHSB = 0
+    Power of \WHAL = 20
+    Speed Limit of \WHAL = 120
+}
+
+@info{
+    Show Cockpit
+}
+
+@variables{
+    * Blocks
+    UTG-12 Air Vent Fan
+    UTG-12 Spotlight
+    UTG-12 Headlight
+    UTG-12 Rotor Front
+    UTG-12 Rotor Back
+    UTG-12 Battery
+    UTG-12 Hydrogen Tank
+    UTG-12 Connector
+    UTG-12 Gyroscope
+    UTG-12 Hydrogen Engine
+    UTG-12 LCD Front Bumper
+    UTG-12 Wheel Suspension Back Left
+    UTG-12 Wheel Suspension Back Right
+    UTG-12 Wheel Suspension Front Left
+    UTG-12 Wheel Suspension Front Right
+    UTG-12 Main Sus
+    LIST = "UTG-12 Light Status"
+    LCIN = "UTG-12 LCD Info"
+    LCST = "UTG-12 LCD Status"
+    * Calculations
+    v = "0"
+    w = "4"
+    x = Mass of MyShip
+    y = Gravity of MyShip
+    z = "0"
+}
+
+@gear_up{
+    if Color of UTG-12 Light Status = 255:0:0{
+        @gear_1
+    }
+    else if Color of UTG-12 Light Status = 0:255:0{
+        @gear_2
+    }
+    else if Color of UTG-12 Light Status = 50:255:0{
+        @gear_3
+    }
+    else if Color of UTG-12 Light Status = 100:255:0{
+        @gear_4
+    }
+    else if Color of UTG-12 Light Status = 150:255:0{
+        @gear_5
+    }
+}
+
+@gear_down{
+    if Color of UTG-12 Light Status = 200:255:0{
+        @gear_4
+    }
+    else if Color of UTG-12 Light Status = 150:255:0{
+        @gear_3
+    }
+    else if Color of UTG-12 Light Status = 100:255:0{
+        @gear_2
+    }
+    else if Color of UTG-12 Light Status = 50:255:0{
+        @gear_1
+    }
+    else if Color of UTG-12 Light Status = 0:255:0{
+        @park
+    }
+}
+
+@park{
+    Color of \LIST = 255:0:0
+    Write to \LCIN = P
+    \z = math((((\x*\y)/100)/\w)*1)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
+    MaxSteerAngle of \WHSF = 0
+    MaxSteerAngle of \WHSB = 0
+    Power of \WHAL = 0
+    Speed Limit of \WHAL = 0
+}
+
+@gear_1{
+    Color of \LIST = 0:255:0
+    Write to \LCIN = 1
+    \z = math((((\x*\y)/100)/\w)*6)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
+    MaxSteerAngle of \WHSF = 25
+    MaxSteerAngle of \WHSB = 13
+    Power of \WHAL = 100
+    Speed Limit of \WHAL = 10
+}
+
+@gear_2{
+    Color of \LIST = 50:255:0
+    Write to \LCIN = 2
+    \z = math((((\x*\y)/100)/\w)*7)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
+    MaxSteerAngle of \WHSF = 20
+    MaxSteerAngle of \WHSB = 10
+    Power of \WHAL = 80
+    Speed Limit of \WHAL = 30
+}
+
+@gear_3{
+    Color of \LIST = 100:255:0
+    Write to \LCIN = 3
+    \z = math((((\x*\y)/100)/\w)*8)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
+    MaxSteerAngle of \WHSF = 15
+    MaxSteerAngle of \WHSB = 8
+    Power of \WHAL = 60
+    Speed Limit of \WHAL = 60
+}
+
+@gear_4{
+    Color of \LIST = 150:255:0
+    Write to \LCIN = 4
+    \z = math((((\x*\y)/100)/\w)*9)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
+    MaxSteerAngle of \WHSF = 10
+    MaxSteerAngle of \WHSB = 5
+    Power of \WHAL = 40
+    Speed Limit of \WHAL = 90
+}
+
+@gear_5{
+    Color of \LIST = 200:255:0
+    Write to \LCIN = 5
+    \z = math((((\x*\y)/100)/\w)*10)
+    \v = math(\z/1000)
+    Strength of \WHAL = \v
+    Write to \LCST = "Grav = \y"
+    WriteLine to \LCST = "Mass = \x kg"
+    WriteLine to \LCST = "Force = \z"
+    WriteLine to \LCST = "Susp = \v Nm"
+    MaxSteerAngle of \WHSF = 5
+    MaxSteerAngle of \WHSB = 0
+    Power of \WHAL = 20
+    Speed Limit of \WHAL = 120
+}
+
+@info{
+    Show Cockpit
+}
+
+@variables{
+    * Blocks
+    LIST = "UTG-12 Light Status"
+    LCIN = "UTG-12 LCD Info"
+    MASU = "UTG-12 Main Sus"
+    WHSU = "UTG-12 Wheel Suspension"
+    WHSF = "UTG-12 Wheel Suspension Front"
+    WHSB = "UTG-12 Wheel Suspension Back"
+}
+
+@gear_up{
+    if Color of UTG-12 Light Status = 255:0:0{
+        @gear_1
+    }
+    else if Color of UTG-12 Light Status = 0:255:0{
+        @gear_2
+    }
+    else if Color of UTG-12 Light Status = 50:255:0{
+        @gear_3
+    }
+    else if Color of UTG-12 Light Status = 100:255:0{
+        @gear_4
+    }
+    else if Color of UTG-12 Light Status = 150:255:0{
+        @gear_5
+    }
+}
+
+@gear_down{
+    if Color of UTG-12 Light Status = 200:255:0{
+        @gear_4
+    }
+    else if Color of UTG-12 Light Status = 150:255:0{
+        @gear_3
+    }
+    else if Color of UTG-12 Light Status = 100:255:0{
+        @gear_2
+    }
+    else if Color of UTG-12 Light Status = 50:255:0{
+        @gear_1
+    }
+    else if Color of UTG-12 Light Status = 0:255:0{
+        @park
+    }
+}
+
+@park{
+    Color of \LIST = 255:0:0
+    Write to \LCIN = P
+    Power of \WHSU = 0
+    Speed Limit of \WHSU = 0
+    MaxSteerAngle of \WHSF = 0
+    MaxSteerAngle of \WHSB = 0
+}
+
+@gear_1{
+    Color of \LIST = 0:255:0
+    Write to \LCIN = 1
+    Strength of \MASU = 10
+    Strength of \WHSU = 10
+    Power of \WHSU = 85
+    Speed Limit of \WHSU = 10
+    MaxSteerAngle of \WHSF = 25
+    MaxSteerAngle of \WHSB = 13
+}
+
+@gear_2{
+    Color of \LIST = 50:255:0
+    Write to \LCIN = 2
+    Strength of \MASU = 15
+    Strength of \WHSU = 20
+    Power of \WHSU = 65
+    Speed Limit of \WHSU = 20
+    MaxSteerAngle of \WHSF = 20
+    MaxSteerAngle of \WHSB = 10
+}
+
+@gear_3{
+    Color of \LIST = 100:255:0
+    Write to \LCIN = 3
+    Strength of \MASU = 20
+    Strength of \WHSU = 30
+    Power of \WHSU = 45
+    Speed Limit of \WHSU = 40
+    MaxSteerAngle of \WHSF = 15
+    MaxSteerAngle of \WHSB = 7
+}
+
+@gear_4{
+    Color of \LIST = 150:255:0
+    Write to \LCIN = 4
+    Strength of \MASU = 25
+    Strength of \WHSU = 40
+    Power of \WHSU = 25
+    Speed Limit of \WHSU = 80
+    MaxSteerAngle of \WHSF = 10
+    MaxSteerAngle of \WHSB = 5
+}
+
+@gear_5{
+    Color of \LIST = 200:255:0
+    Write to \LCIN = 5
+    Strength of \MASU = 30
+    Strength of \WHSU = 50
+    Power of \WHSU = 10
+    Speed Limit of \WHSU = 160
+    MaxSteerAngle of \WHSF = 5
+    MaxSteerAngle of \WHSB = 0
+}
+
+@info {
+    Write to \LCIN = EAP - V.1.16
+    WriteLine to \LCIN = FSD - V0.00
+    WriteLine to \LCIN = SDS - V0.00
+    WriteLine to \LCIN = Craft - V0.39
+}
+
+@variables{
+    * Abreviated names for blocks
+    AIVE = Air Vent Fan
+    ANTE = Antenna
+    COMA = Connector Main
+    EXPI = Exhaust Pipe
+    GATU = Gatling Turret
+    HELI = Headlight
+    HYEN = Hydrogen Engine
+    LCIN = LCD Info
+    LIFL = Light Floor
+    LIGH = Light
+    LIPA = Light Panel Floor
+    LIST = Light Status
+    O2H2 = O2/H2 Generator
+    ORDE = Ore Detector
+    PIJA = Piston Jack
+    ROAR = Rotor Arm
+    ROLI = Rotating Light
+    SPLI = Spotlight
+    TISH = Timer Shutdown
+    TIST = Timer Standby
+    
+}
+
+@connect{
+    * Uses Event Controller to trigger auto lock of Connector Main
+    Write to LCIN = "CONNECTING"
+    Color of LIGH = 255:255:0
+    Blink Interval of LIGH = 1
+    Delay 3000
+    If Status of COMA = Connectable{
+        Write to LCIN = "CONNECTED"
+        Lock COMA
+        Color of LIGH = 0:255:0
+        Delay 2000
+        Blink Interval of LIGH = 0
+        Color of LIGH = 250:250:255
+        Delay 500
+        Color of LIST = 255:255:255
+    }
+}
+
+@exit{
+    * Uses Event Controller to trigger timer to go into standby if exiting Cockpit
+    Start TIST
+    * Timer Standby after countdown will run 
+}
+
+@autostart{
+    * Uses Event Controller to trigger when player enters Cockpit
+    @offlinetostandby
+    Delay 3000
+    @standbytoonline
+}
+
+@runmode
+{
+    if Color of LIST = 255:0:0
+    {
+        @offlinetostandby
+    }
+    else if Color of LIST = 255:255:0
+    {
+        @standbytoonline
+    }
+    else if Color of LIST = 255:255:255
+    {
+        @onlinetostandby
+    }
+    else if Color of LIST = 255:255:50
+    {
+        @standbytooffline
+    }
+}
+
+@offlinetostandby{
+    Color of LIST = 255:255:0
+    Write to LCIN = Standby
+    OnOff_On ANTE
+    OnOff_On GATU
+    OnOff_On LIFL
+    OnOff_On LIST
+    OnOff_On O2H2
+    OnOff_Off ORDE
+    OnOff_On ROAR
+    OnOff_Off AIVE
+    OnOff_Off EXPI
+    OnOff_Off HYEN
+    OnOff_Off HELI
+    OnOff_Off SPLI
+    Stop TIST
+    Stop TISH
+}
+
+@standbytoonline{
+    Color of LIST = 255:255:255
+    Write to LCIN = Active
+    OnOff_On AIVE
+    OnOff_On EXPI
+    OnOff_On HYEN
+    OnOff_On HELI
+    OnOff_On ORDE
+    Stop TIST
+    Stop TISH
+}
+
+@onlinetostandby{
+    Color of LIST = 255:255:50
+    Write to LCIN = Standby
+    OnOff_On ANTE
+    OnOff_On GATU
+    OnOff_On LIPA
+    OnOff_On LIST
+    OnOff_On O2H2
+    OnOff_Off ORDE
+    OnOff_On ROAR
+    OnOff_Off AIVE
+    OnOff_Off EXPI
+    OnOff_Off HYEN
+    OnOff_Off HELI
+    OnOff_Off SPLI
+    Start TISH
+}
+
+@standbytooffline{
+    Color of LIST = 255:0:0
+    Write to LCIN = Powered Down
+    OnOff_Off ANTE
+    OnOff_Off AIVE
+    OnOff_Off EXPI
+    OnOff_Off GATU
+    OnOff_Off HYEN
+    OnOff_Off LIPA
+    OnOff_Off LIST
+    OnOff_Off HELI
+    OnOff_Off SPLI
+    OnOff_Off O2H2
+    OnOff_Off ROLI
+    OnOff_Off ROAR
+}
+
+@miningmode{
+    OnOff_On SPLI
+    OnOff_On ROLI
+    OnOff_On LIPA
+    Color of SPLI = 255:255:0
+    Color of ROLI = 255:255:0
+    Color of LIPA = 255:255:0
+}
+
+@haulingmode{
+    OnOff_Off ROLI
+    Color of SPLI = 55:155:255
+    Color of ROLI = 55:155:255
+    Color of LIPA = 55:155:255
+}
+
+@pistonjacks{
+    Reverse PIJA
+}

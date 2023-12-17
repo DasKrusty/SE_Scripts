@@ -1,0 +1,10 @@
+ShowStats
+Panel 1
+,Fontsize=0.5 TextColor(255,55,0) Position(20,20) Text:BAT
+UTG-12 Battery, ShortBar AnalogBar Position(20,40) NoHeadline FrameColor(55,155,255) Length=90
+,Fontsize=0.5 TextColor(255,55,0) Position(90,20) Text:ENG
+UTG-12 Hydrogen Engine, Smallbar AnalogBar Position(120,20) NoHeadline FrameColor(55,155,255) Length=90
+,Fontsize=0.5 TextColor(255,55,0) Position(90,80) Text:TAN
+UTG-12 Hydrogen Tank, Smallbar AnalogBar Position(120,80) NoHeadline FrameColor(55,155,255) Length=90
+UTG-12 LCD Info,clone:0 position(20,90) fontsize=0.5 TextColor(55,155,255)
+EndStats
