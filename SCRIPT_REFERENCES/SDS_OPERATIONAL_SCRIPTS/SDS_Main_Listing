@@ -1,33 +1,3 @@
-// For DAS to allow SDS to control DAS commands:
-DAS - if((updateSource & (UpdateType.Terminal | UpdateType.Trigger | UpdateType.Script)) != 0)
-______________________________________________________________________________________________
-
-[Main]
-CockpitPrefix=[MEN]
-LCDPrefix=[MEN]
-
-[Add]
-Prefix=
-Screen=1
-DefaultMenu=0
-WASDAutoDisable=true
-SwitchThrusters=false
-SwitchGyros=true
-SwitchWheels=true
-LCDAutoOff=true
-WASDPrgOn=-1
-WASDPrgOff=-1
-
-[Color]
-BackgroundColor=0,0,0
-ItemBarColor=0,6,12
-MainColor=55,155,255
-SelItemBarColor=155,55,0
-SelItemTextColor=0,0,0
-OnColor=225,65,100
-ArrowColor=155,225,255
-ErrorMSGColor=225,65,100
-HelpColor=155,225,255
 
 [TopMenu]
 0=Quick
@@ -335,3 +305,623 @@ Antenna;bl;UTG-7 Antenna;onoff
 Antenna Radius;antenna;UTG-7 Antenna;3000/500
 Projector On/Off;bl;UTG-7 Projector;onoff
 Piston Jacks;pb;UTG-7 Program [EAP];main_mode
+
+[AutoAirlocks]
+AutoAirlock;gr;1.5;0
+
+Group_name; gr; Time_to_AutoClose; Air_Pumping_Time
+
+[Command Type]  [Command Description]           [The Command Arguments]
+pb	            Programmable block	    	
+bl              any_block                       on
+                                                off
+                                                onoff
+blk	            block_on_the_current_grid       on
+                                                off
+                                                onoff
+*bl*            search for blocks by part name  on
+                                                off
+                                                onoff
+*blk*	        only on the current grid        on
+                                                off
+                                                onoff
+gr	            group of any blocks	on          on
+                                                off
+                                                onoff
+gr-gr	        alternate inclusion of 2 groups	$group1_name;$group2_name
+gr-airlock	    gateway group               	$time_1/$time_2	(delay in seconds)
+antenna         antenna                         $set_R/$change_R
+gr-antenna	    group_of_antennas               $set_R/$change_R
+beacon          beacon                          $set_R/$change_R
+gr-beacon	    group_of_beacons                $set_R/$change_R
+batt            battery                         mode
+                                                auto
+                                                recharge
+                                                discharge
+gr-batt	        group_of_batteries              mode
+                                                auto
+                                                recharge
+                                                discharge
+conn_lock       connector                       lock
+                                                unlock
+                                                toggle
+gr-conn_lock	group_of_connectors             lock
+                                                unlock
+                                                toggle
+conn_collect    connector                       on
+                                                off
+                                                toggle
+gr-conn_collect	group_of_connectors             on
+                                                off
+                                                toggle
+conn_throw      connector                       on
+                                                off
+                                                toggle
+gr-conn_throw	group_of_connectors         	on
+                                                off
+                                                toggle
+door            door                            open
+                                                close
+                                                toggle
+gr-door	        group_of_doors                  open
+                                                close
+                                                toggle
+grav            gravity_generator               $grav/$ch_g
+                                                $grav/set/$grav
+gr-grav	        group_of_gravgens               $grav/$ch_g
+                                                $grav/set/$grav
+jump            jump_drive                      charge
+                                                off
+                                                toggle
+gr-jump	        group_of_jump_drives	        charge
+                                                off
+                                                toggle
+jump_dist       jump_drive                      $set_distance
+                                                $set_distance/$change_dist
+gr-jump_dist	group_of_jump_drives	        $set_distance
+                                                $set_distance/$change_dist
+light           light                           сolor=R(0-255),G(0-255),B(0-255)
+                                                radius=Radius,Intensity
+                                                blink=Interval(sec),Length(0-100)
+gr-light	    group_of_lights	                сolor=R(0-255),G(0-255),B(0-255)
+                                                radius=Radius,Intensity
+                                                blink=Interval(sec),Length(0-100)
+lgear_auto      landing_gear                    on
+                                                off
+                                                toggle
+gr-lgear_auto	group_of_lgears	                on
+                                                off
+                                                toggle
+lgear_lock      landing_gear                    lock
+                                                unlock
+                                                toggle
+gr-lgear_lock	group_of_lgears	                lock
+                                                unlock
+                                                toggle
+piston_att      piston                          attach
+                                                detach
+                                                toggle
+gr-piston_att	group_of_pistons	            attach
+                                                detach
+                                                toggle
+                                                $Min_distance/$Max_distance
+piston_vel      piston                          $vel/$change_vel
+                                                $vel/set/$vel
+gr-piston_vel	group_of_pistons	            $vel/$change_vel
+                                                $vel/set/$vel
+rotor_att       rotor                           attach
+                                                detach
+                                                toggle
+                                                $Min_angle/$Max_angle
+gr-rotor_att	group_of_rotors	                attach
+                                                detach
+                                                toggle
+                                                $Min_angle/$Max_angle
+rotor_lock      rotor                           lock
+                                                unlock
+                                                toggle
+gr-rotor_lock	group_of_rotors	                lock
+                                                unlock
+                                                toggle
+rotor_vel       rotor                           $vel/$change_vel
+                                                $vel/set/$vel
+gr-rotor_vel	group_of_rotors	                $vel/$change_vel
+                                                $vel/set/$vel
+sound           sound_block
+gr-sound	    group_of_sound_blocks       	play stop
+                                                $Sound/$Loop_Time
+                                                play stop/sound_name/loop_time
+sorter_drain    sorter                          on
+                                                off
+                                                toggle
+gr-sorter_drain	group_of_sorters	            on
+                                                off
+                                                toggle
+sorter_list     sorter                          black white/
+                                                $Ore_or_Ingot
+                                                filter_mode ore_or_ingot_name example: white/Ore-Stone,Ingot-Gold
+gr-sorter_list	group_of_sorters	            black white/
+                                                $Ore_or_Ingot
+                                                filter_mode ore_or_ingot_name example: white/Ore-Stone,Ingot-Gold
+stockpile       gas_tank                        on
+                                                off
+                                                toggle
+gr-stockpile	group_of_gas_tanks	            on
+                                                off
+                                                toggle
+timer           timer                           trigger
+                                                start 
+                                                stop 
+                                                toggle
+gr-timer	    group_of_timers	                trigger
+                                                start 
+                                                stop 
+                                                toggle
+timer_delay     timer                           $set_time/$change_time
+gr-timer_delay	group_of_timers	                $set_time/$change_time	
+turret          turret                          shoot 
+                                                tcharacters 
+                                                tstations 
+                                                tlargeships 
+                                                tsmallships 
+                                                tmeteors 
+                                                tmissiles 
+                                                tneutrals	
+                                                shoot_now
+gr-turret	    group_of_turrets	            shoot 
+                                                tcharacters 
+                                                tstations 
+                                                tlargeships 
+                                                tsmallships 
+                                                tmeteors 
+                                                tmissiles 
+                                                tneutrals	
+                                                shoot_now
+vent            air_vent                        press
+                                                depress
+                                                toggle
+gr-vent	        group_of_air_vent	            press
+                                                depress
+                                                toggle
+write           block_with_lcd                  screen=$Num/
+                                                size=$FontSize/
+                                                color=$R,$G,$B/
+                                                background=$R,$G,$B/
+                                                text=$Text
+                                                nltext=$Text
+                                                addtext=$Text
+                                                clear
+gr-write	    group_of_blocks	                screen=$Num/
+                                                size=$FontSize/
+                                                color=$R,$G,$B/
+                                                background=$R,$G,$B/
+                                                text=$Text
+                                                nltext=$Text
+                                                addtext=$Text
+                                                clear
+remote          remote_control
+gr-remote	    group_of_remote_controls	    on
+                                                off
+                                                toggle
+waypoint        remote_control
+gr-waypoint	    group_of_remote_controls	    GPS:$Name:$X:$Y:$Z (GPS in the standard format)	load_GPS_in_remote
+show            block  
+gr-showblock    group_of_blocks
+all-show        all_found	                    inv     blocks_with_inventory
+	                                            gas     blocks_with_gas
+                                                batt    batteries
+                                                jump    jump_drives_charge
+                                                power   power_sources
+                                                mass/(cargo total)/$Max_mass
+                                                grav/(art nat total)(data display):
+thrust	        all atmo hydro ion/all left     on
+                right up down forward backward  off
+                                                onoff
+
+//Sub Routines
+
+[0 Start sub-progam]
+Turn on the lamp;bl;Interior Light;on
+Red color without blinking;light;Interior Light;color=255,0,0/blink=0,0
+After 3 seconds, go to section [1];run;1;3
+
+[1 next]
+Open the door;door;Sliding Door;open
+Adding flickering for the lamp;light;Interior Light;blink=0.5,50
+After 5 seconds, go to section [3];run;2;5
+
+[2 here we close our door]
+Close the door;door;Sliding Door;close
+Turning off the lamp;bl;Interior Light;off
+Removing the flicker;light;Interior Light;blink=0,0
+And if we want to loop to infinity in 3 seconds we run [0] section ;run;0;3
+
+//To Start Sub Routine
+Run sub-program;run;0;0
+
+References: 
+
+Antenna: 
+
+Antenna;bl;Antenna;onoff 
+
+Antenna Radius;antenna;Antenna;3000/500 
+
+ 
+
+Airlocks / Doors: 
+
+Left Airlock;gr-airlock;Left Doors;0/2 
+
+Right Airlock;gr-airlock;Right Doors;0/2 
+
+Left Ext Door;door;Door Left Ext;toggle 
+
+Left Int Door;door;Door Left Int;toggle 
+
+Right Ext Door;door;Door Right Ext;toggle 
+
+Right Int Door;door;Door Right Int;toggle 
+
+Alarm Close All;gr-door;All Doors;close 
+
+ 
+
+Cargo: 
+
+Cargo Vol;all-show;*;inv 
+
+Cargo Mass;all-show;*;mass/cargo/1000000 
+
+Total Mass;all-show;*;mass/total/1376000 
+
+Ammo;show;Rocket Launcher;inv 
+
+ 
+
+Run [0] sub-program;run;0;0 
+
+Pistons: 
+
+Right Piston;piston_vel;Piston Right;0/set/1 
+
+Both Pistons;gr-piston_vel;Pistons Both;0/set/1 
+
+ 
+
+Rotors: 
+
+Right Rotor;rotor_vel;Rotor Right;0/1 
+
+Both Rotors;gr-rotor_vel;Rotors Both;0/1 
+
+ 
+
+Lights: 
+
+Cool Lights Color;gr-light;RMG-1A Lights;color=160,230,255/blink=0,0 
+
+Warm Lights Color;gr-light;RMG-1A Lights;color=255,255,180/blink=0,0 
+
+Spotlights Low;gr;RMG-1A Spotlight Low;onoff 
+
+Blink-Red Lights;gr-light;Interior Lights;color=255,0,0/blink=1.5,70 
+
+ 
+
+Connectors: 
+
+Connector;conn_lock;Connector;toggle 
+
+ 
+
+Batteries: 
+
+Batteries Mode;gr-batt;Batteries;mode 
+
+Power MW;all-show;*;power 
+
+Batts;all-show;*;batt 
+
+ 
+
+Gravity Generator: 
+
+Grav +/-;grav;Grav;-3-0.1 
+
+Grav Set;grav;Grav;0-set-5 
+
+Gravity;all-show;*;grav/nat 
+
+ 
+
+Other Menu: 
+
+Up;pb;+ProgrBlock OPER (Orange);up 
+
+Down;pb;+ProgrBlock OPER (Orange);down 
+
+Enter;pb;+ProgrBlock OPER (Orange);enter 
+
+Prev;pb;+ProgrBlock OPER (Orange);prev 
+
+Next;pb;+ProgrBlock OPER (Orange);next 
+
+ 
+
+[0 sub-program] 
+
+activate sound;sound;Sound Block;play/Alert 1/5 
+
+here we are lights off;gr;Lights Both;off 
+
+here we are stop rotating;gr-rotor_vel;Rotors Both;0 
+
+extend pistons....;gr-piston_vel;Pistons Both;2.5 
+
+...and go to 1 through 4 seconds;run;1;4 
+
+[1 rotate and light] 
+
+;gr-light;Lights Both;blink=0.5,50 
+
+;gr;Lights Both;on 
+
+;gr-rotor_vel;Rotors Both;5 
+
+;run;2;5 
+
+[2 reverse rotation] 
+
+;gr-rotor_vel;Rotors Both;-5 
+
+;run;3;5 
+
+[3 off and retract] 
+
+;gr-light;Lights Both;blink=0,0 
+
+;gr;Lights Both;off 
+
+;gr-rotor_vel;Rotors Both;0 
+
+;gr-piston_vel;Pistons Both;-2.5 
+
+;run;4;4 
+
+[4 last action] 
+
+;gr-piston_vel;Pistons Both;0 
+
+;sound;Sound Block;play/Objective complete 
+
+Spotlights;bl;TCX-4 Spolight;onoff 
+
+Launch;pb;TCX-4 Program [EA2];TCX-4 Debug LCD(launch) 
+
+Land;pb;TCX-4 Program [EA2];TCX-4 Debug LCD(land) 
+
+ 
+
+Program Blocks: 
+
+Orbit Planet;pb;TCX-4 Program [EA2];TCX-4 Debug LCD(escape) 
+
+Thrusters;bl;TCX-4 Hydrogen Thruster;onoff 
+
+Aux Thrusters;gr;TCX-4 Heavy Lift Thrusters;onoff 
+
+Connect POD;pb;TCX-4 Program [EA2];TCX-4 Debug LCD(cpod) 
+
+Disconnect POD;pb;TCX-4 Program [EA2];TCX-4 Debug LCD(dpod) 
+
+ 
+
+Thrusters: 
+
+All Thrusters (group);gr;All Thrusters;onoff 
+
+All Thrusters v2;thrust;all/all;onoff 
+
+Brake Thrusters v2;thrust;all/backward;onoff 
+
+ 
+
+Sound: 
+
+Play Alert 5 sec;sound;Sound Block;play/Alert 2/5 
+
+Play Fun Music;sound;Sound Block;play/Fun Music 
+
+Stop Sound;sound;Sound Block;stop 
+
+[Main]
+CockpitPrefix=[MEN6]
+LCDPrefix=[MEN6]
+
+[Add]
+Prefix=
+Screen=1
+DefaultMenu=0
+WASDAutoDisable=true
+SwitchThrusters=false
+SwitchGyros=true
+SwitchWheels=true
+LCDAutoOff=true
+WASDPrgOn=-1
+WASDPrgOff=-1
+
+[Color]
+BackgroundColor=0,0,0
+ItemBarColor=0,6,12
+MainColor=55,155,255
+SelItemBarColor=155,55,0
+SelItemTextColor=0,0,0
+OnColor=225,65,100
+ArrowColor=155,225,255
+ErrorMSGColor=225,65,100
+HelpColor=155,225,255
+
+[TopMenu]
+0=Quick
+1=Mining
+2=Driver Assist
+3=Weapons
+4=Settings
+
+[0]
+Batteries;all-show;*;batt
+Battery Mode;gr-batt;UMG-6 Batteries;mode
+Run Mode;pb;UMG-6 Program [EAP];runmode
+Large Connector;conn_lock;UMG-6 Connector Main;toggle
+Small Connector;conn_lock;UMG-6 Small Connector;toggle
+Spotlights;gr;UMG-6 Spotlights;onoff
+[1]
+Inv Vol;all-show;*;inv
+Ship Mass;all-show;*;mass/total/100000
+Mining Mode;pb;UMG-6 Program [EAP];miningmode
+Hauling Mode;pb;UMG-6 Program [EAP];haulingmode
+Keep Ice;sorter_list;UMG-6 Sorter for Ejectors;black/Ore-Ice
+Throw Ice;sorter_list;UMG-6 Sorter for Ejectors;white/Ore-Ice
+Ejectors;gr;UMG-6 Ejectors;onoff
+Toggle Ore Detector;bl;UMG-6 Ore Detector;onoff
+[2]
+Start/Stop;pb;UMG-6 Program [DAS];STARTSTOP
+Low Ride;pb;UMG-6 Program [DAS];LOW_MODE
+High Ride;pb;UMG-6 Program [DAS];HIGH_MODE
+Hill Descent Control;pb;UMG-6 Program [DAS];TOGGLE_HDC
+Cruise Control;pb;UMG-6 Program [DAS];TOGGLE_CRUISECONTROL
+Auto Pilot;pb;UMG-6 Program [DAS];TOGGLE_AUTOPILOT
+Auto Pilot Resume;pb;UMG-6 Program [DAS];RESUME_AUTOPILOT
+Auto Pilot Mode;pb;UMG-6 Program [DAS];CYCLE_AUTOPILOT_MODE
+Auto Pilot Wait;pb;UMG-6 Program [DAS];CYCLE_AUTOPILOT_WAIT
+GPS Tracker On / Off;pb;UMG-6 Program [DAS];TOGGLE_GPSTRACKER
+GPS Tracker Display;pb;UMG-6 Program [DAS];TOGGLE_GPSLIST
+[3]
+Turret On/Off;bl;UMG-6 Gatling Turret;onoff
+[4]
+Antenna;bl;UMG-6 Antenna;onoff
+Antenna Radius;antenna;UMG-6 Antenna;3000/500
+Projector On/Off;bl;UMG-6 Projector;onoff
+Piston Jacks;pb;UMG-6 Program [EAP];pistonjacks
+
+[TopMenu]
+0=Quick
+1=Driver Assist
+2=Settings
+
+[0]
+Power MW;all-show;*;power
+Batteries;all-show;*;batt
+Battery Mode;gr-batt;TPG-2 Batteries;mode
+Status;pb;TPG-2 Program [EA2];TPG-2 Debug LCD(status)
+Headlights;gr;TPG-2 Headlights;onoff
+Spotlights;gr;TPG-2 Spotlights;onoff
+Doors;pb;TPG-2 Program [EA2];TPG-2 Debug LCD(doors)
+Conn Det;pb;TPG-2 Program [EA2];TPG-2 Debug LCD(condet)
+Conn Att;pb;TPG-2 Program [EA2];TPG-2 Debug LCD(conatt)
+[1]
+Start/Stop;pb;TPG-2 Program [DAS];STARTSTOP
+Low Ride;pb;TPG-2 Program [DAS];LOW_MODE
+High Ride;pb;TPG-2 Program [DAS];HIGH_MODE
+Hill Descent Control;pb;TPG-2 Program [DAS];TOGGLE_HDC
+Cruise Control;pb;TPG-2 Program [DAS];TOGGLE_CRUISECONTROL
+Auto Pilot;pb;TPG-2 Program [DAS];TOGGLE_AUTOPILOT
+Auto Pilot Resume;pb;TPG-2 Program [DAS];RESUME_AUTOPILOT
+Auto Pilot Mode;pb;TPG-2 Program [DAS];CYCLE_AUTOPILOT_MODE
+Auto Pilot Wait;pb;TPG-2 Program [DAS];CYCLE_AUTOPILOT_WAIT
+GPS Tracker On / Off;pb;TPG-2 Program [DAS];TOGGLE_GPSTRACKER
+GPS Tracker Display;pb;TPG-2 Program [DAS];TOGGLE_GPSLIST
+[2]
+Cool Lights Color;gr-light;TPG-2 Headlights;color=160,230,255/blink=0,0
+Warm Lights Color;gr-light;TPG-2 Headlights;color=255,255,180/blink=0,0
+Antenna;bl;TPG-2 Antenna;onoff
+Antenna Radius;antenna;TPG-2 Antenna;3000/500
+Ore Detector;bl;TPG-2 Ore Detector;onoff
+Projector On/Off;bl;TPG-2 Projector;onoff
+
+[TopMenu]
+0=FUNCTION
+
+[0]
+Top Connectors;conn_lock;UCM-8 Connector Top;toggle
+Top Merge;gr;UCM-8 Merge Blocks Top;onoff
+Bot Connectors;conn_lock;UCM-8 Connector Bottom;toggle
+Bot Merge;gr;UCM-8 Merge Blocks Bottom;onoff
+Left Connector;conn_lock;UCM-8 Connector Left;toggle
+Right Connector;conn_lock;UCM-8 Connector Right;toggle
+Antenna;bl;UCM-8 Antenna;onoff
+Projector On/Off;bl;UCM-8 Projector;onoff
+
+[TopMenu]
+0=Quick
+1=Hauling
+2=Weapons
+3=Settings
+
+[0]
+Batteries;all-show;*;batt
+Battery Mode;gr-batt;UCX-11 Batteries;mode
+Run Mode;pb;UCX-11 Program [EAP];runmode
+Launch!;pb;UCX-11 Program [EAP];launch
+Conn Rear;conn_lock;UCX-11 Connector Second;toggle
+Conn Bottom;conn_lock;UCX-11 Connector Main;toggle
+Searchlights;gr;UCX-11 Light Search;onoff
+[1]
+Inv Vol;all-show;*;inv
+Ship Mass;all-show;*;mass/total/100000
+Module Toggle;pb;UCX-11 Program [EAP];module_toggle
+Pickup Toggle;pb;UCX-11 Program [EAP];pickup_toggle
+[2]
+Turret Top;bl;UCX-11 Turret Controller;onoff
+Turret Rear;bl;UCX-11 Turret Rear;onoff
+[3]
+Automation;gr;UCX-11 Event Controllers;onoff
+Antenna;bl;UCX-11 Antenna;onoff
+Antenna Radius;antenna;UCX-11 Antenna;3000/500
+Projector On/Off;bl;UCX-11 Projector;onoff
+Version;pb;UCX-11 Program [EAP];info
+
+[TopMenu]
+0=Quick
+1=Mining
+2=Driver Assist
+3=Weapons
+4=Settings
+
+[0]
+Batteries;all-show;*;batt
+Battery Mode;gr-batt;UMG-6 Batteries;mode
+Run Mode;pb;UMG-6 Program [EAP];runmode
+Large Connector;conn_lock;UMG-6 Connector Main;toggle
+Small Connector;conn_lock;UMG-6 Small Connector;toggle
+Spotlights;gr;UMG-6 Spotlights;onoff
+[1]
+Inv Vol;all-show;*;inv
+Ship Mass;all-show;*;mass/total/100000
+Mining Mode;pb;UMG-6 Program [EAP];miningmode
+Hauling Mode;pb;UMG-6 Program [EAP];haulingmode
+Keep Ice;sorter_list;UMG-6 Sorter for Ejectors;black/Ore-Ice
+Throw Ice;sorter_list;UMG-6 Sorter for Ejectors;white/Ore-Ice
+Ejectors;gr;UMG-6 Ejectors;onoff
+Toggle Ore Detector;bl;UMG-6 Ore Detector;onoff
+[2]
+Start/Stop;pb;UMG-6 Program [DAS];STARTSTOP
+Low Ride;pb;UMG-6 Program [DAS];LOW_MODE
+High Ride;pb;UMG-6 Program [DAS];HIGH_MODE
+Hill Descent Control;pb;UMG-6 Program [DAS];TOGGLE_HDC
+Cruise Control;pb;UMG-6 Program [DAS];TOGGLE_CRUISECONTROL
+Auto Pilot;pb;UMG-6 Program [DAS];TOGGLE_AUTOPILOT
+Auto Pilot Resume;pb;UMG-6 Program [DAS];RESUME_AUTOPILOT
+Auto Pilot Mode;pb;UMG-6 Program [DAS];CYCLE_AUTOPILOT_MODE
+Auto Pilot Wait;pb;UMG-6 Program [DAS];CYCLE_AUTOPILOT_WAIT
+GPS Tracker On / Off;pb;UMG-6 Program [DAS];TOGGLE_GPSTRACKER
+GPS Tracker Display;pb;UMG-6 Program [DAS];TOGGLE_GPSLIST
+[3]
+Turret On/Off;bl;UMG-6 Gatling Turret;onoff
+[4]
+Antenna;bl;UMG-6 Antenna;onoff
+Antenna Radius;antenna;UMG-6 Antenna;3000/500
+Projector On/Off;bl;UMG-6 Projector;onoff
+Piston Jacks;pb;UMG-6 Program [EAP];pistonjacks
+Version;pb;UMG-6 Program [EAP];info

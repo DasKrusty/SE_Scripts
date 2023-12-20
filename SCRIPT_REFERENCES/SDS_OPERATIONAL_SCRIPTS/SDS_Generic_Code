@@ -1,0 +1,58 @@
+[Main]
+CockpitPrefix=[MEN]
+LCDPrefix=[MEN]
+
+[Add]
+Prefix=
+Screen=1
+DefaultMenu=0
+WASDAutoDisable=true
+SwitchThrusters=false
+SwitchGyros=true
+SwitchWheels=true
+LCDAutoOff=true
+WASDPrgOn=-1
+WASDPrgOff=-1
+
+[Color]
+BackgroundColor=0,0,0
+ItemBarColor=0,6,12
+MainColor=55,155,255
+SelItemBarColor=155,55,0
+SelItemTextColor=0,0,0
+OnColor=225,65,100
+ArrowColor=155,225,255
+ErrorMSGColor=225,65,100
+HelpColor=155,225,255
+
+[TopMenu]
+0=Quick
+1=Lights
+2=Driver Assist
+3=Menu 3
+
+
+[0]
+Batteries;all-show;*;batt
+Battery Mode;gr-batt;UMG-6 Batteries;mode
+MBP;gr-show;GUM-4 Batteries;batt
+Run Mode;pb;UMG-6 Program [EAP];runmode
+Engine On/Off;bl;GFS-2A Hydrogen Engine;onoff
+Large Connector;conn_lock;UMG-6 Connector Main;toggle
+Small Connector;conn_lock;UMG-6 Small Connector;toggle
+
+[1]
+Spotlights;gr;UMG-6 Spotlights;onoff
+
+[2]
+Start/Stop;pb;GFS-1A Program [DAS];STARTSTOP
+Low Ride;pb;GFS-1A Program [DAS];LOW_MODE
+High Ride;pb;GFS-1A Program [DAS];HIGH_MODE
+Hill Descent Control;pb;GFS-1A Program [DAS];TOGGLE_HDC
+Cruise Control;pb;GFS-1A Program [DAS];TOGGLE_CRUISECONTROL
+Auto Pilot;pb;GFS-1A Program [DAS];TOGGLE_AUTOPILOT
+Auto Pilot Resume;pb;GFS-1A Program [DAS];RESUME_AUTOPILOT
+Auto Pilot Mode;pb;GFS-1A Program [DAS];CYCLE_AUTOPILOT_MODE
+Auto Pilot Wait;pb;GFS-1A Program [DAS];CYCLE_AUTOPILOT_WAIT
+GPS Tracker On / Off;pb;GFS-1A Program [DAS];TOGGLE_GPSTRACKER
+GPS Tracker Display;pb;GFS-1A Program [DAS];TOGGLE_GPSLIST
