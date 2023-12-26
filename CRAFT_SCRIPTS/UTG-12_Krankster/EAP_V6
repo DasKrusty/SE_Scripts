@@ -1,0 +1,169 @@
+*   This script is meant for a ground based craft with custom suspenion and geared settings.
+*   V6 - Preset setting for suspensions and also dynamic settings based on weight.
+
+@variables{
+    * Abreviated names for blocks
+    LIST = "UTG-12 Light Status"
+    LCST = "UTG-12 LCD Status"
+    LCIN = "UTG-12 LCD Info"
+    MASU = "UTG-12 Suspension Axle"
+    WHSU = "UTG-12 Wheel Suspension"
+    WHSF = "UTG-12 Suspension Axle Front"
+    WHSB = "UTG-12 Suspension Axle Back"
+    HIAX = "UTG-12 Hinge Axle"
+    * Dynamic Settings
+    a = Mass of MyShip
+    b = Gravity of MyShip
+    c = "0"
+    d = "2"
+    e = "0"
+}
+
+@gear_up{
+    if Color of UTG-12 Light Status = 255:0:0{
+        @gear_1
+    }
+    else if Color of UTG-12 Light Status = 0:255:0{
+        @gear_2
+    }
+    else if Color of UTG-12 Light Status = 50:255:0{
+        @gear_3
+    }
+    else if Color of UTG-12 Light Status = 100:255:0{
+        @gear_4
+    }
+    else if Color of UTG-12 Light Status = 150:255:0{
+        @gear_5
+    }
+}
+
+@gear_down{
+    if Color of UTG-12 Light Status = 200:255:0{
+        @gear_4
+    }
+    else if Color of UTG-12 Light Status = 150:255:0{
+        @gear_3
+    }
+    else if Color of UTG-12 Light Status = 100:255:0{
+        @gear_2
+    }
+    else if Color of UTG-12 Light Status = 50:255:0{
+        @gear_1
+    }
+    else if Color of UTG-12 Light Status = 0:255:0{
+        @park
+    }
+}
+
+@park{
+    Color of \LIST = 255:0:0
+    Write to \LCIN = P
+    Power of \WHSU = 0
+    Speed Limit of \WHSU = 0
+    MaxSteerAngle of \WHSF = 0
+    MaxSteerAngle of \WHSB = 0
+    Rotate \HIAX to 0 at 1
+    \c = math(((\a*\b)/\d)*0.1)
+    Torque of \HIAX = \c
+    Write to \LCST = "Mass = \a kg"
+    WriteLine to \LCST = "Grav = \b"
+    WriteLine to \LCST = "Force = \c Nm"
+    WriteLine to \LCST = "Torque = \e Nm"
+}
+
+@gear_1{
+    Color of \LIST = 0:255:0
+    Write to \LCIN = 1
+    Strength of \MASU = 10
+    Strength of \WHSU = 10
+    Power of \WHSU = 85
+    Speed Limit of \WHSU = 10
+    MaxSteerAngle of \WHSF = 25
+    MaxSteerAngle of \WHSB = 13
+    Rotate \HIAX to 20 at 20
+    \c = math(((\a*\b)/\d)*0.1)
+    Torque of \HIAX = \c
+    Write to \LCST = "Mass = \a kg"
+    WriteLine to \LCST = "Grav = \b"
+    WriteLine to \LCST = "Force = \c Nm"
+    WriteLine to \LCST = "Torque = \e Nm"
+}
+
+@gear_2{
+    Color of \LIST = 50:255:0
+    Write to \LCIN = 2
+    Strength of \MASU = 15
+    Strength of \WHSU = 20
+    Power of \WHSU = 65
+    Speed Limit of \WHSU = 20
+    MaxSteerAngle of \WHSF = 20
+    MaxSteerAngle of \WHSB = 10
+    Rotate \HIAX to 15 at 20
+    \c = math(((\a*\b)/\d)*0.1)
+    Torque of \HIAX = \c
+    Write to \LCST = "Mass = \a kg"
+    WriteLine to \LCST = "Grav = \b"
+    WriteLine to \LCST = "Force = \c Nm"
+    WriteLine to \LCST = "Torque = \e Nm"
+}
+
+@gear_3{
+    Color of \LIST = 100:255:0
+    Write to \LCIN = 3
+    Strength of \MASU = 20
+    Strength of \WHSU = 30
+    Power of \WHSU = 45
+    Speed Limit of \WHSU = 40
+    MaxSteerAngle of \WHSF = 15
+    MaxSteerAngle of \WHSB = 7
+    Rotate \HIAX to 10 at 20
+    \c = math(((\a*\b)/\d)*0.1)
+    Torque of \HIAX = \c
+    Write to \LCST = "Mass = \a kg"
+    WriteLine to \LCST = "Grav = \b"
+    WriteLine to \LCST = "Force = \c Nm"
+    WriteLine to \LCST = "Torque = \e Nm"
+}
+
+@gear_4{
+    Color of \LIST = 150:255:0
+    Write to \LCIN = 4
+    Strength of \MASU = 25
+    Strength of \WHSU = 40
+    Power of \WHSU = 25
+    Speed Limit of \WHSU = 80
+    MaxSteerAngle of \WHSF = 10
+    MaxSteerAngle of \WHSB = 5
+    Rotate \HIAX to 5 at 20
+    \c = math(((\a*\b)/\d)*0.1)
+    Torque of \HIAX = \c
+    Write to \LCST = "Mass = \a kg"
+    WriteLine to \LCST = "Grav = \b"
+    WriteLine to \LCST = "Force = \c Nm"
+    WriteLine to \LCST = "Torque = \e Nm"
+}
+
+@gear_5{
+    Color of \LIST = 200:255:0
+    Write to \LCIN = 5
+    Strength of \MASU = 30
+    Strength of \WHSU = 50
+    Power of \WHSU = 10
+    Speed Limit of \WHSU = 160
+    MaxSteerAngle of \WHSF = 5
+    MaxSteerAngle of \WHSB = 0
+    Rotate \HIAX to 0 at 20
+    \c = math(((\a*\b)/\d)*0.1)
+    Torque of \HIAX = \c
+    Write to \LCST = "Mass = \a kg"
+    WriteLine to \LCST = "Grav = \b"
+    WriteLine to \LCST = "Force = \c Nm"
+    WriteLine to \LCST = "Torque = \e Nm"
+}
+
+@info {
+    Write to \LCIN = EAP - V.1.16
+    WriteLine to \LCIN = FSD - V0.00
+    WriteLine to \LCIN = SDS - V0.00
+    WriteLine to \LCIN = Craft - V0.39
+}
