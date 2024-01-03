@@ -40,7 +40,7 @@
     Write to \LCIN = EAP - V.2.81
     WriteLine to \LCIN = FSD - V0.39
     WriteLine to \LCIN = SDS - V0.00
-    WriteLine to \LCIN = Craft - V0.00
+    WriteLine to \LCIN = Craft - V1.07
 }
 
 @module_toggle{
