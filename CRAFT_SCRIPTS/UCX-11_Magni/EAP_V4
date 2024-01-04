@@ -40,7 +40,7 @@
 }
 
 @info {
-    Write to \LCIN = EAP - V.4.02
+    Write to \LCIN = EAP - V.4.25
     WriteLine to \LCIN = FSD - V0.39
     WriteLine to \LCIN = SDS - V0.00
     WriteLine to \LCIN = Craft - V1.35
@@ -80,44 +80,54 @@
 }
 
 @offlinetostandby{
+    OnOff_On \LIPA
+    OnOff_On \LIST
+    Color of \LIST = 255:255:0
+    Color of \LIPA = 255:255:0
+    Write to \LCIN = "IN STANDBY"
     Stop \TIST
     Stop \TISH
     OnOff_On \ANTE
-    OnOff_On \LIPA
-    OnOff_On \LIST
-    Delay 3000
+    Delay 1000
     OnOff_On \EVC3
     OnOff_On \AIVE
     OnOff_On \TURR
-    Delay 3000
-    Color of \LIST = 255:255:0
+    Delay 1000
+    Color of \LIPA = 0:255:0
+    Delay 1000
     Color of \LIPA = 255:255:0
-    Write to \LCIN = "Standby"
 }
 
 @standbytoonline{
+    Color of \LIST = 255:255:255
+    Color of \LIPA = 255:255:255
+    Write to \LCIN = "PREPPING FLIGHT"
     OnOff_Off \BEAC
     Stop \TIST
     Stop \TISH
     OnOff_On \LIFL
     OnOff_On \LINA
     OnOff_Off \EVC2
-    Delay 3000
+    Delay 1000
     Discharge \BATT
     Stockpile of \HYTA = False
-    Delay 3000
+    Delay 1000
     OnOff_On \GYRO
-    Write to \LCIN = "Flight Sys ON"
+    WriteLine to \LCIN = "FLIGHT READY"
     Damp of MyShip = True
     OnOff_On \THRU
+    Color of \LIPA = 0:0:255
+    Delay 1000
+    Color of \LIPA = 255:255:255
     Delay 1000
     Unlock \LAMP
     Unlock \COMA
     Unlock \COSE
-    Color of \LIST = 255:255:255
-    Color of \LIPA = 255:255:255
-    Write to \LCIN = "Active"
+    WriteLine to \LCIN = "ACTIVE"
     Move \LAND to 0 at 0.5
+    Color of \LIPA = 0:255:0
+    Delay 1000
+    Color of \LIPA = 255:255:255
 }
 
 @onlinetostandby{
