@@ -40,10 +40,10 @@
 }
 
 @info {
-    Write to \LCIN = EAP - V.4.25
+    Write to \LCIN = EAP - V.4.81
     WriteLine to \LCIN = FSD - V0.39
     WriteLine to \LCIN = SDS - V0.00
-    WriteLine to \LCIN = Craft - V1.35
+    WriteLine to \LCIN = Craft - V1.73
 }
 
 @high_alt{
@@ -135,51 +135,60 @@
     Color of \LIST = 255:255:50
     Color of \LIPA = 255:255:50
     Delay 1000
-    If Gravity of MyShip > 0.5 {
-        WriteLine to \LCIN = "In Gravity"
-    }
     If Status of UCX-11 Landing Magnetic Plate Front 1 = ReadyToLock {
-        WriteLine to \LCIN = "TOUCHDOWN"
-        Move \LAND to 2 at 0.2
+        WriteLine to \LCIN = "READY TO LOCK"
+        Delay 1000
+        WriteLine to \LCIN = "WAIT ONE"
+        Move \LAND to 2 at 0.3
         Damp of MyShip = False
-        Delay 10000
+        Delay 9000
         Lock \LAMP
-        OnOff_Off \GYRO
-        OnOff_Off \THRU
-        Delay 3000
         OnOff_On \EVC2
         OnOff_Off \EVC3
-        Color of \LIPA = 0:255:50
+        @flightoff
+    }
+    If Gravity of MyShip < 0.05 {
+        WriteLine to \LCIN = "NO GRAVITY"
+        Delay 1000
+        @flightoff
+    }
+    Else If Status of UCX-11 Connector Main = Connectable {
+        WriteLine to \LCIN = "CONNECTED UNDER"
+        Lock \COMA
+        Color of \LIST = 0:0:250
         Delay 3000
-        Color of \LIPA = 255:255:50
-        Write to \LCIN = "STANDBY"
-        Start \TISH
+        @flightoff
+    }
+    Else If Status of UCX-11 Connector Second = Connectable {
+        WriteLine to \LCIN = "CONNECTED BACK"
+        Lock \COSE
+        Color of \LIST = 0:0:250
+        Delay 3000
+        @flightoff
     }
     Else {
-        WriteLine to \LCIN = "NO TOUCHDOWN"
+        WriteLine to \LCIN = "NOT READY TO LOCK"
         Delay 1000
-        WriteLine to \LCIN = "CANNOT LAND"
-        @standbytoonline
+        Color of \LIST = 255:255:255
+        Color of \LIPA = 255:255:255
     }
 }
 
 @standbytooffline{
-    Write to \LCIN = "CHECKING CONNECTORS"
+    OnOff_Off \AIVE
+    OnOff_Off \ANTE
+    OnOff_Off \TURR
     Delay 3000
-    If Status of UCX-11 Connector Main = Connectable {
-        WriteLine to \LCIN = "CONNECTED MAIN"
-        Lock \COMA
-        Delay 3000
-        @recharge
-    }
-    Else If Status of UCX-11 Connector Second = Connectable {
-        WriteLine to \LCIN = "CONNECTED SECOND"
-        Lock \COSE
-        Delay 3000
+    Color of \LIST = 255:0:0
+    Color of \LIPA = 255:0:0
+    Write to \LCIN = "POWERED DOWN"
+    Delay 3000
+    OnOff_Off \LIGH
+    if Color of UCX-11 Light Status = 0:0:250 {
         @recharge
     }
     Else {
-        WriteLine to \LCIN = "NO CONNECTORS"
+        WriteLine to \LCIN = "NO CONNECTION"
         Delay 3000
         WriteLine to \LCIN = "CANNOT SHUT DOWN"
         @offlinetostandby
@@ -188,19 +197,8 @@
 
 @recharge{
     * Run by @standbytooffline for shutdown if connected
-    OnOff_Off \AIVE
-    Delay 3000
-    OnOff_Off \ANTE
-    OnOff_Off \TURR
-    Delay 3000
     Recharge \BATT
     Stockpile of \HYTA = True
-    Delay 3000
-    Color of \LIST = 255:0:0
-    Color of \LIPA = 255:0:0
-    Write to \LCIN = "Powered Down"
-    Delay 3000
-    OnOff_Off \LIGH
 }
 
 @emergency{
@@ -209,4 +207,18 @@
     OnOff_On \BEAC
     Open_On \PAHA
     Write to \LCIN = "ASSISTANCE REQUIRED"
+}
+
+@flightoff{
+    * Used by @onlinetostandby
+    OnOff_Off \GYRO
+    OnOff_Off \THRU
+    Damp of MyShip = False
+    OnOff_On \LIPA
+    Color of \LIPA = 0:255:0
+    Delay 1000
+    Color of \LIPA = 255:255:50
+    OnOff_Off \LIPA
+    Start \TISH
+    Write to \LCIN = "STANDBY"
 }
