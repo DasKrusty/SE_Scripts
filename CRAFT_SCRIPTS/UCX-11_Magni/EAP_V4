@@ -3,9 +3,10 @@
     AIVE = "UCX-11 Air Vent Fan"
     ANTE = "UCX-11 Antenna"
     BATT = "UCX-11 Battery"
+    BEAC = "UCX-11 Beacon"
     COMA = "UCX-11 Connector Main"
     COSE = "UCX-11 Connector Second"
-    EVC1 = "UCX-11 Event Controller - Land"
+    EVC1 = "UCX-11 Event Controller - Emergency"
     EVC2 = "UCX-11 Event Controller - Cockpit"
     EVC3 = "UCX-11 Event Controller - Altitude"
     EVC4 = "UCX-11 Event Controller - Lock"
@@ -30,6 +31,7 @@
     MOME = "UCX-11 Module Merge"
     MOMF = "UCX-11 Module Merge Front"
     O2H2 = "UCX-11 O2/H2 Generator"
+    PAHA = "UCX-11 Parachute Hatch"
     PRSC = "UCX-11 Program [SCC]"
     TURR = "UCX-11 Turret" 
     THRU = "UCX-11 Hydrogen Thruster"
@@ -38,7 +40,7 @@
 }
 
 @info {
-    Write to \LCIN = EAP - V.3.66
+    Write to \LCIN = EAP - V.4.02
     WriteLine to \LCIN = FSD - V0.39
     WriteLine to \LCIN = SDS - V0.00
     WriteLine to \LCIN = Craft - V1.35
@@ -47,7 +49,6 @@
 @high_alt{
     * Triggered by Event Controller checking Altitude
     OnOff_Off \LIPA
-    OnOff_On \PRSC
     Write to \LCIN = "HIGH ALTITUDE"
 }
 
@@ -55,7 +56,6 @@
     * Triggered by Event Controller checking Altitude
     Color of \LIPA = 255:255:255
     OnOff_On \LIPA
-    OnOff_Off \PRSC
     Write to \LCIN = "LOW ALTITUDE"
 }
 
@@ -96,6 +96,7 @@
 }
 
 @standbytoonline{
+    OnOff_Off \BEAC
     Stop \TIST
     Stop \TISH
     OnOff_On \LIFL
@@ -109,39 +110,46 @@
     Write to \LCIN = "Flight Sys ON"
     Damp of MyShip = True
     OnOff_On \THRU
-    Delay 3000
+    Delay 1000
     Unlock \LAMP
     Unlock \COMA
     Unlock \COSE
-    Move \LAND to 0 at 0.5
     Color of \LIST = 255:255:255
     Color of \LIPA = 255:255:255
     Write to \LCIN = "Active"
+    Move \LAND to 0 at 0.5
 }
 
 @onlinetostandby{
     Write to \LCIN = "CHECKING STATUS"
-    Delay 3000
+    Color of \LIST = 255:255:50
+    Color of \LIPA = 255:255:50
+    Delay 1000
+    If Gravity of MyShip > 0.5 {
+        WriteLine to \LCIN = "In Gravity"
+    }
     If Status of UCX-11 Landing Magnetic Plate Front 1 = ReadyToLock {
+        WriteLine to \LCIN = "TOUCHDOWN"
         Move \LAND to 2 at 0.2
+        Damp of MyShip = False
         Delay 10000
         Lock \LAMP
         OnOff_Off \GYRO
-        Damp of MyShip = False
         OnOff_Off \THRU
         Delay 3000
         OnOff_On \EVC2
         OnOff_Off \EVC3
+        Color of \LIPA = 0:255:50
         Delay 3000
-        Color of \LIST = 255:255:50
         Color of \LIPA = 255:255:50
-        Write to \LCIN = "Standby"
+        Write to \LCIN = "STANDBY"
         Start \TISH
     }
     Else {
-        WriteLine to \LCIN = "ERROR... Check Maglocks"
-        Delay 3000
+        WriteLine to \LCIN = "NO TOUCHDOWN"
+        Delay 1000
         WriteLine to \LCIN = "CANNOT LAND"
+        @standbytoonline
     }
 }
 
@@ -164,6 +172,7 @@
         WriteLine to \LCIN = "NO CONNECTORS"
         Delay 3000
         WriteLine to \LCIN = "CANNOT SHUT DOWN"
+        @offlinetostandby
     }
 }
 
@@ -182,4 +191,12 @@
     Write to \LCIN = "Powered Down"
     Delay 3000
     OnOff_Off \LIGH
+}
+
+@emergency{
+    OnOff_Off \THRU
+    OnOff_Off \GYRO
+    OnOff_On \BEAC
+    Open_On \PAHA
+    Write to \LCIN = "ASSISTANCE REQUIRED"
 }
