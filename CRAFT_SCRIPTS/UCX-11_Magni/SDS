@@ -35,7 +35,6 @@ HelpColor=155,225,255
 Batteries;all-show;*;batt
 Battery Mode;gr-batt;UCX-11 Batteries;mode
 Run Mode;pb;UCX-11 Program [EAP];runmode
-Launch!;pb;UCX-11 Program [EAP];launch
 Conn Rear;conn_lock;UCX-11 Connector Second;toggle
 Conn Bottom;conn_lock;UCX-11 Connector Main;toggle
 Searchlights;gr;UCX-11 Light Search;onoff
