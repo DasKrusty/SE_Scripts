@@ -219,3 +219,17 @@
     Start \TISH
     Write to \LCIN = "STANDBY"
 }
+
+@cockpit_in{
+    if Color of UCX-11 Light Status = 255:0:0 {@offlinetostandby}
+    if Color of UCX-11 Light Status = 255:255:0 {}
+    if Color of UCX-11 Light Status = 255:255:255 {}
+    if Color of UCX-11 Light Status = 255:255:50 {@offlinetostandby}
+}
+
+@cockpit_out{
+    if Color of UCX-11 Light Status = 255:0:0 {}
+    if Color of UCX-11 Light Status = 255:255:0 {@onlinetostandby}
+    if Color of UCX-11 Light Status = 255:255:255 {@onlinetostandby}
+    if Color of UCX-11 Light Status = 255:255:50 {}
+}

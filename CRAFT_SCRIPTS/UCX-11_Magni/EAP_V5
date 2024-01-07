@@ -7,32 +7,20 @@
     COMA = "UCX-11 Connector Main"
     COSE = "UCX-11 Connector Second"
     EVC1 = "UCX-11 Event Controller - Emergency"
-    EVC2 = "UCX-11 Event Controller - Cockpit"
-    EVC3 = "UCX-11 Event Controller - Altitude"
-    EVC4 = "UCX-11 Event Controller - Lock"
+    EVC2 = "UCX-11 Event Controller - Altitude"
     GYRO = "UCX-11 Gyroscope"
     HEVE = "UCX-11 Heat Vent"
     HYTA = "UCX-11 Hydrogen Tank"
     LAMP = "UCX-11 Landing Magnetic Plate"
-    LAMF = "UCX-11 Landing Magnetic Plate Front 1"
-    LAMB = "UCX-11 Landing Magnetic Plate Back"
     LAND = "UCX-11 Landing Piston"
-    LAPI = "UCX-11 Landing Piston"
     LCIN = "UCX-11 LCD Info"
     LIPA = "UCX-11 Light Panel Floor"
     LIST = "UCX-11 Light Status"
-    LISE = "UCX-11 Light Search"
     LINA = "UCX-11 Light Nav"
     LIFL = "UCX-11 Light Flight"
     LIGH = "UCX-11 Light"
-    MOCO = "UCX-11 Module Connector"
-    MOCF = "UCX-11 Module Connector Front"
-    MOHI = "UCX-11 Module Hinge"
-    MOME = "UCX-11 Module Merge"
-    MOMF = "UCX-11 Module Merge Front"
-    O2H2 = "UCX-11 O2/H2 Generator"
     PAHA = "UCX-11 Parachute Hatch"
-    PRSC = "UCX-11 Program [SCC]"
+    PROJ = "UCX-11 Projector"
     TURR = "UCX-11 Turret" 
     THRU = "UCX-11 Hydrogen Thruster"
     TISH = "UCX-11 Timer Shutdown"
@@ -41,7 +29,176 @@
 
 @info {
     Write to \LCIN = EAP - V.4.88
-    WriteLine to \LCIN = FSD - V0.39
-    WriteLine to \LCIN = SDS - V0.00
+    WriteLine to \LCIN = FSD - V0.43
+    WriteLine to \LCIN = SDS - V0.54
     WriteLine to \LCIN = Craft - V1.73
+}
+
+* MAIN RUNMODE SCRIPT
+
+@runmode{
+    * Main functions of craft run through here
+    if Color of UCX-11 Light Status = 255:0:0
+    {
+        @offlinetostandby
+    }
+    else if Color of UCX-11 Light Status = 255:255:0
+    {
+        @standbytoonline
+    }
+    else if Color of UCX-11 Light Status = 255:255:255
+    {
+        @onlinetostandby
+    }
+    else if Color of UCX-11 Light Status = 255:255:50
+    {
+        @standbytooffline
+    }
+}
+
+@offlinetostandby{
+    OnOff_On \LIST
+    Color of \LIST = 255:255:0
+    Color of \LIPA = 255:255:0
+    Write to \LCIN = "STANDBY"
+    OnOff_On \AIVE
+    OnOff_On \ANTE
+    OnOff_On \LIFL
+    OnOff_On \LINA
+    OnOff_On \TURR
+    OnOff_On \HEVE
+    Discharge \BATT
+    Stockpile of \HYTA = False
+    Stop \TISH
+    Stop \TIST
+}
+
+@standbytoonline{
+    OnOff_Off \BEAC
+    OnOff_Off \PROJ
+    OnOff_On \LIPA
+    Color of \LIST = 255:255:255
+    Color of \LIPA = 255:255:255
+    Write to \LCIN = "ONLINE"
+    OnOff_On \EVC1
+    OnOff_On \EVC2
+    OnOff_On \GYRO
+    OnOff_On \THRU
+    Damp of MyShip = True
+    Unlock \LAMP
+    Unlock \COMA
+    Unlock \COSE
+    Move \LAND to 0 at 0.5
+    Stop \TISH
+    Stop \TIST
+}
+
+@onlinetostandby{
+    Write to \LCIN = "CHECKING STATUS"
+    Color of \LIST = 255:255:50
+    Color of \LIPA = 255:255:50
+    Delay 3000
+     If Status of UCX-11 Landing Magnetic Plate Front 1 = ReadyToLock {
+        WriteLine to \LCIN = "READY TO LOCK"
+        Delay 3000
+        WriteLine to \LCIN = "WAIT ONE"
+        Move \LAND to 2 at 0.5
+        Damp of MyShip = False
+        Delay 9000
+        Lock \LAMP
+        OnOff_Off \EVC2
+        Color of \LIST = 255:255:100
+        @flightoff
+        Write to \LCIN = "LAND GEAR LOCKED"
+    }
+    If Status of UCX-11 Connector Main = Connectable {
+        WriteLine to \LCIN = "CONNECTED UNDER"
+        Lock \COMA
+        Delay 3000
+        Color of \LIST = 255:255:150
+        Write to \LCIN = "CONNECTOR LOCKED"
+        Delay 3000
+        @flightoff
+        
+    }
+    If Status of UCX-11 Connector Second = Connectable {
+        WriteLine to \LCIN = "CONNECTED BACK"
+        Lock \COSE
+        Delay 3000
+        Color of \LIST = 255:255:150
+        Write to \LCIN = "CONNECTOR LOCKED"
+        Delay 3000
+        @flightoff
+    }
+    If Gravity of MyShip < 0.05 {
+        WriteLine to \LCIN = "NO GRAVITY"
+        Delay 1000
+        Color of \LIST = 255:255:100
+        @flightoff
+    }
+    If Color of UCX-11 Light Status = 255:255:50 {
+        WriteLine to \LCIN = "NO LOCK"
+        Delay 2000
+        Color of \LIST = 255:255:255
+        Color of \LIPA = 255:255:255
+        Write to \LCIN = "ONLINE"
+    }
+    If Color of UCX-11 Light Status = 255:255:100 {
+        Color of \LIST = 255:255:50
+        Start \TISH
+        Write to \LCIN = "STANDBY"
+    }
+    If Color of UCX-11 Light Status = 255:255:150 {
+        Color of \LIST = 255:255:50
+        Start \TISH
+        Recharge \BATT
+        Stockpile of \HYTA = True
+        Write to \LCIN = "STANDBY"
+    }
+}
+
+@standbytooffline{
+    Color of \LIST = 255:0:0
+    Color of \LIPA = 255:0:0
+    Write to \LCIN = "OFFLINE"
+    OnOff_Off \AIVE
+    OnOff_Off \ANTE
+    OnOff_Off \EVC1
+    OnOff_Off \LIGH
+    OnOff_Off \TURR
+    OnOff_Off \HEVE
+}
+
+* SUB SCRIPTS FOR RUNMODE MAIN SCRIPTS
+
+@flightoff{
+    * Used by @onlinetostandby
+    OnOff_Off \GYRO
+    OnOff_Off \THRU
+    OnOff_On \PROJ
+    Damp of MyShip = False
+}
+
+* SMALL SIDE SCRIPTS
+
+@emergency{
+    * Triggered by Event Controller in case of loss of fuel
+    OnOff_Off \THRU
+    OnOff_Off \GYRO
+    OnOff_On \BEAC
+    Open_On \PAHA
+    Write to \LCIN = "ASSISTANCE REQUIRED"
+}
+
+@high_alt{
+    * Triggered by Event Controller checking Altitude
+    OnOff_Off \LIPA
+    Write to \LCIN = "HIGH ALTITUDE"
+}
+
+@low_alt{
+    * Triggered by Event Controller checking Altitude
+    Color of \LIPA = 255:255:255
+    OnOff_On \LIPA
+    Write to \LCIN = "LOW ALTITUDE"
 }
