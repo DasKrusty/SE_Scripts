@@ -1,5 +1,123 @@
 @variables{
     * Abreviated names for blocks
-    SHAB = "Shock Absorber"
-    
+    * Function Parts
+    LIST = "Light Status"
+    LCST = "LCD Status"
+    LCIN = "LCD Info"
+    EVC1 = "Event Controller 1"
+    * Suspension Parts
+    SHAS = "Shock Absorber Suspension"
+    SARA = "Shock Absorber Rotor Axle Point"
+    SARH = "Shock Absorber Rotor Body Point"
+    SWPR = "Swing Point Rotor"
+    SWAH = "Swing Arm Hinge"
+    FLAS = "Floating Absorber Suspension"
+    FLAH = "Flexing Axle Hinge"
+    STAP = "Stretch Axle Piston"
+    WISH = "Wishbone Hinge"
+    WHSU = "Wheel Suspension"
+    WHSF = "Wheel Suspension Front"
+    WHSB = "Wheel Suspension Back"
+}
+
+@gear_up{
+    if Color of UTG-12 Light Status = 255:0:0{
+        @gear_1
+    }
+    else if Color of UTG-12 Light Status = 0:255:0{
+        @gear_2
+    }
+    else if Color of UTG-12 Light Status = 50:255:0{
+        @gear_3
+    }
+    else if Color of UTG-12 Light Status = 100:255:0{
+        @gear_4
+    }
+    else if Color of UTG-12 Light Status = 150:255:0{
+        @gear_5
+    }
+    else if Color of UTG-12 Light Status = 200:255:0{
+        @gear_6
+    }
+}
+
+@gear_down{
+    if Color of UTG-12 Light Status = 250:255:0{
+        @gear_5
+    }
+    else if Color of UTG-12 Light Status = 200:255:0{
+        @gear_4
+    }
+    else if Color of UTG-12 Light Status = 150:255:0{
+        @gear_3
+    }
+    else if Color of UTG-12 Light Status = 100:255:0{
+        @gear_2
+    }
+    else if Color of UTG-12 Light Status = 50:255:0{
+        @gear_1
+    }
+    else if Color of UTG-12 Light Status = 0:255:0{
+        @park
+    }
+}
+
+@gear_1{
+    Color of \LIST = 0:255:0
+    Write to \LCIN = 1
+    Strength of \WHSU = 10
+    Power of \WHSU = 100
+    Speed Limit of \WHSU = 10
+    MaxSteerAngle of \WHSF = 25
+    MaxSteerAngle of \WHSB = 25
+}
+
+@gear_2{
+    Color of \LIST = 50:255:0
+    Write to \LCIN = 2
+    Strength of \WHSU = 20
+    Power of \WHSU = 60
+    Speed Limit of \WHSU = 20
+    MaxSteerAngle of \WHSF = 21
+    MaxSteerAngle of \WHSB = 11
+}
+
+@gear_3{
+    Color of \LIST = 100:255:0
+    Write to \LCIN = 3
+    Strength of \WHSU = 30
+    Power of \WHSU = 30
+    Speed Limit of \WHSU = 40
+    MaxSteerAngle of \WHSF = 17
+    MaxSteerAngle of \WHSB = 4
+}
+
+@gear_4{
+    Color of \LIST = 150:255:0
+    Write to \LCIN = 4
+    Strength of \WHSU = 40
+    Power of \WHSU = 20
+    Speed Limit of \WHSU = 80
+    MaxSteerAngle of \WHSF = 13
+    MaxSteerAngle of \WHSB = 2
+}
+
+@gear_5{
+    Color of \LIST = 200:255:0
+    Write to \LCIN = 5
+    Strength of \WHSU = 50
+    Power of \WHSU = 10
+    Speed Limit of \WHSU = 120
+    MaxSteerAngle of \WHSF = 9
+    MaxSteerAngle of \WHSB = 0
+}
+
+@gear_6{
+    Color of \LIST = 250:255:0
+    Write to \LCIN = 6
+    Strength of \WHSU = 60
+    Power of \WHSU = 5
+    Speed Limit of \WHSU = 180
+    MaxSteerAngle of \WHSF = 5
+    MaxSteerAngle of \WHSB = 0
 }
