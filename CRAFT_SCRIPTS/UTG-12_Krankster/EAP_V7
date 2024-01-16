@@ -4,7 +4,8 @@
     LIST = "Light Status"
     LCST = "LCD Status"
     LCIN = "LCD Info"
-    EVC1 = "Event Controller 1"
+    EVCU = "Event Controller Gear Up"
+    EVCD = "Event Controller Gear Down"
     * Suspension Parts
     SHAS = "Shock Absorber Suspension"
     SARA = "Shock Absorber Rotor Axle Point"
@@ -18,6 +19,11 @@
     WHSU = "Wheel Suspension"
     WHSF = "Wheel Suspension Front"
     WHSB = "Wheel Suspension Back"
+    * Calculations
+    a = Mass of MyShip
+    b = Gravity of MyShip
+    c = "0"
+    * c = Force to counter on suspension system
 }
 
 @gear_up{
@@ -62,9 +68,37 @@
     }
 }
 
+@park{
+    Color of \LIST = 255:0:0
+    Write to \LCIN = P
+    * Calculations
+    \c = math(\a*\b)
+    Write to \LCST = "Mass = \a kg"
+    WriteLine to \LCST = "Grav = \b"
+    WriteLine to \LCST = "Force = \c Nm"
+    EnableParking of Wheel = True
+}
+
 @gear_1{
     Color of \LIST = 0:255:0
     Write to \LCIN = 1
+    * Calculations
+    \c = math(\a*\b)
+    Write to \LCST = "Mass = \a kg"
+    WriteLine to \LCST = "Grav = \b"
+    WriteLine to \LCST = "Force = \c Nm"
+    * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
+    * Speed for EVCU to figure out
+    * Speed for EVCD to figure out
+    * SETTINGS - SHOCK ABSORBERS
+    * Strength of \SHAS = Calculation
+    * Strength of \FLAS = Calculation
+    * Wheel suspension height offset = ?
+    * Torque of \WISH = Calculation
+    * SETTINGS - WHEEL SUSPENSION
+    EnableParking of Wheel = False
+    * Strength of Wheel Suspension needs to be calculated
+    * Wheel suspension height offset = ?
     Strength of \WHSU = 10
     Power of \WHSU = 100
     Speed Limit of \WHSU = 10
@@ -75,6 +109,18 @@
 @gear_2{
     Color of \LIST = 50:255:0
     Write to \LCIN = 2
+    * Calculations
+    \c = math(\a*\b)
+    Write to \LCST = "Mass = \a kg"
+    WriteLine to \LCST = "Grav = \b"
+    WriteLine to \LCST = "Force = \c Nm"
+    * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
+    * Speed for EVCU to figure out
+    * Speed for EVCD to figure out
+    * SETTINGS - SHOCK ABSORBERS
+    * Strength of \SHAS = Calculation
+    * SETTINGS - WHEEL SUSPENSION
+    * Strength of Wheel Suspension needs to be calculated
     Strength of \WHSU = 20
     Power of \WHSU = 60
     Speed Limit of \WHSU = 20
@@ -85,6 +131,18 @@
 @gear_3{
     Color of \LIST = 100:255:0
     Write to \LCIN = 3
+    * Calculations
+    \c = math(\a*\b)
+    Write to \LCST = "Mass = \a kg"
+    WriteLine to \LCST = "Grav = \b"
+    WriteLine to \LCST = "Force = \c Nm"
+    * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
+    * Speed for EVCU to figure out
+    * Speed for EVCD to figure out
+    * SETTINGS - SHOCK ABSORBERS
+    * Strength of \SHAS = Calculation
+    * SETTINGS - WHEEL SUSPENSION
+    * Strength of Wheel Suspension needs to be calculated
     Strength of \WHSU = 30
     Power of \WHSU = 30
     Speed Limit of \WHSU = 40
@@ -95,6 +153,18 @@
 @gear_4{
     Color of \LIST = 150:255:0
     Write to \LCIN = 4
+    * Calculations
+    \c = math(\a*\b)
+    Write to \LCST = "Mass = \a kg"
+    WriteLine to \LCST = "Grav = \b"
+    WriteLine to \LCST = "Force = \c Nm"
+    * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
+    * Speed for EVCU to figure out
+    * Speed for EVCD to figure out
+    * SETTINGS - SHOCK ABSORBERS
+    * Strength of \SHAS = Calculation
+    * SETTINGS - WHEEL SUSPENSION
+    * Strength of Wheel Suspension needs to be calculated
     Strength of \WHSU = 40
     Power of \WHSU = 20
     Speed Limit of \WHSU = 80
@@ -105,6 +175,18 @@
 @gear_5{
     Color of \LIST = 200:255:0
     Write to \LCIN = 5
+    * Calculations
+    \c = math(\a*\b)
+    Write to \LCST = "Mass = \a kg"
+    WriteLine to \LCST = "Grav = \b"
+    WriteLine to \LCST = "Force = \c Nm"
+    * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
+    * Speed for EVCU to figure out
+    * Speed for EVCD to figure out
+    * SETTINGS - SHOCK ABSORBERS
+    * Strength of \SHAS = Calculation
+    * SETTINGS - WHEEL SUSPENSION
+    * Strength of Wheel Suspension needs to be calculated
     Strength of \WHSU = 50
     Power of \WHSU = 10
     Speed Limit of \WHSU = 120
@@ -115,6 +197,18 @@
 @gear_6{
     Color of \LIST = 250:255:0
     Write to \LCIN = 6
+    * Calculations
+    \c = math(\a*\b)
+    Write to \LCST = "Mass = \a kg"
+    WriteLine to \LCST = "Grav = \b"
+    WriteLine to \LCST = "Force = \c Nm"
+    * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
+    * Speed for EVCU to figure out
+    * Speed for EVCD to figure out
+    * SETTINGS - SHOCK ABSORBERS
+    * Strength of \SHAS = Calculation
+    * SETTINGS - WHEEL SUSPENSION
+    * Strength of Wheel Suspension needs to be calculated
     Strength of \WHSU = 60
     Power of \WHSU = 5
     Speed Limit of \WHSU = 180
