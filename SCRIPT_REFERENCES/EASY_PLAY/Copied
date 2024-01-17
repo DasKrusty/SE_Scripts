@@ -3006,3 +3006,266 @@ show \1
 @pistonjacks{
     Reverse PIJA
 }
+
+TERMS AND DEFINITIONS:
+@ - Code Block - where a set of commands is stored to run a specific task
+@rename {Rename \1 to \2}
+
+Variables
+@var {
+    pos = Position of MyPiston}
+@var {
+    my = Grid Name of MyShip
+    pos = Grid Position of MyShip
+    rec = Send of MyShip
+    help = 0
+    }
+
+DATA TYPES:
+There are 5 data types that are defined by the representation of a variable:
+    - Boolean type - can have two values ​​True or False
+    - Number (Number) - a positive or negative number with a decimal point, the boundary values ​​of which are determined by the game properties of the block.
+    - Color (Color) is the RGB representation of a triad of colors separated by ":", such as 0:0:255 (blue).
+    - GPS coordinatesis a triad of X:Y:Z, for example " GPS:Base:-62664.81 : -80178.37:-27915.08:# ".
+    - String (String) - Below is the initialization and output to the console of three string variables
+        @vars { 
+            name = Iroquois 
+            type = "Impact Media" 
+            value = "" 
+        } 
+        @view { 
+            Console = "\name \N \type \value" 
+        }
+
+VARIABLE TYPES:
+Easy Play variables come in two forms:
+    - global , which are defined in a special @-block starting with @var and available to any script inside the automation. The @var block must be the first block in the CustomData field if you intend to use
+        Global variables
+            Address by name. The variable name must consist of letters, numbers, and characters.
+            Global variable names must not start with numbers and must not match reserved system words like if , on , at , etc.
+                @vars { * d is an invalid variable name because another variable name * dmin starts with it. Use something else like d1 d = 0 dmin = 100 }
+            The initialization of any global variables in the @var block and the presence of spaces to the left and right of the "=" sign is mandatory , otherwise an error message will be displayed:
+                @vars { ship = "" color = 100:0:255 gps = "GPS:Base:-62664.81:-80178.37:-27915.08:#" * will throw an error due to missing space between sign = and 0 distance =0 }
+            Variables can be accessed by name inside any @-block by preceding it with "\" (backslash). When setting a new value, you can use the abbreviated or full form of Value of :
+                @test { 
+                    \ship = Grid Name of MyShip
+                    Value of color = "0:0:200"
+                    FontColor of LCD Info = \color
+                    Write to LCD Info = "Корабль: \ship"
+                    WriteLine to LCD Info = "База: \gps"
+                }
+    - local (dynamic) global variables that are created when the script is run from the BOP argument string, enumerated through "," using "()" (parentheses)
+        They are initialized when the script is called through the "Argument" field of the Easy Play PB. For example, field of calling info(Airvent, Help) and then pressing " Run ".
+            @info { 
+                * print the "Help" header specified in the second variable to the area Echo Echo = "\2\N" 
+                * print the properties and actions of the block named Airvent specified in the first variable to the console Show \1 
+            }
+        Hint: if you need to know if an argument was passed or not, use the following code:
+            if \1 ? \ { Echo = "Call with no argument" }
+        Using Variables
+            Basically, variables are used to store block states and set those states. The thing is that in one line it is impossible to set the value of one block property based on another. For example, if the GPS coordinate is stored in the camera's CustomData, then you can't directly use this:
+                @flights {
+                    Fly to Data of Camera Lidar at 30
+                    UpperLimit of Piston 1 = UpperLimit of Piston 2
+                    \x = Data of Camera Lidar
+                    Fly to \x at 30
+                    \x = UpperLimit of Piston 2
+                    UpperLimit of Piston 1 = \x
+                }
+
+VARIABLE VALUES
+Assigning a value to a variable in Easy Play is different than in conventional programming. At any time, the variable does not store the value calculated at the time of initialization, but its representation , which will be calculated only at the time of the call:
+    @variables { 
+        * variable does not have a value for the piston position at the time of initialization 
+        pos = Position of MyPiston 
+        } 
+    @test { 
+        * accessing the variable will display the current piston position, for example 1.5 
+        Echo = "Piston position: \pos" 
+        }
+This approach provides the possibility of flexible management of the state of individual blocks, but it can be overhead for group operations, for example, when inventorying the entire ship. In this case, it is useful to know the last computed value so that you do not have to re-inventory every time you access the variable representation.
+    @vars { 
+        x = 0 * the amount of ice in the inventory of O2/H2 generators 
+        iceg = math(int(InvX Ice of O2\H2 Generator / 1000)) 
+        } 
+    @ice * fix the amount of ice in the O2/H2 generators in variable x \x = \iceg 
+    if Value of x > 0 { 
+        if StatusX of Oxygen Tank on MyGrid < 50 { 
+            OnOff_On O2\H2 Generator 
+        } 
+    } 
+    else { 
+        OnOff_Off O2\H2 Generator 
+    } 
+    Echo = "\x tons of ice left"
+If instead of x , we analyze by If and output the value of the iceg variable by Echo , then EasyPlay accesses its representation twice and performs an inventory, but fixing the value through another variable will allow it to be done only once.
+
+IF/ELSE. SIMPLE LOGIC:
+    Operators:
+        =   Equals
+        !=  Not Equals
+        <   Less Than
+        >   Greater Than
+        ?   Included in String
+        !?  Not Included in String
+    @vars {
+        \x = Angle of MyRotor
+    }
+    @check {
+        IF Position Of MyPiston on MyGrid > \x {
+            ...
+        }
+        Else If Value OF x = 90.0 {
+             ...
+        }
+        else {
+             ...
+        } 
+    }
+    {if Position of Piston Escape = 7 { 
+        if Angle of Rotor Escape = 180 { 
+            Write to LCD Info = "Gate open" } 
+        else { 
+            Write to LCD Info = "Gate closed" } 
+        } 
+        else { 
+            Write to LCD Info = "Gate closed" 
+        }
+    }
+    {\x = cond(Position of Piston Escape = 7 & Angle of Rotor Escape = 180 : open : closed) Write to LCD Info = "Gate \x"}
+
+CONDITIONAL LOOPS OR CLOSURES
+@wheel_up { 
+    * decrease the height of the wheel group 
+    DecreaseHeight (APC, Wheels) 
+    * if the height of the front left wheel is greater than -49 cm 
+    if Height of Wheel 5x5 FL > -0.49 { 
+        * perform a delay of 1/4 sec 
+        Delay 250 
+        * continue to decrease the height by calling himself 
+        @wheel_up 
+    } 
+}
+
+COMMANDS:
+* - Comment     {* Anything on the same line of this asterix will be ignored}
+# - Hash        {Override #Gyros} - will cause all gyroscopes to be overridden if their name begins with Gyro
+! - Exclamation {Override ! Gyroscope 1} - will the interception be performed only for one gyroscope named Gyroscope 1
+? - Question    {Override ?gyro turn} - will override all gyroscopes that have words beginning with "gyro" and "turn"
+() - Groups     {Override (Gyroscopes)} - Overrides all gyroscopes in that group
+Angle           {Angle of MyRotor}
+Condition       {\x = cond(Position of Piston Escape = 0 : closed : open) Write to LCD Info = "Gate \x"}
+DecreaseHeight  {DecreaseHeight (APC, Wheels)}
+Delay           {Delay 3000}
+Depressurize    {Depressurize Airvent} switches depressurization from one position to another
+                {Depressurize_On Airvent}
+                {Depressurize_Off Airvent}
+Fly             {Fly to \gps at 100}
+GPS             {\gps = "GPS:{Token[3] of Camera}:{Token[8] of Camera} :{Token[9] of Camera}:{Token[10] of Camera}:#"}
+Grid            {MyGrid} - (main grid) - blocks located on the grid in which the Easy Play PB is installed
+                {AllGrid} - MyGrid and all subgrids connected to the main one through dynamic blocks - rotors, hinges, pistons
+                {MyShip} - AllGrid and all what is docked to it through the connectors
+                {Grid_Name} - For example, " Unlock Connector on SE Escape Pod" will detach all connectors of the shuttle named "SE Escape Pod"
+                {Over of Ion Thruster Forward on MyGrid = 50%}
+                {IncreaseOverride Ion Thruster Forward on MyGrid}
+If              {If Status of Galting = Target{
+                * activates the alarm script
+                @alert(Enemy Attack)
+                }
+                else{
+                    @silent
+                }
+                }
+                {if Position of Piston Escape = 0 { 
+                    Write to LCD Info = "Gate closed" 
+                    } 
+                    else { 
+                        Write to LCD Info = "Gate open" 
+                    }
+                }
+                {If Status of MyConnector = Connectable {
+                    Lock MyConnector
+                    }
+OnOff           {OnOff of AirVent = False}
+                {OnOff of Door = True}
+                {OnOff_Off Battery}
+Override        {Override of Thruster = 100%}
+Position        {Position of MyPiston} GPS???
+UpperLimit      {UpperLimit of MyPiston = 7}
+Rename          {Rename Block 1 to Block 2}
+Reverse         {Reverse MyPiston}
+Send            {Send = "SE Mothership:@call_shuttle"}
+Set             {Set something to True/False Colour or Number}
+Show            {Show Airvent}
+                {Show[Property]}
+Stop / End      {Stop}{End}
+Write           {Write to LCD = "Closed"}
+                {Write to Echo}
+                {Write to Console}
+                @ship_status {
+                    Write to LCD Status = "< Connector Status>\N
+                    {Status Connector of MyGrid}\N
+                    <Assembler Status>\N
+                    {Status Assembler  of MyGrid}"
+                }
+
+BLOCKS
+LCD     {Write to LCD Info = "Gate closed"}
+
+Piston  {Position of Piston Escape = 0}
+Rotor   {Angle of Rotor Escape = 180}
+Wheels  {Height of Wheel 5x5 FL}
+        {DecreaseHeight}
+
+status. The current state of the block
+For different blocks, there are different intermediate states in which they can
+be - the battery can be charged, the hangar doors can close, the turret can fire, and the connector can be ready for docking. Below is a list of states for the various block types that are available with the Status of Blocks on Grid
+
+command , where Blocks is a selection of blocks and Grid is an optional MyGrid or AllGrid grid refinement (MyShip by default).
+
+Assembler	Idle, Producing, Stopped - if there are no ingots for production, in ()
+mode of operation: Assembly, Disassembly
+Bac (O2/H2)	chdt = tank full percentage, in () storage mode: StockOn, StockOff
+Batteries	chdt = charge percentage, in () state of charge: Auto, Recharge, Discharge
+Ventilation	Depressurized, Depressurizing, Pressurized, Pressurizing
+Wind generator	chdt = current output in watts, in () percentage of maximum output
+Doors, gates, hangar doors	Opening, Open, Closing, Closed
+Connector	Unconnected, Connectable, Connected, in () the name of the parked ship
+Course weapons (machine guns, rocket launchers)	Idle, Ready, in () remaining ammo
+laser antenna	Idle, RotatingToTarget, SearchingTargetForAntenna, Connecting, Connected, OutOfRange
+Purifier	Idle, Producing
+Jump Drive	chdt = jump distance in km, in () current state: Charging, Ready, Jumping)
+Projector	string with ":" delimiter of 8 tokens:
+1=blueprint present in projector, True/False
+2=total number of blocks in blueprint
+3=total number of functional blocks in blueprint
+4=number of blocks that can be welded
+5=missing functional blocks
+6=missing pipelines
+7=missing armor blocks
+8=total % of missing blocks (damage), nft
+Piston	Extending, Extended, Retracting, Retracted, Stopped - if speed is set to 0
+Rotor and joint	Attached, Detached
+Sensor	Idle or friendly faction player/grid name
+A solar panel	chdt = current output in watts, in () percentage of maximum output
+Connector	Idle, Merged
+Sorter	Whitelist, Blacklist - mode, not filter list
+Timer	Countdown - if countdown is in progress
+Turrets automatic	Idle, Target - sees the target, Aimed - aims, in () the rest of the ammunition
+Chassis and magnetic plates	Unlocked, ReadyToLock, Locked
+Status[Active]. Block activity
+To see how many blocks from the selection are active, use the Status[Active] command :
+* will output 1/3 if one of the three Reactors in the group (Reactors) is active Echo = "{Status[Active] (Reactors) of MyShip}"
+Hint: The resulting value can be used via a variable to translate math() . Can be abbreviated to StatusA
+
+Status[Middle]. Average value
+For blocks whose state is returned as a number with "." decimal point using Status[Middle] you can get the average value:
+* if oxygen, including all tanks, is less than 75% if Status[Middle] Oxygen Tank of MyShip < 75 { * if there is ice in O2/H2 Generators if InvX of O2/H2 Generator > 0 { * enable all generators OnOff_On O2/H2 Generator } }
+Note: 0 is returned for blocks of other types. Can be abbreviated to StatusM
+
+Status[Total]. Total value
+Applicable for blocks whose state is returned as a number with "." decimal point with:
+* if the output level is less than 100 W 
+if Status[Total] Solar Panel of MyShip < 100 {
+     * start the OnOff_On Gydrogen Generator }
+Note: for other block types, 0 is returned. Can be abbreviated to StatusT
