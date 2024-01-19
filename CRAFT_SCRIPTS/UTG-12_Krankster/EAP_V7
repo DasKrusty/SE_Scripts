@@ -27,43 +27,43 @@
 }
 
 @gear_up{
-    if Color of UTG-12 Light Status = 255:0:0{
+    if Color of Light Status = 255:0:0{
         @gear_1
     }
-    else if Color of UTG-12 Light Status = 0:255:0{
+    else if Color of Light Status = 0:255:0{
         @gear_2
     }
-    else if Color of UTG-12 Light Status = 50:255:0{
+    else if Color of Light Status = 50:255:0{
         @gear_3
     }
-    else if Color of UTG-12 Light Status = 100:255:0{
+    else if Color of Light Status = 100:255:0{
         @gear_4
     }
-    else if Color of UTG-12 Light Status = 150:255:0{
+    else if Color of Light Status = 150:255:0{
         @gear_5
     }
-    else if Color of UTG-12 Light Status = 200:255:0{
+    else if Color of Light Status = 200:255:0{
         @gear_6
     }
 }
 
 @gear_down{
-    if Color of UTG-12 Light Status = 250:255:0{
+    if Color of Light Status = 250:255:0{
         @gear_5
     }
-    else if Color of UTG-12 Light Status = 200:255:0{
+    else if Color of Light Status = 200:255:0{
         @gear_4
     }
-    else if Color of UTG-12 Light Status = 150:255:0{
+    else if Color of Light Status = 150:255:0{
         @gear_3
     }
-    else if Color of UTG-12 Light Status = 100:255:0{
+    else if Color of Light Status = 100:255:0{
         @gear_2
     }
-    else if Color of UTG-12 Light Status = 50:255:0{
+    else if Color of Light Status = 50:255:0{
         @gear_1
     }
-    else if Color of UTG-12 Light Status = 0:255:0{
+    else if Color of Light Status = 0:255:0{
         @park
     }
 }
@@ -87,7 +87,7 @@
     WriteLine to \LCST = "Grav = \b"
     WriteLine to \LCST = "Force = \c Nm"
     * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
-    Speed of \EVCU = 10
+    Speed of \EVCU = 4
     Speed of \EVCD = 0
     * SETTINGS - SHOCK ABSORBERS
     Strength of \SHAS = math(((\c/4)/2500)*1)
@@ -98,9 +98,9 @@
     Torque of \SWAH = math((\c/2)*1)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 100
-    Strength of \WHSU = math(((\c/4)/2500)*1)
+    * Strength of \WHSU = math(((\c/4)/2500)*1)
     Height of \WHSU = -0.3200
-    Speed Limit of \WHSU = 10
+    Speed Limit of \WHSU = 15
     MaxSteerAngle of \WHSF = 25
     MaxSteerAngle of \WHSB = 25
 }
@@ -114,8 +114,8 @@
     WriteLine to \LCST = "Grav = \b"
     WriteLine to \LCST = "Force = \c Nm"
     * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
-    Speed of \EVCU = 20
-    Speed of \EVCD = 10
+    Speed of \EVCU = 8
+    Speed of \EVCD = 4
     * SETTINGS - SHOCK ABSORBERS
     Strength of \SHAS = math(((\c/4)/2500)*2)
     Height of \SHAS = -0.2700
@@ -125,9 +125,9 @@
     Torque of \SWAH = math((\c/2)*2)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 70
-    Strength of \WHSU = math(((\c/4)/2500)*2)
+    * Strength of \WHSU = math(((\c/4)/2500)*2)
     Height of \WHSU = -0.2700
-    Speed Limit of \WHSU = 20
+    Speed Limit of \WHSU = 30
     MaxSteerAngle of \WHSF = 20
     MaxSteerAngle of \WHSB = 10
 }
@@ -141,8 +141,8 @@
     WriteLine to \LCST = "Grav = \b"
     WriteLine to \LCST = "Force = \c Nm"
     * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
-    Speed of \EVCU = 30
-    Speed of \EVCD = 20
+    Speed of \EVCU = 12
+    Speed of \EVCD = 8
     * SETTINGS - SHOCK ABSORBERS
     Strength of \SHAS = math(((\c/4)/2500)*3)
     Height of \SHAS = -0.2200
@@ -152,9 +152,9 @@
     Torque of \SWAH = math((\c/2)*3)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 40
-    Strength of \WHSU = math(((\c/4)/2500)*3)
+    * Strength of \WHSU = math(((\c/4)/2500)*3)
     Height of \WHSU = -0.2200
-    Speed Limit of \WHSU = 30
+    Speed Limit of \WHSU = 45
     MaxSteerAngle of \WHSF = 15
     MaxSteerAngle of \WHSB = 5
 }
@@ -168,8 +168,8 @@
     WriteLine to \LCST = "Grav = \b"
     WriteLine to \LCST = "Force = \c Nm"
     * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
-    Speed of \EVCU = 40
-    Speed of \EVCD = 30
+    Speed of \EVCU = 16
+    Speed of \EVCD = 12
     * SETTINGS - SHOCK ABSORBERS
     Strength of \SHAS = math(((\c/4)/2500)*4)
     Height of \SHAS = -0.1700
@@ -179,9 +179,9 @@
     Torque of \SWAH = math((\c/2)*4)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 20
-    Strength of \WHSU = math(((\c/4)/2500)*4)
+    * Strength of \WHSU = math(((\c/4)/2500)*4)
     Height of \WHSU = -0.1700
-    Speed Limit of \WHSU = 40
+    Speed Limit of \WHSU = 60
     MaxSteerAngle of \WHSF = 10
     MaxSteerAngle of \WHSB = 0
 }
@@ -195,8 +195,8 @@
     WriteLine to \LCST = "Grav = \b"
     WriteLine to \LCST = "Force = \c Nm"
     * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
-    Speed of \EVCU = 50
-    Speed of \EVCD = 40
+    Speed of \EVCU = 20
+    Speed of \EVCD = 16
     * SETTINGS - SHOCK ABSORBERS
     Strength of \SHAS = math(((\c/4)/2500)*5)
     Height of \SHAS = -0.1200
@@ -206,9 +206,9 @@
     Torque of \SWAH = math((\c/2)*5)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 10
-    Strength of \WHSU = math(((\c/4)/2500)*5)
+    * Strength of \WHSU = math(((\c/4)/2500)*5)
     Height of \WHSU = -0.1200
-    Speed Limit of \WHSU = 50
+    Speed Limit of \WHSU = 75
     MaxSteerAngle of \WHSF = 5
     MaxSteerAngle of \WHSB = 0
 }
@@ -222,8 +222,8 @@
     WriteLine to \LCST = "Grav = \b"
     WriteLine to \LCST = "Force = \c Nm"
     * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
-    Speed of \EVCU = 60
-    Speed of \EVCD = 50
+    Speed of \EVCU = 25
+    Speed of \EVCD = 20
     * SETTINGS - SHOCK ABSORBERS
     Strength of \SHAS = math(((\c/4)/2500)*6)
     Height of \SHAS = -0.0700
@@ -233,9 +233,9 @@
     Torque of \SWAH = math((\c/2)*6)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 5
-    Strength of \WHSU = math(((\c/4)/2500)*6)
+    * Strength of \WHSU = math(((\c/4)/2500)*6)
     Height of \WHSU = -0.0700
-    Speed Limit of \WHSU = 60
+    Speed Limit of \WHSU = 90
     MaxSteerAngle of \WHSF = 3
     MaxSteerAngle of \WHSB = 0
 }
