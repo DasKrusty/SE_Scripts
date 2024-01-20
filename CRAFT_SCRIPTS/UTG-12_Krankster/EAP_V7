@@ -24,6 +24,7 @@
     b = Gravity of MyShip
     c = "0"
     d = "0"
+    z = "0"
     * c = Force to counter on suspension system
 }
 
@@ -72,11 +73,19 @@
 @park{
     Color of \LIST = 255:0:0
     Write to \LCIN = P
-    * Calculations
+    * CALCULATIONS
     \c = math(\a*\b)
-    Write to \LCST = "Mass = \a kg"
-    WriteLine to \LCST = "Grav = \b"
-    WriteLine to \LCST = "Force = \c Nm"
+    Write to \LCST = "Current Mass = \a Kg"
+    WriteLine to \LCST = "Empty Mass = \z Kg"
+    * Current Mass = 1200216.78 Kg
+    * Current Mass = 1198892.8 Kg
+
+    * Empty Mass = 1224923 Kg
+    * \d = math((((\c/4))/25000)*1)
+    * Write to \LCST = "Mass = math(\a/1000) kg"
+    * WriteLine to \LCST = "Grav = \b"
+    * WriteLine to \LCST = "Force = \c kN"
+    * WriteLine to \LCST = "Suspen = \d %"
 }
 
 @gear_1{
@@ -84,7 +93,7 @@
     Write to \LCIN = 1
     * CALCULATIONS
     \c = math(\a*\b)
-    \d = math((((\c/4))/20000)*1)
+    \d = math((((\c/4))/25000)*1)
     Write to \LCST = "Mass = math(\a/1000) kg"
     WriteLine to \LCST = "Grav = \b"
     WriteLine to \LCST = "Force = \c kN"
@@ -94,15 +103,15 @@
     Speed of \EVCD = 0
     * SETTINGS - SHOCK ABSORBERS
     * Strength of \SHAS = math(((\c/4)/2500)*1)
-    * Height of \SHAS = -0.0700
+    * Height of \SHAS = -0.3200
     * Strength of \FLAS = math(((\c/2)/2500)*1)
-    * Height of \FLAS = -0.0700
+    * Height of \FLAS = -0.3200
     * Rotate \SWAH to 30 at 15
     * Torque of \SWAH = math((\c/2)*1)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 100
     Strength of \WHSU = \d
-    Height of \WHSU = -0.0700
+    Height of \WHSU = -0.3200
     Speed Limit of \WHSU = 20
     MaxSteerAngle of \WHSF = 25
     MaxSteerAngle of \WHSB = 25
@@ -113,7 +122,7 @@
     Write to \LCIN = 2
     * CALCULATIONS
     \c = math(\a*\b)
-    \d = math((((\c/4))/20000)*2)
+    \d = math((((\c/4))/25000)*2)
     Write to \LCST = "Mass = \a kg"
     WriteLine to \LCST = "Grav = \b"
     WriteLine to \LCST = "Force = \c kN"
@@ -123,15 +132,15 @@
     Speed of \EVCD = 4
     * SETTINGS - SHOCK ABSORBERS
     * Strength of \SHAS = math(((\c/4)/2500)*2)
-    * Height of \SHAS = -0.0700
+    * Height of \SHAS = -0.2700
     * Strength of \FLAS = math(((\c/2)/2500)*2)
-    * Height of \FLAS = -0.0700
+    * Height of \FLAS = -0.2700
     * Rotate \SWAH to 27 at 15
     * Torque of \SWAH = math((\c/2)*2)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 60
     Strength of \WHSU = \d
-    Height of \WHSU = -0.0700
+    Height of \WHSU = -0.2700
     Speed Limit of \WHSU = 50
     MaxSteerAngle of \WHSF = 20
     MaxSteerAngle of \WHSB = 10
@@ -142,7 +151,7 @@
     Write to \LCIN = 3
     * CALCULATIONS
     \c = math(\a*\b)
-    \d = math((((\c/4))/20000)*3)
+    \d = math((((\c/4))/25000)*3)
     Write to \LCST = "Mass = \a kg"
     WriteLine to \LCST = "Grav = \b"
     WriteLine to \LCST = "Force = \c kN"
@@ -152,15 +161,15 @@
     Speed of \EVCD = 11
     * SETTINGS - SHOCK ABSORBERS
     * Strength of \SHAS = math(((\c/4)/2500)*3)
-    * Height of \SHAS = -0.0700
+    * Height of \SHAS = -0.2200
     * Strength of \FLAS = math(((\c/2)/2500)*3)
-    * Height of \FLAS = -0.0700
+    * Height of \FLAS = -0.2200
     * Rotate \SWAH to 22 at 15
     * Torque of \SWAH = math((\c/2)*3)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 40
     Strength of \WHSU = \d
-    Height of \WHSU = -0.0700
+    Height of \WHSU = -0.2200
     Speed Limit of \WHSU = 80
     MaxSteerAngle of \WHSF = 15
     MaxSteerAngle of \WHSB = 5
@@ -171,7 +180,7 @@
     Write to \LCIN = 4
     * CALCULATIONS
     \c = math(\a*\b)
-    \d = math((((\c/4))/20000)*4)
+    \d = math((((\c/4))/25000)*4)
     Write to \LCST = "Mass = \a kg"
     WriteLine to \LCST = "Grav = \b"
     WriteLine to \LCST = "Force = \c kN"
@@ -181,15 +190,15 @@
     Speed of \EVCD = 19
     * SETTINGS - SHOCK ABSORBERS
     * Strength of \SHAS = math(((\c/4)/2500)*4)
-    * Height of \SHAS = -0.0700
+    * Height of \SHAS = -0.1700
     * Strength of \FLAS = math(((\c/2)/2500)*4)
-    * Height of \FLAS = -0.0700
+    * Height of \FLAS = -0.1700
     * Rotate \SWAH to 17 at 15
     * Torque of \SWAH = math((\c/2)*4)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 20
     Strength of \WHSU = \d
-    Height of \WHSU = -0.0700
+    Height of \WHSU = -0.1700
     Speed Limit of \WHSU = 120
     MaxSteerAngle of \WHSF = 10
     MaxSteerAngle of \WHSB = 0
@@ -200,7 +209,7 @@
     Write to \LCIN = 5
     * CALCULATIONS
     \c = math(\a*\b)
-    \d = math((((\c/4))/20000)*5)
+    \d = math((((\c/4))/25000)*5)
     Write to \LCST = "Mass = \a kg"
     WriteLine to \LCST = "Grav = \b"
     WriteLine to \LCST = "Force = \c kN"
@@ -210,15 +219,15 @@
     Speed of \EVCD = 30
     * SETTINGS - SHOCK ABSORBERS
     * Strength of \SHAS = math(((\c/4)/2500)*5)
-    * Height of \SHAS = -0.0700
+    * Height of \SHAS = -0.1200
     * Strength of \FLAS = math(((\c/2)/2500)*5)
-    * Height of \FLAS = -0.0700
+    * Height of \FLAS = -0.1200
     * Rotate \SWAH to 12 at 15
     * Torque of \SWAH = math((\c/2)*5)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 10
     Strength of \WHSU = \d
-    Height of \WHSU = -0.0700
+    Height of \WHSU = -0.1200
     Speed Limit of \WHSU = 160
     MaxSteerAngle of \WHSF = 5
     MaxSteerAngle of \WHSB = 0
@@ -229,7 +238,7 @@
     Write to \LCIN = 6
     * CALCULATIONS
     \c = math(\a*\b)
-    \d = math((((\c/4))/20000)*6)
+    \d = math((((\c/4))/25000)*6)
     Write to \LCST = "Mass = \a kg"
     WriteLine to \LCST = "Grav = \b"
     WriteLine to \LCST = "Force = \c kN"
@@ -254,5 +263,5 @@
 }
 
 @setup{
-
+    \z = \a
 }
