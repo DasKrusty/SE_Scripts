@@ -8,14 +8,7 @@
     EVCD = "Event Controller Gear Down"
     * Suspension Parts
     SHAS = "Shock Absorber Suspension"
-    SARA = "Shock Absorber Rotor Axle Point"
-    SARH = "Shock Absorber Rotor Body Point"
     SWPR = "Swing Point Rotor"
-    SWAH = "Swing Arm Hinge"
-    FLAS = "Floating Absorber Suspension"
-    FLAH = "Flexing Axle Hinge"
-    STAP = "Stretch Axle Piston"
-    WISH = "Wishbone Hinge"
     WHSU = "Wheel Suspension"
     WHSF = "Wheel Suspension Front"
     WHSB = "Wheel Suspension Back"
@@ -23,6 +16,7 @@
     a = Mass of MyShip
     b = Gravity of MyShip
     c = "0"
+    d = "0"
     f = "0"
     * c = Force of current Mass * Gravity
 }
@@ -79,20 +73,18 @@
     Write to \LCIN = 1
     * CALCULATIONS
     \c = math(\a*\b)
+    \d = math((((\c/4))/25000)*1)
     \f = math((((\c/4))/25000)*1)
     Write to \LCST = "Current Mass = \c Kg"
     WriteLine to \LCST = "Grav = \b"
-    WriteLine to \LCST = "Suspen = \f %"
+    WriteLine to \LCST = "SHO ABS = \d %"
+    WriteLine to \LCST = "WHE SUS = \f %"
     * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
     Speed of \EVCU = 4
     Speed of \EVCD = 0
     * SETTINGS - SHOCK ABSORBERS
-    * Strength of \SHAS = math(((\c/4)/2500)*1)
-    * Height of \SHAS = -0.3200
-    * Strength of \FLAS = math(((\c/2)/2500)*1)
-    * Height of \FLAS = -0.3200
-    * Rotate \SWAH to 30 at 15
-    * Torque of \SWAH = math((\c/2)*1)
+    Strength of \SHAS = \d
+    Height of \SHAS = -0.3200
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 100
     Strength of \WHSU = \f
@@ -100,7 +92,7 @@
     Speed Limit of \WHSU = 20
     MaxSteerAngle of \WHSF = 25
     MaxSteerAngle of \WHSB = 25
-    delay 1000
+    delay 500
 }
 
 @gear_2{
@@ -108,20 +100,17 @@
     Write to \LCIN = 2
     * CALCULATIONS
     \c = math(\a*\b)
-    \f = math((((\c/4))/25000)*1)
+    \d = math((((\c/4))/25000)*1.5)
+    \f = math((((\c/4))/25000)*1.25)
     Write to \LCST = "Current Mass = \c Kg"
     WriteLine to \LCST = "Grav = \b"
-    WriteLine to \LCST = "Suspen = \f %"
+    WriteLine to \LCST = "SHO ABS = \d %"
+    WriteLine to \LCST = "WHE SUS = \f %"
     * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
     Speed of \EVCU = 11
     Speed of \EVCD = 4
     * SETTINGS - SHOCK ABSORBERS
-    * Strength of \SHAS = math(((\c/4)/2500)*2)
-    * Height of \SHAS = -0.2700
-    * Strength of \FLAS = math(((\c/2)/2500)*2)
-    * Height of \FLAS = -0.2700
-    * Rotate \SWAH to 27 at 15
-    * Torque of \SWAH = math((\c/2)*2)
+    Strength of \SHAS = \d
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 60
     Strength of \WHSU = \f
@@ -129,7 +118,7 @@
     Speed Limit of \WHSU = 50
     MaxSteerAngle of \WHSF = 20
     MaxSteerAngle of \WHSB = 10
-    delay 1000
+    delay 500
 }
 
 @gear_3{
@@ -137,20 +126,17 @@
     Write to \LCIN = 3
     * CALCULATIONS
     \c = math(\a*\b)
-    \f = math((((\c/4))/25000)*1)
+    \d = math((((\c/4))/25000)*2)
+    \f = math((((\c/4))/25000)*1.5)
     Write to \LCST = "Current Mass = \c Kg"
     WriteLine to \LCST = "Grav = \b"
-    WriteLine to \LCST = "Suspen = \f %"
+    WriteLine to \LCST = "SHO ABS = \d %"
+    WriteLine to \LCST = "WHE SUS = \f %"
     * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
     Speed of \EVCU = 19
     Speed of \EVCD = 11
     * SETTINGS - SHOCK ABSORBERS
-    * Strength of \SHAS = math(((\c/4)/2500)*3)
-    * Height of \SHAS = -0.2200
-    * Strength of \FLAS = math(((\c/2)/2500)*3)
-    * Height of \FLAS = -0.2200
-    * Rotate \SWAH to 22 at 15
-    * Torque of \SWAH = math((\c/2)*3)
+    Strength of \SHAS = \d
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 40
     Strength of \WHSU = \f
@@ -158,7 +144,7 @@
     Speed Limit of \WHSU = 80
     MaxSteerAngle of \WHSF = 15
     MaxSteerAngle of \WHSB = 5
-    delay 1000
+    delay 500
 }
 
 @gear_4{
@@ -166,20 +152,17 @@
     Write to \LCIN = 4
     * CALCULATIONS
     \c = math(\a*\b)
-    \f = math((((\c/4))/25000)*1)
+    \d = math((((\c/4))/25000)*2.5)
+    \f = math((((\c/4))/25000)*1.75)
     Write to \LCST = "Current Mass = \c Kg"
     WriteLine to \LCST = "Grav = \b"
-    WriteLine to \LCST = "Suspen = \f %"
+    WriteLine to \LCST = "SHO ABS = \d %"
+    WriteLine to \LCST = "WHE SUS = \f %"
     * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
     Speed of \EVCU = 30
     Speed of \EVCD = 19
     * SETTINGS - SHOCK ABSORBERS
-    * Strength of \SHAS = math(((\c/4)/2500)*4)
-    * Height of \SHAS = -0.1700
-    * Strength of \FLAS = math(((\c/2)/2500)*4)
-    * Height of \FLAS = -0.1700
-    * Rotate \SWAH to 17 at 15
-    * Torque of \SWAH = math((\c/2)*4)
+    Strength of \SHAS = \d
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 20
     Strength of \WHSU = \f
@@ -187,7 +170,7 @@
     Speed Limit of \WHSU = 120
     MaxSteerAngle of \WHSF = 10
     MaxSteerAngle of \WHSB = 0
-    delay 1000
+    delay 500
 }
 
 @gear_5{
@@ -195,20 +178,17 @@
     Write to \LCIN = 5
     * CALCULATIONS
     \c = math(\a*\b)
-    \f = math((((\c/4))/25000)*1)
+    \d = math((((\c/4))/25000)*3)
+    \f = math((((\c/4))/25000)*2)
     Write to \LCST = "Current Mass = \c Kg"
     WriteLine to \LCST = "Grav = \b"
-    WriteLine to \LCST = "Suspen = \f %"
+    WriteLine to \LCST = "SHO ABS = \d %"
+    WriteLine to \LCST = "WHE SUS = \f %"
     * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
     Speed of \EVCU = 40
     Speed of \EVCD = 30
     * SETTINGS - SHOCK ABSORBERS
-    * Strength of \SHAS = math(((\c/4)/2500)*5)
-    * Height of \SHAS = -0.1200
-    * Strength of \FLAS = math(((\c/2)/2500)*5)
-    * Height of \FLAS = -0.1200
-    * Rotate \SWAH to 12 at 15
-    * Torque of \SWAH = math((\c/2)*5)
+    Strength of \SHAS = \d
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 10
     Strength of \WHSU = \f
@@ -216,7 +196,7 @@
     Speed Limit of \WHSU = 160
     MaxSteerAngle of \WHSF = 5
     MaxSteerAngle of \WHSB = 0
-    delay 1000
+    delay 500
 }
 
 @gear_6{
@@ -224,20 +204,17 @@
     Write to \LCIN = 6
     * CALCULATIONS
     \c = math(\a*\b)
-    \f = math((((\c/4))/25000)*1)
+    \d = math((((\c/4))/25000)*3.5)
+    \f = math((((\c/4))/25000)*2.25)
     Write to \LCST = "Current Mass = \c Kg"
     WriteLine to \LCST = "Grav = \b"
-    WriteLine to \LCST = "Suspen = \f %"
+    WriteLine to \LCST = "SHO ABS = \d %"
+    WriteLine to \LCST = "WHE SUS = \f %"
     * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
     Speed of \EVCU = 50
     Speed of \EVCD = 40
     * SETTINGS - SHOCK ABSORBERS
-    * Strength of \SHAS = math(((\c/4)/2500)*6)
-    * Height of \SHAS = -0.0700
-    * Strength of \FLAS = math(((\c/2)/2500)*6)
-    * Height of \FLAS = -0.0700
-    * Rotate \SWAH to 7 at 15
-    * Torque of \SWAH = math((\c/2)*6)
+    Strength of \SHAS = \d
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 5
     Strength of \WHSU = \f
@@ -245,5 +222,5 @@
     Speed Limit of \WHSU = 180
     MaxSteerAngle of \WHSF = 3
     MaxSteerAngle of \WHSB = 0
-    delay 1000
+    delay 500
 }
