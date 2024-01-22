@@ -24,8 +24,12 @@
     b = Gravity of MyShip
     c = "0"
     d = "0"
-    z = "0"
-    * c = Force to counter on suspension system
+    e = "0"
+    f = "0"
+    * c = Force of current Mass * Gravity
+    * d = Force of empty Mass * Gravity
+    * e = Difference between empty and current force 
+    * f = % for Wheel Suspension
 }
 
 @gear_up{
@@ -73,19 +77,6 @@
 @park{
     Color of \LIST = 255:0:0
     Write to \LCIN = P
-    * CALCULATIONS
-    \c = math(\a*\b)
-    Write to \LCST = "Current Mass = \a Kg"
-    WriteLine to \LCST = "Empty Mass = \z Kg"
-    * Current Mass = 1200216.78 Kg
-    * Current Mass = 1198892.8 Kg
-
-    * Empty Mass = 1224923 Kg
-    * \d = math((((\c/4))/25000)*1)
-    * Write to \LCST = "Mass = math(\a/1000) kg"
-    * WriteLine to \LCST = "Grav = \b"
-    * WriteLine to \LCST = "Force = \c kN"
-    * WriteLine to \LCST = "Suspen = \d %"
 }
 
 @gear_1{
@@ -93,11 +84,16 @@
     Write to \LCIN = 1
     * CALCULATIONS
     \c = math(\a*\b)
-    \d = math((((\c/4))/25000)*1)
-    Write to \LCST = "Mass = math(\a/1000) kg"
+    if \d = 0 {
+        @setup
+    }
+    \e = math(((\c/\d)))
+    \f = math(((((\c/4))/25000)*1)+\e)
+    Write to \LCST = "Current Mass = \c Kg"
+    WriteLine to \LCST = "Empty Mass = \d Kg"
     WriteLine to \LCST = "Grav = \b"
-    WriteLine to \LCST = "Force = \c kN"
-    WriteLine to \LCST = "Suspen = \d %"
+    WriteLine to \LCST = "Diff = \e %"
+    WriteLine to \LCST = "Suspen = \f %"
     * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
     Speed of \EVCU = 4
     Speed of \EVCD = 0
@@ -110,11 +106,12 @@
     * Torque of \SWAH = math((\c/2)*1)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 100
-    Strength of \WHSU = \d
+    Strength of \WHSU = \f
     Height of \WHSU = -0.3200
     Speed Limit of \WHSU = 20
     MaxSteerAngle of \WHSF = 25
     MaxSteerAngle of \WHSB = 25
+    delay 1000
 }
 
 @gear_2{
@@ -122,11 +119,16 @@
     Write to \LCIN = 2
     * CALCULATIONS
     \c = math(\a*\b)
-    \d = math((((\c/4))/25000)*2)
-    Write to \LCST = "Mass = \a kg"
+    if \d = 0 {
+        @setup
+    }
+    \e = math(((\c/\d)))
+    \f = math(((((\c/4))/25000)*1.5)+\e)
+    Write to \LCST = "Current Mass = \c Kg"
+    WriteLine to \LCST = "Empty Mass = \d Kg"
     WriteLine to \LCST = "Grav = \b"
-    WriteLine to \LCST = "Force = \c kN"
-    WriteLine to \LCST = "Suspen = \d %"
+    WriteLine to \LCST = "Diff = \e %"
+    WriteLine to \LCST = "Suspen = \f %"
     * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
     Speed of \EVCU = 11
     Speed of \EVCD = 4
@@ -139,11 +141,12 @@
     * Torque of \SWAH = math((\c/2)*2)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 60
-    Strength of \WHSU = \d
+    Strength of \WHSU = \f
     Height of \WHSU = -0.2700
     Speed Limit of \WHSU = 50
     MaxSteerAngle of \WHSF = 20
     MaxSteerAngle of \WHSB = 10
+    delay 1000
 }
 
 @gear_3{
@@ -151,11 +154,16 @@
     Write to \LCIN = 3
     * CALCULATIONS
     \c = math(\a*\b)
-    \d = math((((\c/4))/25000)*3)
-    Write to \LCST = "Mass = \a kg"
+    if \d = 0 {
+        @setup
+    }
+    \e = math(((\c/\d)))
+    \f = math(((((\c/4))/25000)*2)+\e)
+    Write to \LCST = "Current Mass = \c Kg"
+    WriteLine to \LCST = "Empty Mass = \d Kg"
     WriteLine to \LCST = "Grav = \b"
-    WriteLine to \LCST = "Force = \c kN"
-    WriteLine to \LCST = "Suspen = \d %"
+    WriteLine to \LCST = "Diff = \e %"
+    WriteLine to \LCST = "Suspen = \f %"
     * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
     Speed of \EVCU = 19
     Speed of \EVCD = 11
@@ -168,11 +176,12 @@
     * Torque of \SWAH = math((\c/2)*3)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 40
-    Strength of \WHSU = \d
+    Strength of \WHSU = \f
     Height of \WHSU = -0.2200
     Speed Limit of \WHSU = 80
     MaxSteerAngle of \WHSF = 15
     MaxSteerAngle of \WHSB = 5
+    delay 1000
 }
 
 @gear_4{
@@ -180,11 +189,16 @@
     Write to \LCIN = 4
     * CALCULATIONS
     \c = math(\a*\b)
-    \d = math((((\c/4))/25000)*4)
-    Write to \LCST = "Mass = \a kg"
+    if \d = 0 {
+        @setup
+    }
+    \e = math(((\c/\d)))
+    \f = math(((((\c/4))/25000)*2.5)+\e)
+    Write to \LCST = "Current Mass = \c Kg"
+    WriteLine to \LCST = "Empty Mass = \d Kg"
     WriteLine to \LCST = "Grav = \b"
-    WriteLine to \LCST = "Force = \c kN"
-    WriteLine to \LCST = "Suspen = \d %"
+    WriteLine to \LCST = "Diff = \e %"
+    WriteLine to \LCST = "Suspen = \f %"
     * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
     Speed of \EVCU = 30
     Speed of \EVCD = 19
@@ -197,11 +211,12 @@
     * Torque of \SWAH = math((\c/2)*4)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 20
-    Strength of \WHSU = \d
+    Strength of \WHSU = \f
     Height of \WHSU = -0.1700
     Speed Limit of \WHSU = 120
     MaxSteerAngle of \WHSF = 10
     MaxSteerAngle of \WHSB = 0
+    delay 1000
 }
 
 @gear_5{
@@ -209,11 +224,16 @@
     Write to \LCIN = 5
     * CALCULATIONS
     \c = math(\a*\b)
-    \d = math((((\c/4))/25000)*5)
-    Write to \LCST = "Mass = \a kg"
+    if \d = 0 {
+        @setup
+    }
+    \e = math(((\c/\d)))
+    \f = math(((((\c/4))/25000)*3)+\e)
+    Write to \LCST = "Current Mass = \c Kg"
+    WriteLine to \LCST = "Empty Mass = \d Kg"
     WriteLine to \LCST = "Grav = \b"
-    WriteLine to \LCST = "Force = \c kN"
-    WriteLine to \LCST = "Suspen = \d %"
+    WriteLine to \LCST = "Diff = \e %"
+    WriteLine to \LCST = "Suspen = \f %"
     * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
     Speed of \EVCU = 40
     Speed of \EVCD = 30
@@ -226,11 +246,12 @@
     * Torque of \SWAH = math((\c/2)*5)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 10
-    Strength of \WHSU = \d
+    Strength of \WHSU = \f
     Height of \WHSU = -0.1200
     Speed Limit of \WHSU = 160
     MaxSteerAngle of \WHSF = 5
     MaxSteerAngle of \WHSB = 0
+    delay 1000
 }
 
 @gear_6{
@@ -238,11 +259,16 @@
     Write to \LCIN = 6
     * CALCULATIONS
     \c = math(\a*\b)
-    \d = math((((\c/4))/25000)*6)
-    Write to \LCST = "Mass = \a kg"
+    if \d = 0 {
+        @setup
+    }
+    \e = math(((\c/\d)))
+    \f = math(((((\c/4))/25000)*3.5)+\e)
+    Write to \LCST = "Current Mass = \c Kg"
+    WriteLine to \LCST = "Empty Mass = \d Kg"
     WriteLine to \LCST = "Grav = \b"
-    WriteLine to \LCST = "Force = \c kN"
-    WriteLine to \LCST = "Suspen = \d %"
+    WriteLine to \LCST = "Diff = \e %"
+    WriteLine to \LCST = "Suspen = \f %"
     * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
     Speed of \EVCU = 50
     Speed of \EVCD = 40
@@ -255,13 +281,16 @@
     * Torque of \SWAH = math((\c/2)*6)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 5
-    Strength of \WHSU = \d
+    Strength of \WHSU = \f
     Height of \WHSU = -0.0700
     Speed Limit of \WHSU = 180
     MaxSteerAngle of \WHSF = 3
     MaxSteerAngle of \WHSB = 0
+    delay 1000
 }
 
 @setup{
-    \z = \a
+    delay 1000
+    Write to \LCST = "Setup done"
+    \d = math(\a*\b)
 }
