@@ -4,7 +4,7 @@
     LIST = "Light Status"
     LCST = "LCD Status"
     LCIN = "LCD Info"
-    EVCU = "Event Controller Gear Up"
+    EVCU = " "
     EVCD = "Event Controller Gear Down"
     * Suspension Parts
     SHAS = "Shock Absorber Suspension"
