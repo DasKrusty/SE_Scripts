@@ -1,0 +1,228 @@
+* DK's Custom Geared Suspension with 
+
+@variables{
+    * Abreviated names for blocks
+    * Function Parts
+    LIST = "Light Status"
+    LCIN = "LCD Info"
+    EVCU = "Event Controller Gear Up"
+    EVCD = "Event Controller Gear Down"
+    * Suspension Parts
+    SARA = "Shock Absorber Rotor Axle Point"
+    SHAS = "Shock Absorber Suspension"
+    WHSU = "Wheel Suspension"
+    WHSF = "Wheel Suspension Front"
+    WHSB = "Wheel Suspension Back"
+    * Calculations
+    a = Mass of MyShip
+    b = Gravity of MyShip
+    c = "0"
+    d = "0"
+    e = "0"
+    * c = Force of current Mass mutliplied by Gravity
+    * d = Weight in Newtons divided by amount os Wheel Suspension
+    * e = Shock Absorbers
+}
+
+@gear_up{
+    if Color of Light Status = 255:0:0{
+        @gear_1
+    }
+    else if Color of Light Status = 0:255:0{
+        @gear_2
+    }
+    else if Color of Light Status = 50:255:0{
+        @gear_3
+    }
+    else if Color of Light Status = 100:255:0{
+        @gear_4
+    }
+    else if Color of Light Status = 150:255:0{
+        @gear_5
+    }
+    else if Color of Light Status = 200:255:0{
+        @gear_6
+    }
+}
+
+@gear_down{
+    if Color of Light Status = 250:255:0{
+        @gear_5
+    }
+    else if Color of Light Status = 200:255:0{
+        @gear_4
+    }
+    else if Color of Light Status = 150:255:0{
+        @gear_3
+    }
+    else if Color of Light Status = 100:255:0{
+        @gear_2
+    }
+    else if Color of Light Status = 50:255:0{
+        @gear_1
+    }
+    else if Color of Light Status = 0:255:0{
+        @park
+    }
+}
+
+@park{
+    Color of \LIST = 255:0:0
+    Write to \LCIN = P
+}
+
+@gear_1{
+    Color of \LIST = 0:255:0
+    Write to \LCIN = "Gear: 1"
+    * CALCULATIONS
+    \c = math(\a*\b)
+    \d = math((((\c/4))/25000)*1)
+    \e = math((((\c/4))/55000)*1)
+    WriteLine to \LCIN = "Grav = \b"
+    WriteLine to \LCIN = "WHE SUS = \d %"
+    WriteLine to \LCIN = "SHO ABS = \e %"
+    * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
+    Speed of \EVCU = 4
+    Speed of \EVCD = 0
+    * SETTINGS - SHOCK ABSORBERS
+    Strength of \SHAS = \e
+    Height of \SHAS = -0.3200
+    * SETTINGS - WHEEL SUSPENSION
+    Power of \WHSU = 100
+    Strength of \WHSU = \d
+    Height of \WHSU = -0.3200
+    Speed Limit of \WHSU = 20
+    MaxSteerAngle of \WHSF = 25
+    MaxSteerAngle of \WHSB = 25
+    delay 500
+}
+
+@gear_2{
+    Color of \LIST = 50:255:0
+    Write to \LCIN = "Gear: 2"
+    * CALCULATIONS
+    \c = math(\a*\b)
+    \d = math((((\c/4))/25000)*1.1)
+    \e = math((((\c/4))/55000)*1.1)
+    WriteLine to \LCIN = "Grav = \b"
+    WriteLine to \LCIN = "WHE SUS = \d %"
+    WriteLine to \LCIN = "SHO ABS = \e %"
+    * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
+    Speed of \EVCU = 11
+    Speed of \EVCD = 4
+    * SETTINGS - SHOCK ABSORBERS
+    Strength of \SHAS = \e
+    Height of \SHAS = -0.2700
+    * SETTINGS - WHEEL SUSPENSION
+    Power of \WHSU = 60
+    Strength of \WHSU = \d
+    Height of \WHSU = -0.2700
+    Speed Limit of \WHSU = 50
+    MaxSteerAngle of \WHSF = 20
+    MaxSteerAngle of \WHSB = 10
+    delay 500
+}
+
+@gear_3{
+    Color of \LIST = 100:255:0
+    Write to \LCIN = "Gear: 3"
+    * CALCULATIONS
+    \c = math(\a*\b)
+    \d = math((((\c/4))/25000)*1.2)
+    \e = math((((\c/4))/55000)*1.2)
+    WriteLine to \LCIN = "Grav = \b"
+    WriteLine to \LCIN = "WHE SUS = \d %"
+    WriteLine to \LCIN = "SHO ABS = \e %"
+    * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
+    Speed of \EVCU = 19
+    Speed of \EVCD = 11
+    * SETTINGS - SHOCK ABSORBERS
+    Strength of \SHAS = \e
+    Height of \SHAS = -0.2200
+    * SETTINGS - WHEEL SUSPENSION
+    Power of \WHSU = 40
+    Strength of \WHSU = \d
+    Height of \WHSU = -0.2200
+    Speed Limit of \WHSU = 80
+    MaxSteerAngle of \WHSF = 15
+    MaxSteerAngle of \WHSB = 5
+    delay 500
+}
+
+@gear_4{
+    Color of \LIST = 150:255:0
+    Write to \LCIN = "Gear: 4"
+    * CALCULATIONS
+    \c = math(\a*\b)
+    \d = math((((\c/4))/25000)*1.3)
+    \e = math((((\c/4))/55000)*1.3)
+    WriteLine to \LCIN = "Grav = \b"
+    WriteLine to \LCIN = "WHE SUS = \d %"
+    WriteLine to \LCIN = "SHO ABS = \e %"
+    * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
+    Speed of \EVCU = 30
+    Speed of \EVCD = 19
+    * SETTINGS - SHOCK ABSORBERS
+    Strength of \SHAS = \e
+    Height of \SHAS = -0.1700
+    * SETTINGS - WHEEL SUSPENSION
+    Power of \WHSU = 20
+    Strength of \WHSU = \d
+    Height of \WHSU = -0.1700
+    Speed Limit of \WHSU = 120
+    MaxSteerAngle of \WHSF = 10
+    MaxSteerAngle of \WHSB = 0
+    delay 500
+}
+
+@gear_5{
+    Color of \LIST = 200:255:0
+    Write to \LCIN = "Gear: 5"
+    * CALCULATIONS
+    \c = math(\a*\b)
+    \d = math((((\c/4))/25000)*1.4)
+    \e = math((((\c/4))/55000)*1.4)
+    WriteLine to \LCIN = "Grav = \b"
+    WriteLine to \LCIN = "WHE SUS = \d %"
+    WriteLine to \LCIN = "SHO ABS = \e %"
+    * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
+    Speed of \EVCU = 40
+    Speed of \EVCD = 30
+    * SETTINGS - SHOCK ABSORBERS
+    Strength of \SHAS = \e
+    Height of \SHAS = -0.1200
+    * SETTINGS - WHEEL SUSPENSION
+    Power of \WHSU = 10
+    Strength of \WHSU = \d
+    Height of \WHSU = -0.1200
+    Speed Limit of \WHSU = 160
+    MaxSteerAngle of \WHSF = 5
+    MaxSteerAngle of \WHSB = 0
+    delay 500
+}
+
+@gear_6{
+    Color of \LIST = 250:255:0
+    Write to \LCIN = "Gear: 6"
+    * CALCULATIONS
+    \c = math(\a*\b)
+    \d = math((((\c/4))/25000)*1.5)
+    \e = math((((\c/4))/55000)*1.5)
+    WriteLine to \LCIN = "Grav = \b"
+    WriteLine to \LCIN = "WHE SUS = \d %"
+    WriteLine to \LCIN = "SHO ABS = \e %"
+    * SETTINGS - EVENT CONTROLLERS FOR AUTOMATED GEARBOX
+    Speed of \EVCU = 50
+    Speed of \EVCD = 40
+    * SETTINGS - SHOCK ABSORBERS
+    Strength of \SHAS = \e
+    Height of \SHAS = -0.0700
+    * SETTINGS - WHEEL SUSPENSION
+    Power of \WHSU = 5
+    Strength of \WHSU = \d
+    Height of \WHSU = -0.0700
+    Speed Limit of \WHSU = 180
+    MaxSteerAngle of \WHSF = 3
+    MaxSteerAngle of \WHSB = 0
+    delay 500
+}
