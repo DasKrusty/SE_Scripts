@@ -1,0 +1,62 @@
+@variables{
+    * Blocks shortened
+    S1H1 = "Set One Hinge Leg One"
+    S1H2 = "Set One Hinge Leg Two"
+    S1H3 = "Set One Hinge Leg Three"
+    S1MA = "Set One Maglock"
+    S1M1 = "Set One Maglock 1"
+    S1M2 = "Set One Maglock 2"
+    S1M3 = "Set One Maglock 3"
+    S1M4 = "Set One Maglock 4"
+    S2H1 = "Set Two Hinge Leg One"
+    S2H2 = "Set Two Hinge Leg Two"
+    S2H3 = "Set Two Hinge Leg Three"
+    S2MA = "Set Two Maglock"
+    S2M1 = "Set Two Maglock 1"
+    S2M2 = "Set Two Maglock 2"
+    S2M3 = "Set Two Maglock 3"
+    S2M4 = "Set Two Maglock 4"
+}
+
+@forwardv1{
+    Unlock \S1MA
+    Delay 1000
+    Rotate \S1H2 to 10 at 1
+    Delay 1000
+    Rotate \S1H1 to 10 at 1
+    Rotate \S2H1 to -10 at 1
+    Delay 5000
+    Rotate \S1H2 to -10 at 1
+    When Status of Set One Maglock 1 = ReadyToLock
+    Delay 250
+    Lock \S1M1
+    When Status of Set One Maglock 2 = ReadyToLock
+    Delay 250
+    Lock \S1M2
+    When Status of Set One Maglock 3 = ReadyToLock
+    Delay 250
+    Lock \S1M3
+    When Status of Set One Maglock 4 = ReadyToLock
+    Delay 250
+    Lock \S1M4
+    Unlock \S2MA
+    Delay 1000
+    Rotate \S2H2 to 10 at 1
+    Delay 1000
+    Rotate \S2H1 to 10 at 1
+    Rotate \S1H1 to -10 at 1
+    Delay 5000
+    Rotate \S2H2 to -10 at 1
+    When Status of Set Two Maglock 1 = ReadyToLock
+    Delay 250
+    Lock \S2M1
+    When Status of Set Two Maglock 2 = ReadyToLock
+    Delay 250
+    Lock \S2M2
+    When Status of Set Two Maglock 3 = ReadyToLock
+    Delay 250
+    Lock \S2M3
+    When Status of Set Two Maglock 4 = ReadyToLock
+    Delay 250
+    Lock \S2M4
+}
