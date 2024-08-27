@@ -1,0 +1,238 @@
+@variables{
+    * Abreviated names for blocks
+    * Function Parts
+    LIST = "Light Status"
+    LCIN = "LCD Info"
+    TIGS = "Timer Gear Suspen"
+    * Suspension Parts
+    WHSU = "Wheel Suspension"
+    WHSF = "Wheel Suspension Front"
+    WHSB = "Wheel Suspension Back"
+    * Calculations
+    a = Mass of MyShip
+    b = Gravity of MyShip
+    c = "10"
+    d = "0"
+    e = "0"
+    f = "25000"
+    g = "0"
+    h = "0"
+    * c = Number of Wheel Suspensions on Craft
+    * d = Force of current Mass mutliplied by Gravity
+    * e = Weight in Newtons divided by amount of Wheel Suspensions
+    * f = Manipulator if required to weaken or strengthen Wheel Suspensions
+    * g = Setting for changing down gears
+    * h = Setting for changing up gears
+}
+
+@start{
+    Start \TIGS
+    @gear_1
+}
+
+@gear_1{
+    Color of \LIST = 0:255:0
+    Write to \LCIN = "Gear: 1"
+    * CALCULATIONS
+    \d = math(\a*\b)
+    \e = math((((\d/\c))/\f)*1)
+    WriteLine to \LCIN = "WHE SUS = \e %"
+    * SETTINGS - WHEEL SUSPENSION
+    Power of \WHSU = 100
+    Strength of \WHSU = \e
+    Height of \WHSU = -0.3200
+    Speed Limit of \WHSU = 10
+    MaxSteerAngle of \WHSF = 25
+    MaxSteerAngle of \WHSB = 25
+    delay 5000
+    * AUTO GEAR FUNCTION
+    \h = 8
+    if Speed ​​of MyShip < \h {
+        @gear_2
+    }
+    delay 5000
+}
+
+@gear_2{
+    Color of \LIST = 50:255:0
+    Write to \LCIN = "Gear: 2"
+    * CALCULATIONS
+    \d = math(\a*\b)
+    \e = math((((\d/\c))/\f)*1)
+    WriteLine to \LCIN = "WHE SUS = \e %"
+    * SETTINGS - WHEEL SUSPENSION
+    Power of \WHSU = 80
+    Strength of \WHSU = \e
+    Height of \WHSU = -0.2800
+    Speed Limit of \WHSU = 20
+    MaxSteerAngle of \WHSF = 25
+    MaxSteerAngle of \WHSB = 25
+    delay 5000
+    * AUTO GEAR FUNCTION
+    \g = 8
+    \h = 15
+    if Speed ​​of MyShip < \g {
+        @gear_1
+    }
+    else if Speed ​​of MyShip > \h {
+        @gear_3
+    }
+    delay 5000
+}
+
+@gear_3{
+    Color of \LIST = 100:255:0
+    Write to \LCIN = "Gear: 3"
+    * CALCULATIONS
+    \d = math(\a*\b)
+    \e = math((((\d/\c))/\f)*1)
+    WriteLine to \LCIN = "WHE SUS = \e %"
+    * SETTINGS - WHEEL SUSPENSION
+    Power of \WHSU = 60
+    Strength of \WHSU = \e
+    Height of \WHSU = -0.2400
+    Speed Limit of \WHSU = 40
+    MaxSteerAngle of \WHSF = 25
+    MaxSteerAngle of \WHSB = 25
+    delay 5000
+    * AUTO GEAR FUNCTION
+    \g = 15
+    \h = 35
+    if Speed ​​of MyShip < \g {
+        @gear_2
+    }
+    else if Speed ​​of MyShip > \h {
+        @gear_4
+    }
+    delay 5000
+}
+
+@gear_4{
+    Color of \LIST = 150:255:0
+    Write to \LCIN = "Gear: 4"
+    * CALCULATIONS
+    \d = math(\a*\b)
+    \e = math((((\d/\c))/\f)*1)
+    WriteLine to \LCIN = "WHE SUS = \e %"
+    * SETTINGS - WHEEL SUSPENSION
+    Power of \WHSU = 40
+    Strength of \WHSU = \e
+    Height of \WHSU = -0.2000
+    Speed Limit of \WHSU = 60
+    MaxSteerAngle of \WHSF = 25
+    MaxSteerAngle of \WHSB = 25
+    delay 5000
+    * AUTO GEAR FUNCTION
+    \g = 35
+    \h = 55
+    if Speed ​​of MyShip < \g {
+        @gear_3
+    }
+    else if Speed ​​of MyShip > \h {
+        @gear_5
+    }
+    delay 5000
+}
+
+@gear_5{
+    Color of \LIST = 200:255:0
+    Write to \LCIN = "Gear: 5"
+    * CALCULATIONS
+    \d = math(\a*\b)
+    \e = math((((\d/\c))/\f)*1)
+    WriteLine to \LCIN = "WHE SUS = \e %"
+    * SETTINGS - WHEEL SUSPENSION
+    Power of \WHSU = 30
+    Strength of \WHSU = \e
+    Height of \WHSU = -0.1600
+    Speed Limit of \WHSU = 80
+    MaxSteerAngle of \WHSF = 25
+    MaxSteerAngle of \WHSB = 25
+    delay 5000
+    * AUTO GEAR FUNCTION
+    \g = 55
+    \h = 75
+    if Speed ​​of MyShip < \g {
+        @gear_4
+    }
+    else if Speed ​​of MyShip > \h {
+        @gear_6
+    }
+    delay 5000
+}
+
+@gear_6{
+    Color of \LIST = 255:200:0
+    Write to \LCIN = "Gear: 6"
+    * CALCULATIONS
+    \d = math(\a*\b)
+    \e = math((((\d/\c))/\f)*1)
+    WriteLine to \LCIN = "WHE SUS = \e %"
+    * SETTINGS - WHEEL SUSPENSION
+    Power of \WHSU = 20
+    Strength of \WHSU = \e
+    Height of \WHSU = -0.1200
+    Speed Limit of \WHSU = 100
+    MaxSteerAngle of \WHSF = 25
+    MaxSteerAngle of \WHSB = 25
+    delay 5000
+    * AUTO GEAR FUNCTION
+    \g = 75
+    \h = 95
+    if Speed ​​of MyShip < \g {
+        @gear_5
+    }
+    else if Speed ​​of MyShip > \h {
+        @gear_7
+    }
+    delay 5000}
+
+@gear_7{
+    Color of \LIST = 255:125:0
+    Write to \LCIN = "Gear: 7"
+    * CALCULATIONS
+    \d = math(\a*\b)
+    \e = math((((\d/\c))/\f)*1)
+    WriteLine to \LCIN = "WHE SUS = \e %"
+    * SETTINGS - WHEEL SUSPENSION
+    Power of \WHSU = 10
+    Strength of \WHSU = \e
+    Height of \WHSU = -0.0800
+    Speed Limit of \WHSU = 120
+    MaxSteerAngle of \WHSF = 25
+    MaxSteerAngle of \WHSB = 25
+    delay 5000
+    * AUTO GEAR FUNCTION
+    \g = 95
+    \h = 115
+    if Speed ​​of MyShip < \g {
+        @gear_6
+    }
+    else if Speed ​​of MyShip > \h {
+        @gear_8
+    }
+    delay 5000
+}
+
+@gear_8{
+    Color of \LIST = 255:0:0
+    Write to \LCIN = "Gear: 8"
+    * CALCULATIONS
+    \d = math(\a*\b)
+    \e = math((((\d/\c))/\f)*1)
+    WriteLine to \LCIN = "WHE SUS = \e %"
+    * SETTINGS - WHEEL SUSPENSION
+    Power of \WHSU = 5
+    Strength of \WHSU = \e
+    Height of \WHSU = -0.0400
+    Speed Limit of \WHSU = 160
+    MaxSteerAngle of \WHSF = 25
+    MaxSteerAngle of \WHSB = 25
+    delay 5000
+    * AUTO GEAR FUNCTION
+    \g = 115
+    if Speed ​​of MyShip < \g {
+        @gear_7
+    }
+    delay 5000
+}
