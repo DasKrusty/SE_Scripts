@@ -1,5 +1,5 @@
 *DasKrusty's Custom Suspension Setup with Automated Gears
-*V1.48
+*V0.74
 
 *SETUP
     * Setup Button One with Argument 'run'
@@ -8,21 +8,21 @@
 @variables{
 * Abreviated names for blocks
     * Function Parts
-    LIST = "Light Status"
-    LCIN = "LCD Info"
+    LIST = "ECG-1 Light Status"
+    LCIN = "ECG-1 LCD Info"
     PIBR = "ECG-1 Piston Brake"
-    MAPB = "ECG-1 Magnetic Plate Brake"
-    LIBR = "Light Brake"
+    MAPB = "ECG-1 Magnetic Brake"
+    LIBR = "ECG-1 Light Brake"
 * Suspension Parts
-    SUAC = "Suspension Actual"
-    WHSU = "Wheel Suspension"
+    SUAC = "ECG-1 Suspension"
+    WHSU = "ECG-1 Wheel Suspension"
 * Calculations
     a = Mass of MyShip
     b = Gravity of MyShip
     c = "4"
     d = "0"
     e = "0"
-    f = "25000"
+    f = "1000"
     g = "0"
     h = "0"
     * c = Number of Wheel Suspensions on Craft
@@ -42,12 +42,12 @@
 @stop{
     Speed Limit of \WHSU = 0
     OnOff_On \LIBR
-    if Speed ​​of MyShip <3 {
+    if Speed of MyShip < 3
         Move ECG-1 Piston Brake to 2 at 0.2
         Delay 500
         When Status of ECG-1 Magnetic Plate Brake = ReadyToLock
         Lock \MAPB
-    }
+        End
 }
 
 @handbrake_off{
@@ -69,14 +69,14 @@
     Height of \SUAC = -0.5500
     Speed Limit of \WHSU = 10
     MaxSteerAngle of \WHSU = 25
-    delay 1000
+    delay 5000
     * AUTO GEAR FUNCTION
-    \h = 8
-    if Speed ​​of MyShip < \h {
+    \h = 4
+    if Speed ​​of MyShip > \h {
         @gear_2
         OnOff_Off \LIBR
     }
-    delay 1000
+    delay 5000
 }
 
 @gear_2{
@@ -84,7 +84,7 @@
     Write to \LCIN = "Gear: 2"
     * CALCULATIONS
     \d = math(\a*\b)
-    \e = math((((\d/\c))/\f)*2)
+    \e = math((((\d/\c))/\f)*1.25)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 80
     Strength of \SUAC = \e
@@ -92,19 +92,19 @@
     Height of \SUAC = -0.2800
     Speed Limit of \WHSU = 20
     MaxSteerAngle of \WHSU = 20
-    Delay 1000
+    Delay 5000
     * AUTO GEAR FUNCTION
     \g = 8
     \h = 15
-    if Speed ​​of MyShip < \g {
+    if Speed ​​of MyShip > \g {
         @gear_1
         OnOff_On \LIBR
     }
-    else if Speed ​​of MyShip > \h {
+    else if Speed ​​of MyShip < \h {
         @gear_3
         OnOff_Off \LIBR
     }
-    Delay 1000
+    Delay 5000
 }
 
 @gear_3{
@@ -112,7 +112,7 @@
     Write to \LCIN = "Gear: 3"
     * CALCULATIONS
     \d = math(\a*\b)
-    \e = math((((\d/\c))/\f)*1)
+    \e = math((((\d/\c))/\f)*1.5)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 60
     Strength of \SUAC = \e
@@ -140,7 +140,7 @@
     Write to \LCIN = "Gear: 4"
     * CALCULATIONS
     \d = math(\a*\b)
-    \e = math((((\d/\c))/\f)*1)
+    \e = math((((\d/\c))/\f)*1.75)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 40
     Strength of \SUAC = \e
@@ -168,7 +168,7 @@
     Write to \LCIN = "Gear: 5"
     * CALCULATIONS
     \d = math(\a*\b)
-    \e = math((((\d/\c))/\f)*1)
+    \e = math((((\d/\c))/\f)*2)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 30
     Strength of \SUAC = \e
@@ -196,7 +196,7 @@
     Write to \LCIN = "Gear: 6"
     * CALCULATIONS
     \d = math(\a*\b)
-    \e = math((((\d/\c))/\f)*1)
+    \e = math((((\d/\c))/\f)*2.25)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 20
     Strength of \SUAC = \e
@@ -216,14 +216,15 @@
         @gear_7
         OnOff_Off \LIBR
     }
-    Delay 1000}
+    Delay 1000
+    }
 
 @gear_7{
     Color of \LIST = 255:125:0
     Write to \LCIN = "Gear: 7"
     * CALCULATIONS
     \d = math(\a*\b)
-    \e = math((((\d/\c))/\f)*1)
+    \e = math((((\d/\c))/\f)*2.5)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 10
     Strength of \SUAC = \e
@@ -251,7 +252,7 @@
     Write to \LCIN = "Gear: 8"
     * CALCULATIONS
     \d = math(\a*\b)
-    \e = math((((\d/\c))/\f)*1)
+    \e = math((((\d/\c))/\f)*2.75)
     * SETTINGS - WHEEL SUSPENSION
     Power of \WHSU = 5
     Strength of \SUAC = \e
