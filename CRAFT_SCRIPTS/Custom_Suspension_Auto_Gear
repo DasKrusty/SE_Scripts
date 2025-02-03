@@ -1,5 +1,5 @@
 *DasKrusty's Custom Suspension Setup with Automated Gears
-*V1.21
+*V1.48
 
 *SETUP
     * Setup Button One with Argument 'run'
@@ -12,6 +12,7 @@
     LCIN = "LCD Info"
     PIBR = "ECG-1 Piston Brake"
     MAPB = "ECG-1 Magnetic Plate Brake"
+    LIBR = "Light Brake"
 * Suspension Parts
     SUAC = "Suspension Actual"
     WHSU = "Wheel Suspension"
@@ -34,7 +35,19 @@
 
 @run{
     @Handbrake_Off
+    OnOff_Off \LIBR
     @gear_1
+}
+
+@stop{
+    Speed Limit of \WHSU = 0
+    OnOff_On \LIBR
+    if Speed ​​of MyShip <3 {
+        Move ECG-1 Piston Brake to 2 at 0.2
+        Delay 500
+        When Status of ECG-1 Magnetic Plate Brake = ReadyToLock
+        Lock \MAPB
+    }
 }
 
 @handbrake_off{
@@ -61,6 +74,7 @@
     \h = 8
     if Speed ​​of MyShip < \h {
         @gear_2
+        OnOff_Off \LIBR
     }
     delay 1000
 }
@@ -84,9 +98,11 @@
     \h = 15
     if Speed ​​of MyShip < \g {
         @gear_1
+        OnOff_On \LIBR
     }
     else if Speed ​​of MyShip > \h {
         @gear_3
+        OnOff_Off \LIBR
     }
     Delay 1000
 }
@@ -110,9 +126,11 @@
     \h = 35
     if Speed ​​of MyShip < \g {
         @gear_2
+        OnOff_On \LIBR
     }
     else if Speed ​​of MyShip > \h {
         @gear_4
+        OnOff_Off \LIBR
     }
     Delay 1000
 }
@@ -136,9 +154,11 @@
     \h = 55
     if Speed ​​of MyShip < \g {
         @gear_3
+        OnOff_On \LIBR
     }
     else if Speed ​​of MyShip > \h {
         @gear_5
+        OnOff_Off \LIBR
     }
     Delay 1000
 }
@@ -162,9 +182,11 @@
     \h = 75
     if Speed ​​of MyShip < \g {
         @gear_4
+        OnOff_On \LIBR
     }
     else if Speed ​​of MyShip > \h {
         @gear_6
+        OnOff_Off \LIBR
     }
     Delay 1000
 }
@@ -188,9 +210,11 @@
     \h = 95
     if Speed ​​of MyShip < \g {
         @gear_5
+        OnOff_On \LIBR
     }
     else if Speed ​​of MyShip > \h {
         @gear_7
+        OnOff_Off \LIBR
     }
     Delay 1000}
 
@@ -213,9 +237,11 @@
     \h = 115
     if Speed ​​of MyShip < \g {
         @gear_6
+        OnOff_On \LIBR
     }
     else if Speed ​​of MyShip > \h {
         @gear_8
+        OnOff_Off \LIBR
     }
     Delay 1000
 }
@@ -238,6 +264,7 @@
     \g = 115
     if Speed ​​of MyShip < \g {
         @gear_7
+        OnOff_On \LIBR
     }
     Delay 1000
 }
