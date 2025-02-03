@@ -1,0 +1,58 @@
+*DasKrusty's Custom Suspension Setup with Automated Gears
+*V1.00
+
+*SETUP
+    * Setup Button One with Argument 'Run'
+    * Setup Button Two with Argument 'Stop'
+
+@variables{
+* Abreviated names for blocks
+    * Function Parts
+    LIST = "Light Status"
+    LCIN = "LCD Info"
+    PIBR = "ECG-1 Piston Brake"
+    MAPB = "ECG-1 Magnetic Plate Brake"
+* Suspension Parts
+    WHSU = "Wheel Suspension"
+* Calculations
+    a = Mass of MyShip
+    b = Gravity of MyShip
+    c = "4"
+    d = "0"
+    e = "0"
+    f = "25000"
+    g = "0"
+    h = "0"
+    * c = Number of Wheel Suspensions on Craft
+    * d = Force of current Mass mutliplied by Gravity
+    * e = Weight in Newtons divided by amount of Wheel Suspensions
+    * f = Manipulator if required to weaken or strengthen Wheel Suspensions
+    * g = Setting for changing down gears
+    * h = Setting for changing up gears
+}
+
+@Run{
+    @Handbrake
+    @Calc
+    
+}
+
+@Calc{
+    *Calculation for Weight of craft & Strengths of suspensions
+    \d = math(\a*\b)
+    \e = math((((\d/\c))/\f)*1)
+}
+
+@Handbrake{
+    if Status of ECG-1 Magnetic Plate Brake = Locked {
+        Unlock \MAPB
+        Delay 500
+        Move ECG-1 Piston Brake to 0 at 0.2
+    }
+    else if Speed ​​of MyShip < 1 {
+        Move ECG-1 Piston Brake to 2 at 0.2
+        When Status of ECG-1 Magnetic Plate Brake = ReadyToLock
+        Lock \MAPB
+        Velocity of ECG-1 Piston Brake = 0
+    }
+}
