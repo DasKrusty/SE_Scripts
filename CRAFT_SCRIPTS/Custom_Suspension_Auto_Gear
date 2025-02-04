@@ -1,5 +1,5 @@
 *DasKrusty's Custom Suspension Setup with Automated Gears
-*V0.74
+*V1.01
 
 *SETUP
     * Setup Button One with Argument 'run'
@@ -39,21 +39,19 @@
     @gear_1
 }
 
-@stop{
-    Speed Limit of \WHSU = 0
-    OnOff_On \LIBR
-    if Speed of MyShip < 3
-        Move ECG-1 Piston Brake to 2 at 0.2
-        Delay 500
-        When Status of ECG-1 Magnetic Plate Brake = ReadyToLock
-        Lock \MAPB
-        End
-}
-
 @handbrake_off{
         Unlock \MAPB
         Delay 500
         Move ECG-1 Piston Brake to 0 at 0.2
+}
+
+@park{
+    Speed Limit of \WHSU = 0
+    OnOff_On \LIBR
+    Move ECG-1 Piston Brake to 2 at 0.2
+    Delay 500
+    When Status of ECG-1 Magnetic Plate Brake = ReadyToLock
+    Lock \MAPB
 }
 
 @gear_1{
@@ -71,12 +69,16 @@
     MaxSteerAngle of \WHSU = 25
     delay 5000
     * AUTO GEAR FUNCTION
-    \h = 4
-    if Speed ​​of MyShip > \h {
+    \g = 0.5
+    \h = 2
+    if Speed ​​of MyShip < \g {
+        @park
+        OnOff_On \LIBR
+    }
+    else if Speed ​​of MyShip > \h {
         @gear_2
         OnOff_Off \LIBR
     }
-    delay 5000
 }
 
 @gear_2{
@@ -94,17 +96,16 @@
     MaxSteerAngle of \WHSU = 20
     Delay 5000
     * AUTO GEAR FUNCTION
-    \g = 8
-    \h = 15
-    if Speed ​​of MyShip > \g {
+    \g = 2
+    \h = 4
+    if Speed ​​of MyShip < \g {
         @gear_1
         OnOff_On \LIBR
     }
-    else if Speed ​​of MyShip < \h {
+    else if Speed ​​of MyShip > \h {
         @gear_3
         OnOff_Off \LIBR
     }
-    Delay 5000
 }
 
 @gear_3{
@@ -120,10 +121,10 @@
     Height of \SUAC = -0.2400
     Speed Limit of \WHSU = 40
     MaxSteerAngle of \WHSU = 15
-    Delay 1000
+    Delay 5000
     * AUTO GEAR FUNCTION
-    \g = 15
-    \h = 35
+    \g = 4
+    \h = 9
     if Speed ​​of MyShip < \g {
         @gear_2
         OnOff_On \LIBR
@@ -132,7 +133,6 @@
         @gear_4
         OnOff_Off \LIBR
     }
-    Delay 1000
 }
 
 @gear_4{
@@ -148,10 +148,10 @@
     Height of \SUAC = -0.2000
     Speed Limit of \WHSU = 60
     MaxSteerAngle of \WHSU = 12
-    Delay 1000
+    Delay 5000
     * AUTO GEAR FUNCTION
-    \g = 35
-    \h = 55
+    \g = 9
+    \h = 15
     if Speed ​​of MyShip < \g {
         @gear_3
         OnOff_On \LIBR
@@ -160,7 +160,6 @@
         @gear_5
         OnOff_Off \LIBR
     }
-    Delay 1000
 }
 
 @gear_5{
@@ -176,10 +175,10 @@
     Height of \SUAC = -0.1600
     Speed Limit of \WHSU = 80
     MaxSteerAngle of \WHSU = 10
-    Delay 1000
+    Delay 5000
     * AUTO GEAR FUNCTION
-    \g = 55
-    \h = 75
+    \g = 15
+    \h = 20
     if Speed ​​of MyShip < \g {
         @gear_4
         OnOff_On \LIBR
@@ -188,7 +187,6 @@
         @gear_6
         OnOff_Off \LIBR
     }
-    Delay 1000
 }
 
 @gear_6{
@@ -204,10 +202,10 @@
     Height of \SUAC = -0.1200
     Speed Limit of \WHSU = 100
     MaxSteerAngle of \WHSU = 8
-    Delay 1000
+    Delay 5000
     * AUTO GEAR FUNCTION
-    \g = 75
-    \h = 95
+    \g = 20
+    \h = 26
     if Speed ​​of MyShip < \g {
         @gear_5
         OnOff_On \LIBR
@@ -216,7 +214,6 @@
         @gear_7
         OnOff_Off \LIBR
     }
-    Delay 1000
     }
 
 @gear_7{
@@ -232,10 +229,10 @@
     Height of \SUAC = -0.0800
     Speed Limit of \WHSU = 120
     MaxSteerAngle of \WHSU = 6
-    Delay 1000
+    Delay 5000
     * AUTO GEAR FUNCTION
-    \g = 95
-    \h = 115
+    \g = 26
+    \h = 33
     if Speed ​​of MyShip < \g {
         @gear_6
         OnOff_On \LIBR
@@ -244,7 +241,6 @@
         @gear_8
         OnOff_Off \LIBR
     }
-    Delay 1000
 }
 
 @gear_8{
@@ -260,12 +256,11 @@
     Height of \SUAC = -0.0400
     Speed Limit of \WHSU = 160
     MaxSteerAngle of \WHSU = 3
-    Delay 1000
+    Delay 5000
     * AUTO GEAR FUNCTION
-    \g = 115
+    \g = 33
     if Speed ​​of MyShip < \g {
         @gear_7
         OnOff_On \LIBR
     }
-    Delay 1000
 }
