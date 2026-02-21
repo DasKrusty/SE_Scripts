@@ -1,0 +1,67 @@
+// Automated systems for AUHX-3 Sully
+
+@variables{
+    * Abreviated names for blocks
+	LILA = "AUHX-3 Light Land"
+	LINA = "AUHX-3 Light Nav"
+	HILG = "AUHX-3 Hinge LG"
+	PILG = "AUHX-3 Piston LG"
+	PREA = "AUHX-3 Program [EAP]"
+//AUHX-3 Air Vent
+//AUHX-3 Antenna
+//AUHX-3 Autocannon Turret
+//AUHX-3 Battery
+//AUHX-3 Broadcast Controller
+//AUHX-3 Cockpit
+//AUHX-3 Connector Below
+//AUHX-3 Connector Rear
+//AUHX-3 Custom Turret Controller
+//AUHX-3 Event Controller - Altitude
+//AUHX-3 Event Controller - Cockpit
+//AUHX-3 Event Controller - Fuel
+//AUHX-3 Event Controller - Land
+//AUHX-3 Gyroscope LV.1
+//AUHX-3 Gyroscope LV.2
+//AUHX-3 Gyroscope LV.3
+//AUHX-3 Heat Vent
+//AUHX-3 Hinge Bay
+//AUHX-3 Holo LCD
+//AUHX-3 Hydrogen Tank
+//AUHX-3 Hydrogen Thruster
+//AUHX-3 Landing Gear
+//AUHX-3 Large Hydrogen Thruster
+//AUHX-3 Light Flood
+//AUHX-3 Light Search
+//AUHX-3 Light Spot
+//AUHX-3 Light Turret
+//AUHX-3 Locking Gear
+//AUHX-3 O2/H2 Generator
+//AUHX-3 Ore Detector
+//AUHX-3 Oxygen Tank
+//AUHX-3 Parachute Hatch
+//AUHX-3 Program [FSD]
+//AUHX-3 Projector
+//AUHX-3 Refill Station
+//AUHX-3 Remote Control
+//AUHX-3 Round Beacon
+//AUHX-3 Timer Block - Shutdown
+//AUHX-3 Timer Block - Start
+}
+
+@Alt_Low{
+	* When the altitude of the craft is at a low aspect
+	OnOff_On \LILA
+	OnOff_Off \LINA
+	Rotate \HILG to -45 @ 3
+	Extend \PILG
+	Write to \PREA = "LOW ALTITUDE"
+}
+
+@Alt_High{
+	* When the altitude of the craft is at a high aspect
+	OnOff_Off \LILA
+	OnOff_On \LINA
+	Rotate \HILG to -90 @ 1
+	Retract \PILG
+	Write to \PREA = ""
+}
