@@ -6,11 +6,15 @@
 	LILA = "AUHX-3 Light Land"
 	LIFL = "AUHX-3 Light Flood"
 	LINA = "AUHX-3 Light Nav"
+	LISE = "AUHX-3 Light Search"
+	LISP = "AUHX-3 Light Spot"
+	LITU = "AUHX-3 Light Turret"
 	ECLA = "AUHX-3 Event Controller - Land"
 	ECCO = "AUHX-3 Event Controller - Cockpit"
 	LGHI = "AUHX-3 Hinge LG"
 	LGPI = "AUHX-3 Piston LG"
 	WEAT = "AUHX-3 Autocannon Turret"
+	WECT = "AUHX-3 Custom Turret Controller"
 	AIVE = "AUHX-3 Air Vent"
 	GYR1 = "AUHX-3 Gyroscope LV.1"
 	GYR2 = "AUHX-3 Gyroscope LV.2"
@@ -18,24 +22,20 @@
 	BAHI = "AUHX-3 Hinge Bay"
 	TISH = "AUHX-3 Timer Block - Shutdown"
 	TIST = "AUHX-3 Timer Block - Start"
-	"AUHX-3 Antenna"
-	"AUHX-3 Battery"
-	"AUHX-3 Connector Below"
-	"AUHX-3 Connector Rear"
-	"AUHX-3 Custom Turret Controller"
-	"AUHX-3 Holo LCD"
-	"AUHX-3 Hydrogen Tank"
-	"AUHX-3 Hydrogen Thruster"
-	"AUHX-3 Landing Gear"
-	"AUHX-3 Large Hydrogen Thruster"
-	"AUHX-3 Light Search"
-	"AUHX-3 Light Spot"
-	"AUHX-3 Light Turret"
-	"AUHX-3 Oxygen Tank"
+	ANTE = "AUHX-3 Antenna"
+	LCDS = "AUHX-3 Holo LCD"
+	OXTA = "AUHX-3 Oxygen Tank"
+	HYHT = "AUHX-3 Hydrogen Tank"
+	HYST = "AUHX-3 Hydrogen Thruster"
+	HYLT = "AUHX-3 Large Hydrogen Thruster"
+	LAGE = "AUHX-3 Landing Gear"
+	BATT = "AUHX-3 Battery"
+	COBE = "AUHX-3 Connector Below"
+	CORE = "AUHX-3 Connector Rear"
 }
 
 @Test {
-	Write to \PREA = "V 1.06"
+	Write to \PREA = "V 1.54"
 	Delay 3000
 	Write to \PREA = "Test Completed"
 }
@@ -98,9 +98,43 @@
 }
 
 @Timer_Shutdown {
-
+	OnOff_Off \ANTE
+	OnOff_Off \WECT
+	OnOff_Off \LCDS
+	Stockpile of \HYHT = True
+	Stockpile of \OXTA = True
+	OnOff_Off \HYST
+	OnOff_Off \HYLT
+	Lock \LAGE
+	OnOff_Off \LISE
+	OnOff_Off \LISP
+	OnOff_Off \LITU
+	Color of \LILA = 255:0:0
+	If Status of AUHX-3 Connector Below = Connectable {
+		Lock \COBE
+		Color of \LILA = 0:0:255
+		Recharge \BATT
+	}
+	If Status of AUHX-3 Connector Rear = Connectable {
+		Lock \CORE
+		Color of \LILA = 0:0:255
+		Recharge \BATT
+	}
 }
 
 @Timer_Startup {
-
+	OnOff_On \ANTE
+	OnOff_On \WECT
+	OnOff_On \LCDS
+	Stockpile of \HYHT = False
+	Stockpile of \OXTA = False
+	OnOff_On \HYST
+	OnOff_On \HYLT
+	Unlock \LAGE
+	OnOff_On \LISP
+	OnOff_On \LITU
+	Discharge \BATT
+	Unlock \CORE
+	Unlock \COBE
+	Color of \LILA = 255:0:255
 }
