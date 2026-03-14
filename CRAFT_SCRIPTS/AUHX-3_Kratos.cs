@@ -16,9 +16,7 @@
 	WEAT = "AUHX-3 Autocannon Turret"
 	WECT = "AUHX-3 Custom Turret Controller"
 	AIVE = "AUHX-3 Air Vent"
-	GYR1 = "AUHX-3 Gyroscope LV.1"
-	GYR2 = "AUHX-3 Gyroscope LV.2"
-	GYR3 = "AUHX-3 Gyroscope LV.3"
+	GYRO = "AUHX-3 Gyroscope"
 	BAHI = "AUHX-3 Hinge Bay"
 	TISH = "AUHX-3 Timer Block - Shutdown"
 	TIST = "AUHX-3 Timer Block - Start"
@@ -26,18 +24,15 @@
 	LCDS = "AUHX-3 Holo LCD"
 	OXTA = "AUHX-3 Oxygen Tank"
 	HYHT = "AUHX-3 Hydrogen Tank"
-	HYST = "AUHX-3 Hydrogen Thruster"
+	HYST = "AUHX-3 Hydrogen Thruster X"
+	HYSS = "AUHX-3 Hydrogen Thruster S"
 	HYLT = "AUHX-3 Large Hydrogen Thruster"
 	LAGE = "AUHX-3 Landing Gear"
 	BATT = "AUHX-3 Battery"
 	COBE = "AUHX-3 Connector Below"
 	CORE = "AUHX-3 Connector Rear"
-}
-
-@Test {
-	Write to \PREA = "V 1.54"
-	Delay 3000
-	Write to \PREA = "Test Completed"
+	PARA = "AUHX-3 Parachute"
+	BRCO = "AUHX-3 Broadcast Controller"
 }
 
 @Alt_Low {
@@ -48,7 +43,7 @@
 	OnOff_Off \LINA
 	OnOff_On \ECLA
 	Rotate \LGHI to -45 at 5
-	Move \LGPI to 0.6 at 1
+	Move \LGPI to 0.8 at 1
 }
 
 @Alt_High {
@@ -79,18 +74,18 @@
 }
 
 @Cockpit_Out {
+	Write to \PREA = "Exited Cockpit"
 	OnOff_Off \AIVE
-	OnOff_Off \GYR1
-	OnOff_Off \GYR2
-	OnOff_Off \GYR3
+	OnOff_Off \GYRO
 	Rotate \BAHI to -35 at 1
 	Start \TISH
 	Color of \LILA = 255:255:0
 }
 
 @Cockpit_In {
+	Write to \PREA = "Entered Cockpit"
 	OnOff_On \AIVE
-	OnOff_On \GYR1
+	OnOff_On \GYRO
 	Rotate \BAHI to 0 at 3
 	Stop \TISH
 	Start \TIST
@@ -98,31 +93,39 @@
 }
 
 @Timer_Shutdown {
+	Write to \PREA = "Shutting Down"
 	OnOff_Off \ANTE
 	OnOff_Off \WECT
 	OnOff_Off \LCDS
 	Stockpile of \HYHT = True
 	Stockpile of \OXTA = True
 	OnOff_Off \HYST
+	OnOff_Off \HYSS
 	OnOff_Off \HYLT
 	Lock \LAGE
 	OnOff_Off \LISE
 	OnOff_Off \LISP
 	OnOff_Off \LITU
+	OnOff_Off \LIFL
 	Color of \LILA = 255:0:0
 	If Status of AUHX-3 Connector Below = Connectable {
 		Lock \COBE
+		Transmit-Message-3 Broadcast Controller
 		Color of \LILA = 0:0:255
 		Recharge \BATT
 	}
 	If Status of AUHX-3 Connector Rear = Connectable {
 		Lock \CORE
+		Transmit-Message-3 Broadcast Controller
 		Color of \LILA = 0:0:255
 		Recharge \BATT
 	}
+	Delay 3000
+	OnOff_Off \LILA
 }
 
 @Timer_Startup {
+	Write to \PREA = "Starting Up"
 	OnOff_On \ANTE
 	OnOff_On \WECT
 	OnOff_On \LCDS
@@ -136,5 +139,42 @@
 	Discharge \BATT
 	Unlock \CORE
 	Unlock \COBE
+	OnOff_On \LIFL
+	OnOff_On \LILA
 	Color of \LILA = 255:0:255
+	if Planet Altitude of MyShip > 10000 {
+		OnOff_On \HYSS
+	}
+}
+
+@Space {
+	if Color of AUHX-3 Light Land = 55:55:255 {
+		OnOff_Off \HYSS
+		Color of \LILA = 255:255:255
+		Write to \PREA = "Space Travel Offline"
+	}
+	Else if Color of AUHX-3 Light Land = 255:255:255 {
+		OnOff_On \HYSS
+		Color of \LILA = 55:55:255
+		Write to \PREA = "Space Travel Online"
+	}
+	Else if Color of AUHX-3 Light Land = 0:255:0 {
+		Write to \PREA = "Take Off First"
+	}
+}
+
+@Failure {
+    OnOff_Off \HYLT
+    OnOff_Off \HYST
+	OnOff_Off \HYSS
+    OnOff_Off \GYRO
+    OnOff_On \BEAC
+    Open_On \PARA
+    Write to \PREA = "ASSISTANCE REQUIRED"
+	Transmit-Message-1 Broadcast Controller
+}
+
+@Info {
+    Write to \PREA = "EAP - V.1.78"
+    WriteLine to \PREA = "Craft - V3.03"
 }

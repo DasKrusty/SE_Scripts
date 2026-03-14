@@ -76,3 +76,30 @@
     UTG-7 Event Control Autostart
     UTG-7 Light Trailer Hitch
 
+@Escape {
+	if Speed of MyShip > 95 {
+		\e = math(\d-10000)
+		\d = \e
+		Override of \HYLT = \e
+		Write to \PREA = "Thrusting Down"
+		OnOff_Off \HYSS
+		Delay 1000
+		@Escape
+	}
+	Else if Speed of MyShip < 95 {
+		\e = math(\d+10000)
+		\d = \e
+		Override of \HYLT = \e
+		Write to \PREA = "Thrusting Up"
+		OnOff_Off \HYSS
+		Delay 1000
+		@Escape
+	}
+	Else if Gravity of MyShip = 0.01 {
+		\e = 0
+		\d = 480000
+		Override of \HYLT = \e
+		Write to \PREA = "Welcome to Space!"
+		OnOff_On \HYSS
+	}
+}
