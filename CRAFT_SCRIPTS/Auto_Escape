@@ -1,0 +1,39 @@
+@variables {
+    HYSS = "MDX-5 Hydrogen Thruster Space"
+    LILA = "MDX-5 Light Land"
+    PREA = "MDX-5 Program [EAP]" 
+	HYTU = "Hydrogen Thruster Large Up"
+    * Calculations
+    a = Mass of MyShip
+    b = Gravity of MyShip
+    c = 2 * Number of thrusters
+    d = 0 * Kn of thrust required per percentage
+	e = Speed ​​of MyShip
+	f = 0
+}
+
+@Space {
+	if Color of MDX-5 Light Land = 55:55:255 {
+		OnOff_Off \HYSS
+		Color of \LILA = 255:255:255
+		Write to \PREA = "Space Travel Offline"
+	}
+	Else if Color of MDX-5 Light Land = 255:255:255 {
+		OnOff_On \HYSS
+		Color of \LILA = 55:55:255
+		Write to \PREA = "Space Travel Online"
+	}
+	Else if Color of MDX-5 Light Land = 0:255:0 {
+		Write to \PREA = "Take Off First"
+	}
+}
+
+@Escape {
+	\d = math(((\a*\b)/\c)/100)
+    if color of MDX-5 Light Land = 55:55:255 {
+        if Speed of MyShip < \f {
+			\f = Speed of MyShip
+			Override of \HYTU
+		}
+    }
+}
