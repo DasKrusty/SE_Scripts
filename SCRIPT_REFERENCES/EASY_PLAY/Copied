@@ -208,7 +208,7 @@ if \prjs ? "Pos" {
 }
 
 @drone_print {
-if StatusX of Connector Print = Unconnected {
+
   @projector_switch(0,1)
   Delay 1000
   OnOff_On Welder Print
@@ -221,7 +221,7 @@ if StatusX of Connector Print = Unconnected {
   OnOff_On Welder Print
   Delay 1000
   OnOff_Off Welder Print
-  Lock Connector Print
+  
 }
 Stop
 }
@@ -671,11 +671,11 @@ if \x ? "thruster" {
   }
 } else if \x ? "broadcast" {
   if \x ? "air" {
-    OnOff_Off Antenna
-    OnOff_Off Beacon
+   
+   
   } else {
-    OnOff_On Antenna
-    OnOff_On Beacon
+   
+    
   }
 } else if \x ? "gate" {
   @gate(menu)
@@ -710,7 +710,7 @@ if OnOff of Turret on MyGrid = True {
 TokenLine[2] of menu = \x
 
 \x = TokenLine[3] of control
-if OnOff of Antenna = True {
+
   \x = "\x On air"
 } else {
   \x = "\x Silent"
@@ -822,7 +822,7 @@ WriteLine to \lcd = "\x\N\1"
 @ship_status {
 \x = math(int(InvX Ice of MyGrid / 1000))
 
-WriteLine to \lcd = "Battery   : {StatusM Battery of MyGrid} %
+
 O2/H2    : {StatusM Oxygen Tank of MyGrid} / {StatusM Hydrogen Tank of MyGrid} %%
 Ice/Uran : \x tn / {InvX Uranium of MyGrid} kg"
 
@@ -857,22 +857,7 @@ Send Clear
 }
 
 @drone_stop {
-Send to Antenna SEC = "\my:@order(stop)" 
-}
 
-@drone_call {
-Send to Antenna SEC = "\my:@order(call,GPS:\pos:#)"
-}
-
-@drone_send {
-if \lidar ? "GPS" {
-  Send to Antenna SEC = "\my:@order(send,\lidar)" 
-}
-}
-
-@drone_status {
-  \x = Grid Pos of MyShip  
-  Send to Antenna SEC = "\my:@order(status,GPS:\x:#)"
 }
 
 @drone_print {
@@ -920,7 +905,7 @@ if \x = 1 {
 if Angle of Hinge Gun 2 > 2 {
    Rotate Hinge Gun 2 to 0 at 3
    Rotate Hinge Gun 1 to 0 at 3
-   When Angle of Hinge Gun 2 = 0.0
+   
    Velocity of Hinge Gun = 0
 } else {
    Rotate Hinge Gun 2 to 90 at 3
@@ -928,7 +913,7 @@ if Angle of Hinge Gun 2 > 2 {
    When Angle of Hinge Gun 2 = 90.0
    Velocity of Hinge Gun = 0
    Delay 200
-   ShootOnce Print Gun
+   
    Delay 200
    ShootOnce Print Gun
    @printgun
@@ -1502,13 +1487,13 @@ show \1
 
 @variables{
     * Abreviated names for blocks
-    AIVE = "Air Vent Fan"
-    ANTE = "Antenna"
-    BATT = "Battery"
-    BEAC = "Beacon"
-    COMA = "Connector Main"
-    EVC2 = "Event Controller - Connect"
-    EXPI = "Exhaust Pipe"
+    
+    
+    
+   
+    
+   
+   
     GATU = "Gatling Turret"
     GYRO = "Gyroscope"
     HELI = "Headlight"
@@ -1533,12 +1518,12 @@ show \1
 }
 
 @connect {
-    * Uses Event Controller to trigger auto lock of Connector Main
+  
     Write to \LCIN = "CONNECTING"
     Color of \LIGH = 255:255:0
     Blink Interval of \LIGH = 1
     Delay 3000
-    If Status of UMG-6 Connector Main = Connectable {
+   
         Write to \LCIN = "CONNECTED"
         Lock \COMA
         Delay 2000
@@ -1553,9 +1538,9 @@ show \1
 }
 
 @autostart {
-    * Uses Event Controller to trigger when player enters Cockpit
+    
     @offlinetostandby
-    If Status of UMG-6 Connector Main = Unconnected {
+    
         Delay 3000
         @standbytoonline
     }
@@ -1672,15 +1657,12 @@ show \1
 
 @variables{
     * Abreviated names for blocks
-    AIVE = "UCX-11 Air Vent Fan"
-    ANTE = "UCX-11 Antenna"
-    BATT = "UCX-11 Battery"
-    COMA = "UCX-11 Connector Main"
-    COSE = "UCX-11 Connector Second"
-    EVC1 = "UCX-11 Event Controller - Land"
-    EVC2 = "UCX-11 Event Controller - Cockpit"
-    EVC3 = "UCX-11 Event Controller - Altitude"
-    EVC4 = "UCX-11 Event Controller - Lock"
+   
+    
+    
+    
+   
+ 
     GYRO = "UCX-11 Gyroscope"
     HEVE = "UCX-11 Heat Vent"
     HYTA = "UCX-11 Hydrogen Tank"
@@ -1695,8 +1677,8 @@ show \1
     LINA = "UCX-11 Light Nav"
     LIFL = "UCX-11 Light Flight"
     LIGH = "UCX-11 Light"
-    MOCO = "UCX-11 Module Connector"
-    MOCF = "UCX-11 Module Connector Front"
+   
+    
     MOHI = "UCX-11 Module Hinge"
     MOME = "UCX-11 Module Merge"
     MOMF = "UCX-11 Module Merge Front"
@@ -1717,7 +1699,7 @@ show \1
 
 @module_toggle{
     * Safety - if landed dont do anything
-    If Status of UCX-11 Module Connector Front = Unconnected {
+   
         Write to \LCIN = "Not Connected"
         Delay 3000
         @module_lock
@@ -1749,7 +1731,7 @@ show \1
         Write to \LCIN = "Ready to Connect"
         Delay 20000
         Lock \MOCO
-        If Status of UCX-11 Module Connector Front = Unconnected {
+    
             Color of \LIPA = 255:0:55
             Write to \LCIN = "Module Bad"
             Delay 3000
@@ -1780,14 +1762,14 @@ show \1
 }
 
 @high_alt{
-    * Triggered by Event Controller checking Altitude
+   
     OnOff_Off \LIPA
     Write to \LCIN = "HIGH ALTITUDE"
     OnOff_Off \EVC1
 }
 
 @low_alt{
-    * Triggered by Event Controller checking Altitude
+
     Color of \LIPA = 255:255:255
     OnOff_On \LIPA
     Write to \LCIN = "LOW ALTITUDE"
@@ -1795,7 +1777,7 @@ show \1
 }
 
 @land_on{
-    * Triggered by Event Controller checking if close to object
+    
     Write to \LCIN = "LOCK AVAILABLE"
     OnOff_On \EVC4
     OnOff_On \EVC2
@@ -1807,7 +1789,7 @@ show \1
 }
 
 @land_off{
-    * Triggered by Event Controller checking if close to object
+   
     Write to \LCIN = "LOCK LOST"
     Move \LAND to 0 at 0.5
     OnOff_Off \EVC2
@@ -1830,10 +1812,10 @@ show \1
 
 @connect{
     * Run by @lock
-    Write to \LCIN = "CHECKING CONNECTORS"
+    
     Color of \LIPA = 255:255:0
     Delay 3000
-    If Status of UCX-11 Connector Main = Connectable {
+
         Write to \LCIN = "CONNECTED MAIN"
         Lock \COMA
         Color of \LIPA = 0:255:0
@@ -1841,7 +1823,7 @@ show \1
         Recharge \BATT
         Stockpile of \HYTA = True
     }
-    Else If Status of UCX-11 Connector Second = Connectable {
+    
         Write to \LCIN = "CONNECTED SECOND"
         Lock \COSE
         Color of \LIPA = 0:255:0
@@ -1850,7 +1832,7 @@ show \1
         Stockpile of \HYTA = True
     }
     Else {
-        WriteLine to \LCIN = "NO CONNECTORS"
+        
         Color of \LIPA = 255:0:0
         Delay 3000
         Color of \LIPA = 255:255:255
@@ -1950,13 +1932,13 @@ show \1
 
 @variables{
     * Abreviated names for blocks
-    AIVE = "Air Vent Fan"
-    ANTE = "Antenna"
-    BATT = "Battery"
-    BEAC = "Beacon"
-    COMA = "Connector Main"
-    EVC2 = "Event Controller - Connect"
-    EXPI = "Exhaust Pipe"
+ 
+    
+    
+  
+    
+   
+   
     GATU = "Gatling Turret"
     GYRO = "Gyroscope"
     HELI = "Headlight"
@@ -2008,12 +1990,12 @@ show \1
 
 @variables{
     * Abreviated names for blocks
-    AIVE = "UMG-6 Air Vent Fan"
-    ANTE = "UMG-6 Antenna"
-    BATT = "UMG-6 Battery"
-    COMA = "UMG-6 Connector Main"
-    EVC2 = "UMG-6 Event Controller - Connect"
-    EXPI = "UMG-6 Exhaust Pipe"
+
+    
+    
+   "
+   
+  
     GATU = "UMG-6 Gatling Turret"
     HELI = "UMG-6 Headlight"
     HYEN = "UMG-6 Hydrogen Engine"
@@ -2033,12 +2015,12 @@ show \1
 }
 
 @connect {
-    * Uses Event Controller to trigger auto lock of Connector Main
+    
     Write to \LCIN = "CONNECTING"
     Color of \LIGH = 255:255:0
     Blink Interval of \LIGH = 1
     Delay 3000
-    If Status of UMG-6 Connector Main = Connectable {
+    
         Write to \LCIN = "CONNECTED"
         Lock \COMA
         Delay 2000
@@ -2053,9 +2035,9 @@ show \1
 }
 
 @autostart {
-    * Uses Event Controller to trigger when player enters Cockpit
+  
     @offlinetostandby
-    If Status of UMG-6 Connector Main = Unconnected {
+    
         Delay 3000
         @standbytoonline
     }
@@ -2227,8 +2209,7 @@ show \1
 }
 
 @test{
-    Torque of Hinge Main = 10000
-    LowerLimit of Hinge Main = -10
+    
 }
 
 @info{
@@ -2236,8 +2217,7 @@ show \1
 }
 
 @test{
-    Torque of Hinge Main = 10000
-    LowerLimit of Hinge Main = -10
+    
     MaxSteerAngle of Wheel = 10
     Power of Wheel = 10
     EnableParking of Wheel = True
@@ -2403,7 +2383,7 @@ show \1
     LIST = "Light Status"
     LCIN = "LCD Info"
     LCST = "LCD Status"
-    HISM = "Hinge Suspension Main"
+  
     WHAL = "Wheel Suspension"
     WHSF = "Wheel Suspension Front"
     WHSB = "Wheel Suspension Back"
@@ -2565,14 +2545,13 @@ show \1
 
 @variables{
     * Blocks
-    UTG-12 Air Vent Fan
+
     UTG-12 Spotlight
     UTG-12 Headlight
     UTG-12 Rotor Front
     UTG-12 Rotor Back
-    UTG-12 Battery
+    
     UTG-12 Hydrogen Tank
-    UTG-12 Connector
     UTG-12 Gyroscope
     UTG-12 Hydrogen Engine
     UTG-12 LCD Front Bumper
@@ -2847,9 +2826,8 @@ show \1
 
 @variables{
     * Abreviated names for blocks
-    AIVE = Air Vent Fan
-    ANTE = Antenna
-    COMA = Connector Main
+  
+   
     EXPI = Exhaust Pipe
     GATU = Gatling Turret
     HELI = Headlight
@@ -2871,7 +2849,7 @@ show \1
 }
 
 @connect{
-    * Uses Event Controller to trigger auto lock of Connector Main
+    
     Write to LCIN = "CONNECTING"
     Color of LIGH = 255:255:0
     Blink Interval of LIGH = 1
@@ -2889,13 +2867,13 @@ show \1
 }
 
 @exit{
-    * Uses Event Controller to trigger timer to go into standby if exiting Cockpit
+
     Start TIST
     * Timer Standby after countdown will run 
 }
 
 @autostart{
-    * Uses Event Controller to trigger when player enters Cockpit
+   
     @offlinetostandby
     Delay 3000
     @standbytoonline
@@ -3183,12 +3161,10 @@ If              {If Status of Galting = Target{
                         Write to LCD Info = "Gate open" 
                     }
                 }
-                {If Status of MyConnector = Connectable {
-                    Lock MyConnector
-                    }
+                
 OnOff           {OnOff of AirVent = False}
                 {OnOff of Door = True}
-                {OnOff_Off Battery}
+
 Override        {Override of Thruster = 100%}
 Position        {Position of MyPiston} GPS???
 UpperLimit      {UpperLimit of MyPiston = 7}
@@ -3219,7 +3195,7 @@ Wheels  {Height of Wheel 5x5 FL}
 
 status. The current state of the block
 For different blocks, there are different intermediate states in which they can
-be - the battery can be charged, the hangar doors can close, the turret can fire, and the connector can be ready for docking. Below is a list of states for the various block types that are available with the Status of Blocks on Grid
+be - the hangar doors can close, the turret can fire, and the connector can be ready for docking. Below is a list of states for the various block types that are available with the Status of Blocks on Grid
 
 command , where Blocks is a selection of blocks and Grid is an optional MyGrid or AllGrid grid refinement (MyShip by default).
 

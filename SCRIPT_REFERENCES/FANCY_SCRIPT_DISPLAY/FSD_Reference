@@ -1,0 +1,106 @@
+EXAMPLE
+* To be used in Custom Data of LCD
+ShowStats * Beginning of script
+...
+EndStats * End of script
+
+COCKPITS:
+ShowStats
+Panel 0
+EndStats
+
+HEADERS
+,Fontsize=1.2 TextColor(55,155,255) center Text:FUEL + POWER
+
+Gap15 + DRG-2 Hydrogen Tank, * Creates a gap of 15 on the left of the LCD
+
+,Fontsize=2 TextColor(255,55,0) center Text:STATUS
+Program [2ACLCD],clone:0 position(285,10) fontsize=0.65 TextColor(55,155,255)
+
+Panel 1 *** For Cockpits
+
+Shortbar
+Widebar
+AnalogBar
+Length=125
+FrameColor(55,155,255)
+Barcolor(255,55,0)
+NoHeadline
+
+Advanced Rotor 3x3
+Advanced Rotor 3x3 Right, Optional barcolor(255,55,0) Position(405,90) Length=400 Tallbar AnalogBar FrameColor(55,155,255) NoHeadline
+GUM-4 Advanced Rotor 3x3 Right, Optional barcolor(255,55,0) Position(405,90) Length=400 Tallbar AnalogBar FrameColor(55,155,255) NoHeadline
+
+Air Vent
+,Fontsize=1.5 TextColor(255,55,0) Position(40,60) Text:VEN
+XUR-8 Air Vent, Widebar AnalogBar FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+
+Battery
+,Fontsize=1.5 TextColor(255,55,0) Position(80,110) Text:BAT
+Battery, Smallbar AnalogBar Position(140,110) NoHeadline FrameColor(55,155,255)
+Gap20 + UCM-8 Battery, AnalogBar Shortbar FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+
+Cargo Container
+Gap50 + TCM-8 Cargo Container, AnalogBar Shortbar FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+Cargo Container 1, Smallbar AnalogBar Position(200,120) NoHeadline FrameColor(55,155,255)
+
+Drill
+Drill 1 + Drill 2, FrameColor(255,55,0) Scale=3 NoHeadline Position(30,30) IconColor(55,155,255)
+Gap40 + UMG-6 Drill Left, Health AnalogBar Scale=3 FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+
+Gatling Gun
+TCX-4 Gatling Gun, shortbar length=150 NoHeadline
+
+Gatling Turret
+TCX-4 Gatling Turret, shortbar length=150 NoHeadline position(20,30)
+Gatling Turret, Widebar FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+
+Gyroscope
+TCX-4 Gyroscope, shortbar length=150 NoHeadline
+
+Hydrogen Engine
+,Fontsize=1.5 TextColor(255,55,0) Position(40,60) Text:ENG
+Hydrogen Engine, Smallbar AnalogBar Position(100,60) NoHeadline FrameColor(55,155,255)
+
+Hydrogen Tank
+,Fontsize=1.5 TextColor(255,55,0) Position(120,170) Text:TAN
+Hydrogen Tank, Smallbar AnalogBar Position(200,170) NoHeadline FrameColor(55,155,255)
+
+Hydrogen Thruster
+TCX-4 Hydrogen Thruster, position(30,375) shortbar length=100 NoHeadline
+Gap30 + XUR-8 Thruster FO, Shortbar AnalogBar Length=175 FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+Gap20 + UCM-8 Hydrogen Tank, AnalogBar Shortbar FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+
+O2/H2 Generator
+,Fontsize=1.5 TextColor(255,55,0) Position(120,160) Text:GEN
+O2/H2 Generator, Smallbar AnalogBar Position(200,160) NoHeadline FrameColor(55,155,255)
+Gap20 + UCM-8 O2/H2 Generator, AnalogBar Shortbar FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+
+Oxygen Tank
+,Fontsize=1.5 TextColor(255,55,0) Position(40,60) Text:OXY
+XUR-8 Oxygen Tank, Widebar AnalogBar FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+Gap20 + UCM-8 Oxygen Tank, AnalogBar Shortbar FrameColor(55,155,255) barcolor(255,55,0) NoHeadline
+
+POWER + FUEL
+ShowStats
+,Fontsize=1.3 TextColor(55,155,255) center Text:FUEL + POWER
+EndStats
+
+LIFE SUPPORT
+ShowStats
+,Fontsize=1.3 TextColor(55,155,255) center Text:LIFE SUPPORT
+EndStats
+
+THRUSTERS
+ShowStats
+,Fontsize=1.1 TextColor(55,155,255) center Text:THRUSTERS
+EndStats
+
+AMMUNITION
+ShowStats
+,Fontsize=1.2 TextColor(55,155,255) center Text:AMMO
+EndStats
+
+CARGO
+,Fontsize=1.2 TextColor(55,155,255) center Text:CARGO
+EndStats

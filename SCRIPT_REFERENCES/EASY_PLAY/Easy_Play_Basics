@@ -342,21 +342,15 @@ KNOWN COMMANDS:
                     \gps of MyShip
                     Write to LCD Info = "Distance: \dist m" } 
                     else { Write to LCD Info = "No target" }
-    
-    Air Vent
-        Depressurize   // switches depressurization from one position to another
-        Depressurize_On   //turns on depressurization
-        Depressurize_Off   //turns off depressurization
+        
 
     Camera
         Scan of Camera at 15000   // lidar scan using camera to get gps co-ords
         \gps = "GPS:{Token[3] of Camera}:{Token[8] of Camera} :{Token[9] of Camera}:{Token[10] of Camera}:#"
 
-    Connector
-        If Status of MyConnector = Connectable { Lock MyConnector }
 
-    Gyroscope
-        Override Gyroscope
+
+    
 
     LCD
         Write to LCD Alert = \1 //Variable used
@@ -388,8 +382,7 @@ KNOWN COMMANDS:
         if Value of x = 0 { 
             Move MyPiston to 5 at 1 }
 
-    Hinges
-        if Angle of MyRotor = 90 { ShortRotate MyHinge to 30 at 1 }
+    
 
     Thrusters   
         Override of Ion Thruster = 100%
@@ -402,13 +395,6 @@ KNOWN COMMANDS:
         DecreaseHeight (APC, Wheels)
 
 BLOCK COMMANDS:
-Air Vent
-    OnOff -> Toggle block On/Off
-    OnOff_On -> Toggle block On
-    OnOff_Off ->Toggle Block Off
-    Depressurize -> Depressurize On/Off
-    Depressurize_On -> Depressurize On
-    Depressurize_Off -> Depressurize Off
 
 Advanced Rotor
     OnOff -> Toggle block On/Off
@@ -429,14 +415,7 @@ Advanced Rotor
     IncreaseDisplacement -> Increase Rotor Displacement
     DecreaseDisplacement -> Decrease Rotor Displacement
 
-Antenna
-    OnOff -> Toggle block On/Off
-    OnOff_On -> Toggle block On
-    OnOff_Off -> Toggle block Off
-    IncreaseRadius -> Increase Broadcast radius
-    DecreaseRadius -> Decrease Broadcast radius
-    EnableBroadCast -> Toggle Broadcast On/Off
-    ShowShipName -> Toggle Showing Ship Name
+
 
 Artificial Mass
     OnOff -> Toggle block On/Off
@@ -445,18 +424,6 @@ Artificial Mass
     UseConveyor -> Use Conveyor System On/Off
     slaveMode -> Cooperative Mode On/Off
 
-Battery
-    OnOff -> Toggle block On/Off
-    OnOff_On -> Toggle block On
-    OnOff_Off -> Toggle block Off
-    Recharge -> Recharge On/Off
-    Discharge -> Discharge On/Off
-    SemiAuto -> Semi-auto On/Off
-
-Beacon
-    OnOff -> Toggle block On/Off
-    OnOff_On -> Toggle block On
-    OnOff_Off -> Toggle block Off
 
 Camera
     OnOff -> Toggle block On/Off
@@ -477,14 +444,6 @@ Collector
     OnOff_On -> Toggle block On
     OnOff_Off -> Toggle block Off
     UseConveyor -> Use Conveyor System On/Off
-
-Connector
-    OnOff -> Toggle block On/Off
-    OnOff_On -> Toggle block On
-    OnOff_Off -> Toggle block Off
-    ThrowOut -> Throw Out On/Off
-    CollectAll -> Collect All On/Off
-    SwitchLock -> Switch lock
 
 Control Panel
     OnOff -> Toggle block On/Off
@@ -577,19 +536,7 @@ Grinder
     OnOff_Off -> Toggle block Off
     UseConveyor -> Use Conveyor System On/Off
 
-Gyroscope
-    OnOff -> Toggle block On/Off
-    OnOff_On -> Toggle block On
-    OnOff_Off -> Toggle block Off
-    IncreasePower -> Increase Power
-    DecreasePower -> Decrease Power
-    Override -> Override controls On/Off
-    IncreaseYaw -> Increase Yaw override
-    DecreaseYaw -> Decrease Yaw override
-    IncreasePitch -> Increase Pitch override
-    DecreasePitch -> Decrease Pitch override
-    IncreaseRoll -> Increase Roll override
-    DecreaseRoll -> Decrease Roll override
+
 
 Interior Light
     OnOff -> Toggle block On/Off
@@ -666,14 +613,7 @@ Landing Gear
     IncreaseBreakForce -> Increase Break Force
     DecreaseBreakForce -> Decrease Break Force
 
-Laser Antenna
-    OnOff -> Toggle block On/Off
-    OnOff_On -> Toggle block On
-    OnOff_Off -> Toggle block Off
-    Idle -> Idle
-    PasteGpsCoords -> Paste coordinates
-    ConnectGPS -> Connect to coordinates
-    isPerm -> Permanent connection On/Off
+
 
 Medical Room
     OnOff -> Toggle block On/Off

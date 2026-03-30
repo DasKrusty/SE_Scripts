@@ -53,18 +53,45 @@ When Angle of UTG-7 Hinge Lift G1 < -85
 ===========================================================================================
 * BLOCKS & COMMANDS
 
+AI blocks
+    ActivateBehavior of DRG-2 AI Defensive (Combat) = False
+    ActivateBehavior of DRG-2 AI Defensive (Combat) = True
+
 Air Vent
     OnOff_Off \AIVE
+    Depressurize   // switches depressurization from one position to another
+    Depressurize_On   //turns on depressurization
+    Depressurize_Off   //turns off depressurization
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    Depressurize -> Depressurize On/Off
 
 Antenna
     OnOff_On \ANTE
+    OnOff -> Toggle block On/Off
+    OnOff_Off -> Toggle block Off
+    IncreaseRadius -> Increase Broadcast radius
+    DecreaseRadius -> Decrease Broadcast radius
+    EnableBroadCast -> Toggle Broadcast On/Off
+    ShowShipName -> Toggle Showing Ship Name
+    Send to Antenna SEC = "\my:@order(stop)"
+    Send to Antenna SEC = "\my:@order(stop)" 
+    Send to Antenna SEC = "\my:@order(call,GPS:\pos:#)"
+    Send to Antenna SEC = "\my:@order(send,\lidar)" 
+    Send to Antenna SEC = "\my:@order(status,GPS:\x:#)"
 
 Battery
     Recharge \BATT
     Discharge \BATT
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    SemiAuto -> Semi-auto On/Off
 
 Beacon
     OnOff_On \BEAC
+    OnOff_Off DRG-2 Beacon
+    OnOff -> Toggle block On/Off
 
 Connector
     If Status of Connector = Unconnected {}
@@ -72,6 +99,16 @@ Connector
     Lock Connector
     Unlock \MOCO
     OnOff_Off \MOCO
+    If Status of MyConnector = Connectable {}
+    If Status of UMG-6 Connector Main = Unconnected {}
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    ThrowOut -> Throw Out On/Off
+    CollectAll -> Collect All On/Off
+    SwitchLock -> Switch lock
+
+Custom Turret Controller
+    OnOff_Off DRG-2 Turret Controller
 
 Event Controller
     OnOff_On Event Controller
@@ -79,27 +116,73 @@ Event Controller
 
 Exhaust Pipe
     OnOff_On UTG-7 Exhaust Pipe
+    OnOff_Off DRG-2 Exhaust Pipe
 
 Gyroscope
     OnOff_On \GYRO
     OnOff_Off \GYRO
+    Override Gyroscope
+    OnOff -> Toggle block On/Off
+    IncreasePower -> Increase Power
+    DecreasePower -> Decrease Power
+    Override -> Override controls On/Off
+    IncreaseYaw -> Increase Yaw override
+    DecreaseYaw -> Decrease Yaw override
+    IncreasePitch -> Increase Pitch override
+    DecreasePitch -> Decrease Pitch override
+    IncreaseRoll -> Increase Roll override
+    DecreaseRoll -> Decrease Roll override
 
 Hinge
     if Angle of UTG-7 Hinge Lift G1 > 0 {}
     When Angle of UTG-7 Hinge Lift G1 < -85
     Rotate \MOHI to -30 at 1
     Velocity of Hinge Door = 3
+    Attach DRG-2 Hinge Connector
+    Detach DRG-2 Hinge Connector
+    HingeLock of UTG-7 Hinge Lift Arm 1 = false
+    if Angle of MyRotor = 90 { ShortRotate MyHinge to 30 at 1 }
+    Torque of Hinge Main = 10000
+    LowerLimit of Hinge Main = -10
+    When Angle of Hinge Gun 2 = 0.0
 
 Hydrogen Engine 
     OnOff_On UTG-7 Hydrogen Engine
+    OnOff_Off DRG-2 Hydrogen Engine
 
-Hydrogen Tank
+Hydrogen / Oxygen Tank
     Stockpile of \HYTA = True
     Stockpile of \HYTA = False
+    if StatusX of Oxygen Tank on MyGrid < 50
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    Stockpile -> Stockpile On/Off
+    Stockpile_On -> Stockpile On
+    Stockpile_Off -> Stockpile Off
+    Refill -> Refill Bottles
+    Auto-Refill -> Auto-Refill On/Off
 
 LCD
     Write to LCD Info = EAP - V.2.81
     WriteLine to LCD Info = FSD - V0.39
+    Writenew to Debug LCD = Powered Down
+    WriteLine to \lcd = "Battery   : {StatusM Battery of MyGrid} %
+    FontSize of Industrial Cockpit[1] = 4.5   // * set the font size of the industrial cockpit central screen
+    FontSize — font size, a number with a decimal point from 0.1 to 10.0
+    FontFace — font, usually Debug, Monospace or any available from the list in the control panel, context-sensitive font name
+    TextAlign — text alignment on the screen, one of the values : Left, Right, Center 
+    FontColor - font color , RGB triad with ":" separator with ":" separator, for example red = 255:0:0 
+    BgRotate — screen rotation angle, one of the values: 0, 90, 180, 270 (only for LCD panels) Image
+
+Laser Antenna
+    OnOff -> Toggle block On/Off
+    OnOff_On -> Toggle block On
+    OnOff_Off -> Toggle block Off
+    Idle -> Idle
+    PasteGpsCoords -> Paste coordinates
+    ConnectGPS -> Connect to coordinates
+    isPerm -> Permanent connection On/Off
 
 Lights
     If Color of Light Status = 255:255:50 {}
@@ -108,7 +191,7 @@ Lights
     Color of Light = 255:0:55
     Blink Interval of \LIGH = 1
 
-Magnetic Plate
+Magnetic Plate / Landing Gear
     if Status of Magnetic Plate = Locked {}
     If Status of Magnetic Plate = ReadyToLock {}
     When Status of UTG-7 Maglock Lift = ReadyToLock
@@ -126,9 +209,11 @@ MyShip
     a = Mass of MyShip
     b = Gravity of MyShip
     Speed of MyShip
+    Craft = Grid Name of MyGrid
 
 O2H2 Generator
     OnOff_Off \O2H2
+    OnOff_On UTG-7 O2/H2 Generator
 
 Ore Detector
     OnOff_Off \ORDE
@@ -143,6 +228,7 @@ Piston
 
 Programmable Block
     OnOff_Off \PRPA
+    Run DDR-3 Program [EA2] = DDR-3 Debug LCD(Launch)
 
 Projector
     OnOff_On \PROJ
@@ -155,15 +241,19 @@ Rotor
     }
     Else if Status[Attached] of UTG-7 Rotor Trailer Hitch = Attached {
         Detach UTG-7 Rotor Trailer Hitch
-    }
+    
+Sensor  
+    OnOff_Off DRG-2 Sensor Door
 
 Thrusters
     OnOff_On \THRU
     OnOff_Off \THRU
+    Override of \HYLT = \e
 
 Timer
     Start \TISH
     Stop \TISH
+    OnOff_Off DRG-2 Timer
 
 Turret
     OnOff_Off \TURR
@@ -174,4 +264,5 @@ Wheel Suspension
     Power of \WHSU = 100
     Speed Limit of \WHSU = 10
     MaxSteerAngle of \WHSF = 25
- 
+    Height of \SUAC = -0.5500
+    

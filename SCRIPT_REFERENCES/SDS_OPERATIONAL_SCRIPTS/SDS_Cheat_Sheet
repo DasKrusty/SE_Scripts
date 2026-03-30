@@ -6,15 +6,49 @@ POWER
         Batteries;all-show;*;batt
         Battery Mode;gr-batt;UMG-6 Batteries;mode
         MBP;gr-show;GUM-4 Batteries;batt
+        Power MW;all-show;*;power
+        Batteries;all-show;*;batt
+        Battery Mode;gr-batt;DRG-2 Batteries;mode
     HYDROGEN ENGINE:
         Engine On/Off;bl;GFS-2A Hydrogen Engine;onoff
     LIGHTING:
         Spotlights;gr;UMG-6 Spotlights;onoff
+        Headlights;gr;DRG-2 Headlights;onoff
+        Cool Lights Color;gr-light;DRG-2 Headlights;color=160,230,255/blink=0,0
+        Warm Lights Color;gr-light;DRG-2 Headlights;color=255,255,180/blink=0,0
+        
 
 PROGRAMMING
     PROGRAM BLOCK:
         Run Mode;pb;UMG-6 Program [EAP];runmode
+        Doors;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(doors)
+        Conn Det;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(condet)
+        Conn Att;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(conatt)
+        Launch Drone;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(Launch)
+        Recall Drone;pb;DRG-2 Program [SHA];start DDR-3Combatant
+        Status;pb;DRG-2 Program [EA2];DRG-2 Debug LCD(status)
+    DRIVER ASSIST SYSTEM:
+        Start/Stop;pb;DRG-2 Program [DAS];STARTSTOP
+        Low Ride;pb;DRG-2 Program [DAS];LOW_MODE
+        High Ride;pb;DRG-2 Program [DAS];HIGH_MODE
+        Hill Descent Control;pb;DRG-2 Program [DAS];TOGGLE_HDC
+        Cruise Control;pb;DRG-2 Program [DAS];TOGGLE_CRUISECONTROL
+        Auto Pilot;pb;DRG-2 Program [DAS];TOGGLE_AUTOPILOT
+        Auto Pilot Resume;pb;DRG-2 Program [DAS];RESUME_AUTOPILOT
+        Auto Pilot Mode;pb;DRG-2 Program [DAS];CYCLE_AUTOPILOT_MODE
+        Auto Pilot Wait;pb;DRG-2 Program [DAS];CYCLE_AUTOPILOT_WAIT
+        GPS Tracker On / Off;pb;DRG-2 Program [DAS];TOGGLE_GPSTRACKER
+        GPS Tracker Display;pb;DRG-2 Program [DAS];TOGGLE_GPSLIST
 
 FUNCTION
     CONNECTORS:
         Large Connector;conn_lock;UMG-6 Connector Main;toggle
+
+WEAPONS
+    TURRETS
+        Turret;bl;DRG-2 Turret Controller;onoff
+
+Antenna;bl;DRG-2 Antenna;onoff
+Antenna Radius;antenna;DRG-2 Antenna;3000/500
+Ore Detector;bl;DRG-2 Ore Detector;onoff
+Projector On/Off;bl;DRG-2 Projector;onoff
